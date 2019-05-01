@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetUserList
+// GetUserList handles GET /admin/login route
 func GetUserList(c *gin.Context) {
 	fmt.Println("get user list")
 }
