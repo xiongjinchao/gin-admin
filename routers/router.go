@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//Router defind all routers
+//Router defined all routers
 func Router() *gin.Engine {
 	router := gin.Default()
 	router.LoadHTMLGlob("views/**/*")
