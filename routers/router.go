@@ -17,6 +17,7 @@ func Router() *gin.Engine {
 	admin := router.Group("admin")
 	{
 		admin.GET("user", controllers.GetUserList)
+		admin.GET("article", controllers.GetArticleList)
 	}
 	return router
 }

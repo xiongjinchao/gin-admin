@@ -9,8 +9,8 @@ import (
 
 //GetLogin handles GET /login route
 func GetLogin(c *gin.Context) {
-	c.HTML(http.StatusOK, "auth/login.tpl", gin.H{
-		"title": "Main website",
+	c.HTML(http.StatusOK, "login.html", gin.H{
+		"title": "login page",
 	})
 }
 

@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetUserList handles GET /admin/user route
-func GetUserList(c *gin.Context) {
+// GetUserList handles GET /admin/article route
+func GetArticleList(c *gin.Context) {
 	c.HTML(http.StatusOK,"index.html",gin.H{
-		"title": "user list",
+		"title": "article list",
 	})
 }
