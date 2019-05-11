@@ -8,7 +8,7 @@ import (
 
 // GetUserList handles GET /admin/article route
 func GetArticleList(c *gin.Context) {
-	c.HTML(http.StatusOK,"index.html",gin.H{
+	c.HTML(http.StatusOK,"article/index.html",gin.H{
 		"title": "article list",
 	})
 }
