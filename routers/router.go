@@ -2,13 +2,14 @@ package routers
 
 import (
 	"gin/controllers"
-
 	"github.com/gin-gonic/gin"
 )
 
 //Router defined all routers
 func Router() *gin.Engine {
 	router := gin.Default()
+
+	router.Static("/public", "./public")
 	router.LoadHTMLGlob("views/**/*")
 
 	router.GET("/login", controllers.GetLogin)

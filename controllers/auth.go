@@ -10,11 +10,11 @@ import (
 //GetLogin handles GET /login route
 func GetLogin(c *gin.Context) {
 	c.HTML(http.StatusOK, "auth/login.html", gin.H{
-		"title": "login page",
+		"title": "Golang Blog",
 	})
 }
 
 //PostLogin handles POST /login route
 func PostLogin(c *gin.Context) {
-	fmt.Println("post login")
+	fmt.Println("Golang Blog")
 }
