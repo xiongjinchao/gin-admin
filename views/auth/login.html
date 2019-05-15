@@ -1,6 +1,6 @@
 {{ define "auth/login.html" }}
 <!doctype html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,6 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/css/site.css">
     <link rel="shortcut icon" href="/public/image/favicon.ico" />
     <title>{{ .title }}</title>
@@ -24,37 +25,54 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">心情</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    技术
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Golang</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">MySQL</a>
+                    <a class="dropdown-item" href="#">Redis</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Linux</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="#">杂谈</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">资讯</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">优秀博客</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="搜索..." aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> 搜索</button>
         </form>
     </div>
 </nav>
 <div class="container-fluid container">
-        <!-- Content here -->
-    <div class="card-group mt-lg-5 mt-3">
+    <!-- Content here -->
+    <h1 class="text-center">关于GO</h1>
+    <p class="text-center">
+        Go 是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。<br>
+        Go 是一个开源的编程语言，它能让构造简单、可靠且高效的软件变得容易。
+    </p>
+    <p class="text-center">
+        <a href="http://docscn.studygolang.com/" class="btn btn-lg btn-primary"><i class="fa fa-download"></i> 下载源码</a>
+        <a href="#" class="btn btn-lg btn-outline-primary"><i class="fa fa-search"></i> 随便看看</a>
+    </p>
+    <div class="card-deck mt-lg-5 mt-3">
         <div class="card">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="/public/image/golang.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -64,7 +82,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3501059921,784779395&fm=26&gp=0.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -74,7 +92,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557920373880&di=8de7258145e107129b3c4752b51f0416&imgtype=0&src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fe6d1d4a83c2cdd5b1310677647bfbc3e.gif" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
@@ -83,6 +101,16 @@
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
         </div>
+{{/*        <div class="card">*/}}
+{{/*            <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=193027814,3439748203&fm=26&gp=0.jpg" class="card-img-top" alt="...">*/}}
+{{/*            <div class="card-body">*/}}
+{{/*                <h5 class="card-title">Card title</h5>*/}}
+{{/*                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>*/}}
+{{/*            </div>*/}}
+{{/*            <div class="card-footer">*/}}
+{{/*                <small class="text-muted">Last updated 3 mins ago</small>*/}}
+{{/*            </div>*/}}
+{{/*        </div>*/}}
     </div>
 </div>
 

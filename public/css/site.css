@@ -1,3 +1,8 @@
+body{
+    /*background: url("/public/image/background.jpg") no-repeat center center fixed;*/
+    /*background-size: 100% 100%;*/
+}
+
 .container{
-    padding-top:3.75rem;
+    padding-top:6.75rem;
 }
