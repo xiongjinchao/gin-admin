@@ -1,7 +1,7 @@
 package models
 
 import (
-	"gin/database"
+	db "gin/database"
 	"log"
 )
 
@@ -13,7 +13,7 @@ type User struct {
 }
 
 func GetUserList() []User {
-	rows, err := database.Db.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`")
+	rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -32,6 +32,6 @@ func GetUserList() []User {
 
 func GetUser(id string) User {
 	var user User
-	_ = database.Db.QueryRow("SELECT `id`,`name`,`email`,`mobile` FROM `user` WHERE id=?", id).Scan(&user.Id, &user.Name, &user.Email, &user.Mobile)
+	_ = db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile` FROM `user` WHERE id=?", id).Scan(&user.Id, &user.Name, &user.Email, &user.Mobile)
 	return user
 }
