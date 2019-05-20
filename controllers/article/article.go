@@ -1,4 +1,4 @@
-package controllers
+package article
 
 import (
 	"net/http"
@@ -7,8 +7,8 @@ import (
 )
 
 // GetUserList handles GET /admin/article route
-func GetArticleList(c *gin.Context) {
-	c.HTML(http.StatusOK,"article/index.html",gin.H{
+func Index(c *gin.Context) {
+	c.HTML(http.StatusOK, "article/index.html", gin.H{
 		"title": "article list",
 	})
 }
