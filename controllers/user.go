@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -28,7 +27,14 @@ func (_ *User)Create(c *gin.Context) {
 }
 
 func (_ *User)Store(c *gin.Context) {
-
+	/*
+	u := models.User{}
+	u.Name = c.Param("name")
+	u.Email = c.Param("email")
+	u.Mobile = c.Param("mobile")
+	//var user models.User
+	user := u.CreateUser(u)
+	*/
 }
 
 func (_ *User)Edit(c *gin.Context) {
@@ -46,7 +52,6 @@ func (_ *User)Show(c *gin.Context) {
 
 	u := models.User{}
 	user := u.GetUser(id)
-	fmt.Println(user.Email)
 
 	c.HTML(http.StatusOK, "user/show.html", gin.H{
 		"title": "user list",
@@ -55,5 +60,10 @@ func (_ *User)Show(c *gin.Context) {
 }
 
 func (_ *User)Destroy(c *gin.Context) {
+	id := c.Param("id")
 
+	u := models.User{}
+	if _,err := u.DeleteUser(id); err == nil{
+		c.Redirect(301,"/")
+	}
 }

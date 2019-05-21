@@ -2,15 +2,18 @@ package models
 
 import (
 	"fmt"
-
 	db "gin/database"
+	"time"
 )
 
 type User struct {
-	Id     int    `json:"id" form:"id"`
+	Id     int64  `json:"id" form:"id"`
 	Name   string `json:"name" form:"name"`
 	Email  string `json:"email" form:"email"`
 	Mobile string `json:"mobile" form:"mobile"`
+	RememberToken string `json:"remember_token" form:"remember_token"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdateAt time.Time   `json:"updated_at"`
 }
 
 func (m *User)GetUserList() (users []User) {
@@ -46,4 +49,41 @@ func (m *User)GetUser(id string) (user User) {
 		panic(err)
 	}
 	return
+}
+
+func (m *User)CreateUser(user User) {
+	stmt, _ := db.Mysql.Prepare("INSERT INTO `user` (`name`,`email`,`mobile`,`remember_token`,`created_at`,`updated_at`)values(?,?,?,?,?,?)")
+	defer stmt.Close()
+	row, err := stmt.Exec(user.Name, user.Email, user.Mobile, user.RememberToken, time.Now(), time.Now())
+	if err != nil {
+		panic(err)
+	}
+	user.Id, err = row.LastInsertId()
+	if err != nil {
+		panic(err)
+	}
+	return
+}
+
+func (m *User)UpdateUser(user User) {
+	stmt, _ := db.Mysql.Prepare("UPDATE `user` (`name`,`email`,`mobile`,`remember_token`,`created_at`,`updated_at`)values(?,?,?,?,?,?) WHERE `id` = ? ")
+	defer stmt.Close()
+	row, err := stmt.Exec(user.Name, user.Email, user.Mobile, user.RememberToken, time.Now(), time.Now(),user.Id)
+	if err != nil {
+		panic(err)
+	}
+	if _, err = row.RowsAffected(); err != nil {
+		panic(err)
+	}
+	return
+}
+
+func (m *User)DeleteUser(id string) (int64, error) {
+	stmt, _ := db.Mysql.Prepare("DELETE FROM `user` WHERE `id` = ?")
+	defer stmt.Close()
+	rows, err := stmt.Exec(id)
+	if err!=nil{
+		panic(err)
+	}
+	return rows.RowsAffected()
 }
