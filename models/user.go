@@ -1,8 +1,9 @@
 package models
 
 import (
+	"fmt"
+
 	db "gin/database"
-	"log"
 )
 
 type User struct {
@@ -12,26 +13,37 @@ type User struct {
 	Mobile string `json:"mobile" form:"mobile"`
 }
 
-func GetUserList() []User {
-	rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`")
-	if err != nil {
-		log.Fatalln(err)
+func (m *User)GetUserList() (users []User) {
+	err := db.Redis.Set("name","xiongjinchao",0).Err()
+	if err != nil{
+		panic(err)
 	}
 
-	users := make([]User, 0)
+	fmt.Println(db.Redis.Get("name"))
+	rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`")
+	defer rows.Close()
+	defer db.Mysql.Close()
+	if err != nil {
+		panic(err)
+	}
+
 	for rows.Next() {
 		var user User
-		_ = rows.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile)
-		users = append(users, user)
+		if err := rows.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile); err != nil {
+			users = append(users, user)
+		}
 	}
 	if err = rows.Err(); err != nil {
-		log.Fatalln(err)
+		panic(err)
 	}
-	return users
+	return
 }
 
-func GetUser(id string) User {
-	var user User
-	_ = db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile` FROM `user` WHERE id=?", id).Scan(&user.Id, &user.Name, &user.Email, &user.Mobile)
-	return user
+func (m *User)GetUser(id string) (user User) {
+	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile` FROM `user` WHERE id=?", id)
+	defer db.Mysql.Close()
+	if err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile); err != nil {
+		panic(err)
+	}
+	return
 }

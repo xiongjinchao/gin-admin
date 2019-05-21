@@ -1,4 +1,4 @@
-package auth
+package controllers
 
 import (
 	"fmt"
@@ -7,14 +7,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Auth struct {}
+
 //GetLogin handles GET /login route
-func GetLogin(c *gin.Context) {
+func (_ *Auth)GetLogin(c *gin.Context) {
 	c.HTML(http.StatusOK, "auth/login.html", gin.H{
 		"title": "Golang Blog",
 	})
 }
 
 //PostLogin handles POST /login route
-func PostLogin(c *gin.Context) {
+func (_ *Auth)PostLogin(c *gin.Context) {
 	fmt.Println("Golang Blog")
 }

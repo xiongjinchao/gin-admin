@@ -1,9 +1,7 @@
 package routers
 
 import (
-	"gin/controllers/article"
-	"gin/controllers/auth"
-	"gin/controllers/user"
+	"gin/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,12 +12,14 @@ func Router() *gin.Engine {
 	router.Static("/public", "./public")
 	router.LoadHTMLGlob("views/**/*")
 
+	auth := controllers.Auth{}
 	router.GET("/login", auth.GetLogin)
 	router.POST("/login", auth.PostLogin)
 
 	admin := router.Group("admin")
-	admin.Use()
+	//admin.Use()
 	{
+		user := controllers.User{}
 		admin.GET("user", user.Index)
 		admin.GET("user/create", user.Create)
 		admin.POST("user", user.Store)
@@ -28,6 +28,7 @@ func Router() *gin.Engine {
 		admin.GET("user/show/:id", user.Show)
 		admin.DELETE("user/delete/:id", user.Destroy)
 
+		article := controllers.Article{}
 		admin.GET("article", article.Index)
 	}
 	return router
