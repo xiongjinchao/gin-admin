@@ -3,6 +3,7 @@ package backend
 import (
 	"fmt"
 	"gin/models"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -24,8 +25,16 @@ func (this *User) Index(c *gin.Context) {
 
 // Create handles GET /admin/user/create route
 func (_ *User) Create(c *gin.Context) {
+	// flash data
+	session := sessions.Default(c)
+	flash := session.Flashes()
+	if err := session.Save(); err != nil {
+		panic(err)
+	}
+
 	c.HTML(http.StatusOK, "user/create.html", gin.H{
 		"title": "user create",
+		"flash": flash,
 	})
 }
 
