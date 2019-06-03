@@ -3,6 +3,32 @@ body{
     /*background-size: 100% 100%;*/
 }
 
-.container{
-    padding-top:6.75rem;
+@media (max-width: 575.98px) {
+    .container{
+        padding-top:4.75rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .container{
+        padding-top:4.75rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container{
+        padding-top:5.25rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .container{
+        padding-top:6.25rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container{
+        padding-top:6.75rem;
+    }
 }

@@ -1,23 +1,27 @@
-package controllers
+package backend
 
 import (
+	"fmt"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
-type User struct{}
+type User struct {
+	Base
+}
 
 // Index handles GET /admin/user route
-func (_ *User) Index(c *gin.Context) {
+func (this *User) Index(c *gin.Context) {
 
 	u := models.User{}
 	user := u.GetUserList()
 
 	c.HTML(http.StatusOK, "user/index.html", gin.H{
-		"title": "user list",
-		"user":  user,
+		"title":  "user list",
+		"user":   user,
+		"errors": this.errors,
 	})
 }
 
@@ -33,6 +37,7 @@ func (_ *User) Store(c *gin.Context) {
 
 	defer func() {
 		if r := recover(); r != nil {
+			fmt.Println(r)
 			c.Redirect(http.StatusMovedPermanently, "/admin/user/create")
 			return
 		}
@@ -87,7 +92,7 @@ func (_ *User) Show(c *gin.Context) {
 	user := u.GetUser(id)
 
 	c.HTML(http.StatusOK, "user/show.html", gin.H{
-		"title": "user list",
+		"title": "user show",
 		"user":  user,
 	})
 }

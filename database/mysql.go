@@ -6,11 +6,11 @@ import (
 )
 
 const (
-	MysqlUsername = "root"
-	MysqlPassword = "root"
-	MysqlHost = "127.0.0.1"
-	MysqlPort = "3306"
-	MysqlDatabase = "go"
+	MYSQLUSERNAME = "root"
+	MYSQLPASSWORD = "root"
+	MYSQLHOST     = "127.0.0.1"
+	MYSQLPORT     = "3306"
+	MYSQLDATABASE = "go"
 )
 
 var Mysql *sql.DB
@@ -18,7 +18,7 @@ var Mysql *sql.DB
 // 这里没有用ORM *gorm.DB 用的是原生 *sql.DB
 func init() {
 	var err error
-	Mysql, err = sql.Open("mysql", MysqlUsername+":"+MysqlPassword+"@tcp("+MysqlHost+":"+MysqlPort+")/"+MysqlDatabase+"?charset=utf8")
+	Mysql, err = sql.Open("mysql", MYSQLUSERNAME+":"+MYSQLPASSWORD+"@tcp("+MYSQLHOST+":"+MYSQLPORT+")/"+MYSQLDATABASE+"?charset=utf8")
 	if err != nil {
 		panic(err)
 	}

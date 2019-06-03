@@ -1,4 +1,4 @@
-package controllers
+package frontend
 
 import (
 	"net/http"
@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Article struct {}
+type Article struct{}
 
 // GetArticleList handles GET /admin/article route
-func (_ *Article)Index(c *gin.Context) {
+func (_ *Article) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "article/index.html", gin.H{
 		"title": "article list",
 	})
