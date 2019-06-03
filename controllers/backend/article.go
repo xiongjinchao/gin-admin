@@ -6,9 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Article struct {
-	Base
-}
+type Article struct{}
 
 // GetArticleList handles GET /admin/article route
 func (_ *Article) Index(c *gin.Context) {

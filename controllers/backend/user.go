@@ -8,9 +8,7 @@ import (
 	"strconv"
 )
 
-type User struct {
-	Base
-}
+type User struct{}
 
 // Index handles GET /admin/user route
 func (this *User) Index(c *gin.Context) {
@@ -19,9 +17,8 @@ func (this *User) Index(c *gin.Context) {
 	user := u.GetUserList()
 
 	c.HTML(http.StatusOK, "user/index.html", gin.H{
-		"title":  "user list",
-		"user":   user,
-		"errors": this.errors,
+		"title": "user list",
+		"user":  user,
 	})
 }
 
