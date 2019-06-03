@@ -18,8 +18,10 @@ const (
 func Router() *gin.Engine {
 	router := gin.Default()
 
-	// SESSION
+	// SESSION with cookie
 	store := sessions.NewCookieStore([]byte(SECRETKEY))
+	// SESSION with redis
+	//store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
 	router.Use(sessions.Sessions(SESSIONID, store))
 
 	router.Static("/public", "./public")

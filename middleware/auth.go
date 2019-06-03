@@ -14,7 +14,7 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 		auth := session.Get("auth")
 		if auth == nil {
 			c.Redirect(http.StatusMovedPermanently, "/login")
-			c.AbortWithStatus(http.StatusUnauthorized)
+			//c.AbortWithStatus(http.StatusUnauthorized)
 		}
 		c.Next()
 	}
