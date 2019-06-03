@@ -5,18 +5,18 @@ import (
 )
 
 const (
-	REDISHOST     = "127.0.0.1"
-	REDISPORT     = "6379"
-	REDISPASSWORD = ""
-	REDISDATABASE = 0
+	REDIS_HOST     = "127.0.0.1"
+	REDIS_PORT     = "6379"
+	REDIS_PASSWORD = ""
+	REDIS_DATABASE = 0
 )
 
 var Redis *redis.Client
 
 func init() {
 	Redis = redis.NewClient(&redis.Options{
-		Addr:     REDISHOST + ":" + REDISPORT,
-		Password: REDISPASSWORD, // no password set
-		DB:       REDISDATABASE, // use default DB
+		Addr:     REDIS_HOST + ":" + REDIS_PORT,
+		Password: REDIS_PASSWORD, // no password set
+		DB:       REDIS_DATABASE, // use default DB
 	})
 }
