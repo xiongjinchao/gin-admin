@@ -3,7 +3,7 @@ package routers
 import (
 	"gin/controllers/backend"
 	"gin/controllers/frontend"
-	"gin/controllers/middleware"
+	"gin/middleware"
 
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -11,7 +11,7 @@ import (
 
 const (
 	SESSIONID = "GOSESSID"
-	SECRETKEY = "secret-key"
+	SECRETKEY = "e63e42954d32a1d73568659fea764f4ad71ef534"
 )
 
 //Router defined all routers
