@@ -3,6 +3,7 @@ package frontend
 import (
 	"fmt"
 	"gin/models"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -11,10 +12,14 @@ import (
 type User struct{}
 
 // Index handles GET /admin/user route
-func (_ *User) Index(c *gin.Context) {
+func (this *User) Index(c *gin.Context) {
 
 	u := models.User{}
-	user := u.GetUserList()
+	user, err := u.GetUserList()
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, error.Error)
+	}
+	fmt.Println(user)
 
 	c.HTML(http.StatusOK, "user/index.html", gin.H{
 		"title": "user list",
@@ -24,21 +29,21 @@ func (_ *User) Index(c *gin.Context) {
 
 // Create handles GET /admin/user/create route
 func (_ *User) Create(c *gin.Context) {
+	// flash data
+	session := sessions.Default(c)
+	flash := session.Flashes()
+	if err := session.Save(); err != nil {
+		panic(err)
+	}
+
 	c.HTML(http.StatusOK, "user/create.html", gin.H{
 		"title": "user create",
+		"flash": flash,
 	})
 }
 
 // Store handles POST /admin/user route
 func (_ *User) Store(c *gin.Context) {
-
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println(r)
-			c.Redirect(http.StatusMovedPermanently, "/admin/user/create")
-			return
-		}
-	}()
 
 	u := models.User{
 		Name:     c.PostForm("name"),
@@ -46,28 +51,29 @@ func (_ *User) Store(c *gin.Context) {
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	id := u.CreateUser()
+	id, err := u.CreateUser()
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, error.Error)
+
+		c.Redirect(http.StatusMovedPermanently, "/admin/user/create")
+		return
+	}
 	//id := (*models.User).CreateUser(&u)
 	uid := strconv.FormatInt(id, 10)
 	c.Redirect(http.StatusMovedPermanently, "/admin/user/show/"+uid)
 }
 
 func (_ *User) Edit(c *gin.Context) {
+
 	c.HTML(http.StatusOK, "user/edit.html", gin.H{
 		"title": "user edit",
 	})
 }
 
 func (_ *User) Update(c *gin.Context) {
+
 	uid := c.Param("id")
 	id, _ := strconv.ParseInt(uid, 10, 64)
-
-	defer func() {
-		if r := recover(); r != nil {
-			c.Redirect(http.StatusMovedPermanently, "/admin/user/edit"+uid)
-			return
-		}
-	}()
 
 	u := models.User{
 		Id:       id,
@@ -76,17 +82,27 @@ func (_ *User) Update(c *gin.Context) {
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	id = u.UpdateUser()
+	if _, err := u.UpdateUser(); err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, error.Error)
+		c.Redirect(http.StatusMovedPermanently, "/admin/user/edit"+uid)
+		return
+	}
 	//id = (*models.User).UpdateUser(&u)
 	c.Redirect(http.StatusMovedPermanently, "/admin/user/show/"+uid)
 }
 
 func (_ *User) Show(c *gin.Context) {
+
 	uid := c.Param("id")
 	id, _ := strconv.ParseInt(uid, 10, 64)
 
 	u := models.User{}
-	user := u.GetUser(id)
+	user, err := u.GetUser(id)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, error.Error)
+		c.Redirect(http.StatusMovedPermanently, "/admin/user")
+		return
+	}
 
 	c.HTML(http.StatusOK, "user/show.html", gin.H{
 		"title": "user show",
@@ -99,6 +115,6 @@ func (_ *User) Destroy(c *gin.Context) {
 
 	u := models.User{}
 	if _, err := u.DeleteUser(id); err == nil {
-		c.Redirect(301, "/")
+		c.Redirect(http.StatusMovedPermanently, "/admin/user")
 	}
 }

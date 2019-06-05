@@ -13,9 +13,13 @@ type User struct{}
 
 // Index handles GET /admin/user route
 func (this *User) Index(c *gin.Context) {
-
+	fmt.Fprintln(gin.DefaultWriter, "hello world")
 	u := models.User{}
-	user := u.GetUserList()
+	user, err := u.GetUserList()
+	if err != nil {
+		fmt.Fprintln(gin.DefaultWriter, error.Error)
+	}
+	fmt.Println(user)
 
 	c.HTML(http.StatusOK, "user/index.html", gin.H{
 		"title": "user list",
@@ -40,22 +44,17 @@ func (_ *User) Create(c *gin.Context) {
 
 // Store handles POST /admin/user route
 func (_ *User) Store(c *gin.Context) {
-
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println(r)
-			c.Redirect(http.StatusMovedPermanently, "/admin/user/create")
-			return
-		}
-	}()
-
 	u := models.User{
 		Name:     c.PostForm("name"),
 		Email:    c.PostForm("email"),
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	id := u.CreateUser()
+	id, err := u.CreateUser()
+	if err != nil {
+		fmt.Fprintln(gin.DefaultWriter, error.Error)
+		c.Redirect(http.StatusMovedPermanently, "/admin/user/create")
+	}
 	//id := (*models.User).CreateUser(&u)
 	uid := strconv.FormatInt(id, 10)
 	c.Redirect(http.StatusMovedPermanently, "/admin/user/show/"+uid)
@@ -85,7 +84,9 @@ func (_ *User) Update(c *gin.Context) {
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	id = u.UpdateUser()
+	if _, err := u.UpdateUser(); err != nil {
+		fmt.Fprintln(gin.DefaultWriter, error.Error)
+	}
 	//id = (*models.User).UpdateUser(&u)
 	c.Redirect(http.StatusMovedPermanently, "/admin/user/show/"+uid)
 }
@@ -95,7 +96,10 @@ func (_ *User) Show(c *gin.Context) {
 	id, _ := strconv.ParseInt(uid, 10, 64)
 
 	u := models.User{}
-	user := u.GetUser(id)
+	user, err := u.GetUser(id)
+	if err != nil {
+		fmt.Fprintln(gin.DefaultWriter, error.Error)
+	}
 
 	c.HTML(http.StatusOK, "user/show.html", gin.H{
 		"title": "user show",

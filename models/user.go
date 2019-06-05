@@ -3,7 +3,6 @@ package models
 import (
 	"crypto/sha1"
 	"encoding/hex"
-	"fmt"
 	db "gin/database"
 	"time"
 )
@@ -19,69 +18,50 @@ type User struct {
 	UpdateAt      time.Time `json:"updated_at"`
 }
 
-func (m *User) GetUserList() (users []User) {
-	fmt.Println(db.Redis.Get("name"))
-	rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`")
-	if err != nil {
-		panic(err)
-	}
-
-	for rows.Next() {
-		var user User
-		if err := rows.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile); err != nil {
-			users = append(users, user)
+func (m *User) GetUserList() (users []User, err error) {
+	if rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`"); err == nil {
+		for rows.Next() {
+			var user User
+			if err = rows.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile); err == nil {
+				users = append(users, user)
+			}
 		}
 	}
-	if err = rows.Err(); err != nil {
-		panic(err)
-	}
 	return
 }
 
-func (m *User) GetUser(id int64) (user User) {
+func (m *User) GetUser(id int64) (user User, err error) {
 	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile`,`password` FROM `user` WHERE id=?", id)
-	if err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.Password); err != nil {
-		panic(err)
-	}
+	err = row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.Password)
 	return
 }
 
-func (m *User) CreateUser() int64 {
+func (m *User) CreateUser() (id int64, err error) {
 	user := *m
 	user.Password = m.GeneratePassword(user.Password)
 	stmt, _ := db.Mysql.Prepare("INSERT INTO `user` (`name`,`email`,`mobile`,`password`,`remember_token`,`created_at`,`updated_at`)values(?,?,?,?,?,?,?)")
-	row, err := stmt.Exec(user.Name, user.Email, user.Mobile, user.Password, user.RememberToken, time.Now(), time.Now())
-	if err != nil {
-		panic(err)
+	if row, err := stmt.Exec(user.Name, user.Email, user.Mobile, user.Password, user.RememberToken, time.Now(), time.Now()); err == nil {
+		id, err = row.LastInsertId()
 	}
-	user.Id, err = row.LastInsertId()
-	if err != nil {
-		panic(err)
-	}
-	return user.Id
+	return
 }
 
-func (m *User) UpdateUser() int64 {
+func (m *User) UpdateUser() (count int64, err error) {
 	user := *m
 	user.Password = m.GeneratePassword(user.Password)
 	stmt, _ := db.Mysql.Prepare("UPDATE `user` (`name`,`email`,`mobile`,`password`,`remember_token`,`updated_at`)values(?,?,?,?,?,?) WHERE `id` = ? ")
-	row, err := stmt.Exec(user.Name, user.Email, user.Mobile, user.Password, user.RememberToken, time.Now(), user.Id)
-	if err != nil {
-		panic(err)
+	if row, err := stmt.Exec(user.Name, user.Email, user.Mobile, user.Password, user.RememberToken, time.Now(), user.Id); err == nil {
+		count, err = row.RowsAffected()
 	}
-	if _, err = row.RowsAffected(); err != nil {
-		panic(err)
-	}
-	return user.Id
+	return
 }
 
-func (m *User) DeleteUser(id string) (int64, error) {
+func (m *User) DeleteUser(id string) (count int64, err error) {
 	stmt, _ := db.Mysql.Prepare("DELETE FROM `user` WHERE `id` = ?")
-	rows, err := stmt.Exec(id)
-	if err != nil {
-		panic(err)
+	if rows, err := stmt.Exec(id); err == nil {
+		count, err = rows.RowsAffected()
 	}
-	return rows.RowsAffected()
+	return
 }
 
 func (m *User) GeneratePassword(password string) string {
