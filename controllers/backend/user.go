@@ -12,16 +12,15 @@ import (
 type User struct{}
 
 // Index handles GET /admin/user route
-func (this *User) Index(c *gin.Context) {
-	fmt.Fprintln(gin.DefaultWriter, "hello world")
+func (_ *User) Index(c *gin.Context) {
 	u := models.User{}
 	user, err := u.GetUserList()
 	if err != nil {
-		fmt.Fprintln(gin.DefaultWriter, error.Error)
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	fmt.Println(user)
 
-	c.HTML(http.StatusOK, "user/index.html", gin.H{
+	c.HTML(http.StatusOK, "backend/user/index", gin.H{
 		"title": "user list",
 		"user":  user,
 	})
@@ -36,7 +35,7 @@ func (_ *User) Create(c *gin.Context) {
 		panic(err)
 	}
 
-	c.HTML(http.StatusOK, "user/create.html", gin.H{
+	c.HTML(http.StatusOK, "backend/user/create", gin.H{
 		"title": "user create",
 		"flash": flash,
 	})
@@ -52,16 +51,16 @@ func (_ *User) Store(c *gin.Context) {
 	}
 	id, err := u.CreateUser()
 	if err != nil {
-		fmt.Fprintln(gin.DefaultWriter, error.Error)
-		c.Redirect(http.StatusMovedPermanently, "/admin/user/create")
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		c.Redirect(http.StatusFound, "/admin/user/create")
 	}
 	//id := (*models.User).CreateUser(&u)
 	uid := strconv.FormatInt(id, 10)
-	c.Redirect(http.StatusMovedPermanently, "/admin/user/show/"+uid)
+	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
 }
 
 func (_ *User) Edit(c *gin.Context) {
-	c.HTML(http.StatusOK, "user/edit.html", gin.H{
+	c.HTML(http.StatusOK, "backend/user/edit", gin.H{
 		"title": "user edit",
 	})
 }
@@ -69,13 +68,6 @@ func (_ *User) Edit(c *gin.Context) {
 func (_ *User) Update(c *gin.Context) {
 	uid := c.Param("id")
 	id, _ := strconv.ParseInt(uid, 10, 64)
-
-	defer func() {
-		if r := recover(); r != nil {
-			c.Redirect(http.StatusMovedPermanently, "/admin/user/edit"+uid)
-			return
-		}
-	}()
 
 	u := models.User{
 		Id:       id,
@@ -85,10 +77,11 @@ func (_ *User) Update(c *gin.Context) {
 		Password: c.PostForm("password"),
 	}
 	if _, err := u.UpdateUser(); err != nil {
-		fmt.Fprintln(gin.DefaultWriter, error.Error)
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		c.Redirect(http.StatusFound, "/admin/user/edit"+uid)
 	}
 	//id = (*models.User).UpdateUser(&u)
-	c.Redirect(http.StatusMovedPermanently, "/admin/user/show/"+uid)
+	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
 }
 
 func (_ *User) Show(c *gin.Context) {
@@ -98,10 +91,10 @@ func (_ *User) Show(c *gin.Context) {
 	u := models.User{}
 	user, err := u.GetUser(id)
 	if err != nil {
-		fmt.Fprintln(gin.DefaultWriter, error.Error)
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "user/show.html", gin.H{
+	c.HTML(http.StatusOK, "backend/user/show", gin.H{
 		"title": "user show",
 		"user":  user,
 	})

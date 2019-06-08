@@ -1,13 +1,9 @@
-{{ define "user/create.html" }}
+{{ define "backend/user/create" }}
     <html>
     <h1>
         {{ .title }}
     </h1>
     <div>user create content</div>
-
-    {{ range $f := .flash }}
-        <div class="alert alert-danger">{{ $f }}</div>
-    {{ end }}
 
     <form action = "/admin/user" method="post">
         <input name="name" value="Ted">

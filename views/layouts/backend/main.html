@@ -1,0 +1,36 @@
+{{ define "layouts/backend/main" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Inspire - Admin and Dashboard Template</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/fonts/line-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+</head>
+
+<body>
+<div class="app header-default side-nav-dark">
+    <div class="layout">
+        {{ template "header"}}
+
+        {{ template "siderbar"}}
+
+        {{ template "content"}}
+    </div>
+</div>
+<div id="preloader">
+    <div class="loader" id="loader-1"></div>
+</div>
+<script src="assets/js/jquery-min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.app.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+
+</html>
+{{ end }}

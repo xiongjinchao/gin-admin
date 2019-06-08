@@ -25,14 +25,20 @@ func Router() *gin.Engine {
 	router.Use(sessions.Sessions(SESSION_ID, store))
 
 	router.Static("/public", "./public")
-	router.LoadHTMLGlob("views/**/*")
+	router.StaticFile("/favicon.ico", "./public/image/favicon.ico")
+
+	router.LoadHTMLGlob("views/***/**/*")
 
 	// Home Page
 	router.GET("/", (&frontend.Home{}).Index)
 
 	// Login
 	router.GET("/login", (&backend.Auth{}).Login)
-	router.POST("/login", (&backend.Auth{}).Auth)
+	router.POST("/sign-in", (&backend.Auth{}).SignIn)
+
+	// Register
+	router.GET("/register", (&backend.Auth{}).Register)
+	router.POST("/sign-up", (&backend.Auth{}).SignUp)
 
 	admin := router.Group("admin")
 	admin.Use((&middleware.Auth{}).CheckLogin())

@@ -13,7 +13,7 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 		session := sessions.Default(c)
 		auth := session.Get("auth")
 		if auth == nil {
-			c.Redirect(http.StatusMovedPermanently, "/login")
+			c.Redirect(http.StatusFound, "/login")
 			//c.AbortWithStatus(http.StatusUnauthorized)
 		}
 		c.Next()

@@ -8,9 +8,9 @@ import (
 
 type Article struct{}
 
-// GetArticleList handles GET /admin/article route
+// GetArticleList handles GET /article route
 func (_ *Article) Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "article/index.html", gin.H{
+	c.HTML(http.StatusOK, "/frontend/article/index", gin.H{
 		"title": "article list",
 	})
 }
