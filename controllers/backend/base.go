@@ -31,9 +31,11 @@ func (_ *Base) GetFlash(c *gin.Context) (map[string]string, error) {
 	flashes := session.Flashes()
 	data := map[string]string{}
 	for _, flash := range flashes {
-		item := strings.Split(flash.(string), "::")
-		k, v := item[0], item[1]
-		data[k] = v
+		if flash.(string) != "" {
+			item := strings.Split(flash.(string), "::")
+			k, v := item[0], item[1]
+			data[k] = v
+		}
 	}
 	err := session.Save()
 	return data, err

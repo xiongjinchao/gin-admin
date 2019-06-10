@@ -46,7 +46,7 @@ func (_ *Auth) SignIn(c *gin.Context) {
 	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile`,`created_at`,`updated_at` FROM `user` WHERE mobile=? AND password=?", auth.Mobile, password)
 	err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.CreatedAt, &user.UpdatedAt)
 	if err != nil {
-		(&Base{}).SetFlash(c, "APP", errors.New("账号密码错误"))
+		(&Base{}).SetFlash(c, "APP", errors.New("账号或密码错误，请重新输入"))
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
@@ -83,4 +83,5 @@ func (_ *Auth) Logout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("auth")
 	session.Clear()
+	c.Redirect(http.StatusFound, "/login")
 }
