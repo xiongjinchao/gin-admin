@@ -7,6 +7,7 @@
     <p>{{ .user.Name}}</p>
     <p>{{ .user.Email}}</p>
     <p>{{ .user.Mobile}}</p>
-    <p>{{ .user.Password}}</p>
+    <p>{{ .user.CreatedAt.Format "2006-01-02 15:04:05" }}</p>
+    <p>{{ .user.UpdatedAt.Format "2006-01-02 15:04:05" }}</p>
     </html>
 {{ end }}

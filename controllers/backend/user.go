@@ -3,7 +3,6 @@ package backend
 import (
 	"fmt"
 	"gin/models"
-	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -13,12 +12,12 @@ type User struct{}
 
 // Index handles GET /admin/user route
 func (_ *User) Index(c *gin.Context) {
+
 	u := models.User{}
 	user, err := u.GetUserList()
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	fmt.Println(user)
 
 	c.HTML(http.StatusOK, "backend/user/index", gin.H{
 		"title": "user list",
@@ -28,11 +27,10 @@ func (_ *User) Index(c *gin.Context) {
 
 // Create handles GET /admin/user/create route
 func (_ *User) Create(c *gin.Context) {
-	// flash data
-	session := sessions.Default(c)
-	flash := session.Flashes()
-	if err := session.Save(); err != nil {
-		panic(err)
+
+	flash, err := (&Base{}).GetFlash(c)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
 	c.HTML(http.StatusOK, "backend/user/create", gin.H{
@@ -51,8 +49,9 @@ func (_ *User) Store(c *gin.Context) {
 	}
 	id, err := u.CreateUser()
 	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		(&Base{}).SetFlash(c, "APP", err)
 		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
 	}
 	//id := (*models.User).CreateUser(&u)
 	uid := strconv.FormatInt(id, 10)
@@ -60,8 +59,15 @@ func (_ *User) Store(c *gin.Context) {
 }
 
 func (_ *User) Edit(c *gin.Context) {
+
+	flash, err := (&Base{}).GetFlash(c)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
 	c.HTML(http.StatusOK, "backend/user/edit", gin.H{
 		"title": "user edit",
+		"flash": flash,
 	})
 }
 
@@ -77,8 +83,9 @@ func (_ *User) Update(c *gin.Context) {
 		Password: c.PostForm("password"),
 	}
 	if _, err := u.UpdateUser(); err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		(&Base{}).SetFlash(c, "APP", err)
 		c.Redirect(http.StatusFound, "/admin/user/edit"+uid)
+		return
 	}
 	//id = (*models.User).UpdateUser(&u)
 	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)

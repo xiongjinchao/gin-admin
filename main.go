@@ -2,10 +2,12 @@ package main
 
 import (
 	"gin/routers"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	// Log
+	gin.ForceConsoleColor()
 	/*
 		gin.DisableConsoleColor()
 

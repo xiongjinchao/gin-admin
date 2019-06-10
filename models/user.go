@@ -15,14 +15,14 @@ type User struct {
 	Password      string    `json:"password" form:"password"`
 	RememberToken string    `json:"remember_token" form:"remember_token"`
 	CreatedAt     time.Time `json:"created_at"`
-	UpdateAt      time.Time `json:"updated_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
 }
 
 func (m *User) GetUserList() (users []User, err error) {
-	if rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile` FROM `user`"); err == nil {
+	if rows, err := db.Mysql.Query("SELECT `id`,`name`,`email`,`mobile`,`created_at`,`updated_at` FROM `user`"); err == nil {
 		for rows.Next() {
 			var user User
-			if err = rows.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile); err == nil {
+			if err = rows.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.CreatedAt, &user.UpdatedAt); err == nil {
 				users = append(users, user)
 			}
 		}
@@ -31,8 +31,8 @@ func (m *User) GetUserList() (users []User, err error) {
 }
 
 func (m *User) GetUser(id int64) (user User, err error) {
-	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile`,`password` FROM `user` WHERE id=?", id)
-	err = row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.Password)
+	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile`,`created_at`,`updated_at` FROM `user` WHERE id=?", id)
+	err = row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.CreatedAt, &user.UpdatedAt)
 	return
 }
 

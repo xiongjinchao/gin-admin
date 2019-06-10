@@ -40,9 +40,15 @@ func Router() *gin.Engine {
 	router.GET("/register", (&backend.Auth{}).Register)
 	router.POST("/sign-up", (&backend.Auth{}).SignUp)
 
+	//Logout
+	router.GET("/logout", (&backend.Auth{}).Logout)
+
 	admin := router.Group("admin")
 	admin.Use((&middleware.Auth{}).CheckLogin())
 	{
+		//Admin
+		admin.GET("/", (&backend.Home{}).Index)
+
 		//User
 		admin.GET("user", (&backend.User{}).Index)
 		admin.GET("user/create", (&backend.User{}).Create)

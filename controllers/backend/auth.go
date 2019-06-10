@@ -1,9 +1,11 @@
 package backend
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
+	db "gin/database"
 	"gin/models"
-	"gopkg.in/go-playground/validator.v9"
 	"net/http"
 
 	"github.com/gin-gonic/contrib/sessions"
@@ -14,12 +16,11 @@ type Auth struct{}
 
 //Login handles GET /login route
 func (_ *Auth) Login(c *gin.Context) {
-	session := sessions.Default(c)
-	flash := session.Flashes()
-	if err := session.Save(); err != nil {
-		panic(err)
+
+	flash, err := (&Base{}).GetFlash(c)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	fmt.Println(flash)
 	c.HTML(http.StatusOK, "backend/auth/login", gin.H{
 		"title": "Golang Blog",
 		"flash": flash,
@@ -29,41 +30,41 @@ func (_ *Auth) Login(c *gin.Context) {
 //SignIn handles POST /sign-in route
 func (_ *Auth) SignIn(c *gin.Context) {
 	auth := models.Auth{}
-	session := sessions.Default(c)
 	if err := c.ShouldBind(&auth); err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-
-		session.AddFlash("参数错误")
-		if err := session.Save(); err != nil {
-			panic(err)
-		}
-
+		(&Base{}).SetFlash(c, "APP", err)
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
-	validate := validator.New()
-	err := validate.Struct(&auth)
+	if ok := (&Base{}).Validate(c, auth); ok == false {
+		c.Redirect(http.StatusFound, "/login")
+		return
+	}
+
+	user := models.User{}
+	password := (&models.User{}).GeneratePassword(auth.Password)
+	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile`,`created_at`,`updated_at` FROM `user` WHERE mobile=? AND password=?", auth.Mobile, password)
+	err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.CreatedAt, &user.UpdatedAt)
 	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		(&Base{}).SetFlash(c, "APP", errors.New("账号密码错误"))
+		c.Redirect(http.StatusFound, "/login")
+		return
+	}
 
-		session.AddFlash("账号或密码错误")
-		if err := session.Save(); err != nil {
-			panic(err)
-		}
-
+	data, err := json.Marshal(user)
+	if err != nil {
+		(&Base{}).SetFlash(c, "APP", errors.New("系统错误，请联系管理员"))
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
 	// sign-in success
-	/*
-		session.Set("auth", `{id:"1",name:"admin"}`)
-		if err := session.Save(); err != nil {
-			panic(err)
-		}
-		c.Redirect(http.StatusFound, "/admin")
-	*/
+	session := sessions.Default(c)
+	session.Set("auth", string(data))
+	if err := session.Save(); err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	c.Redirect(http.StatusFound, "/admin")
 }
 
 //Register handles GET /register route
@@ -76,4 +77,10 @@ func (_ *Auth) Register(c *gin.Context) {
 //SignUp handles POST /sign-up route
 func (_ *Auth) SignUp(c *gin.Context) {
 	fmt.Println("Golang Blog")
+}
+
+func (_ *Auth) Logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Delete("auth")
+	session.Clear()
 }
