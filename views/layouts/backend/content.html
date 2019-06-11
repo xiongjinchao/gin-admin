@@ -1,136 +1,513 @@
 {{ define "layouts/backend/content" }}
-<div class="page-container">
-    <div class="main-content">
-        <div class="container-fluid">
-            <div class="breadcrumb-wrapper row">
-                <div class="col-12 col-lg-3 col-md-6">
-                    <h4 class="page-title">Invoice</h4>
-                </div>
-                <div class="col-12 col-lg-9 col-md-6">
-                    <ol class="breadcrumb float-right">
-                        <li><a href="#">Pages</a></li>
-                        <li class="active"> / Invoice</li>
-                    </ol>
+    <div class="page-container">
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="breadcrumb-wrapper row">
+                    <div class="col-12 col-lg-3 col-md-6">
+                        <h4 class="page-title">Dashboard</h4>
+                    </div>
+                    <div class="col-12 col-lg-9 col-md-6">
+                        <ol class="breadcrumb float-right">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">/ Dashboard</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="container-fluid">
+                <div class="card-group">
                     <div class="card">
                         <div class="card-body">
-                            <div class="clearfix">
-                                <div class="float-left m-t-20">
-                                    <h4 class="text-right"><img src="assets/img/logo.png"></h4>
-                                </div>
-                                <div class="float-right">
-                                    <h4>Invoice # <br>
-                                        <strong>2015-04-23654789</strong>
-                                    </h4>
-                                </div>
-                            </div>
-                            <hr>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="float-left m-t-30">
-                                        <address>
-                                            <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                                        </address>
+                                <div class="col-12">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <div class="icon"><i class="lni-display"></i></div>
+                                            <p class="text-muted">New Clients</p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <h2 class="counter text-primary">234</h2>
+                                        </div>
                                     </div>
-                                    <div class="float-right m-t-30">
-                                        <p class="mb-2"><strong>Order Date: </strong> March 17, 2018</p>
-                                        <p class="mb-2"><strong>Order Status: </strong> <span class="label label-warning">Pending</span></p>
-                                        <p><strong>Order ID: </strong> #123456</p>
+                                </div>
+                                <div class="col-12">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="m-h-50"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table m-t-30">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Item</th>
-                                                <th>Description</th>
-                                                <th>Quantity</th>
-                                                <th>Unit Cost</th>
-                                                <th>Total</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>LCD</td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                                <td>1</td>
-                                                <td>$380</td>
-                                                <td>$380</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Mobile</td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                                <td>5</td>
-                                                <td>$50</td>
-                                                <td>$250</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>LED</td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                                <td>2</td>
-                                                <td>$500</td>
-                                                <td>$1000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>LCD</td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                                <td>3</td>
-                                                <td>$300</td>
-                                                <td>$900</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Mobile</td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                                <td>5</td>
-                                                <td>$80</td>
-                                                <td>$400</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                <div class="col-12">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <div class="icon"><i class="lni-pencil-alt"></i></div>
+                                            <p class="text-muted">Total Projects</p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <h2 class="counter text-success">1,390</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row m-t-20">
-                                <div class="col-md-3 offset-md-9">
-                                    <div class="text-right">
-                                        <p><b>Sub-total:</b> 2930.00</p>
-                                        <p>Discout: 12.9%</p>
-                                        <p>VAT: 12.9%</p>
-                                        <hr>
-                                        <h4>USD 2930.00</h4>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <div class="icon"><i class="lni-empty-file"></i></div>
+                                            <p class="text-muted">Pending Invoices</p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <h2 class="counter text-info">5,723</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="hidden-print">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <div class="icon"><i class="lni-cart"></i></div>
+                                            <p class="text-muted">All Projects</p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <h2 class="counter text-purple">2,396</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Business Overview</h5>
                                 <div class="float-right">
-                                    <a href="#" class="btn btn-inverse"><i class="fa fa-print"></i></a>
-                                    <a href="#" class="btn btn-common">Submit</a>
+                                    <ul class="list-inline d-none d-sm-block">
+                                        <li>
+                                            <span class="status bg-primary"></span>
+                                            <span class="text-semibold">Return</span>
+                                        </li>
+                                        <li>
+                                            <span class="status bg-success"></span>
+                                            <span class="text-semibold">Revenue</span>
+                                        </li>
+                                        <li>
+                                            <span class="status bg-purple"></span>
+                                            <span class="text-semibold">Cost</span>
+                                        </li>
+                                    </ul>
                                 </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="morris-bar-example" style="height: 372px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-12 stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="sales-info">
+                                            <h3>14,0000</h3>
+                                            <span>Overall Performance</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="35" style="width: 75%"></div>
+                                        </div>
+                                        <p>42% higher than last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="sales-info">
+                                            <h3>34,000</h3>
+                                            <span>Active Installations</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="35" style="width: 55%"></div>
+                                        </div>
+                                        <p>19% less than last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="sales-info">
+                                            <h3>11,279</h3>
+                                            <span>Total downloads</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="35" style="width: 35%"></div>
+                                        </div>
+                                        <p>73% higher than last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-xs-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Best Performing Clients</h4>
+                                <div class="selected float-right">
+                                    <select class="custom-select">
+                                        <option selected="selected" value="0">Monthly</option>
+                                        <option value="1">Daily</option>
+                                        <option value="2">Weekly</option>
+                                        <option value="3">Yearly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="table-overflow">
+                                <table class="table table-lg">
+                                    <thead>
+                                    <tr>
+                                        <td class="text-dark text-semibold">Company Name</td>
+                                        <td class="text-dark text-semibold">Product</td>
+                                        <td class="text-dark text-semibold">Source</td>
+                                        <td class="text-dark text-semibold">Status</td>
+                                        <td class="text-dark text-semibold">Billed</td>
+                                        <td class="text-dark text-semibold">Paid</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="list-media">
+                                                <div class="list-item">
+                                                    <div class="media-img">
+                                                        <a class="btn btn-circle btn-info text-white">TM</a>
+                                                    </div>
+                                                    <div class="info">
+                                                        <span class="title text-semibold">Tesla Motors</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>CRM Software</td>
+                                        <td>Onsite</td>
+                                        <td><a href="#" class="badge badge-danger">Processing</a></td>
+                                        <td>$423.00</td>
+                                        <td>$168.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="list-media">
+                                                <div class="list-item">
+                                                    <div class="media-img">
+                                                        <a class="btn btn-circle btn-danger text-white">SM</a>
+                                                    </div>
+                                                    <div class="info">
+                                                        <span class="title text-semibold">Samsung</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>GIS Software</td>
+                                        <td>Marketplace</td>
+                                        <td><a href="#" class="badge badge-success">Done</a></td>
+                                        <td>$665.67</td>
+                                        <td>$665.67</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="list-media">
+                                                <div class="list-item">
+                                                    <div class="media-img">
+                                                        <a class="btn btn-circle btn-success text-white">DR</a>
+                                                    </div>
+                                                    <div class="info">
+                                                        <span class="title text-semibold">Dropbox Inc.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Accounting Software</td>
+                                        <td>Others</td>
+                                        <td><a href="#" class="badge badge-info">On-hold</a></td>
+                                        <td>$576.00</td>
+                                        <td>$476.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="list-media">
+                                                <div class="list-item">
+                                                    <div class="media-img">
+                                                        <a class="btn btn-circle btn-primary text-white">UD</a>
+                                                    </div>
+                                                    <div class="info">
+                                                        <span class="title text-semibold">UIdeck</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Sales Dashboard</td>
+                                        <td>Marketplace</td>
+                                        <td><a href="#" class="badge badge-success">Done</a></td>
+                                        <td>$234.00</td>
+                                        <td>$234.00</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-xs-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4 class="header-title">Earning Sources</h4>
+                                <ul class="list-inline widget-chart m-t-20 text-center">
+                                    <li>
+                                        <h4 class=""><b>3654</b></h4>
+                                        <p class="text-muted m-b-0">Marketplace</p>
+                                    </li>
+                                    <li>
+                                        <h4 class=""><b>954</b></h4>
+                                        <p class="text-muted m-b-0">On Site</p>
+                                    </li>
+                                    <li>
+                                        <h4 class=""><b>262</b></h4>
+                                        <p class="text-muted m-b-0">Others</p>
+                                    </li>
+                                </ul>
+                                <div id="morris-donut-example" style="height: 240px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">To Do Task List</h4>
+                                <div class="card-toolbar">
+                                    <ul>
+                                        <li>
+                                            <a class="text-gray" href="#">
+                                                <i class="lni-more-alt"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul class="list-task list-group">
+                                <li class="list-group-item border-0" data-role="task">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="custom-control custom-checkbox material-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="followUp" checked="">
+                                            <label class="custom-control-label" for="followUp">Follow up clients</label>
+                                        </div><span class="badge badge-danger">Missed</span>
+                                    </div>
+                                </li>
+                                <li class="list-group-item border-0" data-role="task">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="custom-control custom-checkbox material-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="JoinMeeting" checked="">
+                                            <label class="custom-control-label" for="JoinMeeting">Join business meeting</label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item border-0" data-role="task">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="custom-control custom-checkbox material-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="brainstorm" checked="">
+                                            <label class="custom-control-label" for="brainstorm">Discuss about new project</label>
+                                        </div>
+                                        <span class="badge badge-warning">Today</span>
+                                    </div>
+                                </li>
+                                <li class="list-group-item border-0" data-role="task">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="custom-control custom-checkbox material-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="newFunnel">
+                                            <label class="custom-control-label" for="newFunnel">Design a new funnel</label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item border-0" data-role="task">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="custom-control custom-checkbox material-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="makeAnewOrder">
+                                            <label class="custom-control-label" for="makeAnewOrder">Make a new app</label>
+                                        </div>
+                                        <span class="badge badge-success">3 weeks</span>
+                                    </div>
+                                </li>
+                                <li class="list-group-item border-0" data-role="task">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="custom-control custom-checkbox material-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="generalThings">
+                                            <label class="custom-control-label" for="generalThings">Send materials</label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-xs-12">
+                        <div class="follow">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">New Clients</h4>
+                                    <div class="card-toolbar">
+                                        <ul>
+                                            <li>
+                                                <a class="text-gray" href="#">
+                                                    <i class="lni-more-alt"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul class="list-media">
+                                    <li class="list-item">
+                                        <div class="client-item">
+                                            <div class="media-img">
+                                                <img src="/public/inspire/assets/img/avatar/user1.png" alt="">
+                                            </div>
+                                            <div class="info">
+                                                <span class="title text-semibold">Johny Vinno</span>
+                                                <div class="float-item">
+                                                    <button class="btn btn-common btn-rounded">Follow</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="client-item">
+                                            <div class="media-img">
+                                                <img src="/public/inspire/assets/img/avatar/user2.png" alt="">
+                                            </div>
+                                            <div class="info">
+                                                <span class="title text-semibold">Robinson</span>
+                                                <div class="float-item">
+                                                    <button class="btn btn-common btn-rounded">Follow</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="client-item">
+                                            <div class="media-img">
+                                                <img src="/public/inspire/assets/img/avatar/user3.png" alt="">
+                                            </div>
+                                            <div class="info">
+                                                <span class="title text-semibold">Chris Anderson</span>
+                                                <div class="float-item">
+                                                    <button class="btn btn-common btn-rounded">Follow</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="client-item">
+                                            <div class="media-img">
+                                                <img src="/public/inspire/assets/img/avatar/user4.png" alt="">
+                                            </div>
+                                            <div class="info">
+                                                <span class="title text-semibold">Kornelia Sturb</span>
+                                                <div class="float-item">
+                                                    <button class="btn btn-common btn-rounded">Follow</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-xs-12">
+                        <div class="coming-event">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Upcoming Event</h4>
+                                    <div class="card-toolbar">
+                                        <ul>
+                                            <li>
+                                                <a class="text-gray" href="#">
+                                                    <i class="lni-more-alt"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul class="event-item">
+                                    <li>
+                                        <a href="#">
+                                            <div class="media">
+                                                <div class="img-thumb">
+                                                    <img class="img-fluid" src="/public/inspire/assets/img/event/img-1.jpg" alt="">
+                                                </div>
+                                                <div class="text">
+                                                    <h5 class="text-link">Inspire Team</h5>
+                                                    <p class="day">MAY 11, 2020</p>
+                                                    <p>Efficiently unleash information </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="media">
+                                                <div class="img-thumb">
+                                                    <img class="img-fluid" src="/public/inspire/assets/img/event/img-2.jpg" alt="">
+                                                </div>
+                                                <div class="text">
+                                                    <h5 class="text-link">Marketing Products</h5>
+                                                    <p class="day">MAY 18, 2020</p>
+                                                    <p>Efficiently unleash information </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <footer class="content-footer">
+            <div class="footer">
+                <div class="copyright">
+                    <span>Copyright © 2018 <b class="text-dark">UIdeck</b>. All Right Reserved More Templates <a href="http://www.scnoob.com">菜鸟素材</a> - Collect from <a href="http://www.scnoob.com/moban">网页模板</a></span>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    {{ template "footer"}}
-</div>
 {{ end }}

@@ -3,6 +3,7 @@ package backend
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type Home struct{}
@@ -10,4 +11,8 @@ type Home struct{}
 // Index handles GET /admin route
 func (_ *Home) Index(c *gin.Context) {
 	fmt.Println("后台")
+
+	c.HTML(http.StatusOK, "backend/home/index", gin.H{
+		"title": "Gin Blog",
+	})
 }

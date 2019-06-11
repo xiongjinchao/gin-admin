@@ -22,7 +22,7 @@ func (_ *Auth) Login(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	c.HTML(http.StatusOK, "backend/auth/login", gin.H{
-		"title": "Golang Blog",
+		"title": "Gin Blog",
 		"flash": flash,
 	})
 }
@@ -70,13 +70,13 @@ func (_ *Auth) SignIn(c *gin.Context) {
 //Register handles GET /register route
 func (_ *Auth) Register(c *gin.Context) {
 	c.HTML(http.StatusOK, "backend/auth/register", gin.H{
-		"title": "Golang Blog",
+		"title": "Gin Blog",
 	})
 }
 
 //SignUp handles POST /sign-up route
 func (_ *Auth) SignUp(c *gin.Context) {
-	fmt.Println("Golang Blog")
+	fmt.Println("Gin Blog")
 }
 
 func (_ *Auth) Logout(c *gin.Context) {

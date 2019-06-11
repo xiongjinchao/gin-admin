@@ -12,6 +12,6 @@ type Home struct{}
 func (_ *Home) Index(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "frontend/home/index", gin.H{
-		"title": "Golang Blog",
+		"title": "Gin Blog",
 	})
 }
