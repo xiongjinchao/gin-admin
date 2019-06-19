@@ -1,4 +1,4 @@
-{{ define "layouts/backend/sidebar" }}
+{{ define "sidebar" }}
     <div class="side-nav expand-lg">
         <div class="side-nav-inner">
             <ul class="side-nav-menu">

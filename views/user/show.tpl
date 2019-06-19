@@ -1,4 +1,4 @@
-{{ define "backend/user/show" }}
+{{ define "content" }}
     <html>
     <h1>
         {{ .title }}

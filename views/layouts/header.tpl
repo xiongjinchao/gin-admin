@@ -1,4 +1,4 @@
-{{ define "layouts/backend/header" }}
+{{ define "header" }}
     <div class="header navbar">
         <div class="header-container">
             <div class="nav-logo">

@@ -1,4 +1,4 @@
-{{ define "layouts/backend/footer" }}
+{{ define "footer" }}
     <footer class="content-footer">
         <div class="footer">
             <div class="copyright">

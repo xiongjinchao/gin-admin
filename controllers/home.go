@@ -1,4 +1,4 @@
-package backend
+package controllers
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type Home struct{}
 func (_ *Home) Index(c *gin.Context) {
 	fmt.Println("后台")
 
-	c.HTML(http.StatusOK, "backend/home/index", gin.H{
+	c.HTML(http.StatusOK, "home/index", gin.H{
 		"title": "Gin Blog",
 	})
 }

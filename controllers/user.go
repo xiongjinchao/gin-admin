@@ -1,4 +1,4 @@
-package backend
+package controllers
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func (_ *User) Index(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "backend/user/index", gin.H{
+	c.HTML(http.StatusOK, "user/index", gin.H{
 		"title": "user list",
 		"user":  user,
 	})
@@ -33,7 +33,7 @@ func (_ *User) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "backend/user/create", gin.H{
+	c.HTML(http.StatusOK, "user/create", gin.H{
 		"title": "user create",
 		"flash": flash,
 	})
@@ -65,7 +65,7 @@ func (_ *User) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "backend/user/edit", gin.H{
+	c.HTML(http.StatusOK, "user/edit", gin.H{
 		"title": "user edit",
 		"flash": flash,
 	})
@@ -101,7 +101,7 @@ func (_ *User) Show(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "backend/user/show", gin.H{
+	c.HTML(http.StatusOK, "user/show", gin.H{
 		"title": "user show",
 		"user":  user,
 	})

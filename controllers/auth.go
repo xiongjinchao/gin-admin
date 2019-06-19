@@ -1,4 +1,4 @@
-package backend
+package controllers
 
 import (
 	"encoding/json"
@@ -21,7 +21,7 @@ func (_ *Auth) Login(c *gin.Context) {
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	c.HTML(http.StatusOK, "backend/auth/login", gin.H{
+	c.HTML(http.StatusOK, "auth/login.tpl", gin.H{
 		"title": "Gin Blog",
 		"flash": flash,
 	})
@@ -69,7 +69,7 @@ func (_ *Auth) SignIn(c *gin.Context) {
 
 //Register handles GET /register route
 func (_ *Auth) Register(c *gin.Context) {
-	c.HTML(http.StatusOK, "backend/auth/register", gin.H{
+	c.HTML(http.StatusOK, "auth/register.tpl", gin.H{
 		"title": "Gin Blog",
 	})
 }

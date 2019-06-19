@@ -1,4 +1,4 @@
-{{ define "backend/auth/login" }}
+{{ define "auth/login" }}
 <!DOCTYPE html>
 <html>
 
@@ -48,7 +48,7 @@
                                     <a href="/forgot-password" class="text-muted"><i class="lni-lock"></i> 忘记密码？</a>
                                 </div>
                                 <div class="float-left">
-                                    <a href="/sign-up" class="text-muted"><i class="lni-user"></i> 创建新账号</a>
+                                    <a href="/register" class="text-muted"><i class="lni-user"></i> 创建新账号</a>
                                 </div>
                             </div>
                         </form>

@@ -1,4 +1,4 @@
-{{ define "backend/auth/register" }}
+{{ define "auth/register" }}
 <!DOCTYPE html>
 <html>
 
