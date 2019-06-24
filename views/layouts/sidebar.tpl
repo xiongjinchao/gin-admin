@@ -1,261 +1,54 @@
 {{ define "sidebar" }}
-    <div class="side-nav expand-lg">
-        <div class="side-nav-inner">
-            <ul class="side-nav-menu">
-                <li class="side-nav-header">
-                    <span>Navigation</span>
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element text-center">
+                        <img alt="image" class="rounded-circle" src="/public/inspinia/img/profile_small.jpg" />
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">David Williams</span>
+                            <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
+                            <li><a class="dropdown-item" href="mailbox.html">Mailbox</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
                 </li>
-                <li class="nav-item dropdown open">
-                    <a href="#" class="dropdown-toggle">
-                                    <span class="icon-holder">
-                                        <i class="lni-dashboard"></i>
-                                    </span>
-                        <span class="title">Dashboard</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li class="active">
-                            <a href="index.html">Dashboard 1</a>
-                        </li>
-                        <li>
-                            <a href="index-2.html">Dashboard 2</a>
-                        </li>
+                <li>
+                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> <span class="nav-label">系统面板</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">内容管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/admin/menu"><i class="fa fa-list-ul text-info"></i> 菜单管理</a></li>
+                        <li><a href="/admin/article"><i class="fa fa-file-text-o text-info"></i> 文章管理</a></li>
+                        <li><a href="/admin/friend-link"><i class="fa fa-link text-info"></i> 友情链接</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-cloud"></i>
-                                    </span>
-                        <span class="title">Apps</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="email.html">Email</a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="chat-app.html">Chat App</a>
-                        </li>
-                        <li>
-                            <a href="contact.html">Contact</a>
-                        </li>
+                <li>
+                    <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/admin/user"><i class="fa fa-user-o text-warning"></i> 用户管理</a></li>
+                        <li><a href="/admin/role"><i class="fa fa-github-alt text-warning"></i> 角色管理</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-layers"></i>
-                                    </span>
-                        <span class="title">UI Elements</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="alert.html">Alert</a>
-                        </li>
-                        <li>
-                            <a href="badge.html">Badge</a>
-                        </li>
-                        <li>
-                            <a href="buttons.html">Buttons</a>
-                        </li>
-                        <li>
-                            <a href="cards.html">Cards</a>
-                        </li>
-                        <li>
-                            <a href="lists.html">Lists</a>
-                        </li>
-                        <li>
-                            <a href="typography.html">Typography</a>
-                        </li>
-                    </ul>
+                <li>
+                    <a href="/logout"><i class="fa fa-power-off text-danger"></i> <span class="nav-label">退出登录 </span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-timer"></i>
-                                    </span>
-                        <span class="title">Components</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="accordion.html">Accordions</a>
-                        </li>
-                        <li>
-                            <a href="carousel.html">Carousel</a>
-                        </li>
-                        <li>
-                            <a href="dropdown.html">Dropdown</a>
-                        </li>
-                        <li>
-                            <a href="modals.html">Modals</a>
-                        </li>
-                        <li>
-                            <a href="notifications.html">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="popover.html">Popover</a>
-                        </li>
-                        <li>
-                            <a href="slider-progress.html">Progress Bars</a>
-                        </li>
-                        <li>
-                            <a href="tabs.html">Tabs</a>
-                        </li>
-                        <li>
-                            <a href="tooltips.html">Tooltips</a>
-                        </li>
-                    </ul>
+                <li class="landing_link">
+                    <a target="_blank" href="https://github.com/xiongjinchao/gin"><i class="fa fa-star"></i> <span class="nav-label">GitHub</span> <span class="label label-warning pull-right">HOT</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-package"></i>
-                                    </span>
-                        <span class="title">Icons</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="line-icons.html">Line Icons</a>
-                        </li>
-                        <li>
-                            <a href="fontawesome-icons.html">Font Awesome</a>
-                        </li>
-                        <li>
-                            <a href="material-icons.html">Material Design</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-files"></i>
-                                    </span>
-                        <span class="title">Forms</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="form-elements.html">Form Elements</a>
-                        </li>
-                        <li>
-                            <a href="form-layouts.html">Form Layouts</a>
-                        </li>
-                        <li>
-                            <a href="form-validation.html">Form Validation</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-control-panel"></i>
-                                    </span>
-                        <span class="title">Tables</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="basic-table.html">Basic Table</a>
-                        </li>
-                        <li>
-                            <a href="data-table.html">Data Table</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-pie-chart"></i>
-                                    </span>
-                        <span class="title">Charts</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="charts-morris.html">Marris Chart</a>
-                        </li>
-                        <li>
-                            <a href="chartjs.html">ChartJs</a>
-                        </li>
-                        <li>
-                            <a href="charts-flot.html">Flot Chart</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-map-marker"></i>
-                                    </span>
-                        <span class="title">Map</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="google-map.html">Google Map</a>
-                        </li>
-                        <li>
-                            <a href="vector-map.html">Vector Map</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="#">
-                                    <span class="icon-holder">
-                                        <i class="lni-files"></i>
-                                    </span>
-                        <span class="title">Pages</span>
-                        <span class="arrow">
-                                        <i class="lni-chevron-right"></i>
-                                    </span>
-                    </a>
-                    <ul class="dropdown-menu sub-down">
-                        <li>
-                            <a href="profile.html">Profile</a>
-                        </li>
-                        <li>
-                            <a href="invoice.html">Invoice</a>
-                        </li>
-                        <li>
-                            <a href="faq.html">FAQ</a>
-                        </li>
-                        <li>
-                            <a href="login.html">Login</a>
-                        </li>
-                        <li>
-                            <a href="sign-up.html">Sign Up</a>
-                        </li>
-                        <li>
-                            <a href="404.html">404</a>
-                        </li>
-                    </ul>
+                <li class="special_link">
+                    <a href="/admin/database"><i class="fa fa-database"></i> <span class="nav-label">数据库</span></a>
                 </li>
             </ul>
         </div>
-    </div>
+    </nav>
 {{ end }}

@@ -2,67 +2,68 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Inspire - Admin and Dashboard Template</title>
-    <link rel="stylesheet" type="text/css" href="/public/inspire/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/inspire/assets/fonts/line-icons.css">
-    <link rel="stylesheet" type="text/css" href="/public/inspire/assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/public/inspire/assets/css/responsive.css">
-</head>
+    <head>
 
-<body>
-<div class="wrapper-page">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-12 col-xs-12">
-                <div class="card">
-                    <div class="card-header border-bottom text-center">
-                        <h4 class="card-title">Register</h4>
-                    </div>
-                    <div class="card-body">
-                        <form class="form-horizontal m-t-20">
-                            <div class="form-group">
-                                <input class="form-control" type="email" required="" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" required="" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="password" required="" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">I accept <a href="#" class="text-muted">Terms and Conditions</a></label>
-                                </div>
-                            </div>
-                            <div class="form-group text-center m-t-20">
-                                <button class="btn btn-common btn-block" type="submit">Register</button>
-                            </div>
-                            <div class="form-group m-t-10 mb-0">
-                                <div class="text-center">
-                                    <a href="login.html" class="text-muted">Already have account?</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>INSPINIA | Register</title>
+
+        <link href="/public/inspinia/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/public/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/public/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+        <link href="/public/inspinia/css/animate.css" rel="stylesheet">
+        <link href="/public/inspinia/css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">IN+</h1>
+
             </div>
+            <h3>Register to IN+</h3>
+            <p>Create account to see it in action.</p>
+            <form class="m-t" role="form" action="/sign-up">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="手机号码" required="">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="邮箱" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> <span style="position: relative;top:2px">同意隐私政策 </span></label></div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
+
+                <p class="text-muted text-center"><small>已有账号?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="/login">登录</a>
+            </form>
+            <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
         </div>
     </div>
-</div>
-<div id="preloader">
-    <div class="loader" id="loader-1"></div>
-</div>
-<script src="/public/inspire/assets/js/jquery-min.js"></script>
-<script src="/public/inspire/assets/js/popper.min.js"></script>
-<script src="/public/inspire/assets/js/bootstrap.min.js"></script>
-<script src="/public/inspire/assets/js/jquery.app.js"></script>
-<script src="/public/inspire/assets/js/main.js"></script>
-</body>
-<!-- source http://www.scnoob.com More templates http://www.scnoob.com/moban -->
+
+    <!-- Mainly scripts -->
+    <script src="/public/inspinia/js/jquery-3.1.1.min.js"></script>
+    <script src="/public/inspinia/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="/public/inspinia/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+    </body>
 
 </html>
 {{ end }}

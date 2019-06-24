@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"html/template"
-	"net/http"
 	"time"
 )
 
@@ -46,14 +45,6 @@ func Router() *gin.Engine {
 		DisableCache: true,
 	})
 
-	// Home
-	router.GET("/", func(c *gin.Context) {
-		//c.Redirect(http.StatusFound, "/admin")
-		c.HTML(http.StatusOK, "home/index", gin.H{
-			"title": "Gin Blog",
-		})
-	})
-
 	// Login
 
 	router.GET("/login", (&controllers.Auth{}).Login)
@@ -69,8 +60,8 @@ func Router() *gin.Engine {
 	admin := router.Group("admin")
 	admin.Use((&middleware.Auth{}).CheckLogin())
 	{
-		//Admin
-		admin.GET("/", (&controllers.Home{}).Index)
+		//Admin Dashboard
+		admin.GET("dashboard", (&controllers.Home{}).Dashboard)
 
 		//User
 		admin.GET("user", (&controllers.User{}).Index)

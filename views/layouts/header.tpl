@@ -1,220 +1,124 @@
 {{ define "header" }}
-    <div class="header navbar">
-        <div class="header-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <b><img src="/public/inspire/assets/img/logo.png" alt=""></b>
-                    <span class="logo">
-                                    <img src="/public/inspire/assets/img/logo-text.png" alt="">
-                                </span>
-                </a>
+    <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                <form role="search" class="navbar-form-custom" action="search_results.html">
+                    <div class="form-group">
+                        <input type="text" placeholder="搜索..." class="form-control" name="top-search" id="top-search">
+                    </div>
+                </form>
             </div>
-            <ul class="nav-left">
-                <li>
-                    <a class="sidenav-fold-toggler" href="javascript:void(0);">
-                        <i class="lni-menu"></i>
-                    </a>
-                    <a class="sidenav-expand-toggler" href="javascript:void(0);">
-                        <i class="lni-menu"></i>
-                    </a>
+            <ul class="nav navbar-top-links navbar-right">
+                <li style="padding: 20px">
+                    <span class="m-r-sm text-muted welcome-message">欢迎，管理员</span>
                 </li>
-            </ul>
-            <ul class="nav-right">
-                <li class="search-box">
-                    <input class="form-control" type="text" placeholder="Type to search...">
-                    <i class="lni-search"></i>
-                </li>
-                <li class="massages dropdown dropdown-animated scale-left">
-                    <span class="counter">3</span>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="lni-envelope"></i>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-lg">
+                    <ul class="dropdown-menu dropdown-messages dropdown-menu-right">
                         <li>
-                            <div class="dropdown-item align-self-center">
-                                <h5><span class="badge badge-primary float-right">745</span>Messages</h5>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="/public/inspinia/img/a7.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <small class="float-right">46h ago</small>
+                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
                             </div>
                         </li>
+                        <li class="dropdown-divider"></li>
                         <li>
-                            <ul class="list-media">
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <img src="/public/inspire/assets/img/users/avatar-1.jpg" alt="">
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            Amanda Robertson
-                                                        </span>
-                                            <span class="sub-title">Dummy text of the printing and typesetting industry.</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <img src="/public/inspire/assets/img/users/avatar-2.jpg" alt="">
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            Danny Donovan
-                                                        </span>
-                                            <span class="sub-title">It is a long established fact that a reader will</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <img src="/public/inspire/assets/img/users/avatar-3.jpg" alt="">
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            Frank Handrics
-                                                        </span>
-                                            <span class="sub-title">You have 87 unread messages</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="/public/inspinia/img/a4.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="float-right text-navy">5h ago</small>
+                                    <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                </div>
+                            </div>
                         </li>
-                        <li class="check-all text-center">
-                                        <span>
-                                            <a href="#" class="text-gray">View All</a>
-                                        </span>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="/public/inspinia/img/profile.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="float-right">23h ago</small>
+                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="mailbox.html" class="dropdown-item">
+                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </li>
-                <li class="notifications dropdown dropdown-animated scale-left">
-                    <span class="counter">2</span>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="lni-alarm"></i>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-lg">
+                    <ul class="dropdown-menu dropdown-alerts">
                         <li>
-                            <h5 class="n-title text-center">
-                                <i class="lni-alarm"></i>
-                                <span>Notifications</span>
-                            </h5>
+                            <a href="mailbox.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="float-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
                         </li>
+                        <li class="dropdown-divider"></li>
                         <li>
-                            <ul class="list-media">
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <div class="icon-avatar bg-primary">
-                                                <i class="lni-envelope"></i>
-                                            </div>
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            5 new messages
-                                                        </span>
-                                            <span class="sub-title">4 min ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <div class="icon-avatar bg-success">
-                                                <i class="lni-comments-alt"></i>
-                                            </div>
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            4 new comments
-                                                        </span>
-                                            <span class="sub-title">12 min ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <div class="icon-avatar bg-info">
-                                                <i class="lni-users"></i>
-                                            </div>
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            3 Friend Requests
-                                                        </span>
-                                            <span class="sub-title">a day ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-item">
-                                    <a href="#" class="media-hover">
-                                        <div class="media-img">
-                                            <div class="icon-avatar bg-purple">
-                                                <i class="lni-comments-alt"></i>
-                                            </div>
-                                        </div>
-                                        <div class="info">
-                                                        <span class="title">
-                                                            2 new messages
-                                                        </span>
-                                            <span class="sub-title">12 min ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="profile.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="float-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
                         </li>
-                        <li class="check-all text-center">
-                                        <span>
-                                            <a href="#" class="text-gray">Check all notifications</a>
-                                        </span>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="grid_options.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="float-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html" class="dropdown-item">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </li>
-                <li class="user-profile dropdown dropdown-animated scale-left">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img class="profile-img img-fluid" src="/public/inspire/assets/img/avatar/avatar.jpg" alt="">
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i> 退出登录
                     </a>
-                    <ul class="dropdown-menu dropdown-md">
-                        <li>
-                            <ul class="list-media">
-                                <li class="list-item avatar-info">
-                                    <div class="media-img">
-                                        <img src="/public/inspire/assets/img/avatar/avatar.jpg" alt="">
-                                    </div>
-                                    <div class="info">
-                                        <span class="title text-semibold">Tomas Murray</span>
-                                        <span class="sub-title">UI/UX Desinger</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <i class="lni-cog"></i>
-                                <span>Setting</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="lni-user"></i>
-                                <span>Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="lni-envelope"></i>
-                                <span>Inbox</span>
-                                <span class="badge badge-pill badge-primary pull-right">2</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="lni-lock"></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
                 </li>
             </ul>
-        </div>
+        </nav>
     </div>
 {{ end }}
