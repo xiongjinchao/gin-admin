@@ -6,6 +6,7 @@ import (
 	"fmt"
 	db "gin/database"
 	"gin/models"
+	"github.com/jinzhu/gorm"
 	"net/http"
 
 	"github.com/gin-gonic/contrib/sessions"
@@ -42,10 +43,9 @@ func (_ *Auth) SignIn(c *gin.Context) {
 	}
 
 	user := models.User{}
-	password := (&models.User{}).GeneratePassword(auth.Password)
-	row := db.Mysql.QueryRow("SELECT `id`,`name`,`email`,`mobile`,`created_at`,`updated_at` FROM `user` WHERE mobile=? AND password=?", auth.Mobile, password)
-	err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Mobile, &user.CreatedAt, &user.UpdatedAt)
-	if err != nil {
+	auth.Password = (&models.User{}).GeneratePassword(auth.Password)
+	err := db.Mysql.Where("mobile = ? AND password = ?", auth.Mobile, auth.Password).First(&user).Error
+	if gorm.IsRecordNotFoundError(err) {
 		(&Base{}).SetFlash(c, "APP", errors.New("账号或密码错误，请重新输入"))
 		c.Redirect(http.StatusFound, "/login")
 		return
@@ -64,7 +64,7 @@ func (_ *Auth) SignIn(c *gin.Context) {
 	if err := session.Save(); err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	c.Redirect(http.StatusFound, "/admin")
+	c.Redirect(http.StatusFound, "/admin/dashboard")
 }
 
 //Register handles GET /register route

@@ -17,7 +17,7 @@
 
     <link href="/public/inspinia/css/animate.css" rel="stylesheet">
     <link href="/public/inspinia/css/style.css" rel="stylesheet">
-
+    <link href="/public/css/admin.css" rel="stylesheet">
 </head>
 
 <body>

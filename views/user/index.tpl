@@ -1,17 +1,18 @@
 {{ define "css" }}
     <link href="/public/inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 {{ end }}
+
 {{ define "content" }}
     {{/*breadcrumbs*/}}
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>用户管理</h2>
+            <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-user-o"></i> 用户管理</strong>
+                    <strong><i class="fa fa-user-o"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>
@@ -21,13 +22,13 @@
     </div>
 
     {{/*content*/}}
-    <div class="wrapper wrapper-content animated fadeInRight" style="min-height:810px;">
-        <p><a class="btn btn-primary" href="#"> <i class="fa fa-plus-circle"></i> 创建用户</a></p>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <p><a class="btn btn-primary" href="user/create"> <i class="fa fa-plus-circle"></i> 创建用户</a></p>
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>用户管理</h5>
+                        <h5>{{ .title}}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -63,7 +64,7 @@
                                 <tbody>
                                     {{ range $u := .user }}
                                         <tr class="gradeX">
-                                            <td>{{ $u.Id}}</td>
+                                            <td>{{ $u.ID}}</td>
                                             <td>{{ $u.Name}}</td>
                                             <td>{{ $u.Email}}</td>
                                             <td>{{ $u.Mobile}}</td>
@@ -91,6 +92,7 @@
         </div>
     </div>
 {{ end }}
+
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
 

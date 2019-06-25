@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	SESSION_ID = "GOSESSID"
-	SECRET_KEY = "e63e42954d32a1d73568659fea764f4ad71ef534"
+	SessionID  = "GOSESSID"
+	SessionKey = "e63e42954d32a1d73568659fea764f4ad71ef534"
 )
 
 //Router defined all routers
@@ -20,10 +20,10 @@ func Router() *gin.Engine {
 	router := gin.Default()
 
 	// SESSION with cookie
-	store := sessions.NewCookieStore([]byte(SECRET_KEY))
+	store := sessions.NewCookieStore([]byte(SessionID))
 	// SESSION with redis
 	// store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
-	router.Use(sessions.Sessions(SESSION_ID, store))
+	router.Use(sessions.Sessions(SessionKey, store))
 
 	router.Static("/public", "./public")
 	router.StaticFile("/favicon.ico", "./public/image/favicon.ico")
@@ -65,6 +65,7 @@ func Router() *gin.Engine {
 
 		//User
 		admin.GET("user", (&controllers.User{}).Index)
+
 		admin.GET("user/create", (&controllers.User{}).Create)
 		admin.POST("user", (&controllers.User{}).Store)
 		admin.GET("user/edit/:id", (&controllers.User{}).Edit)

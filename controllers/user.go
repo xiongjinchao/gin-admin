@@ -2,26 +2,28 @@ package controllers
 
 import (
 	"fmt"
+	db "gin/database"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 type User struct{}
 
 // Index handles GET /admin/user route
 func (_ *User) Index(c *gin.Context) {
-
-	u := models.User{}
-	user, err := u.GetUserList()
+	flash, err := (&Base{}).GetFlash(c)
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
+	var user []models.User
+	db.Mysql.Find(&user)
+
 	c.HTML(http.StatusOK, "user/index", gin.H{
-		"title": "user list",
+		"title": "用户管理",
 		"user":  user,
+		"flash": flash,
 	})
 }
 
@@ -41,20 +43,27 @@ func (_ *User) Create(c *gin.Context) {
 
 // Store handles POST /admin/user route
 func (_ *User) Store(c *gin.Context) {
-	u := models.User{
+
+	user := models.User{
 		Name:     c.PostForm("name"),
 		Email:    c.PostForm("email"),
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	id, err := u.CreateUser()
+	user.Password = user.GeneratePassword(user.Password)
+
+	if ok := (&Base{}).Validate(c, user); ok == false {
+		c.Redirect(http.StatusFound, "//admin/user/create")
+		return
+	}
+
+	err := db.Mysql.Create(&user).Error
 	if err != nil {
 		(&Base{}).SetFlash(c, "APP", err)
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
-	//id := (*models.User).CreateUser(&u)
-	uid := strconv.FormatInt(id, 10)
+	uid := string(user.ID)
 	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
 }
 
@@ -73,30 +82,27 @@ func (_ *User) Edit(c *gin.Context) {
 
 func (_ *User) Update(c *gin.Context) {
 	uid := c.Param("id")
-	id, _ := strconv.ParseInt(uid, 10, 64)
-
-	u := models.User{
-		Id:       id,
+	user := models.User{
 		Name:     c.PostForm("name"),
 		Email:    c.PostForm("email"),
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	if _, err := u.UpdateUser(); err != nil {
+	err := db.Mysql.Where("id = ?", uid).Updates(user).Error
+	if err != nil {
 		(&Base{}).SetFlash(c, "APP", err)
 		c.Redirect(http.StatusFound, "/admin/user/edit"+uid)
 		return
 	}
-	//id = (*models.User).UpdateUser(&u)
 	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
 }
 
 func (_ *User) Show(c *gin.Context) {
 	uid := c.Param("id")
-	id, _ := strconv.ParseInt(uid, 10, 64)
+	//id, _ := strconv.ParseInt(uid, 10, 64)
 
-	u := models.User{}
-	user, err := u.GetUser(id)
+	user := models.User{}
+	err := db.Mysql.First(&user, uid).Error
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
@@ -109,9 +115,9 @@ func (_ *User) Show(c *gin.Context) {
 
 func (_ *User) Destroy(c *gin.Context) {
 	id := c.Param("id")
-
-	u := models.User{}
-	if _, err := u.DeleteUser(id); err == nil {
+	user := models.User{}
+	err := db.Mysql.Where("id = ?", id).Delete(&user).Error
+	if err == nil {
 		c.Redirect(301, "/")
 	}
 }
