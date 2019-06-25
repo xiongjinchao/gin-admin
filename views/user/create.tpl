@@ -1,3 +1,6 @@
+{{ define "css" }}
+{{ end }}
+
 {{ define "content" }}
     <html>
     <h1>
@@ -13,4 +16,7 @@
         <button type="submit">提交</button>
     </form>
     </html>
+{{ end }}
+
+{{ define "js" }}
 {{ end }}
