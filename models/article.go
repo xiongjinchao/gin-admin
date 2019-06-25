@@ -6,7 +6,7 @@ import (
 
 type Article struct {
 	gorm.Model
-	Title          string `json:"name" form:"title"`
+	Title          string `json:"title" form:"title"`
 	CategoryID     int64  `json:"category_id" form:"category_id"`
 	Content        string `json:"content" form:"content"`
 	Audit          int64  `json:"audit" form:"audit"`

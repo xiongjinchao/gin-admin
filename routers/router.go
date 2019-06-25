@@ -75,6 +75,9 @@ func Router() *gin.Engine {
 
 		//Article
 		admin.GET("article", (&controllers.Article{}).Index)
+
+		//Article Category
+		admin.GET("article-category", (&controllers.ArticleCategory{}).Index)
 	}
 
 	return router
