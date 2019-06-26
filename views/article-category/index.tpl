@@ -58,6 +58,7 @@
                                     <th>标签</th>
                                     <th>父级</th>
                                     <th>深度</th>
+                                    <th>排序</th>
                                     <th>审核</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
@@ -71,6 +72,7 @@
                                         <td>{{ $c.Tag}}</td>
                                         <td>{{ $c.Parent}}</td>
                                         <td>{{ $c.Depth}}</td>
+                                        <td>{{ $c.Sort}}</td>
                                         <td>{{ $c.Audit}}</td>
                                         <td class="center">{{ $c.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
                                         <td class="center">{{ $c.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
@@ -84,6 +86,7 @@
                                     <th>标签</th>
                                     <th>父级</th>
                                     <th>深度</th>
+                                    <th>排序</th>
                                     <th>审核</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
@@ -108,6 +111,7 @@
     <script>
         $(document).ready(function() {
             $('.dataTables-example').DataTable({
+                bSort: false,
                 pageLength: 25,
                 responsive: true,
                 dom: '<"html5buttons"B>lTfgitp',

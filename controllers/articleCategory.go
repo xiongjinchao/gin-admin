@@ -19,7 +19,7 @@ func (_ *ArticleCategory) Index(c *gin.Context) {
 	}
 
 	var ArticleCategory []models.ArticleCategory
-	db.Mysql.Find(&ArticleCategory)
+	db.Mysql.Order("depth asc, sort asc").Find(&ArticleCategory)
 
 	c.HTML(http.StatusOK, "article-category/index", gin.H{
 		"title":           "文章分类",

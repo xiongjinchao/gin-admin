@@ -286,16 +286,19 @@ function WinMove() {
 
 function setNavigation() {
     var path = window.location.pathname;
+    var pathUri = path.split('/');
     $("ul.metismenu a").each(function() {
         var href = $(this).attr('href');
-        if (path.substring(0, href.length) === href) {
+        var hrefUri = href.split('/');
+        if (path.substring(0, href.length) === href && pathUri[2] == hrefUri[2]) {
             $(this).closest('li').addClass('active');
         }
     });
 
     $("ul.metismenu .nav-second-level a").each(function() {
         var href = $(this).attr('href');
-        if (path.substring(0, href.length) === href) {
+        var hrefUri = href.split('/');
+        if (path.substring(0, href.length) === href && pathUri[2] == hrefUri[2]) {
             $(this).parent().parent().closest('li').addClass('active');
             $(this).closest('ul').addClass('in');
         }
