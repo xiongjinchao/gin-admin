@@ -36,7 +36,7 @@ func (_ *User) Create(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "user/create", gin.H{
-		"title": "user create",
+		"title": "创建用户",
 		"flash": flash,
 	})
 }

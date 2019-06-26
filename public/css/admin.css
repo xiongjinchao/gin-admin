@@ -1,3 +1,9 @@
 .wrapper.wrapper-content{
     min-height:809px;
 }
+.table.dataTables tr td{
+     vertical-align:middle
+ }
+ .dataTables_info{
+     text-align: right;
+ }

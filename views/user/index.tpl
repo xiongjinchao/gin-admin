@@ -11,6 +11,9 @@
                 <li class="breadcrumb-item">
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
+                <li class="breadcrumb-item">
+                    <i class="fa fa-gears"></i> 系统设置
+                </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-user-o"></i> {{ .title}}</strong>
                 </li>
@@ -37,10 +40,8 @@
                                 <i class="fa fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
+                                <li><a href="#">选项 1</a></li>
+                                <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
                                 <i class="fa fa-times"></i>
@@ -50,7 +51,7 @@
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                     <tr>
                                         <th>用户编号</th>
@@ -101,7 +102,10 @@
 
     <script>
         $(document).ready(function() {
-            $('.dataTables-example').DataTable({
+            $('.dataTables').DataTable({
+                language:{
+                    url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
+                },
                 pageLength: 25,
                 responsive: true,
                 dom: '<"html5buttons"B>lTfgitp',

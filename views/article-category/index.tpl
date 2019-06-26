@@ -11,6 +11,9 @@
                 <li class="breadcrumb-item">
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
+                <li class="breadcrumb-item">
+                    <i class="fa fa-th-large"></i> 内容管理
+                </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-file-text-o"></i> {{ .title}}</strong>
                 </li>
@@ -37,10 +40,8 @@
                                 <i class="fa fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
+                                <li><a href="#">选项 1</a></li>
+                                <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
                                 <i class="fa fa-times"></i>
@@ -50,7 +51,7 @@
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                 <tr>
                                     <th>编号</th>
@@ -62,6 +63,7 @@
                                     <th>审核</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -76,6 +78,11 @@
                                         <td>{{ $c.Audit}}</td>
                                         <td class="center">{{ $c.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
                                         <td class="center">{{ $c.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a>
+                                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a>
+                                            <a href="#" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>
+                                        </td>
                                     </tr>
                                 {{ end }}
                                 </tbody>
@@ -90,6 +97,7 @@
                                     <th>审核</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
+                                    <th>操作</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -110,8 +118,11 @@
 
     <script>
         $(document).ready(function() {
-            $('.dataTables-example').DataTable({
-                bSort: false,
+            $('.dataTables').DataTable({
+                language:{
+                    url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
+                },
+                ordering: false,
                 pageLength: 25,
                 responsive: true,
                 dom: '<"html5buttons"B>lTfgitp',

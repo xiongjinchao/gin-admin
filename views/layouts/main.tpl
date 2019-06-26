@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>INSPINIA | Dashboard</title>
+    <title>{{ .title }} | GinBlog后台</title>
 
     <link href="/public/inspinia/css/bootstrap.min.css" rel="stylesheet">
     <link href="/public/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -25,7 +25,7 @@
     {{ template "sidebar"}}
 
     <div id="page-wrapper" class="gray-bg dashbard-1">
-        {{ template "header"}}
+        {{ template "header" }}
         {{ template "content" .}}
         {{ template "footer" }}
 

@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>INSPINIA | Register</title>
+        <title>GinBlog后台 | Register</title>
 
         <link href="/public/inspinia/css/bootstrap.min.css" rel="stylesheet">
         <link href="/public/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -23,10 +23,10 @@
         <div>
             <div>
 
-                <h1 class="logo-name">IN+</h1>
+                <h1 class="logo-name">GIN</h1>
 
             </div>
-            <h3>Register to IN+</h3>
+            <h3>Register to GIN</h3>
             <p>Create account to see it in action.</p>
             <form class="m-t" role="form" action="/sign-up">
                 <div class="form-group">
@@ -46,7 +46,7 @@
                 <p class="text-muted text-center"><small>已有账号?</small></p>
                 <a class="btn btn-sm btn-white btn-block" href="/login">登录</a>
             </form>
-            <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+            <p class="m-t"> <small>gin blog &copy; 2014</small> </p>
         </div>
     </div>
 
