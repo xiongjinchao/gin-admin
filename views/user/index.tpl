@@ -60,6 +60,7 @@
                                         <th>手机号码</th>
                                         <th>创建时间</th>
                                         <th>更新时间</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,6 +72,11 @@
                                             <td>{{ $u.Mobile}}</td>
                                             <td class="center">{{ $u.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
                                             <td class="center">{{ $u.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                            <td>
+                                                <a href="/admin/user/show/{{ $u.ID}}" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a>
+                                                <a href="/admin/user/edit/{{ $u.ID}}" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a>
+                                                <a href="/admin/user/delete/{{ $u.ID}}" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>
+                                            </td>
                                         </tr>
                                     {{ end }}
                                 </tbody>
@@ -82,6 +88,7 @@
                                         <th>手机号码</th>
                                         <th>创建时间</th>
                                         <th>更新时间</th>
+                                        <th>操作</th>
                                     </tr>
                                 </tfoot>
                             </table>

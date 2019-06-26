@@ -69,18 +69,26 @@ func (_ *User) Store(c *gin.Context) {
 
 func (_ *User) Edit(c *gin.Context) {
 
+	uid := c.Param("id")
 	flash, err := (&Base{}).GetFlash(c)
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
+	user := models.User{}
+	if err := db.Mysql.First(&user, uid).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
 	c.HTML(http.StatusOK, "user/edit", gin.H{
-		"title": "user edit",
+		"title": "编辑用户",
+		"user":  user,
 		"flash": flash,
 	})
 }
 
 func (_ *User) Update(c *gin.Context) {
+
 	uid := c.Param("id")
 	user := models.User{
 		Name:     c.PostForm("name"),
@@ -95,6 +103,7 @@ func (_ *User) Update(c *gin.Context) {
 		return
 	}
 	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
+
 }
 
 func (_ *User) Show(c *gin.Context) {
@@ -102,13 +111,12 @@ func (_ *User) Show(c *gin.Context) {
 	//id, _ := strconv.ParseInt(uid, 10, 64)
 
 	user := models.User{}
-	err := db.Mysql.First(&user, uid).Error
-	if err != nil {
+	if err := db.Mysql.First(&user, uid).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
 	c.HTML(http.StatusOK, "user/show", gin.H{
-		"title": "user show",
+		"title": "查看用户",
 		"user":  user,
 	})
 }
