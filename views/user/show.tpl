@@ -60,7 +60,7 @@
                                 <tr><th>标记</th><td>{{ .user.RememberToken}}</td></tr>
                                 <tr><th>创建时间</th><td>{{ .user.CreatedAt.Format "2006-01-02 15:04:05" }}</td></tr>
                                 <tr><th>更新时间</th><td>{{ .user.UpdatedAt.Format "2006-01-02 15:04:05" }}</td></tr>
-                                <tr><th>删除时间</th><td>{{ .user.DeleteAt.Format "2006-01-02 15:04:05" }}</td></tr>
+                                <tr><th>删除时间</th><td>{{ .user.DeletedAt.Format "2006-01-02 15:04:05" }}</td></tr>
                             </tbody>
                         </table>
                     </div>
