@@ -1,6 +1,9 @@
 .wrapper.wrapper-content{
     min-height:809px;
 }
+.table.dataTables{
+    border-collapse:collapse;border-spacing:0;
+}
 .table.dataTables tr td{
      vertical-align:middle
  }
