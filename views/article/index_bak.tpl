@@ -63,6 +63,23 @@
                                     <th>操作</th>
                                 </tr>
                                 </thead>
+                                <tbody>
+                                {{ range $a := .article }}
+                                    <tr class="gradeX">
+                                        <td>{{ $a.ID}}</td>
+                                        <td>{{ $a.Title}}</td>
+                                        <td>{{ $a.CategoryID}}</td>
+                                        <td>{{ $a.UserID}}</td>
+                                        <td class="center">{{ $a.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                        <td class="center">{{ $a.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a>
+                                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a>
+                                            <a href="#" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>
+                                        </td>
+                                    </tr>
+                                {{ end }}
+                                </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>编号</th>
@@ -98,20 +115,6 @@
                 },
                 pageLength: 25,
                 responsive: true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "/admin/article-data",
-                    type: "POST"
-                },
-                columns: [
-                    { "data": "id" },
-                    { "data": "title" },
-                    { "data": "category_id" },
-                    { "data": "user_id" },
-                    { "data": "created_at" },
-                    { "data": "updated_at" }
-                ],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy' },

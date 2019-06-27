@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"html/template"
+	"log"
 	"time"
 )
 
@@ -75,9 +76,20 @@ func Router() *gin.Engine {
 
 		//Article
 		admin.GET("article", (&controllers.Article{}).Index)
+		admin.GET("article-data", (&controllers.Article{}).Data)
 
 		//Article Category
 		admin.GET("article-category", (&controllers.ArticleCategory{}).Index)
+
+		//Goroutines
+		admin.GET("goroutines", func(c *gin.Context) {
+			go func() {
+				time.Sleep(10 * time.Second)
+				log.Println("Done2! in path " + c.Request.URL.Path)
+			}()
+			time.Sleep(5 * time.Second)
+			log.Println("Done1! in path " + c.Request.URL.Path)
+		})
 	}
 
 	return router

@@ -16,7 +16,6 @@ type Base struct{}
 
 // set flash data
 func (_ *Base) SetFlash(c *gin.Context, k string, err error) {
-	_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	session := sessions.Default(c)
 	session.AddFlash(k + "::" + err.Error())
 	err = session.Save()

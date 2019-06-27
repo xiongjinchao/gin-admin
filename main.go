@@ -20,7 +20,9 @@ func main() {
 	if db.Mysql, err = gorm.Open("mysql", db.MysqlUsername+":"+db.MysqlPassword+"@tcp("+db.MysqlHost+":"+db.MysqlPort+")/"+db.MysqlDatabase+"?charset=utf8&parseTime=true&loc=Local"); err != nil {
 		panic(err)
 	}
-	defer db.Mysql.Close()
+	defer func() {
+		_ = db.Mysql.Close()
+	}()
 
 	// Redis
 	db.Redis = redis.NewClient(&redis.Options{
