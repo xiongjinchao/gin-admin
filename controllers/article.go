@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	db "gin/database"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"reflect"
 )
 
 type Article struct{}
@@ -31,27 +31,34 @@ func (_ *Article) Index(c *gin.Context) {
 
 func (_ *Article) Data(c *gin.Context) {
 
-	var article []models.Article
-	db.Mysql.Find(&article)
+	var article []struct {
+		ID         int    `json:"id"`
+		Title      string `json:"title"`
+		CategoryID int    `json:"category_id"`
+		UserID     int    `json:"user_id"`
+		CreatedAt  string `json:"created_at"`
+		UpdatedAt  string `json:"updated_at"`
+	}
+	db.Mysql.Table("article").Limit(10).Scan(&article)
 
-	type DataTable struct {
-		draw            int64
-		recordsTotal    int64
-		recordsFiltered int64
-		data            []models.Article
-	}
+	total := 0
+	db.Mysql.Model(&models.Article{}).Count(&total)
 
-	result := DataTable{
-		draw:            1,
-		recordsTotal:    100,
-		recordsFiltered: 80,
-		data:            article,
+	result := make(map[string]interface{})
+	result["draw"] = 1
+	result["recordsTotal"] = total
+	result["recordsFiltered"] = len(article)
+
+	data := make([]map[string]interface{}, 0)
+	for _, v := range article {
+		typ := reflect.TypeOf(v)
+		val := reflect.ValueOf(v)
+		item := make(map[string]interface{})
+		for i := 0; i < typ.NumField(); i++ {
+			item[typ.Field(i).Tag.Get("json")] = val.Field(i).Interface()
+		}
+		data = append(data, item)
 	}
-	fmt.Println(result)
-	data2, err := json.Marshal(result)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
-	fmt.Println(string(data2))
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "message": "ok", "data": result})
+	result["data"] = data
+	c.JSON(http.StatusOK, result)
 }

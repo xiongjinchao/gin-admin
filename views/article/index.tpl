@@ -102,15 +102,16 @@
                 serverSide: true,
                 ajax: {
                     url: "/admin/article-data",
-                    type: "POST"
+                    type: "GET"
                 },
                 columns: [
-                    { "data": "id" },
+                    { "data": "ID" },
                     { "data": "title" },
                     { "data": "category_id" },
                     { "data": "user_id" },
-                    { "data": "created_at" },
-                    { "data": "updated_at" }
+                    { "data": "CreatedAt" },
+                    { "data": "UpdatedAt" },
+                    { "data": "操作" }
                 ],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
