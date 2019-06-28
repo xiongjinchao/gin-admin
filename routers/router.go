@@ -1,19 +1,14 @@
 package routers
 
 import (
+	"gin/config"
 	"gin/controllers"
 	"gin/middleware"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"html/template"
-	"log"
 	"time"
-)
-
-const (
-	SessionID  = "GOSESSID"
-	SessionKey = "e63e42954d32a1d73568659fea764f4ad71ef534"
 )
 
 //Router defined all routers
@@ -21,10 +16,10 @@ func Router() *gin.Engine {
 	router := gin.Default()
 
 	// SESSION with cookie
-	store := sessions.NewCookieStore([]byte(SessionID))
+	store := sessions.NewCookieStore([]byte(config.Setting["session"]["id"]))
 	// SESSION with redis
 	// store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
-	router.Use(sessions.Sessions(SessionKey, store))
+	router.Use(sessions.Sessions(config.Setting["session"]["key"], store))
 
 	router.Static("/public", "./public")
 	router.StaticFile("/favicon.ico", "./public/image/favicon.ico")
@@ -83,12 +78,10 @@ func Router() *gin.Engine {
 
 		//Goroutines
 		admin.GET("goroutines", func(c *gin.Context) {
-			go func() {
-				time.Sleep(10 * time.Second)
-				log.Println("Done2! in path " + c.Request.URL.Path)
-			}()
-			time.Sleep(5 * time.Second)
-			log.Println("Done1! in path " + c.Request.URL.Path)
+			//go func() {
+			//	time.Sleep(10 * time.Second)
+			//	log.Println("Done2! in path " + c.Request.URL.Path)
+			//}()
 		})
 	}
 
