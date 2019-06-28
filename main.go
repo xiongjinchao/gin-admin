@@ -13,7 +13,7 @@ import (
 
 func main() {
 	// Debug Mode
-	gin.SetMode(config.Setting["app"]["Model"])
+	gin.SetMode(config.Setting["app"]["model"])
 
 	// Mysql
 	var err error
