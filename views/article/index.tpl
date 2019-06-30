@@ -93,6 +93,7 @@
     <script>
         $(document).ready(function() {
             $('.dataTables').DataTable({
+                autoWidth: false,
                 language:{
                     url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
                 },
@@ -101,17 +102,30 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "/admin/article-data",
+                    url: "/admin/article/data",
                     type: "GET"
                 },
                 columns: [
-                    { "data": "ID" },
+                    { "data": "id" },
                     { "data": "title" },
-                    { "data": "category_id" },
-                    { "data": "user_id" },
-                    { "data": "CreatedAt" },
-                    { "data": "UpdatedAt" },
-                    { "data": "操作" }
+                    { "data": "article_category.name" },
+                    { "data": "user.name" },
+                    { "data": "created_at", "render":
+                        function(data, type, row, meta){
+                            return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    { "data": "updated_at", "render":
+                        function(data, type, row, meta){
+                            return moment(row.updated_at).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    { "data": null, "render": function(data, type, row, meta){
+                            return '<a href="/admin/article/show/'+row.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/article/edit/'+row.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/article/delete/'+row.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                        }
+                    }
                 ],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [

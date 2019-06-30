@@ -66,26 +66,6 @@
                                     <th>操作</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                {{ range $c := .articleCategory }}
-                                    <tr class="gradeX">
-                                        <td>{{ $c.ID}}</td>
-                                        <td>{{ $c.Name}}</td>
-                                        <td>{{ $c.Tag}}</td>
-                                        <td>{{ $c.Parent}}</td>
-                                        <td>{{ $c.Depth}}</td>
-                                        <td>{{ $c.Sort}}</td>
-                                        <td>{{ $c.Audit}}</td>
-                                        <td class="center">{{ $c.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                        <td class="center">{{ $c.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                        <td>
-                                            <a href="#" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a>
-                                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a>
-                                            <a href="#" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>
-                                        </td>
-                                    </tr>
-                                {{ end }}
-                                </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>编号</th>
@@ -119,15 +99,47 @@
     <script>
         $(document).ready(function() {
             $('.dataTables').DataTable({
+                autoWidth: false,
                 language:{
                     url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
                 },
                 ordering: false,
                 pageLength: 25,
                 responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "/admin/article-category/data",
+                    type: "GET"
+                },
+                columns: [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "tag" },
+                    { "data": "parent" },
+                    { "data": "depth" },
+                    { "data": "sort" },
+                    { "data": "audit" },
+                    { "data": "created_at", "render":
+                        function(data, type, row, meta){
+                            return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    { "data": "updated_at", "render":
+                        function(data, type, row, meta){
+                            return moment(row.updated_at).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    { "data": null, "render": function(data, type, row, meta){
+                        return '<a href="/admin/article-category/show/'+row.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/article-category/edit/'+row.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/article-category/delete/'+row.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                        }
+                    }
+                ],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy' },
+                    { extend: 'copy'},
                     { extend: 'csv' },
                     { extend: 'excel', title: 'ExampleFile' },
                     { extend: 'pdf', title: 'ExampleFile' },

@@ -6,7 +6,6 @@ import (
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"reflect"
 )
 
 type Article struct{}
@@ -19,46 +18,59 @@ func (_ *Article) Index(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	var article []models.Article
-	db.Mysql.Find(&article)
-
 	c.HTML(http.StatusOK, "article/index", gin.H{
-		"title":   "文章管理",
-		"article": article,
-		"flash":   flash,
+		"title": "文章管理",
+		"flash": flash,
 	})
 }
 
 func (_ *Article) Data(c *gin.Context) {
 
-	var article []struct {
-		ID         int    `json:"id"`
-		Title      string `json:"title"`
-		CategoryID int    `json:"category_id"`
-		UserID     int    `json:"user_id"`
-		CreatedAt  string `json:"created_at"`
-		UpdatedAt  string `json:"updated_at"`
-	}
-	db.Mysql.Table("article").Limit(10).Scan(&article)
+	var article []models.Article
 
+	query := db.Mysql.Model(&models.Article{})
+
+	search := c.Query("search[value]")
+	if search != "" {
+		query = query.Where("id = ?", search).
+			Or("title LIKE ?", "%"+search+"%").
+			Or("content LIKE ?", "%"+search+"%")
+	}
 	total := 0
-	db.Mysql.Model(&models.Article{}).Count(&total)
+	query.Count(&total)
 
-	result := make(map[string]interface{})
-	result["draw"] = 1
-	result["recordsTotal"] = total
-	result["recordsFiltered"] = len(article)
+	order := c.Query("order[0][column]")
+	sort := c.Query("order[0][dir]")
+	query = query.Offset(c.Query("start")).Limit(c.Query("length"))
 
-	data := make([]map[string]interface{}, 0)
-	for _, v := range article {
-		typ := reflect.TypeOf(v)
-		val := reflect.ValueOf(v)
-		item := make(map[string]interface{})
-		for i := 0; i < typ.NumField(); i++ {
-			item[typ.Field(i).Tag.Get("json")] = val.Field(i).Interface()
-		}
-		data = append(data, item)
+	switch order {
+	case "1":
+		query = query.Order("title " + sort)
+	case "2":
+		query = query.Order("category_id " + sort)
+	case "3":
+		query = query.Order("user_id " + sort)
+	case "4":
+		query = query.Order("created_at " + sort)
+	case "5":
+		query = query.Order("updated_at " + sort)
+	default:
+		query = query.Order("id " + sort)
 	}
-	result["data"] = data
-	c.JSON(http.StatusOK, result)
+
+	err := query.Scan(&article).Error
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	for i, _ := range article {
+		db.Mysql.Model(article[i]).Related(&article[i].ArticleCategory, "CategoryID")
+		db.Mysql.Model(article[i]).Related(&article[i].User, "UserID")
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"draw":            c.Query("draw"),
+		"recordsTotal":    len(article),
+		"recordsFiltered": total,
+		"data":            article,
+	})
 }

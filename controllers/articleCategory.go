@@ -27,3 +27,32 @@ func (_ *ArticleCategory) Index(c *gin.Context) {
 		"flash":           flash,
 	})
 }
+
+func (_ *ArticleCategory) Data(c *gin.Context) {
+
+	var articleCategory []models.ArticleCategory
+
+	query := db.Mysql.Model(&models.ArticleCategory{})
+
+	search := c.Query("search[value]")
+	if search != "" {
+		query = query.Where("id = ?", search).
+			Or("name LIKE ?", "%"+search+"%").
+			Or("tag LIKE ?", "%"+search+"%")
+	}
+	total := 0
+	query.Count(&total)
+	query = query.Offset(c.Query("start")).Limit(c.Query("length"))
+
+	err := query.Scan(&articleCategory).Error
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"draw":            c.Query("draw"),
+		"recordsTotal":    len(articleCategory),
+		"recordsFiltered": total,
+		"data":            articleCategory,
+	})
+}

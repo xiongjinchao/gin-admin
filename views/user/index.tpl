@@ -63,23 +63,6 @@
                                         <th>操作</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {{ range $u := .user }}
-                                        <tr class="gradeX">
-                                            <td>{{ $u.ID}}</td>
-                                            <td>{{ $u.Name}}</td>
-                                            <td>{{ $u.Email}}</td>
-                                            <td>{{ $u.Mobile}}</td>
-                                            <td class="center">{{ $u.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                            <td class="center">{{ $u.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                            <td>
-                                                <a href="/admin/user/show/{{ $u.ID}}" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a>
-                                                <a href="/admin/user/edit/{{ $u.ID}}" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a>
-                                                <a href="/admin/user/delete/{{ $u.ID}}" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>
-                                            </td>
-                                        </tr>
-                                    {{ end }}
-                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>用户编号</th>
@@ -110,11 +93,41 @@
     <script>
         $(document).ready(function() {
             $('.dataTables').DataTable({
+                autoWidth: false,
                 language:{
                     url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
                 },
                 pageLength: 25,
                 responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "/admin/user/data",
+                    type: "GET"
+                },
+                columns: [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "email" },
+                    { "data": "mobile" },
+                    { "data": "created_at", "render":
+                        function(data, type, row, meta){
+                            return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    { "data": "updated_at", "render":
+                        function(data, type, row, meta){
+                            return moment(row.updated_at).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    { "data": null, "render":
+                        function(data, type, row, meta){
+                            return '<a href="/admin/user/show/'+row.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                                '<a href="/admin/user/edit/'+row.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                                '<a href="/admin/user/delete/'+row.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                        }
+                    }
+                ],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy' },

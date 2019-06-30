@@ -456,6 +456,7 @@
 <script src="/public/inspinia/js/bootstrap.min.js"></script>
 <script src="/public/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/public/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/public/inspinia/js/plugins/fullcalendar/moment.min.js"></script>
 
 <script src="/public/inspinia/js/inspinia.js"></script>
 <script src="/public/inspinia/js/plugins/pace/pace.min.js"></script>

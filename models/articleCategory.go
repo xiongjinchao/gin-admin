@@ -1,11 +1,7 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type ArticleCategory struct {
-	gorm.Model
+	Base
 	Name           string `json:"name" form:"name"`
 	Tag            string `json:"tag" form:"tag"`
 	Parent         int64  `json:"parent" form:"parent"`
