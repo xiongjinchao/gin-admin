@@ -61,9 +61,8 @@ func Router() *gin.Engine {
 
 		//User
 		admin.GET("user", (&controllers.User{}).Index)
-
-		admin.GET("user/create", (&controllers.User{}).Create)
 		admin.GET("user/data", (&controllers.User{}).Data)
+		admin.GET("user/create", (&controllers.User{}).Create)
 		admin.POST("user", (&controllers.User{}).Store)
 		admin.GET("user/edit/:id", (&controllers.User{}).Edit)
 		admin.PUT("user/update/:id", (&controllers.User{}).Update)
@@ -73,6 +72,12 @@ func Router() *gin.Engine {
 		//Article
 		admin.GET("article", (&controllers.Article{}).Index)
 		admin.GET("article/data", (&controllers.Article{}).Data)
+		admin.GET("article/create", (&controllers.Article{}).Create)
+		admin.POST("article", (&controllers.Article{}).Store)
+		admin.GET("article/edit/:id", (&controllers.Article{}).Edit)
+		admin.PUT("article/update/:id", (&controllers.Article{}).Update)
+		admin.GET("article/show/:id", (&controllers.Article{}).Show)
+		admin.DELETE("article/delete/:id", (&controllers.Article{}).Destroy)
 
 		//Article Category
 		admin.GET("article-category", (&controllers.ArticleCategory{}).Index)

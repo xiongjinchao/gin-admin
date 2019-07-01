@@ -24,6 +24,7 @@ func (_ *Article) Index(c *gin.Context) {
 	})
 }
 
+// Datatable
 func (_ *Article) Data(c *gin.Context) {
 
 	var article []models.Article
@@ -49,7 +50,7 @@ func (_ *Article) Data(c *gin.Context) {
 	case "2":
 		query = query.Order("category_id " + sort)
 	case "3":
-		query = query.Order("user_id " + sort)
+		query = query.Order("article_id " + sort)
 	case "4":
 		query = query.Order("created_at " + sort)
 	case "5":
@@ -73,4 +74,109 @@ func (_ *Article) Data(c *gin.Context) {
 		"recordsFiltered": total,
 		"data":            article,
 	})
+}
+
+// Create handles GET /admin/article/create route
+func (_ *Article) Create(c *gin.Context) {
+
+	flash, err := (&Base{}).GetFlash(c)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	c.HTML(http.StatusOK, "article/create", gin.H{
+		"title": "创建文章",
+		"flash": flash,
+	})
+}
+
+// Store handles POST /admin/article route
+func (_ *Article) Store(c *gin.Context) {
+	/*
+		article := models.Article{
+			Name:     c.PostForm("name"),
+			Email:    c.PostForm("email"),
+			Mobile:   c.PostForm("mobile"),
+			Password: c.PostForm("password"),
+		}
+		article.Password = article.GeneratePassword(article.Password)
+
+		if ok := (&Base{}).Validate(c, article); ok == false {
+			c.Redirect(http.StatusFound, "//admin/article/create")
+			return
+		}
+
+		err := db.Mysql.Create(&article).Error
+		if err != nil {
+			(&Base{}).SetFlash(c, "APP", err)
+			c.Redirect(http.StatusFound, "/admin/article/create")
+			return
+		}
+		id := string(article.ID)
+		c.Redirect(http.StatusFound, "/admin/article/show/"+id)
+	*/
+}
+
+func (_ *Article) Edit(c *gin.Context) {
+
+	id := c.Param("id")
+	flash, err := (&Base{}).GetFlash(c)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	article := models.Article{}
+	if err := db.Mysql.First(&article, id).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	c.HTML(http.StatusOK, "article/edit", gin.H{
+		"title":   "编辑文章",
+		"article": article,
+		"flash":   flash,
+	})
+}
+
+func (_ *Article) Update(c *gin.Context) {
+
+	/*
+		id := c.Param("id")
+		article := models.Article{
+			Name:     c.PostForm("name"),
+			Email:    c.PostForm("email"),
+			Mobile:   c.PostForm("mobile"),
+			Password: c.PostForm("password"),
+		}
+		err := db.Mysql.Where("id = ?", id).Updates(article).Error
+		if err != nil {
+			(&Base{}).SetFlash(c, "APP", err)
+			c.Redirect(http.StatusFound, "/admin/article/edit"+id)
+			return
+		}
+		c.Redirect(http.StatusFound, "/admin/article/show/"+id)
+	*/
+
+}
+
+func (_ *Article) Show(c *gin.Context) {
+	id := c.Param("id")
+
+	article := models.Article{}
+	if err := db.Mysql.First(&article, id).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	c.HTML(http.StatusOK, "article/show", gin.H{
+		"title":   "查看文章",
+		"article": article,
+	})
+}
+
+func (_ *Article) Destroy(c *gin.Context) {
+	id := c.Param("id")
+	article := models.Article{}
+	err := db.Mysql.Where("id = ?", id).Delete(&article).Error
+	if err == nil {
+		c.Redirect(301, "/admin/article")
+	}
 }

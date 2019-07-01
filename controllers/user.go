@@ -111,20 +111,20 @@ func (_ *User) Store(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
-	uid := string(user.ID)
-	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
+	id := string(user.ID)
+	c.Redirect(http.StatusFound, "/admin/user/show/"+id)
 }
 
 func (_ *User) Edit(c *gin.Context) {
 
-	uid := c.Param("id")
+	id := c.Param("id")
 	flash, err := (&Base{}).GetFlash(c)
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
 	user := models.User{}
-	if err := db.Mysql.First(&user, uid).Error; err != nil {
+	if err := db.Mysql.First(&user, id).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
@@ -137,28 +137,28 @@ func (_ *User) Edit(c *gin.Context) {
 
 func (_ *User) Update(c *gin.Context) {
 
-	uid := c.Param("id")
+	id := c.Param("id")
 	user := models.User{
 		Name:     c.PostForm("name"),
 		Email:    c.PostForm("email"),
 		Mobile:   c.PostForm("mobile"),
 		Password: c.PostForm("password"),
 	}
-	err := db.Mysql.Where("id = ?", uid).Updates(user).Error
+	err := db.Mysql.Where("id = ?", id).Updates(user).Error
 	if err != nil {
 		(&Base{}).SetFlash(c, "APP", err)
-		c.Redirect(http.StatusFound, "/admin/user/edit"+uid)
+		c.Redirect(http.StatusFound, "/admin/user/edit"+id)
 		return
 	}
-	c.Redirect(http.StatusFound, "/admin/user/show/"+uid)
+	c.Redirect(http.StatusFound, "/admin/user/show/"+id)
 
 }
 
 func (_ *User) Show(c *gin.Context) {
-	uid := c.Param("id")
+	id := c.Param("id")
 
 	user := models.User{}
-	if err := db.Mysql.First(&user, uid).Error; err != nil {
+	if err := db.Mysql.First(&user, id).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 

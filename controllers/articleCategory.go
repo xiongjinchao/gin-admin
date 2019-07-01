@@ -28,6 +28,7 @@ func (_ *ArticleCategory) Index(c *gin.Context) {
 	})
 }
 
+// Datatable
 func (_ *ArticleCategory) Data(c *gin.Context) {
 
 	var articleCategory []models.ArticleCategory

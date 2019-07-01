@@ -62,7 +62,7 @@
                                 <label class="font-bold">手机号码</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-mobile fa-2x"></i>
+                                        <i class="fa fa-mobile"></i>
                                     </span>
                                     <input type="text" name="mobile" placeholder="" class="form-control">
                                 </div>
