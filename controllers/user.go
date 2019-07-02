@@ -17,12 +17,8 @@ func (_ *User) Index(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	var user []models.User
-	db.Mysql.Find(&user)
-
 	c.HTML(http.StatusOK, "user/index", gin.H{
 		"title": "用户管理",
-		"user":  user,
 		"flash": flash,
 	})
 }
