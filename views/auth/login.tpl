@@ -36,11 +36,11 @@
                         {{ end }}
                     </div>
                 {{end}}
-                <div class="form-group">
-                    <input type="text" class="form-control" name="mobile" required="" placeholder="手机号">
+                <div class="form-group text-left">
+                    <input type="text" class="form-control" name="mobile" placeholder="手机号">
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" required="" placeholder="密码">
+                <div class="form-group text-left">
+                    <input type="password" class="form-control" name="password" placeholder="密码">
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
 
@@ -55,6 +55,31 @@
     <!-- Mainly scripts -->
     <script src="/public/inspinia/js/jquery-3.1.1.min.js"></script>
     <script src="/public/inspinia/js/bootstrap.min.js"></script>
+    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function() {
+            $("form").validate({
+                rules: {
+                    mobile: "required",
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 16
+                    }
+                },
+                messages: {
+                    mobile: "请输入您的手机号码",
+                    password: {
+                        required: "请输入密码",
+                        minlength: "密码长度不能小于 6 个字母",
+                        maxlength: "密码长度不能大于 16 个字母"
+                    }
+                }
+            })
+        });
+    </script>
 
     </body>
 

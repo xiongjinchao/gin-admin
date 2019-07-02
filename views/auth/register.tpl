@@ -29,17 +29,21 @@
             <h3>Register to GIN</h3>
             <p>Create account to see it in action.</p>
             <form class="m-t" role="form" action="/sign-up">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="手机号码" required="">
+                <div class="form-group text-left">
+                    <input type="text" name="mobile" class="form-control" placeholder="手机号码">
+                </div>
+                <div class="form-group text-left">
+                    <input type="email" name="email" class="form-control" placeholder="邮箱">
+                </div>
+                <div class="form-group text-left">
+                    <input type="password" name="password" class="form-control" placeholder="密码">
+                </div>
+                <div class="form-group text-left">
+                    <input type="password" name="confirm_password" class="form-control" placeholder="密码">
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="邮箱" required="">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="密码" required="">
-                </div>
-                <div class="form-group">
-                    <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> <span style="position: relative;top:2px">同意隐私政策 </span></label></div>
+                    <div class="checkbox i-checks"><label> <input type="checkbox" name="agree" value="1"><i></i> <span style="position: relative;top:2px">同意隐私政策 </span></label></div>
+                    <label id="agree-error" class="error is-hidden mt-0" for="agree"></label>
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
 
@@ -53,10 +57,50 @@
     <!-- Mainly scripts -->
     <script src="/public/inspinia/js/jquery-3.1.1.min.js"></script>
     <script src="/public/inspinia/js/bootstrap.min.js"></script>
+    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <!-- iCheck -->
     <script src="/public/inspinia/js/plugins/iCheck/icheck.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $().ready(function(){
+            $("form").validate({
+                rules: {
+                    mobile: "required",
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 16
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    confirm_password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 16,
+                        equalTo: "input[name=password]"
+                    },
+                    agree: "required"
+                },
+                messages: {
+                    mobile: "请输入您的手机号码",
+                    email: "请输入一个正确的邮箱",
+                    password: {
+                        required: "请输入密码",
+                        minlength: "密码长度不能小于 6 个字母",
+                        maxlength: "密码长度不能大于 16 个字母"
+                    },
+                    confirm_password: {
+                        required: "请输入密码",
+                        minlength: "密码长度不能小于 6 个字母",
+                        maxlength: "密码长度不能大于 16 个字母",
+                        equalTo: "两次密码输入不一致"
+                    },
+                    agree: "请接受我们的声明",
+                }
+            });
+
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',

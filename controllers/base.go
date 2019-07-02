@@ -2,8 +2,6 @@ package controllers
 
 import (
 	"fmt"
-	"strings"
-
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/locales/zh"
@@ -15,29 +13,25 @@ import (
 type Base struct{}
 
 // set flash data
-func (_ *Base) SetFlash(c *gin.Context, k string, err error) {
+func (_ *Base) SetFlash(c *gin.Context, data string) {
 	session := sessions.Default(c)
-	session.AddFlash(k + "::" + err.Error())
-	err = session.Save()
-	if err != nil {
+	session.AddFlash(data)
+	if err := session.Save(); err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 }
 
 // get flash data
-func (_ *Base) GetFlash(c *gin.Context) (map[string]string, error) {
+func (_ *Base) GetFlash(c *gin.Context) (data []string) {
 	session := sessions.Default(c)
 	flashes := session.Flashes()
-	data := map[string]string{}
 	for _, flash := range flashes {
-		item := strings.Split(flash.(string), "::")
-		if len(item) == 2 {
-			k, v := item[0], item[1]
-			data[k] = v
-		}
+		data = append(data, flash.(string))
 	}
-	err := session.Save()
-	return data, err
+	if err := session.Save(); err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	return data
 }
 
 // validate error message for chinese
@@ -64,8 +58,8 @@ func (_ *Base) Validate(c *gin.Context, data interface{}) bool {
 		message := errs.Translate(trans)
 
 		// flash data
-		for k, v := range message {
-			session.AddFlash(k + "::" + v)
+		for _, v := range message {
+			session.AddFlash(v)
 		}
 		if err := session.Save(); err != nil {
 			panic(err)

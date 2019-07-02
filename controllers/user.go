@@ -12,11 +12,8 @@ type User struct{}
 
 // Index handles GET /admin/user route
 func (_ *User) Index(c *gin.Context) {
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
 
+	flash := (&Base{}).GetFlash(c)
 	c.HTML(http.StatusOK, "user/index", gin.H{
 		"title": "用户管理",
 		"flash": flash,
@@ -74,10 +71,7 @@ func (_ *User) Data(c *gin.Context) {
 // Create handles GET /admin/user/create route
 func (_ *User) Create(c *gin.Context) {
 
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	flash := (&Base{}).GetFlash(c)
 
 	c.HTML(http.StatusOK, "user/create", gin.H{
 		"title": "创建用户",
@@ -103,7 +97,7 @@ func (_ *User) Store(c *gin.Context) {
 
 	err := db.Mysql.Create(&user).Error
 	if err != nil {
-		(&Base{}).SetFlash(c, "APP", err)
+		(&Base{}).SetFlash(c, err.Error())
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
@@ -114,10 +108,7 @@ func (_ *User) Store(c *gin.Context) {
 func (_ *User) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	flash := (&Base{}).GetFlash(c)
 
 	user := models.User{}
 	if err := db.Mysql.First(&user, id).Error; err != nil {
@@ -142,7 +133,7 @@ func (_ *User) Update(c *gin.Context) {
 	}
 	err := db.Mysql.Where("id = ?", id).Updates(user).Error
 	if err != nil {
-		(&Base{}).SetFlash(c, "APP", err)
+		(&Base{}).SetFlash(c, err.Error())
 		c.Redirect(http.StatusFound, "/admin/user/edit"+id)
 		return
 	}

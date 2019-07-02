@@ -43,18 +43,18 @@ func Router() *gin.Engine {
 
 	// Login
 
-	router.GET("/login", (&controllers.Auth{}).Login)
-	router.POST("/sign-in", (&controllers.Auth{}).SignIn)
+	router.GET("/login", (&controllers.BaseAuth{}).Login)
+	router.POST("/sign-in", (&controllers.BaseAuth{}).SignIn)
 
 	// Register
-	router.GET("/register", (&controllers.Auth{}).Register)
-	router.POST("/sign-up", (&controllers.Auth{}).SignUp)
+	router.GET("/register", (&controllers.BaseAuth{}).Register)
+	router.POST("/sign-up", (&controllers.BaseAuth{}).SignUp)
 
 	//Logout
-	router.GET("/logout", (&controllers.Auth{}).Logout)
+	router.GET("/logout", (&controllers.BaseAuth{}).Logout)
 
 	admin := router.Group("admin")
-	admin.Use((&middleware.Auth{}).CheckLogin())
+	admin.Use((&middleware.BaseAuth{}).CheckLogin())
 	{
 		//Admin Dashboard
 		admin.GET("dashboard", (&controllers.Home{}).Dashboard)

@@ -13,10 +13,7 @@ type ArticleCategory struct{}
 // GetArticleCategoryList handles GET /admin/article-category route
 func (_ *ArticleCategory) Index(c *gin.Context) {
 
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	flash := (&Base{}).GetFlash(c)
 
 	var ArticleCategory []models.ArticleCategory
 	db.Mysql.Order("depth asc, sort asc").Find(&ArticleCategory)

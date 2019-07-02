@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-type Auth struct{}
+type BaseAuth struct{}
 
-func (_ *Auth) CheckLogin() gin.HandlerFunc {
+func (_ *BaseAuth) CheckLogin() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
-		auth := session.Get("auth")
+		auth := session.Get("base-auth")
 		if auth == nil {
 			c.Redirect(http.StatusFound, "/login")
 			//c.AbortWithStatus(http.StatusUnauthorized)
@@ -20,7 +20,7 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 	}
 }
 
-func (_ *Auth) CheckJwt() gin.HandlerFunc {
+func (_ *BaseAuth) CheckJwt() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		//TODO JWT
 		c.Next()

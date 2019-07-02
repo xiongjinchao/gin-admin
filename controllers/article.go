@@ -13,10 +13,7 @@ type Article struct{}
 // GetArticleList handles GET /admin/article route
 func (_ *Article) Index(c *gin.Context) {
 
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	flash := (&Base{}).GetFlash(c)
 
 	c.HTML(http.StatusOK, "article/index", gin.H{
 		"title": "文章管理",
@@ -79,10 +76,7 @@ func (_ *Article) Data(c *gin.Context) {
 // Create handles GET /admin/article/create route
 func (_ *Article) Create(c *gin.Context) {
 
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	flash := (&Base{}).GetFlash(c)
 
 	c.HTML(http.StatusOK, "article/create", gin.H{
 		"title": "创建文章",
@@ -120,10 +114,7 @@ func (_ *Article) Store(c *gin.Context) {
 func (_ *Article) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash, err := (&Base{}).GetFlash(c)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	flash := (&Base{}).GetFlash(c)
 
 	article := models.Article{}
 	if err := db.Mysql.First(&article, id).Error; err != nil {

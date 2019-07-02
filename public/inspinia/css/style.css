@@ -3308,6 +3308,7 @@ label.error {
   color: #cc5965;
   display: inline-block;
   margin-left: 5px;
+  margin-top:5px;
 }
 .form-control.error {
   border: 1px dotted #cc5965;
