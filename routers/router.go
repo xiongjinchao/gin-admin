@@ -1,9 +1,12 @@
 package routers
 
 import (
+	"fmt"
 	"gin/config"
 	"gin/controllers"
+	"gin/helper"
 	"gin/middleware"
+	"gin/models"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -41,8 +44,15 @@ func Router() *gin.Engine {
 		DisableCache: true,
 	})
 
-	// Login
+	router.GET("/", func(c *gin.Context) {
+		a := models.BaseAuth{}
+		a.Mobile = "15911006066"
+		a.Password = "12345"
+		ok := (&helper.Validate{}).ValidateStruct(c, a)
+		fmt.Println(ok)
+	})
 
+	// Login
 	router.GET("/login", (&controllers.BaseAuth{}).Login)
 	router.POST("/sign-in", (&controllers.BaseAuth{}).SignIn)
 

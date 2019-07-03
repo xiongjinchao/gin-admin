@@ -1,4 +1,4 @@
-package controllers
+package helper
 
 import (
 	"fmt"
@@ -12,33 +12,41 @@ import (
 	"strings"
 )
 
-type Base struct{}
+type Validate struct{}
 
-// set flash data
-func (_ *Base) SetFlash(c *gin.Context, data string) {
-	session := sessions.Default(c)
-	session.AddFlash(data)
-	if err := session.Save(); err != nil {
+// Validate struct
+func (_ *Validate) ValidateStruct(c *gin.Context, data interface{}) bool {
+
+	validate := &validator.Validate{}
+	validate = validator.New()
+	err := validate.Struct(data)
+	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		return false
 	}
+	return true
 }
 
-// get flash data
-func (_ *Base) GetFlash(c *gin.Context) (data []string) {
-	session := sessions.Default(c)
-	flashes := session.Flashes()
-	for _, flash := range flashes {
-		data = append(data, flash.(string))
+// Validate variable
+func (_ *Validate) ValidateVariable(data string, rule string) bool {
+	validate := &validator.Validate{}
+	validate = validator.New()
+
+	//errs := validate.Var(myEmail, "required,email")
+	errs := validate.Var(data, rule)
+
+	if errs != nil {
+		fmt.Println(errs) // output: Key: "" Error:Field validation for "" failed on the "email" tag
+		return false
 	}
-	if err := session.Save(); err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
-	return data
+
+	return true
 }
 
-// validate error message for chinese
-func (_ *Base) Validate(c *gin.Context, data interface{}) bool {
+// Validate struct and translate
+func (_ *Validate) ValidateStructAndTranslate(c *gin.Context, data interface{}) bool {
 	session := sessions.Default(c)
+
 	uni := &ut.UniversalTranslator{}
 	validate := &validator.Validate{}
 
