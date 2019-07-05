@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	db "gin/database"
+	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -13,7 +14,7 @@ type ArticleCategory struct{}
 // GetArticleCategoryList handles GET /admin/article-category route
 func (_ *ArticleCategory) Index(c *gin.Context) {
 
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 
 	var ArticleCategory []models.ArticleCategory
 	db.Mysql.Order("depth asc, sort asc").Find(&ArticleCategory)

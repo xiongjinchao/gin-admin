@@ -11,3 +11,6 @@
  .dataTables_info{
      text-align: right;
  }
+ label.error{
+     width:100%;
+ }

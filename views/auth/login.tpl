@@ -28,7 +28,7 @@
             </div>
             <h3>Welcome to gin blog</h3>
             <p>Login in. To see it in action.</p>
-            <form class="m-t" role="form" action="/sign-in" method="post">
+            <form id="login-form" role="form" class="m-t" action="/sign-in" method="post">
                 {{if .flash}}
                     <div class="alert alert-danger text-left">
                         {{ range $f := .flash }}
@@ -60,7 +60,7 @@
 
     <script type="text/javascript">
         $().ready(function() {
-            $("form").validate({
+            $("#login-form").validate({
                 rules: {
                     mobile: "required",
                     password: {

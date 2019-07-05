@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	db "gin/database"
+	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -13,7 +14,7 @@ type Article struct{}
 // GetArticleList handles GET /admin/article route
 func (_ *Article) Index(c *gin.Context) {
 
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 
 	c.HTML(http.StatusOK, "article/index", gin.H{
 		"title": "文章管理",
@@ -76,7 +77,7 @@ func (_ *Article) Data(c *gin.Context) {
 // Create handles GET /admin/article/create route
 func (_ *Article) Create(c *gin.Context) {
 
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 
 	c.HTML(http.StatusOK, "article/create", gin.H{
 		"title": "创建文章",
@@ -95,14 +96,14 @@ func (_ *Article) Store(c *gin.Context) {
 		}
 		article.Password = article.GeneratePassword(article.Password)
 
-		if ok := (&Base{}).Validate(c, article); ok == false {
+		if err := (&helper.Validate{}).ValidateStr(auth); err != nil {
 			c.Redirect(http.StatusFound, "//admin/article/create")
 			return
 		}
 
 		err := db.Mysql.Create(&article).Error
 		if err != nil {
-			(&Base{}).SetFlash(c, "APP", err)
+			(&helper.Flash{}).SetFlash(c, err.Error())
 			c.Redirect(http.StatusFound, "/admin/article/create")
 			return
 		}
@@ -114,7 +115,7 @@ func (_ *Article) Store(c *gin.Context) {
 func (_ *Article) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 
 	article := models.Article{}
 	if err := db.Mysql.First(&article, id).Error; err != nil {
@@ -140,7 +141,7 @@ func (_ *Article) Update(c *gin.Context) {
 		}
 		err := db.Mysql.Where("id = ?", id).Updates(article).Error
 		if err != nil {
-			(&Base{}).SetFlash(c, "APP", err)
+			(&helper.Flash{}).SetFlash(c, err.Error())
 			c.Redirect(http.StatusFound, "/admin/article/edit"+id)
 			return
 		}

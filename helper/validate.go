@@ -2,7 +2,6 @@ package helper
 
 import (
 	"fmt"
-	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
@@ -15,37 +14,32 @@ import (
 type Validate struct{}
 
 // Validate struct
-func (_ *Validate) ValidateStruct(c *gin.Context, data interface{}) bool {
+func (_ *Validate) ValidateStr(data interface{}) (err error) {
 
 	validate := &validator.Validate{}
 	validate = validator.New()
-	err := validate.Struct(data)
+	err = validate.Struct(data)
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-		return false
 	}
-	return true
+	return
 }
 
 // Validate variable
-func (_ *Validate) ValidateVariable(data string, rule string) bool {
+func (_ *Validate) ValidateVar(data interface{}, rule string) (err error) {
+
 	validate := &validator.Validate{}
 	validate = validator.New()
+	err = validate.Var(data, rule)
 
-	//errs := validate.Var(myEmail, "required,email")
-	errs := validate.Var(data, rule)
-
-	if errs != nil {
-		fmt.Println(errs) // output: Key: "" Error:Field validation for "" failed on the "email" tag
-		return false
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-
-	return true
+	return
 }
 
 // Validate struct and translate
-func (_ *Validate) ValidateStructAndTranslate(c *gin.Context, data interface{}) bool {
-	session := sessions.Default(c)
+func (_ *Validate) ValidateStrTranslate(data interface{}) (message string, err error) {
 
 	uni := &ut.UniversalTranslator{}
 	validate := &validator.Validate{}
@@ -67,24 +61,18 @@ func (_ *Validate) ValidateStructAndTranslate(c *gin.Context, data interface{}) 
 		panic(err)
 	}
 
-	err := validate.Struct(data)
+	err = validate.Struct(data)
 	if err != nil {
 		// log
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 
 		// translate data
 		errs := err.(validator.ValidationErrors)
-		message := errs.Translate(transZh)
+		messages := errs.Translate(transZh)
 
-		// flash data
-		for _, v := range message {
-			fmt.Println(v)
-			session.AddFlash(v)
+		for _, message = range messages {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, message)
 		}
-		if err := session.Save(); err != nil {
-			panic(err)
-		}
-		return false
 	}
-	return true
+	return
 }

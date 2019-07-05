@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	db "gin/database"
+	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -13,7 +14,7 @@ type User struct{}
 // Index handles GET /admin/user route
 func (_ *User) Index(c *gin.Context) {
 
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 	c.HTML(http.StatusOK, "user/index", gin.H{
 		"title": "用户管理",
 		"flash": flash,
@@ -71,7 +72,7 @@ func (_ *User) Data(c *gin.Context) {
 // Create handles GET /admin/user/create route
 func (_ *User) Create(c *gin.Context) {
 
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 
 	c.HTML(http.StatusOK, "user/create", gin.H{
 		"title": "创建用户",
@@ -82,22 +83,27 @@ func (_ *User) Create(c *gin.Context) {
 // Store handles POST /admin/user route
 func (_ *User) Store(c *gin.Context) {
 
-	user := models.User{
-		Name:     c.PostForm("name"),
-		Email:    c.PostForm("email"),
-		Mobile:   c.PostForm("mobile"),
-		Password: c.PostForm("password"),
-	}
-	user.Password = user.GeneratePassword(user.Password)
-
-	if ok := (&Base{}).Validate(c, user); ok == false {
-		c.Redirect(http.StatusFound, "//admin/user/create")
+	user := models.User{}
+	if err := c.ShouldBind(&user); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error())
+		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
 
-	err := db.Mysql.Create(&user).Error
+	if err := (&helper.Validate{}).ValidateStr(user); err != nil {
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
+
+	if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
+	user.Password = user.GeneratePassword(user.Password)
+
+	err := db.Mysql.Model(&models.User{}).Create(&user).Error
 	if err != nil {
-		(&Base{}).SetFlash(c, err.Error())
+		(&helper.Flash{}).SetFlash(c, err.Error())
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
@@ -108,7 +114,7 @@ func (_ *User) Store(c *gin.Context) {
 func (_ *User) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&Base{}).GetFlash(c)
+	flash := (&helper.Flash{}).GetFlash(c)
 
 	user := models.User{}
 	if err := db.Mysql.First(&user, id).Error; err != nil {
@@ -125,19 +131,33 @@ func (_ *User) Edit(c *gin.Context) {
 func (_ *User) Update(c *gin.Context) {
 
 	id := c.Param("id")
-	user := models.User{
-		Name:     c.PostForm("name"),
-		Email:    c.PostForm("email"),
-		Mobile:   c.PostForm("mobile"),
-		Password: c.PostForm("password"),
-	}
-	err := db.Mysql.Where("id = ?", id).Updates(user).Error
-	if err != nil {
-		(&Base{}).SetFlash(c, err.Error())
-		c.Redirect(http.StatusFound, "/admin/user/edit"+id)
+	user := models.User{}
+	if err := c.ShouldBind(&user); err != nil {
+		(&helper.Flash{}).SetFlash(c, "修改失败")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-	c.Redirect(http.StatusFound, "/admin/user/show/"+id)
+	if user.Password != "" {
+		if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
+			(&helper.Flash{}).SetFlash(c, "修改失败")
+			c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+			return
+		}
+		user.Password = user.GeneratePassword(user.Password)
+	}
+	if err := (&helper.Validate{}).ValidateStr(user); err != nil {
+		(&helper.Flash{}).SetFlash(c, "修改失败")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+	err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error
+	if err != nil {
+		(&helper.Flash{}).SetFlash(c, "修改失败")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+	(&helper.Flash{}).SetFlash(c, "修改成功")
+	c.Redirect(http.StatusFound, "/admin/user")
 
 }
 

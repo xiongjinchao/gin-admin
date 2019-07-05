@@ -64,7 +64,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-mobile"></i>
                                     </span>
-                                    <input type="text" name="mobile" placeholder="" class="form-control">
+                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control">
                                 </div>
                             </div>
 
@@ -74,7 +74,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="email" placeholder="" class="form-control">
+                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control">
                                 </div>
                             </div>
 
@@ -84,7 +84,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-star"></i>
                                     </span>
-                                    <input type="password" placeholder="" class="form-control">
+                                    <input type="password" name="password" placeholder="" class="form-control">
                                 </div>
                             </div>
 

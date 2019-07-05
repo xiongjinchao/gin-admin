@@ -47,8 +47,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form role="form" action="/admin/user/update/{{ .user.ID }}" method="post">
-                            <input type="hidden" name="_method" value="PUT">
+                        <form id="user-form" role="form" action="/admin/user/update/{{ .user.ID }}" method="post">
                             <div class="form-group">
                                 <label class="font-bold">姓名</label>
                                 <div class="input-group">
@@ -65,7 +64,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-mobile"></i>
                                     </span>
-                                    <input type="text" name="mobile" placeholder="" class="form-control" value="{{ .user.Mobile }}">
+                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control" value="{{ .user.Mobile }}">
                                 </div>
                             </div>
 
@@ -75,7 +74,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="email" placeholder="" class="form-control" value="{{ .user.Email }}">
+                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control" value="{{ .user.Email }}">
                                 </div>
                             </div>
 
@@ -85,12 +84,12 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-star"></i>
                                     </span>
-                                    <input type="password" placeholder="" class="form-control" value="{{ .user.Password }}">
+                                    <input type="password" name="password" placeholder="为空则不修改原密码" class="form-control">
                                 </div>
                             </div>
 
                             <div>
-                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>
@@ -101,4 +100,39 @@
 {{ end }}
 
 {{ define "js" }}
+    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+    <script type="text/javascript">
+        jQuery.validator.addMethod("mobileCN", function(value, element) {
+            var length = value.length;
+            var mobile = /^(1[0-9]{10})$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "请正确填写手机号码");
+
+        $().ready(function() {
+            $("#user-form").validate({
+                rules: {
+                    name: "required",
+                    mobile: {
+                        required: true,
+                        mobileCN: true,
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                    }
+                },
+                messages: {
+                    name: "请输入真实姓名",
+                    mobile: {
+                        required: "请输入您的手机号码"
+                    },
+                    email: {
+                        required: "请输入邮箱",
+                        email: "请输入有效的邮箱",
+                    }
+                }
+            })
+        });
+    </script>
 {{ end }}

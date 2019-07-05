@@ -1,16 +1,14 @@
 package routers
 
 import (
-	"fmt"
 	"gin/config"
 	"gin/controllers"
-	"gin/helper"
 	"gin/middleware"
-	"gin/models"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"html/template"
+	"net/http"
 	"time"
 )
 
@@ -45,11 +43,7 @@ func Router() *gin.Engine {
 	})
 
 	router.GET("/", func(c *gin.Context) {
-		a := models.BaseAuth{}
-		a.Mobile = "15911006066"
-		a.Password = "12345"
-		ok := (&helper.Validate{}).ValidateStruct(c, a)
-		fmt.Println(ok)
+		c.Redirect(http.StatusFound, "/admin/dashboard")
 	})
 
 	// Login
@@ -75,9 +69,9 @@ func Router() *gin.Engine {
 		admin.GET("user/create", (&controllers.User{}).Create)
 		admin.POST("user", (&controllers.User{}).Store)
 		admin.GET("user/edit/:id", (&controllers.User{}).Edit)
-		admin.PUT("user/update/:id", (&controllers.User{}).Update)
+		admin.POST("user/update/:id", (&controllers.User{}).Update)
 		admin.GET("user/show/:id", (&controllers.User{}).Show)
-		admin.DELETE("user/delete/:id", (&controllers.User{}).Destroy)
+		admin.GET("user/delete/:id", (&controllers.User{}).Destroy)
 
 		//Article
 		admin.GET("article", (&controllers.Article{}).Index)
@@ -85,9 +79,9 @@ func Router() *gin.Engine {
 		admin.GET("article/create", (&controllers.Article{}).Create)
 		admin.POST("article", (&controllers.Article{}).Store)
 		admin.GET("article/edit/:id", (&controllers.Article{}).Edit)
-		admin.PUT("article/update/:id", (&controllers.Article{}).Update)
+		admin.POST("article/update/:id", (&controllers.Article{}).Update)
 		admin.GET("article/show/:id", (&controllers.Article{}).Show)
-		admin.DELETE("article/delete/:id", (&controllers.Article{}).Destroy)
+		admin.GET("article/delete/:id", (&controllers.Article{}).Destroy)
 
 		//Article Category
 		admin.GET("article-category", (&controllers.ArticleCategory{}).Index)
