@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form role="form" action="/admin/user/store" method="post">
+                        <form id="user-form" role="form" action="/admin/user" method="post">
                             <div class="form-group">
                                 <label class="font-bold">姓名</label>
                                 <div class="input-group">
@@ -100,4 +100,39 @@
 {{ end }}
 
 {{ define "js" }}
+    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+    <script type="text/javascript">
+        jQuery.validator.addMethod("mobileCN", function(value, element) {
+            var length = value.length;
+            var mobile = /^(1[0-9]{10})$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "请正确填写手机号码");
+
+        $().ready(function() {
+            $("#user-form").validate({
+                rules: {
+                    name: "required",
+                    mobile: {
+                        required: true,
+                        mobileCN: true,
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                    }
+                },
+                messages: {
+                    name: "请输入真实姓名",
+                    mobile: {
+                        required: "请输入您的手机号码"
+                    },
+                    email: {
+                        required: "请输入邮箱",
+                        email: "请输入有效的邮箱",
+                    }
+                }
+            })
+        });
+    </script>
 {{ end }}

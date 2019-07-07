@@ -103,7 +103,7 @@ func (_ *Article) Store(c *gin.Context) {
 
 		err := db.Mysql.Create(&article).Error
 		if err != nil {
-			(&helper.Flash{}).SetFlash(c, err.Error())
+			(&helper.Flash{}).SetFlash(c, err.Error(),"error")
 			c.Redirect(http.StatusFound, "/admin/article/create")
 			return
 		}
@@ -141,7 +141,7 @@ func (_ *Article) Update(c *gin.Context) {
 		}
 		err := db.Mysql.Where("id = ?", id).Updates(article).Error
 		if err != nil {
-			(&helper.Flash{}).SetFlash(c, err.Error())
+			(&helper.Flash{}).SetFlash(c, err.Error(),"error")
 			c.Redirect(http.StatusFound, "/admin/article/edit"+id)
 			return
 		}

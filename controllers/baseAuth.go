@@ -19,7 +19,7 @@ type BaseAuth struct{}
 func (_ *BaseAuth) Login(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
-	c.HTML(http.StatusOK, "auth/login.tpl", gin.H{
+	c.HTML(http.StatusOK, "base-auth/login.tpl", gin.H{
 		"title": "Gin Blog",
 		"flash": flash,
 	})
@@ -29,7 +29,7 @@ func (_ *BaseAuth) Login(c *gin.Context) {
 func (_ *BaseAuth) SignIn(c *gin.Context) {
 	auth := models.BaseAuth{}
 	if err := c.ShouldBind(&auth); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error())
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
@@ -43,14 +43,14 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 	auth.Password = (&models.User{}).GeneratePassword(auth.Password)
 	err := db.Mysql.Model(&models.User{}).Where("mobile = ? AND password = ?", auth.Mobile, auth.Password).First(&user).Error
 	if gorm.IsRecordNotFoundError(err) {
-		(&helper.Flash{}).SetFlash(c, "账号或密码错误，请重新输入")
+		(&helper.Flash{}).SetFlash(c, "账号或密码错误，请重新输入", "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
 	data, err := json.Marshal(user)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, "系统错误，请重试")
+		(&helper.Flash{}).SetFlash(c, "系统错误，请重试", "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
@@ -66,7 +66,7 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 
 //Register handles GET /register route
 func (_ *BaseAuth) Register(c *gin.Context) {
-	c.HTML(http.StatusOK, "auth/register.tpl", gin.H{
+	c.HTML(http.StatusOK, "base-auth/register.tpl", gin.H{
 		"title": "Gin Blog",
 	})
 }

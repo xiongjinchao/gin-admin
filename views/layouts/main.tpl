@@ -15,6 +15,8 @@
 
     {{ template "css"}}
 
+    <!-- Toastr style -->
+    <link href="/public/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
     <link href="/public/inspinia/css/animate.css" rel="stylesheet">
     <link href="/public/inspinia/css/style.css" rel="stylesheet">
     <link href="/public/css/admin.css" rel="stylesheet">
@@ -450,6 +452,21 @@
     </div>
 </div>
 
+<!-- Toastr data -->
+<ul class="is-hidden toastr-success">
+    {{ range .flash.success }}
+        <li> {{ . }} </li>
+    {{ end }}
+</ul>
+
+<!-- Toastr data -->
+<ul class="is-hidden toastr-error">
+    {{ range .flash.error }}
+        <li> {{ . }} </li>
+    {{ end }}
+</ul>
+
+
 <!-- Mainly scripts -->
 <script src="/public/inspinia/js/jquery-3.1.1.min.js"></script>
 <script src="/public/inspinia/js/popper.min.js"></script>
@@ -466,6 +483,38 @@
 
 <!-- Touch Punch - Touch Event Support for jQuery UI -->
 <script src="/public/inspinia/js/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+
+<!-- Toastr -->
+<script src="/public/inspinia/js/plugins/toastr/toastr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".toastr-success li").each(function(i,item){
+            setTimeout(function () {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.success($(item).text(), '系统提示');
+            }, 1000);
+        });
+
+        $(".toastr-error li").each(function(i,item){
+            setTimeout(function () {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 60000,
+                    extendedTimeOut: 60000
+                };
+                toastr.error($(item).text(), '系统错误');
+            }, 1000);
+        });
+    });
+</script>
 
 {{ template "js"}}
 </body>

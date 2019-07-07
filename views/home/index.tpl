@@ -1,7 +1,4 @@
 {{ define "css" }}
-    <!-- Toastr style -->
-    <link href="/public/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-
     <!-- Gritter -->
     <link href="/public/inspinia/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 {{ end }}
@@ -439,22 +436,8 @@
     <!-- ChartJS-->
     <script src="/public/inspinia/js/plugins/chartJs/Chart.min.js"></script>
 
-    <!-- Toastr -->
-    <script src="/public/inspinia/js/plugins/toastr/toastr.min.js"></script>
-
     <script>
         $(document).ready(function() {
-            setTimeout(function() {
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
-
-            }, 1300);
-
 
             var data1 = [
                 [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]

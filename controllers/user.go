@@ -80,22 +80,24 @@ func (_ *User) Create(c *gin.Context) {
 	})
 }
 
-// Store handles POST /admin/user route
+// Store handles POST /admin/user/store route
 func (_ *User) Store(c *gin.Context) {
 
 	user := models.User{}
 	if err := c.ShouldBind(&user); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error())
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
 
 	if err := (&helper.Validate{}).ValidateStr(user); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
 
 	if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
@@ -103,12 +105,12 @@ func (_ *User) Store(c *gin.Context) {
 
 	err := db.Mysql.Model(&models.User{}).Create(&user).Error
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error())
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
-	id := string(user.ID)
-	c.Redirect(http.StatusFound, "/admin/user/show/"+id)
+	(&helper.Flash{}).SetFlash(c, "添加成功", "success")
+	c.Redirect(http.StatusFound, "/admin/user")
 }
 
 func (_ *User) Edit(c *gin.Context) {
@@ -133,30 +135,30 @@ func (_ *User) Update(c *gin.Context) {
 	id := c.Param("id")
 	user := models.User{}
 	if err := c.ShouldBind(&user); err != nil {
-		(&helper.Flash{}).SetFlash(c, "修改失败")
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
 	if user.Password != "" {
 		if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
-			(&helper.Flash{}).SetFlash(c, "修改失败")
+			(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 			return
 		}
 		user.Password = user.GeneratePassword(user.Password)
 	}
 	if err := (&helper.Validate{}).ValidateStr(user); err != nil {
-		(&helper.Flash{}).SetFlash(c, "修改失败")
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
 	err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, "修改失败")
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-	(&helper.Flash{}).SetFlash(c, "修改成功")
+	(&helper.Flash{}).SetFlash(c, "修改成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 
 }

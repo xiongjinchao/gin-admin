@@ -31,8 +31,8 @@
             <form id="login-form" role="form" class="m-t" action="/sign-in" method="post">
                 {{if .flash}}
                     <div class="alert alert-danger text-left">
-                        {{ range $f := .flash }}
-                            <li class="danger-element">{{ $f }}</li>
+                        {{ range $err := .flash.error }}
+                            <li class="danger-element">{{ $err }}</li>
                         {{ end }}
                     </div>
                 {{end}}
