@@ -54,7 +54,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control">
+                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .flash.old.name }}">
                                 </div>
                             </div>
 
@@ -64,7 +64,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-mobile"></i>
                                     </span>
-                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control">
+                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control" value="{{ .flash.old.mobile }}">
                                 </div>
                             </div>
 
@@ -74,7 +74,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control">
+                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control" value="{{ .flash.old.email }}">
                                 </div>
                             </div>
 

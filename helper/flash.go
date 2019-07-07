@@ -9,7 +9,7 @@ import (
 type Flash struct{}
 
 // set flash data
-func (_ *Flash) SetFlash(c *gin.Context, data interface{}, key string) {
+func (f *Flash) SetFlash(c *gin.Context, data interface{}, key string) {
 	session := sessions.Default(c)
 	session.AddFlash(data, key)
 	if err := session.Save(); err != nil {
@@ -18,22 +18,32 @@ func (_ *Flash) SetFlash(c *gin.Context, data interface{}, key string) {
 }
 
 // get flash data
-func (_ *Flash) GetFlash(c *gin.Context) (data map[string][]interface{}) {
+func (f *Flash) GetFlash(c *gin.Context) (data map[string]interface{}) {
 	session := sessions.Default(c)
 
-	data = make(map[string][]interface{})
-	data["success"] = make([]interface{}, 0)
-	data["error"] = make([]interface{}, 0)
-	data["old"] = make([]interface{}, 0)
+	data = make(map[string]interface{})
+	success := make([]interface{}, 0)
+	errors := make([]interface{}, 0)
+	old := make(map[string]interface{})
 
 	for _, flash := range session.Flashes("success") {
-		data["success"] = append(data["success"], flash.(string))
-	}
-	for _, flash := range session.Flashes("error") {
-		data["error"] = append(data["error"], flash.(string))
+		success = append(success, flash.(string))
 	}
 
-	data["old"] = session.Flashes("old")
+	for _, flash := range session.Flashes("error") {
+		errors = append(errors, flash.(string))
+	}
+
+	for _, flash := range session.Flashes("old") {
+		if item, err := (&Convert{}).Json2Map(flash.(string)); err == nil {
+			for k, v := range item {
+				old[k] = v
+			}
+		}
+	}
+	data["success"] = success
+	data["error"] = errors
+	data["old"] = old
 
 	if err := session.Save(); err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())

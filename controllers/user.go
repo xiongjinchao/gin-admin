@@ -73,6 +73,7 @@ func (_ *User) Data(c *gin.Context) {
 func (_ *User) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
+	fmt.Println(flash)
 
 	c.HTML(http.StatusOK, "user/create", gin.H{
 		"title": "创建用户",
@@ -84,7 +85,12 @@ func (_ *User) Create(c *gin.Context) {
 func (_ *User) Store(c *gin.Context) {
 
 	user := models.User{}
-	if err := c.ShouldBind(&user); err != nil {
+	err := c.ShouldBind(&user)
+	if old, err := (&helper.Convert{}).Str2Json(user); err == nil {
+		(&helper.Flash{}).SetFlash(c, old, "old")
+	}
+
+	if err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
@@ -103,8 +109,7 @@ func (_ *User) Store(c *gin.Context) {
 	}
 	user.Password = user.GeneratePassword(user.Password)
 
-	err := db.Mysql.Model(&models.User{}).Create(&user).Error
-	if err != nil {
+	if err := db.Mysql.Model(&models.User{}).Create(&user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
