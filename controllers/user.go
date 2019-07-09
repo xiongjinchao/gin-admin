@@ -197,7 +197,7 @@ func (_ *User) Show(c *gin.Context) {
 func (_ *User) Destroy(c *gin.Context) {
 	id := c.Param("id")
 	user := models.User{}
-	if err := db.Mysql.Where("id = ?", id).Delete(&user).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 	}
 	c.Redirect(http.StatusFound, "/admin/user")
