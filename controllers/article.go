@@ -87,29 +87,33 @@ func (_ *Article) Create(c *gin.Context) {
 
 // Store handles POST /admin/article route
 func (_ *Article) Store(c *gin.Context) {
-	/*
-		article := models.Article{
-			Name:     c.PostForm("name"),
-			Email:    c.PostForm("email"),
-			Mobile:   c.PostForm("mobile"),
-			Password: c.PostForm("password"),
-		}
-		article.Password = article.GeneratePassword(article.Password)
 
-		if err := (&helper.Validate{}).ValidateStr(auth); err != nil {
-			c.Redirect(http.StatusFound, "//admin/article/create")
-			return
-		}
+	article := models.Article{}
+	err := c.ShouldBind(&article)
+	if old, err := (&helper.Convert{}).Str2Json(article); err == nil {
+		(&helper.Flash{}).SetFlash(c, old, "old")
+	}
 
-		err := db.Mysql.Create(&article).Error
-		if err != nil {
-			(&helper.Flash{}).SetFlash(c, err.Error(),"error")
-			c.Redirect(http.StatusFound, "/admin/article/create")
-			return
-		}
-		id := string(article.ID)
-		c.Redirect(http.StatusFound, "/admin/article/show/"+id)
-	*/
+	if err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/create")
+		return
+	}
+
+	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/create")
+		return
+	}
+
+	if err := db.Mysql.Create(&article).Error; err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/create")
+		return
+	}
+
+	(&helper.Flash{}).SetFlash(c, "创建文章成功", "success")
+	c.Redirect(http.StatusFound, "/admin/article")
 }
 
 func (_ *Article) Edit(c *gin.Context) {
@@ -131,22 +135,27 @@ func (_ *Article) Edit(c *gin.Context) {
 
 func (_ *Article) Update(c *gin.Context) {
 
-	/*
-		id := c.Param("id")
-		article := models.Article{
-			Name:     c.PostForm("name"),
-			Email:    c.PostForm("email"),
-			Mobile:   c.PostForm("mobile"),
-			Password: c.PostForm("password"),
-		}
-		err := db.Mysql.Where("id = ?", id).Updates(article).Error
-		if err != nil {
-			(&helper.Flash{}).SetFlash(c, err.Error(),"error")
-			c.Redirect(http.StatusFound, "/admin/article/edit"+id)
-			return
-		}
-		c.Redirect(http.StatusFound, "/admin/article/show/"+id)
-	*/
+	id := c.Param("id")
+	article := models.Article{}
+	if err := c.ShouldBind(&article); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
+		return
+	}
+
+	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
+		return
+	}
+
+	if err := db.Mysql.Model(&models.Article{}).Where("id = ?", id).Updates(article).Error; err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
+		return
+	}
+	(&helper.Flash{}).SetFlash(c, "修改文章成功", "success")
+	c.Redirect(http.StatusFound, "/admin/article")
 
 }
 
@@ -166,9 +175,12 @@ func (_ *Article) Show(c *gin.Context) {
 
 func (_ *Article) Destroy(c *gin.Context) {
 	id := c.Param("id")
+
 	article := models.Article{}
-	err := db.Mysql.Where("id = ?", id).Delete(&article).Error
-	if err == nil {
-		c.Redirect(301, "/admin/article")
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&article).Error; err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 	}
+
+	(&helper.Flash{}).SetFlash(c, "删除文章成功", "success")
+	c.Redirect(http.StatusFound, "/admin/article")
 }

@@ -109,21 +109,35 @@ func (_ *User) Store(c *gin.Context) {
 	}
 	user.Password = user.GeneratePassword(user.Password)
 
-	if err := db.Mysql.Model(&models.User{}).Create(&user).Error; err != nil {
+	existed := 0
+	db.Mysql.Model(&models.User{}).Where("name = ?", user.Name).Count(&existed)
+	if existed > 0 {
+		(&helper.Flash{}).SetFlash(c, "姓名已经存在", "error")
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
 
-		/*
-			// duplicate key
-			if driverErr, ok := err.(*mysql.MySQLError); ok && driverErr.Number == 1062{
-				fmt.Printf("duplicate key, error: %s", driverErr)
-			}
-		*/
+	db.Mysql.Model(&models.User{}).Where("mobile = ?", user.Mobile).Count(&existed)
+	if existed > 0 {
+		(&helper.Flash{}).SetFlash(c, "手机号码已经存在", "error")
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
 
+	db.Mysql.Model(&models.User{}).Where("email = ?", user.Email).Count(&existed)
+	if existed > 0 {
+		(&helper.Flash{}).SetFlash(c, "邮箱已经存在", "error")
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
+
+	if err := db.Mysql.Create(&user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "创建成功", "success")
+	(&helper.Flash{}).SetFlash(c, "创建用户成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 }
 
@@ -169,13 +183,34 @@ func (_ *User) Update(c *gin.Context) {
 		user.Password = user.GeneratePassword(user.Password)
 	}
 
-	err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error
-	if err != nil {
+	existed := 0
+	db.Mysql.Model(&models.User{}).Where("id <> ?", id).Where("name = ?", user.Name).Count(&existed)
+	if existed > 0 {
+		(&helper.Flash{}).SetFlash(c, "姓名已经存在", "error")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+
+	db.Mysql.Model(&models.User{}).Where("id <> ?", id).Where("mobile = ?", user.Mobile).Count(&existed)
+	if existed > 0 {
+		(&helper.Flash{}).SetFlash(c, "手机号码已经存在", "error")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+
+	db.Mysql.Model(&models.User{}).Where("id <> ?", id).Where("email = ?", user.Email).Count(&existed)
+	if existed > 0 {
+		(&helper.Flash{}).SetFlash(c, "邮箱已经存在", "error")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+
+	if err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-	(&helper.Flash{}).SetFlash(c, "修改成功", "success")
+	(&helper.Flash{}).SetFlash(c, "修改用户成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 
 }
@@ -196,9 +231,12 @@ func (_ *User) Show(c *gin.Context) {
 
 func (_ *User) Destroy(c *gin.Context) {
 	id := c.Param("id")
+
 	user := models.User{}
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 	}
+
+	(&helper.Flash{}).SetFlash(c, "删除用户成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 }

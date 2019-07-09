@@ -66,7 +66,7 @@
                                     <th>手机号</th><td>{{ .user.Mobile }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Token</th><td>{{ .user.RememberToken }}</td>
+                                    <th>标记</th><td>{{ .user.RememberToken }}</td>
                                 </tr>
                                 <tr>
                                     <th>创建时间</th><td>{{ .user.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
