@@ -60,10 +60,13 @@
                                     <th>姓名</th><td>{{ .user.Name }}</td>
                                 </tr>
                                 <tr>
+                                    <th>手机号</th><td>{{ .user.Mobile }}</td>
+                                </tr>
+                                <tr>
                                     <th>邮箱</th><td>{{ .user.Email }}</td>
                                 </tr>
                                 <tr>
-                                    <th>手机号</th><td>{{ .user.Mobile }}</td>
+                                    <th>密码</th><td>{{ .user.Password }}</td>
                                 </tr>
                                 <tr>
                                     <th>Token</th><td>{{ .user.RememberToken }}</td>
