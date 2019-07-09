@@ -1,4 +1,4 @@
-{{ define "auth/login" }}
+{{ define "base-auth/login" }}
 <!DOCTYPE html>
 <html>
 
@@ -29,10 +29,10 @@
             <h3>Welcome to gin blog</h3>
             <p>Login in. To see it in action.</p>
             <form id="login-form" role="form" class="m-t" action="/sign-in" method="post">
-                {{if .flash}}
+                {{if .flash.error}}
                     <div class="alert alert-danger text-left">
-                        {{ range $err := .flash.error }}
-                            <li class="danger-element">{{ $err }}</li>
+                        {{ range .flash.error }}
+                            <li class="danger-element">{{ . }}</li>
                         {{ end }}
                     </div>
                 {{end}}

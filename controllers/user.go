@@ -103,18 +103,27 @@ func (_ *User) Store(c *gin.Context) {
 	}
 
 	if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		(&helper.Flash{}).SetFlash(c, "密码长度为6-18个字符", "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
 	user.Password = user.GeneratePassword(user.Password)
 
 	if err := db.Mysql.Model(&models.User{}).Create(&user).Error; err != nil {
+
+		/*
+			// duplicate key
+			if driverErr, ok := err.(*mysql.MySQLError); ok && driverErr.Number == 1062{
+				fmt.Printf("duplicate key, error: %s", driverErr)
+			}
+		*/
+
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
-	(&helper.Flash{}).SetFlash(c, "添加成功", "success")
+
+	(&helper.Flash{}).SetFlash(c, "创建成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 }
 
@@ -144,19 +153,22 @@ func (_ *User) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-	if user.Password != "" {
-		if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
-			(&helper.Flash{}).SetFlash(c, err.Error(), "error")
-			c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
-			return
-		}
-		user.Password = user.GeneratePassword(user.Password)
-	}
+
 	if err := (&helper.Validate{}).ValidateStr(user); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
+
+	if user.Password != "" {
+		if err := (&helper.Validate{}).ValidateVar(user.Password, "gte=6,lte=18"); err != nil {
+			(&helper.Flash{}).SetFlash(c, "密码长度为6-18个字符", "error")
+			c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+			return
+		}
+		user.Password = user.GeneratePassword(user.Password)
+	}
+
 	err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error
 	if err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
@@ -185,8 +197,8 @@ func (_ *User) Show(c *gin.Context) {
 func (_ *User) Destroy(c *gin.Context) {
 	id := c.Param("id")
 	user := models.User{}
-	err := db.Mysql.Where("id = ?", id).Delete(&user).Error
-	if err == nil {
-		c.Redirect(301, "/admin/user")
+	if err := db.Mysql.Where("id = ?", id).Delete(&user).Error; err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 	}
+	c.Redirect(http.StatusFound, "/admin/user")
 }

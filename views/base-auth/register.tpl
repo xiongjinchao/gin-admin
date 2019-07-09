@@ -1,4 +1,4 @@
-{{ define "auth/register" }}
+{{ define "base-auth/register" }}
 <!DOCTYPE html>
 <html>
 
