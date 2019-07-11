@@ -66,7 +66,10 @@
                                         <i class="fa fa-th-list"></i>
                                     </span>
                                     <select class="form-control" name="category_id">
-                                        <option>请选择</option>
+                                        <option value="0">请选择</option>
+                                        {{range .articleCategory}}
+                                            <option value="{{.ID}}">{{.Name}}</option>
+                                        {{end}}
                                     </select>
                                 </div>
                             </div>

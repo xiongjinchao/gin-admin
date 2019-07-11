@@ -79,9 +79,15 @@ func (_ *Article) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
+	var articleCategory []models.ArticleCategory
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil{
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
 	c.HTML(http.StatusOK, "article/create", gin.H{
 		"title": "创建文章",
 		"flash": flash,
+		"articleCategory":articleCategory,
 	})
 }
 
@@ -126,10 +132,16 @@ func (_ *Article) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
+	var articleCategory []models.ArticleCategory
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil{
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
 	c.HTML(http.StatusOK, "article/edit", gin.H{
 		"title":   "编辑文章",
-		"article": article,
 		"flash":   flash,
+		"article": article,
+		"articleCategory":articleCategory,
 	})
 }
 
@@ -156,7 +168,6 @@ func (_ *Article) Update(c *gin.Context) {
 	}
 	(&helper.Flash{}).SetFlash(c, "修改文章成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article")
-
 }
 
 func (_ *Article) Show(c *gin.Context) {
