@@ -93,6 +93,7 @@
     <script>
         $(document).ready(function() {
             $('.dataTables').DataTable({
+                order: [[ 0, "desc" ]],
                 autoWidth: false,
                 language:{
                     url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',

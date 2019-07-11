@@ -24,10 +24,9 @@ func (_ *Article) Index(c *gin.Context) {
 
 // Datatable
 func (_ *Article) Data(c *gin.Context) {
-
 	var article []models.Article
 
-	query := db.Mysql.Model(&models.Article{})
+	query := db.Mysql.Model(&models.Article{}).Debug().Preload("ArticleCategory").Preload("User")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -46,7 +45,7 @@ func (_ *Article) Data(c *gin.Context) {
 	case "1":
 		query = query.Order("title " + sort)
 	case "2":
-		query = query.Order("category_id " + sort)
+		query = query.Order("article_category_id " + sort)
 	case "3":
 		query = query.Order("user_id " + sort)
 	case "4":
@@ -62,8 +61,15 @@ func (_ *Article) Data(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	for i, _ := range article {
-		db.Mysql.Model(article[i]).Related(&article[i].ArticleCategory, "CategoryID")
-		db.Mysql.Model(article[i]).Related(&article[i].User, "UserID")
+		if i == 0 {
+			// TODO ERROR DATA
+			fmt.Println(article[i].UserID)
+			fmt.Println(article[i].ArticleCategoryID)
+			fmt.Println(article[i].User)
+			fmt.Println(article[i].ArticleCategory)
+		}
+		//db.Mysql.Model(article[i]).Related(&article[i].ArticleCategory)
+		//db.Mysql.Model(article[i]).Related(&article[i].User)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -80,14 +86,20 @@ func (_ *Article) Create(c *gin.Context) {
 	flash := (&helper.Flash{}).GetFlash(c)
 
 	var articleCategory []models.ArticleCategory
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil{
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	var user []models.User
+	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
 	c.HTML(http.StatusOK, "article/create", gin.H{
-		"title": "创建文章",
-		"flash": flash,
-		"articleCategory":articleCategory,
+		"title":           "创建文章",
+		"flash":           flash,
+		"articleCategory": articleCategory,
+		"user":            user,
 	})
 }
 
@@ -133,15 +145,21 @@ func (_ *Article) Edit(c *gin.Context) {
 	}
 
 	var articleCategory []models.ArticleCategory
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil{
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	var user []models.User
+	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
 	c.HTML(http.StatusOK, "article/edit", gin.H{
-		"title":   "编辑文章",
-		"flash":   flash,
-		"article": article,
-		"articleCategory":articleCategory,
+		"title":           "编辑文章",
+		"flash":           flash,
+		"article":         article,
+		"articleCategory": articleCategory,
+		"user":            user,
 	})
 }
 
@@ -154,8 +172,10 @@ func (_ *Article) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return
 	}
+	fmt.Println(article)
 
 	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
+		fmt.Println("validate error")
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return

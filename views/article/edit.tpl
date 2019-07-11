@@ -65,7 +65,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-th-list"></i>
                                     </span>
-                                    <select class="form-control" name="category_id">
+                                    <select class="form-control" name="article_category_id">
                                         <option value="0">请选择</option>
                                         {{range .articleCategory}}
                                             <option value="{{.ID}}">{{.Name}}</option>
@@ -128,7 +128,10 @@
                                         <i class="fa fa-th-list"></i>
                                     </span>
                                     <select class="form-control" name="user_id">
-                                        <option>请选择</option>
+                                        <option value="0">请选择</option>
+                                        {{range .user}}
+                                            <option value="{{.ID}}">{{.Name}}</option>
+                                        {{end}}
                                     </select>
                                 </div>
                             </div>

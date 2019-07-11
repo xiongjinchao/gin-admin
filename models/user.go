@@ -12,7 +12,7 @@ type User struct {
 	Email         string `json:"email" form:"email" validate:"email" gorm:"unique_index"`
 	Mobile        string `json:"mobile" form:"mobile" validate:"required,numeric,len=11" gorm:"unique_index"`
 	Password      string `json:"-" form:"password"`
-	RememberToken string `json:"remember_token" form:"remember_token"`
+	RememberToken string `json:"-" form:"remember_token"`
 }
 
 func (User) TableName() string {
