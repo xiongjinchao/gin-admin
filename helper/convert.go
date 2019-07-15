@@ -3,6 +3,7 @@ package helper
 import (
 	"encoding/json"
 	"reflect"
+	"strconv"
 )
 
 type Convert struct{}
@@ -35,4 +36,31 @@ func (c *Convert) Json2Map(data string) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 	err := json.Unmarshal([]byte(data), &result)
 	return result, err
+}
+
+// String to int
+func (c *Convert) Str2Int(str string) int {
+	i, err := strconv.Atoi(str)
+	if err != nil {
+		return 0
+	}
+	return i
+}
+
+// String to int64
+func (c *Convert) Str2Int64(str string) int64 {
+	i, err := strconv.ParseInt(str, 10, 64)
+	if err != nil {
+		return 0
+	}
+	return i
+}
+
+// String to uint
+func (c *Convert) Str2UInt(str string) uint {
+	i, err := strconv.Atoi(str)
+	if err != nil {
+		return 0
+	}
+	return uint(i)
 }

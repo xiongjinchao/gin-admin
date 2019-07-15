@@ -12,6 +12,7 @@ func init() {
 
 	Setting["app"] = config.Section("app").KeysHash()
 	Setting["session"] = config.Section("session").KeysHash()
+	Setting["jwt"] = config.Section("jwt").KeysHash()
 	Setting["mysql"] = config.Section("mysql").KeysHash()
 	Setting["redis"] = config.Section("redis").KeysHash()
 }

@@ -137,6 +137,18 @@ func (_ *User) Store(c *gin.Context) {
 		return
 	}
 
+	if user.AccessToken, user.RestKey, err = user.GenerateToken(user.ID); err != nil {
+		(&helper.Flash{}).SetFlash(c, "用户令牌生成失败", "error")
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
+
+	if err := db.Mysql.Save(&user).Error; err != nil {
+		(&helper.Flash{}).SetFlash(c, "用户令牌保存失败", "error")
+		c.Redirect(http.StatusFound, "/admin/user/create")
+		return
+	}
+
 	(&helper.Flash{}).SetFlash(c, "创建用户成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 }
@@ -162,7 +174,8 @@ func (_ *User) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	user := models.User{}
-	if err := c.ShouldBind(&user); err != nil {
+	err := c.ShouldBind(&user)
+	if err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
@@ -210,6 +223,19 @@ func (_ *User) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
+
+	if user.AccessToken, user.RestKey, err = user.GenerateToken((&helper.Convert{}).Str2Int64(id)); err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+
+	if err := db.Mysql.Save(&user).Error; err != nil {
+		(&helper.Flash{}).SetFlash(c, "用户令牌保存失败", "error")
+		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
+		return
+	}
+
 	(&helper.Flash{}).SetFlash(c, "修改用户成功", "success")
 	c.Redirect(http.StatusFound, "/admin/user")
 
