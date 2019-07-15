@@ -108,9 +108,11 @@ CREATE TABLE `user` (
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT '邮箱',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号码',
   `password` varchar(128) NOT NULL DEFAULT '' COMMENT '密码',
-  `remember_token` varchar(128) DEFAULT '' COMMENT 'TOKEN',
+  `access_token` varchar(128) DEFAULT '' COMMENT 'TOKEN',
+  `rest_key` varchar(128) DEFAULT '' COMMENT 'KEY',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   UNIQUE KEY `email_UNIQUE` (`email`)
