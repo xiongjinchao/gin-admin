@@ -56,7 +56,8 @@ func (_ *User) Data(c *gin.Context) {
 		query = query.Order("id " + sort)
 	}
 
-	err := query.Scan(&user).Error
+	// find() will return data sorted by column name, but scan() return data with struct column order. scan() doesn't support Preload
+	err := query.Find(&user).Error
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
@@ -217,7 +218,7 @@ func (_ *User) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-	// save() function can update empty column. so use updates()
+	// save() function can update empty column. but updates cant so use updates()
 	if err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)

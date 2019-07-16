@@ -26,7 +26,7 @@ func (_ *Article) Index(c *gin.Context) {
 func (_ *Article) Data(c *gin.Context) {
 	var article []models.Article
 
-	query := db.Mysql.Model(&models.Article{}).Debug().Preload("ArticleCategory").Preload("User")
+	query := db.Mysql.Model(&models.Article{}).Preload("ArticleCategory").Preload("User")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -56,21 +56,17 @@ func (_ *Article) Data(c *gin.Context) {
 		query = query.Order("id " + sort)
 	}
 
-	err := query.Scan(&article).Error
+	// find() will return data sorted by column name, but scan() return data with struct column order. scan() doesn't support Preload
+	err := query.Find(&article).Error
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	for i, _ := range article {
-		if i == 0 {
-			// TODO ERROR DATA
-			fmt.Println(article[i].UserID)
-			fmt.Println(article[i].ArticleCategoryID)
-			fmt.Println(article[i].User)
-			fmt.Println(article[i].ArticleCategory)
+	/*
+		for i, _ := range article {
+			db.Mysql.Model(article[i]).Related(&article[i].ArticleCategory)
+			db.Mysql.Model(article[i]).Related(&article[i].User)
 		}
-		//db.Mysql.Model(article[i]).Related(&article[i].ArticleCategory)
-		//db.Mysql.Model(article[i]).Related(&article[i].User)
-	}
+	*/
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
