@@ -51,31 +51,43 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table id="w0" class="table table-striped table-bordered detail-view">
+                        <table id="w0" class="table table-striped table-bordered detail-view" style="table-layout:fixed">
                             <tbody>
                                 <tr>
-                                    <th>用户编号</th><td>{{ .user.ID }}</td>
+                                    <th style="width:20%;">用户编号</th>
+                                    <td>{{ .user.ID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>姓名</th><td>{{ .user.Name }}</td>
+                                    <th>姓名</th>
+                                    <td>{{ .user.Name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>手机号</th><td>{{ .user.Mobile }}</td>
+                                    <th>手机号</th>
+                                    <td>{{ .user.Mobile }}</td>
                                 </tr>
                                 <tr>
-                                    <th>邮箱</th><td>{{ .user.Email }}</td>
+                                    <th>邮箱</th>
+                                    <td>{{ .user.Email }}</td>
                                 </tr>
                                 <tr>
-                                    <th>密码</th><td>{{ .user.Password }}</td>
+                                    <th>密码</th>
+                                    <td>{{ .user.Password }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Token</th><td>{{ .user.RememberToken }}</td>
+                                    <th>AccessToken</th>
+                                    <td style="word-wrap:break-word;">{{ .user.AccessToken }}</td>
                                 </tr>
                                 <tr>
-                                    <th>创建时间</th><td>{{ .user.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>ResetKey</th>
+                                    <td>{{ .user.ResetKey }}</td>
                                 </tr>
                                 <tr>
-                                    <th>更新时间</th><td>{{ .user.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>创建时间</th>
+                                    <td>{{ .user.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>更新时间</th>
+                                    <td>{{ .user.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                             </tbody>
                         </table>

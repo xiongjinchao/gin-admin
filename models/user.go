@@ -16,7 +16,7 @@ type User struct {
 	Mobile      string `json:"mobile" form:"mobile" validate:"required,numeric,len=11" gorm:"unique_index"`
 	Password    string `json:"-" form:"password"`
 	AccessToken string `json:"access_token" form:"access_token"`
-	RestKey     string `json:"reset_key" form:"reset_key"`
+	ResetKey    string `json:"reset_key" form:"reset_key"`
 }
 
 func (User) TableName() string {
@@ -29,18 +29,18 @@ func (m *User) GeneratePassword(password string) string {
 	return hex.EncodeToString(s.Sum([]byte("")))
 }
 
-func (m *User) GenerateToken(id int64) (accessToken, restKey string, err error) {
-	d, _ := time.ParseDuration("10d")
-	expire := time.Now().Add(d).Unix()
+func (m *User) GenerateToken(id int64) (accessToken, resetKey string, err error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":  id,
-		"nbf": expire,
+		"exp": time.Now().Add(time.Hour * 72).Unix(),
+		"nbf": time.Now().Unix(),
+		"iat": time.Now().Unix(),
 	})
 
-	accessToken, err = token.SignedString(config.Setting["jwt"]["secret"])
+	accessToken, err = token.SignedString([]byte(config.Setting["jwt"]["secret"]))
 	s := md5.New()
 	s.Write([]byte(accessToken))
-	restKey = hex.EncodeToString(s.Sum([]byte("")))
+	resetKey = hex.EncodeToString(s.Sum([]byte("")))
 	return
 }

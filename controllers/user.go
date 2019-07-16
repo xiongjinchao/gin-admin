@@ -137,7 +137,7 @@ func (_ *User) Store(c *gin.Context) {
 		return
 	}
 
-	if user.AccessToken, user.RestKey, err = user.GenerateToken(user.ID); err != nil {
+	if user.AccessToken, user.ResetKey, err = user.GenerateToken(user.ID); err != nil {
 		(&helper.Flash{}).SetFlash(c, "用户令牌生成失败", "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
@@ -217,21 +217,9 @@ func (_ *User) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-
+	// save() function can update empty column. so use updates()
 	if err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
-		return
-	}
-
-	if user.AccessToken, user.RestKey, err = user.GenerateToken((&helper.Convert{}).Str2Int64(id)); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
-		return
-	}
-
-	if err := db.Mysql.Save(&user).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, "用户令牌保存失败", "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
