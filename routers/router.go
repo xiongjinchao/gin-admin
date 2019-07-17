@@ -3,6 +3,7 @@ package routers
 import (
 	"gin/config"
 	"gin/controllers"
+	"gin/helper"
 	"gin/middleware"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/contrib/sessions"
@@ -32,9 +33,7 @@ func Router() *gin.Engine {
 		Master:    "layouts/main",
 		Partials:  []string{"layouts/header", "layouts/sidebar", "layouts/footer"},
 		Funcs: template.FuncMap{
-			"sub": func(a, b int) int {
-				return a - b
-			},
+			"int642int": (&helper.Convert{}).Int642Int,
 			"copy": func() string {
 				return time.Now().Format("2006")
 			},

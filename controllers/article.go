@@ -81,10 +81,12 @@ func (_ *Article) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
-	var articleCategory []models.ArticleCategory
+	var articleCategory, data []models.ArticleCategory
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
+	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
+	category := (&models.ArticleCategory{}).SetSpace(data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -94,7 +96,7 @@ func (_ *Article) Create(c *gin.Context) {
 	c.HTML(http.StatusOK, "article/create", gin.H{
 		"title":           "创建文章",
 		"flash":           flash,
-		"articleCategory": articleCategory,
+		"articleCategory": category,
 		"user":            user,
 	})
 }
@@ -140,10 +142,12 @@ func (_ *Article) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	var articleCategory []models.ArticleCategory
+	var articleCategory, data []models.ArticleCategory
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
+	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
+	category := (&models.ArticleCategory{}).SetSpace(data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -154,7 +158,7 @@ func (_ *Article) Edit(c *gin.Context) {
 		"title":           "编辑文章",
 		"flash":           flash,
 		"article":         article,
-		"articleCategory": articleCategory,
+		"articleCategory": category,
 		"user":            user,
 	})
 }
@@ -168,7 +172,6 @@ func (_ *Article) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return
 	}
-	fmt.Println(article)
 
 	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
 		fmt.Println("validate error")
@@ -177,7 +180,7 @@ func (_ *Article) Update(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Model(&models.Article{}).Where("id = ?", id).Updates(article).Error; err != nil {
+	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User").Where("id = ?", id).Updates(article).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return

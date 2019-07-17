@@ -44,13 +44,12 @@ func (_ *ArticleCategory) Data(c *gin.Context) {
 	}
 
 	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
-
-	result := (&models.ArticleCategory{}).SetSpace(data)
+	category := (&models.ArticleCategory{}).SetSpace(data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
 		"recordsTotal":    len(articleCategory),
 		"recordsFiltered": total,
-		"data":            result,
+		"data":            category,
 	})
 }

@@ -24,7 +24,11 @@ func (c *Convert) Str2Map(data interface{}) map[string]interface{} {
 		if key == "" {
 			key = typ.Field(i).Name
 		}
-		result[key] = val.Field(i).Interface()
+		if reflect.TypeOf(val.Field(i).Interface()).String() == "models.Base" {
+			result[key] = c.Str2Map(val.Field(i).Interface())
+		} else {
+			result[key] = val.Field(i).Interface()
+		}
 	}
 	return result
 }
