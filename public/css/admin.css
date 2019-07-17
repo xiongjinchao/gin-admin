@@ -9,6 +9,7 @@
      vertical-align:middle
  }
  .dataTables_info{
+     clear:both;
      text-align: right;
  }
  label.error{

@@ -1,5 +1,10 @@
 package models
 
+import (
+	"gin/helper"
+	"strings"
+)
+
 type ArticleCategory struct {
 	Base
 	Name           string `json:"name" form:"name"`
@@ -24,4 +29,25 @@ func (m *ArticleCategory) Sortable(data *[]ArticleCategory, parent int64, result
 			m.Sortable(data, v.ID, result)
 		}
 	}
+}
+
+func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]interface{}) {
+
+	for i, v := range data {
+		item := (&helper.Convert{}).Str2Map(v)
+		space := ""
+		if i == 0 {
+			space += "┣ "
+		} else {
+			space += strings.Repeat("┃ ", (&helper.Convert{}).Int642Int(v.Level-1))
+			if i < len(data)-1 && v.Level == data[i+1].Level {
+				space += "┣ "
+			} else {
+				space += "┗ "
+			}
+		}
+		item["space"] = space
+		result = append(result, item)
+	}
+	return
 }

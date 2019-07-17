@@ -100,6 +100,7 @@
         $(document).ready(function() {
             $('.dataTables').DataTable({
                 order: [[ 0, "desc" ]],
+                searching: false,
                 autoWidth: false,
                 language:{
                     url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
@@ -114,13 +115,10 @@
                     type: "GET"
                 },
                 columns: [
-                    { "data": "id" },
+                    { "data": "Base.id" },
                     { "data": "name", "render":
                         function(data, type, row, meta){
-                            let result = '';
-                            result  += "┃ ".repeat(row.level - 1);
-                            result  += "┗ " + row.name;
-                            return result;
+                            return row.space + row.name;
                         }
                     },
                     { "data": "tag" },

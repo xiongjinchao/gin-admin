@@ -20,7 +20,11 @@ func (c *Convert) Str2Map(data interface{}) map[string]interface{} {
 	val := reflect.ValueOf(data)
 	result := make(map[string]interface{})
 	for i := 0; i < typ.NumField(); i++ {
-		result[typ.Field(i).Tag.Get("json")] = val.Field(i).Interface()
+		key := typ.Field(i).Tag.Get("json")
+		if key == "" {
+			key = typ.Field(i).Name
+		}
+		result[key] = val.Field(i).Interface()
 	}
 	return result
 }
@@ -54,6 +58,17 @@ func (c *Convert) Str2Int64(str string) int64 {
 		return 0
 	}
 	return i
+}
+
+// int64 to String
+func (c *Convert) Int642Str(i int64) string {
+	return strconv.FormatInt(i, 10)
+}
+
+// int64 to int
+func (c *Convert) Int642Int(i int64) int {
+	str := c.Int642Str(i)
+	return c.Str2Int(str)
 }
 
 // String to uint

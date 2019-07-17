@@ -25,7 +25,7 @@ func (_ *ArticleCategory) Index(c *gin.Context) {
 // Datatable
 func (_ *ArticleCategory) Data(c *gin.Context) {
 
-	var articleCategory, result []models.ArticleCategory
+	var articleCategory, data []models.ArticleCategory
 
 	query := db.Mysql.Model(&models.ArticleCategory{})
 
@@ -43,7 +43,9 @@ func (_ *ArticleCategory) Data(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &result)
+	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
+
+	result := (&models.ArticleCategory{}).SetSpace(data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
