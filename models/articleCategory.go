@@ -5,7 +5,7 @@ type ArticleCategory struct {
 	Name           string `json:"name" form:"name"`
 	Tag            string `json:"tag" form:"tag"`
 	Parent         int64  `json:"parent" form:"parent"`
-	Depth          int64  `json:"depth" form:"depth"`
+	Level          int64  `json:"level" form:"-"`
 	Audit          int64  `json:"audit" form:"audit"`
 	Sort           int64  `json:"sort" form:"sort"`
 	SeoTitle       string `json:"seo_title" form:"seo_title"`
@@ -15,4 +15,13 @@ type ArticleCategory struct {
 
 func (ArticleCategory) TableName() string {
 	return "article_category"
+}
+
+func (m *ArticleCategory) Sortable(data *[]ArticleCategory, parent int64, result *[]ArticleCategory) {
+	for _, v := range *data {
+		if v.Parent == parent {
+			*result = append(*result, v)
+			m.Sortable(data, v.ID, result)
+		}
+	}
 }

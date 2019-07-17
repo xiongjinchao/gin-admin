@@ -58,7 +58,7 @@
                                     <th>名称</th>
                                     <th>标签</th>
                                     <th>父级</th>
-                                    <th>深度</th>
+                                    <th>级别</th>
                                     <th>排序</th>
                                     <th>审核</th>
                                     <th>创建时间</th>
@@ -72,7 +72,7 @@
                                     <th>名称</th>
                                     <th>标签</th>
                                     <th>父级</th>
-                                    <th>深度</th>
+                                    <th>级别</th>
                                     <th>排序</th>
                                     <th>审核</th>
                                     <th>创建时间</th>
@@ -115,10 +115,17 @@
                 },
                 columns: [
                     { "data": "id" },
-                    { "data": "name" },
+                    { "data": "name", "render":
+                        function(data, type, row, meta){
+                            let result = '';
+                            result  += "┃ ".repeat(row.level - 1);
+                            result  += "┗ " + row.name;
+                            return result;
+                        }
+                    },
                     { "data": "tag" },
                     { "data": "parent" },
-                    { "data": "depth" },
+                    { "data": "level" },
                     { "data": "sort" },
                     { "data": "audit" },
                     { "data": "created_at", "render":
