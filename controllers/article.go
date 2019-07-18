@@ -172,6 +172,8 @@ func (_ *Article) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return
 	}
+
+	// when ID >0 use save() is for update.
 	article.ID = (&helper.Convert{}).Str2Int64(id)
 
 	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
@@ -181,6 +183,7 @@ func (_ *Article) Update(c *gin.Context) {
 		return
 	}
 
+	// save() function can update empty,zero,bool column.
 	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User").Save(&article).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
