@@ -167,12 +167,12 @@ func (_ *Article) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	article := models.Article{}
-	article.ID = (&helper.Convert{}).Str2Int64(id)
 	if err := c.ShouldBind(&article); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return
 	}
+	article.ID = (&helper.Convert{}).Str2Int64(id)
 
 	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
 		fmt.Println("validate error")
