@@ -58,6 +58,7 @@
                                     <th>标题</th>
                                     <th>分类</th>
                                     <th>用户</th>
+                                    <th>审核</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -69,6 +70,7 @@
                                     <th>标题</th>
                                     <th>分类</th>
                                     <th>用户</th>
+                                    <th>审核</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -111,6 +113,11 @@
                     { "data": "title" },
                     { "data": "article_category.name" },
                     { "data": "user.name" },
+                    { "data": "audit", "class":"text-center", "render":
+                        function(data, type, row, meta){
+                            return row.audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
+                        }
+                    },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");

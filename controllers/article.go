@@ -167,6 +167,7 @@ func (_ *Article) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	article := models.Article{}
+	article.ID = (&helper.Convert{}).Str2Int64(id)
 	if err := c.ShouldBind(&article); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
@@ -180,7 +181,7 @@ func (_ *Article) Update(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User").Where("id = ?", id).Updates(article).Error; err != nil {
+	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User").Save(&article).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return

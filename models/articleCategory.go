@@ -47,7 +47,23 @@ func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]
 			}
 		}
 		item["space"] = space
+
+		// set all parent
+		var parents []map[string]interface{}
+		m.SetParents(&data, v.Parent, &parents)
+		item["parents"] = parents
+
 		result = append(result, item)
 	}
 	return
+}
+
+func (m *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, parents *[]map[string]interface{}) {
+	for _, v := range *data {
+		item := (&helper.Convert{}).Str2Map(v)
+		if v.ID == parent {
+			*parents = append(*parents, item)
+			m.SetParents(data, v.Parent, parents)
+		}
+	}
 }

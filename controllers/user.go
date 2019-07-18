@@ -218,7 +218,7 @@ func (_ *User) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
-	// save() function can update empty column. but updates cant so use updates()
+	// save() function can update empty column, but updates cant. so use updates()
 	if err := db.Mysql.Model(&models.User{}).Where("id = ?", id).Updates(user).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)

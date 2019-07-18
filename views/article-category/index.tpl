@@ -122,10 +122,25 @@
                         }
                     },
                     { "data": "tag" },
-                    { "data": "parent" },
-                    { "data": "level" },
-                    { "data": "sort" },
-                    { "data": "audit" },
+                    { "data": "parent", "render":
+                        function(data, type, row, meta){
+                            let result = '';
+                            if(row.parents != null){
+                                $.each(row.parents, function(i,item){
+                                    result += " "+item.name + " /"
+                                });
+                                result = result.substring(0,result.length-1);
+                            }
+                            return result;
+                        }
+                    },
+                    { "data": "level", "class":"text-center" },
+                    { "data": "sort", "class":"text-center" },
+                    { "data": "audit", "class":"text-center", "render":
+                        function(data, type, row, meta){
+                            return row.audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
+                        }
+                    },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");
