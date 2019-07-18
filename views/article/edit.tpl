@@ -67,8 +67,9 @@
                                     </span>
                                     <select class="form-control" name="article_category_id">
                                         <option value="0">请选择</option>
+                                        {{$ArticleCategoryID := .article.ArticleCategoryID}}
                                         {{range .articleCategory}}
-                                            <option value="{{.Base.id}}" {{if eq .Base.id int642int .article.ArticleCategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
+                                            <option value="{{.Base.id}}" {{if eq .Base.id $ArticleCategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
                                         {{end}}
                                     </select>
                                 </div>

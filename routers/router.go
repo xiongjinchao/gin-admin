@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"net/http"
-	"time"
+	"reflect"
 )
 
 //Router defined all routers
@@ -33,10 +33,8 @@ func Router() *gin.Engine {
 		Master:    "layouts/main",
 		Partials:  []string{"layouts/header", "layouts/sidebar", "layouts/footer"},
 		Funcs: template.FuncMap{
-			"int642int": (&helper.Convert{}).Int642Int,
-			"copy": func() string {
-				return time.Now().Format("2006")
-			},
+			"Int642Int": (&helper.Convert{}).Int642Int,
+			"TypeOf":    reflect.TypeOf,
 		},
 		DisableCache: true,
 	})
