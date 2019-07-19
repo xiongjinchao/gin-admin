@@ -130,8 +130,9 @@
                                     </span>
                                     <select class="form-control" name="user_id">
                                         <option value="0">请选择</option>
+                                        {{$UserID := .article.UserID}}
                                         {{range .user}}
-                                            <option value="{{.ID}}">{{.Name}}</option>
+                                            <option value="{{.ID}}" {{if eq .ID $UserID}}selected{{end}}>{{.Name}}</option>
                                         {{end}}
                                     </select>
                                 </div>
