@@ -3,6 +3,7 @@ package models
 type Article struct {
 	Base
 	Title             string          `json:"title" form:"title"`
+	Cover             string          `json:"cover" form:"cover"`
 	ArticleCategoryID int64           `json:"article_category_id" form:"article_category_id" gorm:"column:article_category_id"`
 	Content           string          `json:"content" form:"content"`
 	Audit             int64           `json:"audit" form:"audit"`

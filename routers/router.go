@@ -82,6 +82,10 @@ func Router() *gin.Engine {
 		admin.GET("article-category", (&controllers.ArticleCategory{}).Index)
 		admin.GET("article-category/data", (&controllers.ArticleCategory{}).Data)
 
+		//File
+		admin.GET("file/upload", (&controllers.File{}).Upload)
+		admin.GET("file/delete/:id", (&controllers.File{}).Delete)
+
 		//Goroutines
 		admin.GET("goroutines", func(c *gin.Context) {
 			//go func() {

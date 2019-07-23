@@ -1,4 +1,5 @@
 {{ define "css" }}
+    <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -47,7 +48,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form role="form" action="/admin/article/update/{{ .article.ID }}" method="post">
+                        <form role="form" action="/admin/article/update/{{ .article.ID }}" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_method" value="PUT">
                             <div class="form-group">
                                 <label class="font-bold">标题</label>
@@ -73,6 +74,12 @@
                                         {{end}}
                                     </select>
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">封面</label>
+                                <input id="file" type="file" name="file" accept="image/*" data-initial-preview="" data-initial-preview-config="">
+                                <input type="hidden" name="cover" value="{{ .article.Cover }}">
                             </div>
 
                             <div class="form-group">
@@ -210,4 +217,72 @@
 {{ end }}
 
 {{ define "js" }}
+    <script src="/public/plug-in/bootstrap-fileinput/js/piexif.min.js"></script>
+    <script src="/public/plug-in/bootstrap-fileinput/js/sortable.min.js"></script>
+    <script src="/public/plug-in/bootstrap-fileinput/js/purify.min.js"></script>
+    <script src="/public/plug-in/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="/public/plug-in/bootstrap-fileinput/js/zh.js"></script>
+
+    <script type="text/javascript">
+        $("#file").fileinput({
+            uploadUrl: '/admin/file/upload',
+            language: 'zh',
+            maxFileSize: 5000,
+            showRemove:false,
+            showUpload:false,
+            autoReplace: true,
+            maxFileCount: 1,
+            showClose: false,
+            previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
+            allowedFileExtensions: ["jpg", "png", "gif"],
+            allowedFileTypes: ['image'],
+            uploadExtraData: {},
+            initialPreviewAsData: true,
+            initialPreview: [
+                "https://data.funhan.cn/extend/products/p2.jpg",
+            ],
+            initialPreviewConfig: [
+                {caption: "gift.jpg", size: 628782, width: "120px", url: "/admin/file/delete", key: 1}
+            ],
+            allowedPreviewTypes: ['image'],
+            previewFileIconSettings: {
+                'doc': '<i class="fas fa-file-word text-primary"></i>',
+                'xls': '<i class="fas fa-file-excel text-success"></i>',
+                'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
+                'jpg': '<i class="fas fa-file-image text-warning"></i>',
+                'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
+                'zip': '<i class="fas fa-file-archive text-muted"></i>',
+                'htm': '<i class="fas fa-file-code text-info"></i>',
+                'txt': '<i class="fas fa-file-text text-info"></i>',
+                'mov': '<i class="fas fa-file-movie-o text-warning"></i>',
+                'mp3': '<i class="fas fa-file-audio text-warning"></i>',
+            },
+            previewFileExtSettings: {
+                'doc': function(ext) {
+                    return ext.match(/(doc|docx)$/i);
+                },
+                'xls': function(ext) {
+                    return ext.match(/(xls|xlsx)$/i);
+                },
+                'ppt': function(ext) {
+                    return ext.match(/(ppt|pptx)$/i);
+                },
+                'zip': function(ext) {
+                    return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+                },
+                'htm': function(ext) {
+                    return ext.match(/(php|js|css|htm|html)$/i);
+                },
+                'txt': function(ext) {
+                    return ext.match(/(txt|ini|md)$/i);
+                },
+                'mov': function(ext) {
+                    return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+                },
+                'mp3': function(ext) {
+                    return ext.match(/(mp3|wav)$/i);
+                },
+            }
+        });
+    </script>
 {{ end }}
