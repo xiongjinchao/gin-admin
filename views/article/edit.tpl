@@ -78,8 +78,11 @@
 
                             <div class="form-group">
                                 <label class="font-bold">封面</label>
-                                <input id="file" type="file" name="file" accept="image/*" data-initial-preview="" data-initial-preview-config="">
-                                <input type="hidden" name="cover" value="{{ .article.Cover }}">
+                                <input id="file" type="file" name="file" accept="image/*"
+                                       data-category="article"
+                                       data-initial-preview='{{.initialPreview}}'
+                                       data-initial-preview-config='{{.initialPreviewConfig}}'>
+                                <input id="cover" type="hidden" name="cover" value="{{ .article.Cover }}">
                             </div>
 
                             <div class="form-group">
@@ -228,22 +231,17 @@
             uploadUrl: '/admin/file/upload',
             language: 'zh',
             maxFileSize: 5000,
-            showRemove:false,
-            showUpload:false,
+            showRemove: false,
+            showUpload: false,
             autoReplace: true,
             maxFileCount: 1,
             showClose: false,
             previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
             allowedFileExtensions: ["jpg", "png", "gif"],
             allowedFileTypes: ['image'],
-            uploadExtraData: {},
+            uploadExtraData: {category:$(this).data('category')},
             initialPreviewAsData: true,
-            initialPreview: [
-                "https://data.funhan.cn/extend/products/p2.jpg",
-            ],
-            initialPreviewConfig: [
-                {caption: "gift.jpg", size: 628782, width: "120px", url: "/admin/file/delete", key: 1}
-            ],
+            overwriteInitial: true,
             allowedPreviewTypes: ['image'],
             previewFileIconSettings: {
                 'doc': '<i class="fas fa-file-word text-primary"></i>',
@@ -283,6 +281,19 @@
                     return ext.match(/(mp3|wav)$/i);
                 },
             }
+        }).on('filebatchselected', function(event, files) {
+            $(".file-preview-success").remove();
+            $("#cover").val(0);
+        }).on('fileuploaded', function(event, data, previewId, index) {
+            if(data.response.status == 'success') {
+                $("#" + previewId).find(".kv-file-remove:visible").attr({
+                    'data-key': data.response.data.key,
+                    'data-url': '/admin/file/delete',
+                });
+                $("#cover").val(data.response.data.key);
+            }
+        }).on('filedeleted', function(event, key, jqXHR, data) {
+            $("#cover").val(0);
         });
     </script>
 {{ end }}

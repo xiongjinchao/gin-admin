@@ -3,7 +3,7 @@ package models
 type Article struct {
 	Base
 	Title             string          `json:"title" form:"title"`
-	Cover             string          `json:"cover" form:"cover"`
+	Cover             int64           `json:"cover" form:"cover"`
 	ArticleCategoryID int64           `json:"article_category_id" form:"article_category_id" gorm:"column:article_category_id"`
 	Content           string          `json:"content" form:"content"`
 	Audit             int64           `json:"audit" form:"audit"`
@@ -19,6 +19,7 @@ type Article struct {
 	SeoKeyword        string          `json:"seo_keyword" form:"seo_keyword"`
 	ArticleCategory   ArticleCategory `json:"article_category" validate:"-" gorm:"foreignKey:ArticleCategoryID"`
 	User              User            `json:"user" validate:"-" gorm:"foreignKey:UserID"`
+	File              File            `json:"file" validate:"-" gorm:"foreignKey:Cover;AssociationForeignKey:ID"`
 }
 
 func (Article) TableName() string {

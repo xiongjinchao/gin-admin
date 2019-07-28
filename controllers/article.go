@@ -138,7 +138,32 @@ func (_ *Article) Edit(c *gin.Context) {
 	flash := (&helper.Flash{}).GetFlash(c)
 
 	article := models.Article{}
-	if err := db.Mysql.First(&article, id).Error; err != nil {
+	if err := db.Mysql.Preload("File").First(&article, id).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	var config []map[string]interface{}
+	var preview []string
+	var initialPreview string
+	var err error
+
+	if article.Cover > 0 {
+		domain := "http://localhost:8080"
+		preview = append(preview, domain+article.File.Path)
+		item := make(map[string]interface{})
+		item["caption"] = article.File.Name
+		item["size"] = article.File.Size
+		item["url"] = "/admin/file/delete"
+		item["key"] = article.File.ID
+		config = append(config, item)
+		initialPreview, err = (&helper.Convert{}).Str2Json(preview)
+		if err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		}
+	}
+
+	initialPreviewConfig, err := (&helper.Convert{}).Str2Json(config)
+	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
@@ -155,11 +180,13 @@ func (_ *Article) Edit(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "article/edit", gin.H{
-		"title":           "编辑文章",
-		"flash":           flash,
-		"article":         article,
-		"articleCategory": category,
-		"user":            user,
+		"title":                "编辑文章",
+		"flash":                flash,
+		"article":              article,
+		"articleCategory":      category,
+		"user":                 user,
+		"initialPreview":       initialPreview,
+		"initialPreviewConfig": initialPreviewConfig,
 	})
 }
 
@@ -184,7 +211,7 @@ func (_ *Article) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User").Save(&article).Error; err != nil {
+	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User", "File").Save(&article).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return
