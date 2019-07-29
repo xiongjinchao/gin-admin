@@ -87,7 +87,7 @@ func (_ *User) Store(c *gin.Context) {
 
 	user := models.User{}
 	err := c.ShouldBind(&user)
-	if old, err := (&helper.Convert{}).Str2Json(user); err == nil {
+	if old, err := (&helper.Convert{}).Data2Json(user); err == nil {
 		(&helper.Flash{}).SetFlash(c, old, "old")
 	}
 

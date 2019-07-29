@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	db "gin/database"
 	"gin/helper"
@@ -48,7 +47,7 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 		return
 	}
 
-	data, err := json.Marshal(user)
+	data, err := (&helper.Convert{}).Data2Json(user)
 	if err != nil {
 		(&helper.Flash{}).SetFlash(c, "系统错误，请重试", "error")
 		c.Redirect(http.StatusFound, "/login")
@@ -57,7 +56,7 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 
 	// sign-in success
 	session := sessions.Default(c)
-	session.Set("base-auth", string(data))
+	session.Set("base-auth", data)
 	if err := session.Save(); err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}

@@ -84,7 +84,7 @@ func Router() *gin.Engine {
 
 		//File
 		admin.POST("file/upload", (&controllers.File{}).Upload)
-		admin.GET("file/delete/:id", (&controllers.File{}).Delete)
+		admin.POST("file/delete", (&controllers.File{}).Delete)
 
 		//Goroutines
 		admin.GET("goroutines", func(c *gin.Context) {

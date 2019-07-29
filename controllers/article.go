@@ -61,12 +61,6 @@ func (_ *Article) Data(c *gin.Context) {
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	/*
-		for i, _ := range article {
-			db.Mysql.Model(article[i]).Related(&article[i].ArticleCategory)
-			db.Mysql.Model(article[i]).Related(&article[i].User)
-		}
-	*/
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
@@ -106,7 +100,7 @@ func (_ *Article) Store(c *gin.Context) {
 
 	article := models.Article{}
 	err := c.ShouldBind(&article)
-	if old, err := (&helper.Convert{}).Str2Json(article); err == nil {
+	if old, err := (&helper.Convert{}).Data2Json(article); err == nil {
 		(&helper.Flash{}).SetFlash(c, old, "old")
 	}
 
@@ -144,25 +138,25 @@ func (_ *Article) Edit(c *gin.Context) {
 
 	var config []map[string]interface{}
 	var preview []string
-	var initialPreview string
-	var err error
 
 	if article.Cover > 0 {
 		domain := "http://localhost:8080"
 		preview = append(preview, domain+article.File.Path)
+
 		item := make(map[string]interface{})
 		item["caption"] = article.File.Name
 		item["size"] = article.File.Size
 		item["url"] = "/admin/file/delete"
 		item["key"] = article.File.ID
 		config = append(config, item)
-		initialPreview, err = (&helper.Convert{}).Str2Json(preview)
-		if err != nil {
-			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-		}
 	}
 
-	initialPreviewConfig, err := (&helper.Convert{}).Str2Json(config)
+	initialPreview, err := (&helper.Convert{}).Data2Json(preview)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	initialPreviewConfig, err := (&helper.Convert{}).Data2Json(config)
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}

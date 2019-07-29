@@ -8,8 +8,8 @@ import (
 
 type Convert struct{}
 
-// Struct to json
-func (c *Convert) Str2Json(data interface{}) (string, error) {
+// Struct Map Array to json
+func (c *Convert) Data2Json(data interface{}) (string, error) {
 	result, err := json.Marshal(data)
 	return string(result), err
 }
@@ -31,12 +31,6 @@ func (c *Convert) Str2Map(data interface{}) map[string]interface{} {
 		}
 	}
 	return result
-}
-
-// Map to json
-func (c *Convert) Map2Json(data map[string]interface{}) (string, error) {
-	result, err := json.Marshal(data)
-	return string(result), err
 }
 
 // Json to map

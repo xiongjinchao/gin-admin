@@ -104,9 +104,23 @@ func (_ *File) Upload(c *gin.Context) {
 	})
 }
 
-// Delete handles GET /admin/file/delete route
+// Delete handles POST /admin/file/delete route
 func (_ *File) Delete(c *gin.Context) {
-	c.HTML(http.StatusOK, "home/index", gin.H{
-		"title": "删除文件",
+	id := c.PostForm("key")
+
+	file := models.File{}
+	if err := db.Mysql.Where("id = ?", id).Delete(&file).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failure",
+			"message": err.Error(),
+			"data":    "",
+		})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{
+		"status":  "success",
+		"message": "delete success",
+		"data":    "",
 	})
 }

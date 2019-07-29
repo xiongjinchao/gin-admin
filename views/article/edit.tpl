@@ -239,7 +239,8 @@
             previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
             allowedFileExtensions: ["jpg", "png", "gif"],
             allowedFileTypes: ['image'],
-            uploadExtraData: {category:$(this).data('category')},
+            uploadExtraData: {category:$("#file").data('category')},
+            deleteExtraData: {key:$("#cover").val()},
             initialPreviewAsData: true,
             overwriteInitial: true,
             allowedPreviewTypes: ['image'],
@@ -292,6 +293,8 @@
                 });
                 $("#cover").val(data.response.data.key);
             }
+        }).on('filesuccessremove', function (event, id) {
+            $("#cover").val(0);
         }).on('filedeleted', function(event, key, jqXHR, data) {
             $("#cover").val(0);
         });
