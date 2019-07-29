@@ -116,7 +116,7 @@ func (_ *Article) Store(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Create(&article).Error; err != nil {
+	if err := db.Mysql.Omit("ArticleCategory", "User", "File").Create(&article).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/create")
 		return
@@ -138,6 +138,8 @@ func (_ *Article) Edit(c *gin.Context) {
 
 	var config []map[string]interface{}
 	var preview []string
+	var initialPreview, initialPreviewConfig string
+	var err error
 
 	if article.Cover > 0 {
 		domain := "http://localhost:8080"
@@ -149,16 +151,16 @@ func (_ *Article) Edit(c *gin.Context) {
 		item["url"] = "/admin/file/delete"
 		item["key"] = article.File.ID
 		config = append(config, item)
-	}
 
-	initialPreview, err := (&helper.Convert{}).Data2Json(preview)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+		initialPreview, err = (&helper.Convert{}).Data2Json(preview)
+		if err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		}
 
-	initialPreviewConfig, err := (&helper.Convert{}).Data2Json(config)
-	if err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		initialPreviewConfig, err = (&helper.Convert{}).Data2Json(config)
+		if err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		}
 	}
 
 	var articleCategory, data []models.ArticleCategory

@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form role="form" action="/admin/article/store" method="post" enctype="multipart/form-data">
+                        <form role="form" action="/admin/article" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_method" value="PUT">
                             <div class="form-group">
                                 <label class="font-bold">标题</label>
@@ -68,7 +68,7 @@
                                     </span>
                                     <select class="form-control" name="article_category_id">
                                         <option value="0">请选择</option>
-                                        {{$ArticleCategoryID := .flash.old.category_id}}
+                                        {{$ArticleCategoryID := Interface2Int64 .flash.old.article_category_id}}
                                         {{range .articleCategory}}
                                             <option value="{{.Base.id}}" {{if eq .Base.id $ArticleCategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
                                         {{end}}
@@ -140,7 +140,7 @@
                                     </span>
                                     <select class="form-control" name="user_id">
                                         <option value="0">请选择</option>
-                                        {{$UserID := .flash.old.user_id}}
+                                        {{$UserID := Interface2Int64 .flash.old.user_id}}
                                         {{range .user}}
                                             <option value="{{.ID}}" {{if eq .ID $UserID}}selected{{end}}>{{.Name}}</option>
                                         {{end}}

@@ -3,12 +3,14 @@ package routers
 import (
 	"gin/config"
 	"gin/controllers"
+	"gin/helper"
 	"gin/middleware"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"net/http"
+	"reflect"
 )
 
 //Router defined all routers
@@ -30,9 +32,10 @@ func Router() *gin.Engine {
 		Extension: ".tpl",
 		Master:    "layouts/main",
 		Partials:  []string{"layouts/header", "layouts/sidebar", "layouts/footer"},
-		Funcs:     template.FuncMap{
+		Funcs: template.FuncMap{
 			//"Int642Int": (&helper.Convert{}).Int642Int,
-			//"TypeOf":    reflect.TypeOf,
+			"Interface2Int64": (&helper.Convert{}).Interface2Int64,
+			"TypeOf":          reflect.TypeOf,
 		},
 		DisableCache: true,
 	})
