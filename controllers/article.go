@@ -26,7 +26,7 @@ func (_ *Article) Index(c *gin.Context) {
 func (_ *Article) Data(c *gin.Context) {
 	var article []models.Article
 
-	query := db.Mysql.Model(&models.Article{}).Preload("ArticleCategory").Preload("User")
+	query := db.Mysql.Model(&models.Article{}).Preload("ArticleCategory").Preload("User").Preload("File")
 
 	search := c.Query("search[value]")
 	if search != "" {

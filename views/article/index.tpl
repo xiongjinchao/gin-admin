@@ -55,6 +55,7 @@
                                 <thead>
                                 <tr>
                                     <th>编号</th>
+                                    <th>封面</th>
                                     <th>标题</th>
                                     <th>分类</th>
                                     <th>用户</th>
@@ -67,6 +68,7 @@
                                 <tfoot>
                                 <tr>
                                     <th>编号</th>
+                                    <th>封面</th>
                                     <th>标题</th>
                                     <th>分类</th>
                                     <th>用户</th>
@@ -110,6 +112,11 @@
                 },
                 columns: [
                     { "data": "id" },
+                    { "data": "cover", "render":
+                        function(data, type, row, meta){
+                            return row.cover > 0? '<img class="img-thumbnail" src="'+row.file.path+'" style="height:80px"/>':'';
+                        }
+                    },
                     { "data": "title" },
                     { "data": "article_category.name" },
                     { "data": "user.name" },
