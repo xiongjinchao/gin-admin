@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"gin/helper"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -14,7 +15,11 @@ func (_ *BaseAuth) CheckLogin() gin.HandlerFunc {
 		auth := session.Get("base-auth")
 		if auth == nil {
 			c.Redirect(http.StatusFound, "/login")
-			//c.AbortWithStatus(http.StatusUnauthorized)
+		}
+
+		baseAuth, err := (&helper.Convert{}).Json2Map(auth.(string))
+		if err != nil || (&helper.Convert{}).Interface2Int64(baseAuth["id"]) <= 0 {
+			c.Redirect(http.StatusFound, "/login")
 		}
 		c.Next()
 	}

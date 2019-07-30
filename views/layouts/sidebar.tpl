@@ -36,8 +36,9 @@
                 <li>
                     <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
+                        <li><a href="/admin/admin"><i class="fa fa-github-alt text-warning"></i> 管理员</a></li>
+                        <li><a href="/admin/role"><i class="fa fa-graduation-cap text-warning"></i> 角色管理</a></li>
                         <li><a href="/admin/user"><i class="fa fa-user-o text-warning"></i> 用户管理</a></li>
-                        <li><a href="/admin/role"><i class="fa fa-github-alt text-warning"></i> 角色管理</a></li>
                     </ul>
                 </li>
                 <li>

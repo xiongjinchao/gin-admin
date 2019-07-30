@@ -200,7 +200,6 @@ func (_ *Article) Update(c *gin.Context) {
 	article.ID = (&helper.Convert{}).Str2Int64(id)
 
 	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
-		fmt.Println("validate error")
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return

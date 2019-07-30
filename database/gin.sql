@@ -345,6 +345,36 @@ INSERT DELAYED IGNORE INTO `article_category` (`id`, `name`, `tag`, `parent`, `l
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
+  `email` varchar(100) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号码',
+  `password` varchar(128) NOT NULL DEFAULT '' COMMENT '密码',
+  `remember_token` varchar(128) DEFAULT '' COMMENT 'TOKEN',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='管理员表';
+
+--
+-- 转存表中的数据 `admin`
+--
+
+INSERT DELAYED IGNORE INTO `admin` (`id`, `name`, `email`, `mobile`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin', 'xiongjinchao@hotmail.com', '15911006066', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', '2019-04-02 08:38:07', '2019-07-09 07:23:32', NULL),
+(2, '熊进超', '67218026@qq.com', '15911006062', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', '2019-07-09 06:56:08', '2019-07-09 07:29:52', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `user`
 --
 

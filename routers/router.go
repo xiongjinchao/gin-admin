@@ -48,10 +48,6 @@ func Router() *gin.Engine {
 	router.GET("/login", (&controllers.BaseAuth{}).Login)
 	router.POST("/sign-in", (&controllers.BaseAuth{}).SignIn)
 
-	// Register
-	router.GET("/register", (&controllers.BaseAuth{}).Register)
-	router.POST("/sign-up", (&controllers.BaseAuth{}).SignUp)
-
 	//Logout
 	router.GET("/logout", (&controllers.BaseAuth{}).Logout)
 
@@ -61,33 +57,54 @@ func Router() *gin.Engine {
 		//Admin Dashboard
 		admin.GET("dashboard", (&controllers.Home{}).Dashboard)
 
+		//Admin
+		administrator := &controllers.Admin{}
+		admin.GET("admin", administrator.Index)
+		admin.GET("admin/data", administrator.Data)
+		admin.GET("admin/create", administrator.Create)
+		admin.POST("admin", administrator.Store)
+		admin.GET("admin/edit/:id", administrator.Edit)
+		admin.POST("admin/update/:id", administrator.Update)
+		admin.GET("admin/show/:id", administrator.Show)
+		admin.GET("admin/delete/:id", administrator.Destroy)
+
 		//User
-		admin.GET("user", (&controllers.User{}).Index)
-		admin.GET("user/data", (&controllers.User{}).Data)
-		admin.GET("user/create", (&controllers.User{}).Create)
-		admin.POST("user", (&controllers.User{}).Store)
-		admin.GET("user/edit/:id", (&controllers.User{}).Edit)
-		admin.POST("user/update/:id", (&controllers.User{}).Update)
-		admin.GET("user/show/:id", (&controllers.User{}).Show)
-		admin.GET("user/delete/:id", (&controllers.User{}).Destroy)
+		user := &controllers.User{}
+		admin.GET("user", user.Index)
+		admin.GET("user/data", user.Data)
+		admin.GET("user/create", user.Create)
+		admin.POST("user", user.Store)
+		admin.GET("user/edit/:id", user.Edit)
+		admin.POST("user/update/:id", user.Update)
+		admin.GET("user/show/:id", user.Show)
+		admin.GET("user/delete/:id", user.Destroy)
 
 		//Article
-		admin.GET("article", (&controllers.Article{}).Index)
-		admin.GET("article/data", (&controllers.Article{}).Data)
-		admin.GET("article/create", (&controllers.Article{}).Create)
-		admin.POST("article", (&controllers.Article{}).Store)
-		admin.GET("article/edit/:id", (&controllers.Article{}).Edit)
-		admin.POST("article/update/:id", (&controllers.Article{}).Update)
-		admin.GET("article/show/:id", (&controllers.Article{}).Show)
-		admin.GET("article/delete/:id", (&controllers.Article{}).Destroy)
+		article := &controllers.Article{}
+		admin.GET("article", article.Index)
+		admin.GET("article/data", article.Data)
+		admin.GET("article/create", article.Create)
+		admin.POST("article", article.Store)
+		admin.GET("article/edit/:id", article.Edit)
+		admin.POST("article/update/:id", article.Update)
+		admin.GET("article/show/:id", article.Show)
+		admin.GET("article/delete/:id", article.Destroy)
 
 		//Article Category
-		admin.GET("article-category", (&controllers.ArticleCategory{}).Index)
-		admin.GET("article-category/data", (&controllers.ArticleCategory{}).Data)
+		articleCategory := &controllers.ArticleCategory{}
+		admin.GET("article-category", articleCategory.Index)
+		admin.GET("article-category/data", articleCategory.Data)
+		admin.GET("article-category/create", articleCategory.Create)
+		admin.POST("article-category", articleCategory.Store)
+		admin.GET("article-category/edit/:id", articleCategory.Edit)
+		admin.POST("article-category/update/:id", articleCategory.Update)
+		admin.GET("article-category/show/:id", articleCategory.Show)
+		admin.GET("article-category/delete/:id", articleCategory.Destroy)
 
 		//File
-		admin.POST("file/upload", (&controllers.File{}).Upload)
-		admin.POST("file/delete", (&controllers.File{}).Delete)
+		file := &controllers.File{}
+		admin.POST("file/upload", file.Upload)
+		admin.POST("file/delete", file.Delete)
 
 		//Goroutines
 		admin.GET("goroutines", func(c *gin.Context) {

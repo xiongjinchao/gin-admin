@@ -74,7 +74,6 @@ func (_ *User) Data(c *gin.Context) {
 func (_ *User) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
-	fmt.Println(flash)
 
 	c.HTML(http.StatusOK, "user/create", gin.H{
 		"title": "创建用户",

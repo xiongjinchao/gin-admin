@@ -53,3 +53,42 @@ func (_ *ArticleCategory) Data(c *gin.Context) {
 		"data":            category,
 	})
 }
+
+// Create handles GET /admin/article-category/create route
+func (_ *ArticleCategory) Create(c *gin.Context) {
+
+	flash := (&helper.Flash{}).GetFlash(c)
+
+	var articleCategory, data []models.ArticleCategory
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
+	category := (&models.ArticleCategory{}).SetSpace(data)
+
+	c.HTML(http.StatusOK, "article-category/create", gin.H{
+		"title":           "创建文章分类",
+		"flash":           flash,
+		"articleCategory": category,
+	})
+}
+
+// Store handles POST /admin/article-category route
+func (_ *ArticleCategory) Store(c *gin.Context) {
+
+}
+
+func (_ *ArticleCategory) Edit(c *gin.Context) {
+
+}
+func (_ *ArticleCategory) Update(c *gin.Context) {
+
+}
+
+func (_ *ArticleCategory) Show(c *gin.Context) {
+
+}
+
+func (_ *ArticleCategory) Destroy(c *gin.Context) {
+
+}

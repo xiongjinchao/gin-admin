@@ -38,16 +38,16 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 		return
 	}
 
-	user := models.User{}
-	auth.Password = (&models.User{}).GeneratePassword(auth.Password)
-	err := db.Mysql.Model(&models.User{}).Where("mobile = ? AND password = ?", auth.Mobile, auth.Password).First(&user).Error
+	admin := models.Admin{}
+	auth.Password = (&models.Admin{}).GeneratePassword(auth.Password)
+	err := db.Mysql.Model(&models.Admin{}).Where("mobile = ? AND password = ?", auth.Mobile, auth.Password).First(&admin).Error
 	if gorm.IsRecordNotFoundError(err) {
 		(&helper.Flash{}).SetFlash(c, "账号或密码错误，请重新输入", "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
-	data, err := (&helper.Convert{}).Data2Json(user)
+	data, err := (&helper.Convert{}).Data2Json(admin)
 	if err != nil {
 		(&helper.Flash{}).SetFlash(c, "系统错误，请重试", "error")
 		c.Redirect(http.StatusFound, "/login")
@@ -61,18 +61,6 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	c.Redirect(http.StatusFound, "/admin/dashboard")
-}
-
-//Register handles GET /register route
-func (_ *BaseAuth) Register(c *gin.Context) {
-	c.HTML(http.StatusOK, "base-auth/register.tpl", gin.H{
-		"title": "Gin Blog",
-	})
-}
-
-//SignUp handles POST /sign-up route
-func (_ *BaseAuth) SignUp(c *gin.Context) {
-	fmt.Println("Gin Blog")
 }
 
 func (_ *BaseAuth) Logout(c *gin.Context) {
