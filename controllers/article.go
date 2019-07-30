@@ -45,7 +45,7 @@ func (_ *Article) Data(c *gin.Context) {
 	case "1":
 		query = query.Order("title " + sort)
 	case "2":
-		query = query.Order("article_category_id " + sort)
+		query = query.Order("category_id " + sort)
 	case "3":
 		query = query.Order("user_id " + sort)
 	case "4":

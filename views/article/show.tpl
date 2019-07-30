@@ -63,7 +63,7 @@
                                     <th>封面</th><td>{{ .article.Cover }}</td>
                                 </tr>
                                 <tr>
-                                    <th>文章分类</th><td>{{ .article.ArticleCategoryID }}</td>
+                                    <th>文章分类</th><td>{{ .article.CategoryID }}</td>
                                 </tr>
                                 <tr>
                                     <th>内容</th><td>{{ .article.Content }}</td>

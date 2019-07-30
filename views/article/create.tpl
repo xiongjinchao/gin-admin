@@ -66,11 +66,11 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-th-list"></i>
                                     </span>
-                                    <select class="form-control" name="article_category_id">
+                                    <select class="form-control" name="category_id">
                                         <option value="0">请选择</option>
-                                        {{$ArticleCategoryID := Interface2Int64 .flash.old.article_category_id}}
+                                        {{$CategoryID := Interface2Int64 .flash.old.category_id}}
                                         {{range .articleCategory}}
-                                            <option value="{{.Base.id}}" {{if eq .Base.id $ArticleCategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
+                                            <option value="{{.Base.id}}" {{if eq .Base.id $CategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
                                         {{end}}
                                     </select>
                                 </div>

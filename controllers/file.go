@@ -73,7 +73,7 @@ func (_ *File) Upload(c *gin.Context) {
 
 	model := &models.File{}
 	model.Name = name
-	model.FileCategory = category
+	model.Category = category
 	model.Path = "/" + path + "/" + name
 	model.Width = 100
 	model.Height = 100
