@@ -37,13 +37,19 @@ func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]
 		item := (&helper.Convert{}).Str2Map(v)
 		space := ""
 		if i == 0 {
-			space += "┣ "
+			space += "┣ "
 		} else {
-			space += strings.Repeat("┃ ", (&helper.Convert{}).Int642Int(v.Level-1))
+			if v.Level > 1 {
+				space += "┃ "
+			}
+			if v.Level > 2 {
+				space += strings.Repeat(" ━ ", (&helper.Convert{}).Int642Int(v.Level-2))
+			}
+
 			if i < len(data)-1 && v.Level == data[i+1].Level {
-				space += "┣ "
+				space += "┣ "
 			} else {
-				space += "┗ "
+				space += "┗ "
 			}
 		}
 		item["space"] = space

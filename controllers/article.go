@@ -75,12 +75,12 @@ func (_ *Article) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
-	var articleCategory, data []models.ArticleCategory
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
+	var articleCategories, data []models.ArticleCategory
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
-	category := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).Sortable(&articleCategories, 0, &data)
+	categories := (&models.ArticleCategory{}).SetSpace(data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -88,10 +88,10 @@ func (_ *Article) Create(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "article/create", gin.H{
-		"title":           "创建文章",
-		"flash":           flash,
-		"articleCategory": category,
-		"user":            user,
+		"title":             "创建文章",
+		"flash":             flash,
+		"articleCategories": categories,
+		"user":              user,
 	})
 }
 
@@ -163,12 +163,12 @@ func (_ *Article) Edit(c *gin.Context) {
 		}
 	}
 
-	var articleCategory, data []models.ArticleCategory
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategory).Error; err != nil {
+	var articleCategories, data []models.ArticleCategory
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
-	category := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).Sortable(&articleCategories, 0, &data)
+	categories := (&models.ArticleCategory{}).SetSpace(data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -179,7 +179,7 @@ func (_ *Article) Edit(c *gin.Context) {
 		"title":                "编辑文章",
 		"flash":                flash,
 		"article":              article,
-		"articleCategory":      category,
+		"articleCategories":    categories,
 		"user":                 user,
 		"initialPreview":       initialPreview,
 		"initialPreviewConfig": initialPreviewConfig,

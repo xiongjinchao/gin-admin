@@ -47,14 +47,14 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="article-category-form" role="form" action="/admin/article-category" method="post">
+                        <form id="article-category-form" role="form" action="/admin/article-category/update/{{ .articleCategory.ID }}" method="post">
                             <div class="form-group">
                                 <label class="font-bold">名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入分类名称" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="name" placeholder="请输入分类名称" class="form-control" value="{{ .articleCategory.Name }}">
                                 </div>
                             </div>
 
@@ -64,7 +64,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-mobile"></i>
                                     </span>
-                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
+                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .articleCategory.Tag }}">
                                 </div>
                             </div>
 
@@ -77,7 +77,7 @@
                                     </span>
                                     <select class="form-control" name="parent">
                                         <option value="0">设为主分类</option>
-                                        {{$parent := Interface2Int64 .flash.old.parent}}
+                                        {{$parent := Interface2Int64 .articleCategory.Parent}}
                                         {{range .articleCategories}}
                                             <option value="{{.Base.id}}" {{if eq .Base.id $parent}}selected{{end}}>{{.space}}{{.name}}</option>
                                         {{end}}
@@ -91,7 +91,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-star"></i>
                                     </span>
-                                    <input type="text" name="audit" placeholder="" class="form-control" value="{{ .flash.old.audit }}">
+                                    <input type="text" name="audit" placeholder="" class="form-control" value="{{ .articleCategory.Audit }}">
                                 </div>
                             </div>
 
@@ -101,7 +101,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-star"></i>
                                     </span>
-                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
+                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .articleCategory.Sort }}">
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-header"></i>
                                     </span>
-                                    <input type="text" name="seo_title" placeholder="" class="form-control" value="{{ .flash.old.seo_title }}">
+                                    <input type="text" name="seo_title" placeholder="" class="form-control" value="{{ .articleCategory.SeoTitle }}">
                                 </div>
                             </div>
 
@@ -121,7 +121,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-globe"></i>
                                     </span>
-                                    <input type="text" name="seo_description" placeholder="" class="form-control" value="{{ .flash.old.seo_description }}">
+                                    <input type="text" name="seo_description" placeholder="" class="form-control" value="{{ .articleCategory.SeoDescription }}">
                                 </div>
                             </div>
 
@@ -131,7 +131,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-key"></i>
                                     </span>
-                                    <input type="text" name="seo_keyword" placeholder="" class="form-control" value="{{ .flash.old.seo_keyword }}">
+                                    <input type="text" name="seo_keyword" placeholder="" class="form-control" value="{{ .articleCategory.SeoKeyword }}">
                                 </div>
                             </div>
 
