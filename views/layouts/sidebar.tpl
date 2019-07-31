@@ -27,9 +27,9 @@
                 <li>
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">内容管理</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="/admin/menu"><i class="fa fa-list-ul text-info"></i> 菜单管理</a></li>
+                        <li><a href="/admin/menu"><i class="fa fa-star text-info"></i> 菜单管理</a></li>
                         <li><a href="/admin/article"><i class="fa fa-file-text-o text-info"></i> 文章管理</a></li>
-                        <li><a href="/admin/article-category"><i class="fa fa-file-text-o text-info"></i> 文章分类</a></li>
+                        <li><a href="/admin/article-category"><i class="fa fa-th-list text-info"></i> 文章分类</a></li>
                         <li><a href="/admin/friend-link"><i class="fa fa-link text-info"></i> 友情链接</a></li>
                     </ul>
                 </li>
@@ -37,8 +37,8 @@
                     <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/admin"><i class="fa fa-github-alt text-warning"></i> 管理员</a></li>
-                        <li><a href="/admin/role"><i class="fa fa-graduation-cap text-warning"></i> 角色管理</a></li>
                         <li><a href="/admin/user"><i class="fa fa-user-o text-warning"></i> 用户管理</a></li>
+                        <li><a href="/admin/role"><i class="fa fa-graduation-cap text-warning"></i> 角色管理</a></li>
                     </ul>
                 </li>
                 <li>

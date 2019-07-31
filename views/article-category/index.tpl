@@ -15,7 +15,7 @@
                     <i class="fa fa-th-large"></i> 内容管理
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-file-text-o"></i> {{ .title}}</strong>
+                    <strong><i class="fa fa-th-list"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>

@@ -60,6 +60,9 @@
                                     <th>分类</th>
                                     <th>用户</th>
                                     <th>审核</th>
+                                    <th>热门</th>
+                                    <th>推荐</th>
+                                    <th>点击量</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -73,6 +76,9 @@
                                     <th>分类</th>
                                     <th>用户</th>
                                     <th>审核</th>
+                                    <th>热门</th>
+                                    <th>推荐</th>
+                                    <th>点击量</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -125,6 +131,17 @@
                             return row.audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
                         }
                     },
+                    { "data": "hot", "class":"text-center", "render":
+                            function(data, type, row, meta){
+                                return row.hot == 1?'<span class="glyphicon glyphicon-ok text-primary"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
+                            }
+                    },
+                    { "data": "recommend", "class":"text-center", "render":
+                            function(data, type, row, meta){
+                                return row.recommend == 1?'<span class="glyphicon glyphicon-ok text-warning"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
+                            }
+                    },
+                    { "data": "hit" },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");

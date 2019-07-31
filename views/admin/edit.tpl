@@ -14,7 +14,7 @@
                     <i class="fa fa-gears"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-user-o"></i> 管理员</strong>
+                    <strong><i class="fa fa-github-alt"></i> 管理员</strong>
                 </li>
             </ol>
         </div>

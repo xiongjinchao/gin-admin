@@ -1,4 +1,5 @@
 {{ define "css" }}
+    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -14,7 +15,7 @@
                     <i class="fa fa-gears"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-file-text-o"></i> 文章分类</strong>
+                    <strong><i class="fa fa-th-list"></i> 文章分类</strong>
                 </li>
             </ol>
         </div>
@@ -62,7 +63,7 @@
                                 <label class="font-bold">标签</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-mobile"></i>
+                                        <i class="fa fa-tag"></i>
                                     </span>
                                     <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
                                 </div>
@@ -87,11 +88,18 @@
 
                             <div class="form-group">
                                 <label class="font-bold">审核</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                    <input type="text" name="audit" placeholder="" class="form-control" value="{{ .flash.old.audit }}">
+                                {{$audit := Interface2Int64 .flash.old.audit}}
+                                <div class="radio radio-primary">
+                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq $audit 1}}checked{{end}}>
+                                    <label for="audit1">
+                                        已审核
+                                    </label>
+                                </div>
+                                <div class="radio radio-primary">
+                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq $audit 0}}checked{{end}}>
+                                    <label for="audit2">
+                                        未审核
+                                    </label>
                                 </div>
                             </div>
 
@@ -99,7 +107,7 @@
                                 <label class="font-bold">排序</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-sort-amount-desc"></i>
                                     </span>
                                     <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
                                 </div>
@@ -150,34 +158,15 @@
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
-        jQuery.validator.addMethod("mobileCN", function(value, element) {
-            var length = value.length;
-            var mobile = /^(1[0-9]{10})$/;
-            return this.optional(element) || (length == 11 && mobile.test(value));
-        }, "请正确填写手机号码");
-
         $().ready(function() {
-            $("#user-form").validate({
+            $("#article-category-form").validate({
                 rules: {
                     name: "required",
-                    mobile: {
-                        required: true,
-                        mobileCN: true,
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                    }
+                    parent: "required",
                 },
                 messages: {
-                    name: "请输入真实姓名",
-                    mobile: {
-                        required: "请输入您的手机号码"
-                    },
-                    email: {
-                        required: "请输入邮箱",
-                        email: "请输入有效的邮箱",
-                    }
+                    name: "请输入分类名称",
+                    parent:"请选择所属分类",
                 }
             })
         });

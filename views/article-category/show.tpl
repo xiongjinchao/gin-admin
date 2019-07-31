@@ -14,7 +14,7 @@
                     <i class="fa fa-gears"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-file-text-o"></i> 文章分类</strong>
+                    <strong><i class="fa fa-th-list"></i> 文章分类</strong>
                 </li>
             </ol>
         </div>

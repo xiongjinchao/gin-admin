@@ -1,5 +1,7 @@
 {{ define "css" }}
     <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/inspinia/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -87,38 +89,57 @@
 
                             <div class="form-group">
                                 <label class="font-bold">内容</label>
-                                <div class="input-group">
-                                    <textarea name="content" placeholder="" class="form-control" rows="6">{{ .flash.old.content }}</textarea>
-                                </div>
+                                <textarea id="content" name="content" placeholder="" class="form-control" rows="12">{{ .flash.old.content }}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label class="font-bold">审核</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-check"></i>
-                                    </span>
-                                    <input type="text" name="audit" placeholder="" class="form-control" value="{{ .flash.old.audit }}">
+                                {{$audit := Interface2Int64 .flash.old.audit}}
+                                <div class="radio radio-primary">
+                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq $audit 1}}checked{{end}}>
+                                    <label for="audit1">
+                                        已审核
+                                    </label>
+                                </div>
+                                <div class="radio radio-primary">
+                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq $audit 0}}checked{{end}}>
+                                    <label for="audit2">
+                                        未审核
+                                    </label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="font-bold">热门</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-fire"></i>
-                                    </span>
-                                    <input type="text" name="hot" placeholder="" class="form-control" value="{{ .flash.old.hot }}">
+                                {{$hot := Interface2Int64 .flash.old.hot}}
+                                <div class="radio radio-danger">
+                                    <input type="radio" name="hot" id="hot1" value="1" {{if eq $hot 1}}checked{{end}}>
+                                    <label for="hot1">
+                                        已设为热门
+                                    </label>
+                                </div>
+                                <div class="radio radio-danger">
+                                    <input type="radio" name="hot" id="hot2" value="0" {{if eq $hot 0}}checked{{end}}>
+                                    <label for="hot2">
+                                        未设为热门
+                                    </label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="font-bold">推荐</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-star-o"></i>
-                                    </span>
-                                    <input type="text" name="recommend" placeholder="" class="form-control" value="{{ .flash.old.recommend }}">
+                                {{$recommend := Interface2Int64 .flash.old.recommend}}
+                                <div class="radio radio-warning">
+                                    <input type="radio" name="recommend" id="recommend1" value="1" {{if eq $recommend 1}}checked{{end}}>
+                                    <label for="recommend1">
+                                        已推荐
+                                    </label>
+                                </div>
+                                <div class="radio radio-warning">
+                                    <input type="radio" name="recommend" id="recommend2" value="0" {{if eq $recommend 0}}checked{{end}}>
+                                    <label for="recommend2">
+                                        未推荐
+                                    </label>
                                 </div>
                             </div>
 
@@ -226,7 +247,12 @@
     <script src="/public/plug-in/bootstrap-fileinput/js/fileinput.min.js"></script>
     <script src="/public/plug-in/bootstrap-fileinput/js/zh.js"></script>
 
+    <script src="/public/inspinia/js/plugins/bootstrap-markdown/bootstrap-markdown.js"></script>
+    <script src="/public/inspinia/js/plugins/bootstrap-markdown/markdown.js"></script>
+    <script src="/public/inspinia/js/plugins/bootstrap-markdown/bootstrap-markdown.zh.js"></script>
+
     <script type="text/javascript">
+        $("#content").markdown({language:'zh'});
         $("#file").fileinput({
             uploadUrl: '/admin/file/upload',
             language: 'zh',
