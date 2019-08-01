@@ -1,13 +1,13 @@
 package main
 
 import (
-	"gin/config"
-	db "gin/database"
-	"gin/routers"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/xiongjinchao/gin-blog/config"
+	db "github.com/xiongjinchao/gin-blog/database"
+	"github.com/xiongjinchao/gin-blog/routers"
 	"strconv"
 )
 

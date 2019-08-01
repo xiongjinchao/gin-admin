@@ -1,13 +1,13 @@
 package routers
 
 import (
-	"gin/config"
-	"gin/controllers"
-	"gin/helper"
-	"gin/middleware"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/xiongjinchao/gin-blog/config"
+	"github.com/xiongjinchao/gin-blog/controllers"
+	"github.com/xiongjinchao/gin-blog/helper"
+	"github.com/xiongjinchao/gin-blog/middleware"
 	"html/template"
 	"net/http"
 	"reflect"

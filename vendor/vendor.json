@@ -201,6 +201,54 @@
 			"revisionTime": "2019-07-23T09:17:30Z"
 		},
 		{
+			"checksumSHA1": "0hbSwstLVTDmgTD0TbgbG7M5nlo=",
+			"path": "github.com/xiongjinchao/gin-blog",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "SSHoD7W0NkCpx84Vc6OXdG+x1yA=",
+			"path": "github.com/xiongjinchao/gin-blog/config",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "RuhGDVw7qpmZKYEFkiiSJ9+rJmo=",
+			"path": "github.com/xiongjinchao/gin-blog/controllers",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "15aO0yrIbJifMslJOBI8ilHRl6A=",
+			"path": "github.com/xiongjinchao/gin-blog/database",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "0PwrlYBe8URcZue9JgAvCNr0TdY=",
+			"path": "github.com/xiongjinchao/gin-blog/helper",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "emWJ9m8RAmHrT3SjhdFtnfuCXmw=",
+			"path": "github.com/xiongjinchao/gin-blog/middleware",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "G9K70Z9+k3V1fOAQMR4SAs0OiQg=",
+			"path": "github.com/xiongjinchao/gin-blog/models",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
+			"checksumSHA1": "CnPMtWPslF16zn+i6yTu9sZ2KzU=",
+			"path": "github.com/xiongjinchao/gin-blog/routers",
+			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
+			"revisionTime": "2019-08-01T13:57:19Z"
+		},
+		{
 			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",
 			"path": "gopkg.in/go-playground/validator.v8",
 			"revision": "5f1438d3fca68893a817e4a66806cea46a9e4ebf",
@@ -225,5 +273,5 @@
 			"revisionTime": "2018-11-15T11:05:04Z"
 		}
 	],
-	"rootPath": "gin"
+	"rootPath": "github.com/xiongjinchao/gin-blog"
 }
