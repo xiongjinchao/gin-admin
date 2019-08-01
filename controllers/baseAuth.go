@@ -3,9 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	db "github.com/xiongjinchao/gin-blog/database"
-	"github.com/xiongjinchao/gin-blog/helper"
-	"github.com/xiongjinchao/gin-blog/models"
+	db "github.com/xiongjinchao/gin/database"
+	"github.com/xiongjinchao/gin/helper"
+	"github.com/xiongjinchao/gin/models"
 	"net/http"
 
 	"github.com/gin-gonic/contrib/sessions"

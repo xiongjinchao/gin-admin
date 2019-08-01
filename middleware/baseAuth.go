@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/xiongjinchao/gin-blog/helper"
+	"github.com/xiongjinchao/gin/helper"
 	"net/http"
 )
 

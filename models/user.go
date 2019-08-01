@@ -5,7 +5,7 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/xiongjinchao/gin-blog/config"
+	"github.com/xiongjinchao/gin/config"
 	"time"
 )
 

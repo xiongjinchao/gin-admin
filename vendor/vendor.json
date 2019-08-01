@@ -202,49 +202,49 @@
 		},
 		{
 			"checksumSHA1": "0hbSwstLVTDmgTD0TbgbG7M5nlo=",
-			"path": "github.com/xiongjinchao/gin-blog",
+			"path": "github.com/xiongjinchao/gin",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "SSHoD7W0NkCpx84Vc6OXdG+x1yA=",
-			"path": "github.com/xiongjinchao/gin-blog/config",
+			"path": "github.com/xiongjinchao/gin/config",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "RuhGDVw7qpmZKYEFkiiSJ9+rJmo=",
-			"path": "github.com/xiongjinchao/gin-blog/controllers",
+			"path": "github.com/xiongjinchao/gin/controllers",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "15aO0yrIbJifMslJOBI8ilHRl6A=",
-			"path": "github.com/xiongjinchao/gin-blog/database",
+			"path": "github.com/xiongjinchao/gin/database",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "0PwrlYBe8URcZue9JgAvCNr0TdY=",
-			"path": "github.com/xiongjinchao/gin-blog/helper",
+			"path": "github.com/xiongjinchao/gin/helper",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "emWJ9m8RAmHrT3SjhdFtnfuCXmw=",
-			"path": "github.com/xiongjinchao/gin-blog/middleware",
+			"path": "github.com/xiongjinchao/gin/middleware",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "G9K70Z9+k3V1fOAQMR4SAs0OiQg=",
-			"path": "github.com/xiongjinchao/gin-blog/models",
+			"path": "github.com/xiongjinchao/gin/models",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
 		{
 			"checksumSHA1": "CnPMtWPslF16zn+i6yTu9sZ2KzU=",
-			"path": "github.com/xiongjinchao/gin-blog/routers",
+			"path": "github.com/xiongjinchao/gin/routers",
 			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
 			"revisionTime": "2019-08-01T13:57:19Z"
 		},
@@ -273,5 +273,5 @@
 			"revisionTime": "2018-11-15T11:05:04Z"
 		}
 	],
-	"rootPath": "github.com/xiongjinchao/gin-blog"
+	"rootPath": "github.com/xiongjinchao/gin"
 }

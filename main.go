@@ -5,9 +5,9 @@ import (
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"github.com/xiongjinchao/gin-blog/config"
-	db "github.com/xiongjinchao/gin-blog/database"
-	"github.com/xiongjinchao/gin-blog/routers"
+	"github.com/xiongjinchao/gin/config"
+	db "github.com/xiongjinchao/gin/database"
+	"github.com/xiongjinchao/gin/routers"
 	"strconv"
 )
 
