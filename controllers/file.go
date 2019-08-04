@@ -1,12 +1,12 @@
 package controllers
 
 import (
+	db "gin/database"
+	"gin/helper"
+	"gin/models"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
-	db "github.com/xiongjinchao/gin/database"
-	"github.com/xiongjinchao/gin/helper"
-	"github.com/xiongjinchao/gin/models"
 	"io"
 	"net/http"
 	"os"

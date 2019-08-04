@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"fmt"
+	db "gin/database"
+	"gin/helper"
+	"gin/models"
 	"github.com/gin-gonic/gin"
-	db "github.com/xiongjinchao/gin/database"
-	"github.com/xiongjinchao/gin/helper"
-	"github.com/xiongjinchao/gin/models"
 	"net/http"
 )
 

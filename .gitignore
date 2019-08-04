@@ -2,5 +2,5 @@
 logs
 public/uploads
 
-vendor
+vendor/*
 !vendor/vendor.json

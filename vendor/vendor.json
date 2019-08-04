@@ -57,10 +57,10 @@
 			"revisionTime": "2019-07-27T01:06:37Z"
 		},
 		{
-			"checksumSHA1": "cEr7exXW5B6blslKPCO1GriPxv8=",
+			"checksumSHA1": "UYd8Igf+/PwRSIFwp0ra4uOOrRI=",
 			"path": "github.com/go-ini/ini",
-			"revision": "8659100d2d9ecf3760a41838b1886db49426d001",
-			"revisionTime": "2019-07-07T05:25:57Z"
+			"revision": "c014d65cb0b3fb869e0d1a694ee87e6529d7ed4b",
+			"revisionTime": "2019-08-04T05:40:08Z"
 		},
 		{
 			"checksumSHA1": "NsLphrlxGA/Ao+hIbk8qsZtXhT4=",
@@ -87,46 +87,16 @@
 			"revisionTime": "2017-03-27T19:17:03Z"
 		},
 		{
-			"checksumSHA1": "wJqrbO7ikRN5AhckkRrssL64gnc=",
+			"checksumSHA1": "i7mphI4JucOWQXx9HC8krEuR3JA=",
 			"path": "github.com/go-redis/redis",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
+			"revision": "742f3ccb21cd72c110cb3230baa7ea008fccd938",
+			"revisionTime": "2019-08-03T14:48:25Z"
 		},
 		{
-			"checksumSHA1": "ReLxjhgDIVSi0YEUfAaHOVkY/wg=",
-			"path": "github.com/go-redis/redis/internal",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
-		},
-		{
-			"checksumSHA1": "BuzQsdMJMUXm8Zfwtuoz4QUdnZE=",
-			"path": "github.com/go-redis/redis/internal/consistenthash",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
-		},
-		{
-			"checksumSHA1": "W47jjF/WaLGsAkYbZUoVcoFCpGc=",
-			"path": "github.com/go-redis/redis/internal/hashtag",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
-		},
-		{
-			"checksumSHA1": "HoX/Qwmuz49lQgwvFv1XZE9YxcI=",
+			"checksumSHA1": "HVNHwkcTMJznXyB0Nqe4XmS65is=",
 			"path": "github.com/go-redis/redis/internal/pool",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
-		},
-		{
-			"checksumSHA1": "LhB8Z3QPg7Cpz9fn4UxRlcv5kM0=",
-			"path": "github.com/go-redis/redis/internal/proto",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
-		},
-		{
-			"checksumSHA1": "bp+tC2j9x5lIBFL+/lsS7TTH24E=",
-			"path": "github.com/go-redis/redis/internal/util",
-			"revision": "90febb9820fb3ae004396f67122763837812b951",
-			"revisionTime": "2019-06-01T10:00:05Z"
+			"revision": "742f3ccb21cd72c110cb3230baa7ea008fccd938",
+			"revisionTime": "2019-08-03T14:48:25Z"
 		},
 		{
 			"checksumSHA1": "aNZPEOjiyAgS+Y0n19AF8vimMc4=",
@@ -159,7 +129,7 @@
 			"revisionTime": "2019-07-07T03:38:17Z"
 		},
 		{
-			"checksumSHA1": "2JTUh2Espw/QFZzibb9E4+NDy3Y=",
+			"checksumSHA1": "a2CT4E83/3QrKl0sa58UIJXFkI8=",
 			"path": "github.com/gorilla/sessions",
 			"revision": "9c6b24ee2dee928836dbf71f18bb0c7d0da4bf85",
 			"revisionTime": "2019-07-20T20:21:36Z"
@@ -175,6 +145,10 @@
 			"path": "github.com/jinzhu/inflection",
 			"revision": "f5c5f50e6090ae76a29240b61ae2a90dd810112e",
 			"revisionTime": "2019-06-03T04:28:36Z"
+		},
+		{
+			"path": "github.com/json-iterator/go",
+			"revision": ""
 		},
 		{
 			"checksumSHA1": "STo3TnkoYreaIlW7ORH3V6uy3ns=",
@@ -195,58 +169,18 @@
 			"revisionTime": "2018-10-28T12:50:25Z"
 		},
 		{
-			"checksumSHA1": "keXVx1spPJVE6jnVKFu1OSukSS0=",
+			"checksumSHA1": "oQxNMXzmMrt6S9kD0aGZ4wyQEpg=",
 			"path": "github.com/ugorji/go/codec",
 			"revision": "e118e2d506a6b252f6b85f2e2f2ac1bfed82f1b8",
 			"revisionTime": "2019-07-23T09:17:30Z"
 		},
 		{
-			"checksumSHA1": "0hbSwstLVTDmgTD0TbgbG7M5nlo=",
-			"path": "github.com/xiongjinchao/gin",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
+			"path": "golang.org/x/sys/unix",
+			"revision": ""
 		},
 		{
-			"checksumSHA1": "SSHoD7W0NkCpx84Vc6OXdG+x1yA=",
-			"path": "github.com/xiongjinchao/gin/config",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
-		},
-		{
-			"checksumSHA1": "RuhGDVw7qpmZKYEFkiiSJ9+rJmo=",
-			"path": "github.com/xiongjinchao/gin/controllers",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
-		},
-		{
-			"checksumSHA1": "15aO0yrIbJifMslJOBI8ilHRl6A=",
-			"path": "github.com/xiongjinchao/gin/database",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
-		},
-		{
-			"checksumSHA1": "0PwrlYBe8URcZue9JgAvCNr0TdY=",
-			"path": "github.com/xiongjinchao/gin/helper",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
-		},
-		{
-			"checksumSHA1": "emWJ9m8RAmHrT3SjhdFtnfuCXmw=",
-			"path": "github.com/xiongjinchao/gin/middleware",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
-		},
-		{
-			"checksumSHA1": "G9K70Z9+k3V1fOAQMR4SAs0OiQg=",
-			"path": "github.com/xiongjinchao/gin/models",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
-		},
-		{
-			"checksumSHA1": "CnPMtWPslF16zn+i6yTu9sZ2KzU=",
-			"path": "github.com/xiongjinchao/gin/routers",
-			"revision": "7af57dcbb1cf7ca88fb37ecef4efcf4773ee60e1",
-			"revisionTime": "2019-08-01T13:57:19Z"
+			"path": "google.golang.org/appengine/cloudsql",
+			"revision": ""
 		},
 		{
 			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",
@@ -273,5 +207,5 @@
 			"revisionTime": "2018-11-15T11:05:04Z"
 		}
 	],
-	"rootPath": "github.com/xiongjinchao/gin"
+	"rootPath": "gin"
 }

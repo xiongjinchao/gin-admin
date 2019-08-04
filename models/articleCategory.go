@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/xiongjinchao/gin/helper"
+	"gin/helper"
 	"strings"
 )
 
