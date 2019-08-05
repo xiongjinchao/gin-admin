@@ -12,21 +12,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type BaseAuth struct{}
+type Auth struct{}
 
 //Login handles GET /login route
-func (_ *BaseAuth) Login(c *gin.Context) {
+func (_ *Auth) Login(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
-	c.HTML(http.StatusOK, "base-auth/login.tpl", gin.H{
+	c.HTML(http.StatusOK, "auth/login.tpl", gin.H{
 		"title": "Gin Blog",
 		"flash": flash,
 	})
 }
 
 //SignIn handles POST /sign-in route
-func (_ *BaseAuth) SignIn(c *gin.Context) {
-	auth := models.BaseAuth{}
+func (_ *Auth) SignIn(c *gin.Context) {
+	auth := models.Auth{}
 	if err := c.ShouldBind(&auth); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/login")
@@ -56,16 +56,16 @@ func (_ *BaseAuth) SignIn(c *gin.Context) {
 
 	// sign-in success
 	session := sessions.Default(c)
-	session.Set("base-auth", data)
+	session.Set("auth", data)
 	if err := session.Save(); err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	c.Redirect(http.StatusFound, "/admin/dashboard")
 }
 
-func (_ *BaseAuth) Logout(c *gin.Context) {
+func (_ *Auth) Logout(c *gin.Context) {
 	session := sessions.Default(c)
-	session.Delete("base-auth")
+	session.Delete("auth")
 	session.Clear()
 	c.Redirect(http.StatusFound, "/login")
 }

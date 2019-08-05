@@ -1,7 +1,7 @@
 package models
 
 type Article struct {
-	Base
+	Base            `json:"base"`
 	Title           string          `json:"title" form:"title"`
 	Cover           int64           `json:"cover" form:"cover"`
 	CategoryID      int64           `json:"category_id" form:"category_id" gorm:"column:category_id"`

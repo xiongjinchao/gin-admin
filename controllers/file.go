@@ -68,7 +68,7 @@ func (_ *File) Upload(c *gin.Context) {
 		return
 	}
 	session := sessions.Default(c)
-	auth := session.Get("base-auth")
+	auth := session.Get("auth")
 	user, err := (&helper.Convert{}).Json2Map(auth.(string))
 
 	model := &models.File{}

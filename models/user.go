@@ -10,13 +10,13 @@ import (
 )
 
 type User struct {
-	Base
-	Name        string `json:"name" form:"name" validate:"required" gorm:"unique_index"`
-	Email       string `json:"email" form:"email" validate:"email" gorm:"unique_index"`
-	Mobile      string `json:"mobile" form:"mobile" validate:"required,numeric,len=11" gorm:"unique_index"`
-	Password    string `json:"-" form:"password"`
-	AccessToken string `json:"access_token" form:"access_token"`
-	ResetKey    string `json:"reset_key" form:"reset_key"`
+	Base        `json:"base"`
+	Name        string `label:"昵称" json:"name" form:"name" validate:"required" gorm:"unique_index"`
+	Email       string `label:"邮箱" json:"email" form:"email" validate:"email" gorm:"unique_index"`
+	Mobile      string `label:"手机号码" json:"mobile" form:"mobile" validate:"required,numeric,len=11" gorm:"unique_index"`
+	Password    string `label:"密码" json:"-" form:"password"`
+	AccessToken string `label:"AccessToken" json:"access_token" form:"access_token"`
+	ResetKey    string `label:"ResetKey" json:"reset_key" form:"reset_key"`
 }
 
 func (User) TableName() string {
@@ -43,4 +43,9 @@ func (m *User) GenerateToken(id int64) (accessToken, resetKey string, err error)
 	s.Write([]byte(accessToken))
 	resetKey = hex.EncodeToString(s.Sum([]byte("")))
 	return
+}
+
+type Auth struct {
+	Mobile   string `label:"手机号码" json:"mobile" form:"mobile" validate:"required,numeric,len=11"`
+	Password string `label:"密码" json:"password" form:"password" validate:"required,gte=6,lte=18"`
 }

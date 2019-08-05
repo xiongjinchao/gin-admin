@@ -80,7 +80,7 @@
                                         <option value="0">设为主分类</option>
                                         {{$parent := Interface2Int64 .articleCategory.Parent}}
                                         {{range .articleCategories}}
-                                            <option value="{{.Base.id}}" {{if eq .Base.id $parent}}selected{{end}}>{{.space}}{{.name}}</option>
+                                            <option value="{{.base.id}}" {{if eq .base.id $parent}}selected{{end}}>{{.space}}{{.name}}</option>
                                         {{end}}
                                     </select>
                                 </div>

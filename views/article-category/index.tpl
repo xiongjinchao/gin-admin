@@ -115,7 +115,7 @@
                     type: "GET"
                 },
                 columns: [
-                    { "data": "Base.id" },
+                    { "data": "base.id" },
                     { "data": "name", "render":
                         function(data, type, row, meta){
                             return row.space + row.name;
@@ -153,9 +153,9 @@
                         }
                     },
                     { "data": null, "render": function(data, type, row, meta){
-                        return '<a href="/admin/article-category/show/'+row.Base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                            '<a href="/admin/article-category/edit/'+row.Base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                            '<a href="/admin/article-category/delete/'+row.Base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                        return '<a href="/admin/article-category/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/article-category/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/article-category/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }
                 ],

@@ -1,7 +1,7 @@
 package models
 
 type File struct {
-	Base
+	Base     `json:"base"`
 	Name     string  `json:"name" form:"name"`
 	Category string  `json:"category" form:"category"`
 	Path     string  `json:"path" form:"path"`

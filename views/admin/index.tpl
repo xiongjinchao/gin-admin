@@ -107,7 +107,7 @@
                     type: "GET"
                 },
                 columns: [
-                    { "data": "id" },
+                    { "data": "base.id" },
                     { "data": "name" },
                     { "data": "email" },
                     { "data": "mobile" },
@@ -123,9 +123,9 @@
                     },
                     { "data": null, "render":
                         function(data, type, row, meta){
-                            return '<a href="/admin/admin/show/'+row.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                                '<a href="/admin/admin/edit/'+row.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                                '<a href="/admin/admin/delete/'+row.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                            return '<a href="/admin/admin/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                                '<a href="/admin/admin/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                                '<a href="/admin/admin/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }
                 ],

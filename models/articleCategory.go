@@ -6,7 +6,7 @@ import (
 )
 
 type ArticleCategory struct {
-	Base
+	Base           `json:"base"`
 	Name           string `json:"name" form:"name"`
 	Tag            string `json:"tag" form:"tag"`
 	Parent         int64  `json:"parent" form:"parent"`

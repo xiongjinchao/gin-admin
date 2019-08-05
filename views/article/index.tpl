@@ -117,7 +117,7 @@
                     type: "GET"
                 },
                 columns: [
-                    { "data": "id" },
+                    { "data": "base.id" },
                     { "data": "cover", "render":
                         function(data, type, row, meta){
                             return row.cover > 0? '<img class="img-thumbnail" src="'+row.file.path+'" style="height:80px"/>':'';
@@ -153,9 +153,9 @@
                         }
                     },
                     { "data": null, "render": function(data, type, row, meta){
-                            return '<a href="/admin/article/show/'+row.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                            '<a href="/admin/article/edit/'+row.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                            '<a href="/admin/article/delete/'+row.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                            return '<a href="/admin/article/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/article/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/article/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }
                 ],
