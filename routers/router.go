@@ -33,7 +33,6 @@ func Router() *gin.Engine {
 		Master:    "layouts/main",
 		Partials:  []string{"layouts/header", "layouts/sidebar", "layouts/footer"},
 		Funcs: template.FuncMap{
-			//"Int642Int": (&helper.Convert{}).Int642Int,
 			"Interface2Int64": (&helper.Convert{}).Interface2Int64,
 			"TypeOf":          reflect.TypeOf,
 		},

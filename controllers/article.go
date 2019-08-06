@@ -1,12 +1,14 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin/database"
 	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type Article struct{}
@@ -100,8 +102,8 @@ func (_ *Article) Store(c *gin.Context) {
 
 	article := models.Article{}
 	err := c.ShouldBind(&article)
-	if old, err := (&helper.Convert{}).Data2Json(article); err == nil {
-		(&helper.Flash{}).SetFlash(c, old, "old")
+	if old, err := json.Marshal(article); err == nil {
+		(&helper.Flash{}).SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
@@ -138,7 +140,7 @@ func (_ *Article) Edit(c *gin.Context) {
 
 	var config []map[string]interface{}
 	var preview []string
-	var initialPreview, initialPreviewConfig string
+	var initialPreview, initialPreviewConfig []byte
 	var err error
 
 	if article.Cover > 0 {
@@ -152,12 +154,12 @@ func (_ *Article) Edit(c *gin.Context) {
 		item["key"] = article.File.ID
 		config = append(config, item)
 
-		initialPreview, err = (&helper.Convert{}).Data2Json(preview)
+		initialPreview, err = json.Marshal(preview)
 		if err != nil {
 			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 		}
 
-		initialPreviewConfig, err = (&helper.Convert{}).Data2Json(config)
+		initialPreviewConfig, err = json.Marshal(config)
 		if err != nil {
 			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 		}
@@ -181,8 +183,8 @@ func (_ *Article) Edit(c *gin.Context) {
 		"article":              article,
 		"articleCategories":    categories,
 		"user":                 user,
-		"initialPreview":       initialPreview,
-		"initialPreviewConfig": initialPreviewConfig,
+		"initialPreview":       string(initialPreview),
+		"initialPreviewConfig": string(initialPreviewConfig),
 	})
 }
 
@@ -197,7 +199,13 @@ func (_ *Article) Update(c *gin.Context) {
 	}
 
 	// when ID >0 use save() is for update.
-	article.ID = (&helper.Convert{}).Str2Int64(id)
+	ID, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
+		return
+	}
+	article.ID = ID
 
 	if err := (&helper.Validate{}).ValidateStr(article); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")

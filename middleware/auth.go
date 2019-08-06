@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"gin/helper"
+	"encoding/json"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,8 +17,16 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 			c.Redirect(http.StatusFound, "/login")
 		}
 
-		if auth, err := (&helper.Convert{}).Json2Map(auth.(string)); err != nil || (&helper.Convert{}).Interface2Int64(auth["id"]) <= 0 {
+		identification := make(map[string]interface{})
+		if err := json.Unmarshal([]byte(auth.(string)), &identification); err != nil {
 			c.Redirect(http.StatusFound, "/login")
+			return
+		}
+
+		base := identification["base"].(map[string]interface{})
+		if int64(base["id"].(float64)) <= 0 {
+			c.Redirect(http.StatusFound, "/login")
+			return
 		}
 		c.Next()
 	}

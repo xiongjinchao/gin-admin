@@ -1,7 +1,7 @@
 package models
 
 import (
-	"gin/helper"
+	"strconv"
 	"strings"
 )
 
@@ -34,7 +34,7 @@ func (m *ArticleCategory) Sortable(data *[]ArticleCategory, parent int64, result
 func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]interface{}) {
 
 	for i, v := range data {
-		item := (&helper.Convert{}).Str2Map(v)
+		item := m.Convert2Map(v)
 		space := ""
 		if i == 0 {
 			space += "┣ "
@@ -43,7 +43,8 @@ func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]
 				space += "┃ "
 			}
 			if v.Level > 2 {
-				space += strings.Repeat(" ━ ", (&helper.Convert{}).Int642Int(v.Level-2))
+				r, _ := strconv.Atoi(strconv.FormatInt(v.Level-2, 10))
+				space += strings.Repeat(" ━ ", r)
 			}
 
 			if i < len(data)-1 && v.Level == data[i+1].Level {
@@ -66,7 +67,7 @@ func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]
 
 func (m *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, parents *[]map[string]interface{}) {
 	for _, v := range *data {
-		item := (&helper.Convert{}).Str2Map(v)
+		item := m.Convert2Map(v)
 		if v.ID == parent {
 			*parents = append(*parents, item)
 			m.SetParents(data, v.Parent, parents)

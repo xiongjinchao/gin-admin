@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -35,7 +36,9 @@ func (f *Flash) GetFlash(c *gin.Context) (data map[string]interface{}) {
 	}
 
 	for _, flash := range session.Flashes("old") {
-		if item, err := (&Convert{}).Json2Map(flash.(string)); err == nil {
+
+		item := make(map[string]interface{})
+		if err := json.Unmarshal([]byte(flash.(string)), &item); err == nil {
 			for k, v := range item {
 				old[k] = v
 			}

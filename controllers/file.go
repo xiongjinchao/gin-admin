@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"encoding/json"
 	db "gin/database"
-	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -69,7 +69,17 @@ func (_ *File) Upload(c *gin.Context) {
 	}
 	session := sessions.Default(c)
 	auth := session.Get("auth")
-	user, err := (&helper.Convert{}).Json2Map(auth.(string))
+
+	user := make(map[string]interface{})
+	err = json.Unmarshal([]byte(auth.(string)), &user)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failure",
+			"message": err.Error(),
+			"data":    "",
+		})
+		return
+	}
 
 	model := &models.File{}
 	model.Name = name

@@ -1,12 +1,14 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin/database"
 	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type Menu struct{}
@@ -77,8 +79,8 @@ func (_ *Menu) Create(c *gin.Context) {
 func (_ *Menu) Store(c *gin.Context) {
 	menu := models.Menu{}
 	err := c.ShouldBind(&menu)
-	if old, err := (&helper.Convert{}).Data2Json(menu); err == nil {
-		(&helper.Flash{}).SetFlash(c, old, "old")
+	if old, err := json.Marshal(menu); err == nil {
+		(&helper.Flash{}).SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
@@ -146,7 +148,13 @@ func (_ *Menu) Update(c *gin.Context) {
 	}
 
 	// when ID >0 use save() is for update.
-	menu.ID = (&helper.Convert{}).Str2Int64(id)
+	ID, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
+		return
+	}
+	menu.ID = ID
 
 	if err := (&helper.Validate{}).ValidateStr(menu); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")

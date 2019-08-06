@@ -1,12 +1,14 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin/database"
 	"gin/helper"
 	"gin/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type ArticleCategory struct{}
@@ -44,13 +46,13 @@ func (_ *ArticleCategory) Data(c *gin.Context) {
 	}
 
 	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
-	category := (&models.ArticleCategory{}).SetSpace(data)
+	categories := (&models.ArticleCategory{}).SetSpace(data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
 		"recordsTotal":    len(articleCategory),
 		"recordsFiltered": total,
-		"data":            category,
+		"data":            categories,
 	})
 }
 
@@ -77,8 +79,8 @@ func (_ *ArticleCategory) Create(c *gin.Context) {
 func (_ *ArticleCategory) Store(c *gin.Context) {
 	articleCategory := models.ArticleCategory{}
 	err := c.ShouldBind(&articleCategory)
-	if old, err := (&helper.Convert{}).Data2Json(articleCategory); err == nil {
-		(&helper.Flash{}).SetFlash(c, old, "old")
+	if old, err := json.Marshal(articleCategory); err == nil {
+		(&helper.Flash{}).SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
@@ -146,7 +148,13 @@ func (_ *ArticleCategory) Update(c *gin.Context) {
 	}
 
 	// when ID >0 use save() is for update.
-	articleCategory.ID = (&helper.Convert{}).Str2Int64(id)
+	ID, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
+		return
+	}
+	articleCategory.ID = ID
 
 	if err := (&helper.Validate{}).ValidateStr(articleCategory); err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")

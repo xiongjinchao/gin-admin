@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin/database"
 	"gin/helper"
@@ -86,8 +87,8 @@ func (_ *User) Store(c *gin.Context) {
 
 	user := models.User{}
 	err := c.ShouldBind(&user)
-	if old, err := (&helper.Convert{}).Data2Json(user); err == nil {
-		(&helper.Flash{}).SetFlash(c, old, "old")
+	if old, err := json.Marshal(user); err == nil {
+		(&helper.Flash{}).SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
