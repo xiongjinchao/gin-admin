@@ -93,7 +93,7 @@ func (_ *ArticleCategory) Store(c *gin.Context) {
 		return
 	}
 
-	articleCategory.Level = 0
+	articleCategory.Level = 1
 	if articleCategory.Parent > 0 {
 		parent := models.ArticleCategory{}
 		db.Mysql.First(&parent, articleCategory.Parent)
@@ -154,7 +154,7 @@ func (_ *ArticleCategory) Update(c *gin.Context) {
 		return
 	}
 
-	articleCategory.Level = 0
+	articleCategory.Level = 1
 	if articleCategory.Parent > 0 {
 		parent := models.ArticleCategory{}
 		db.Mysql.First(&parent, articleCategory.Parent)
