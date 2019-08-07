@@ -89,6 +89,17 @@ func Router() *gin.Engine {
 		admin.GET("menu/show/:id", menu.Show)
 		admin.GET("menu/delete/:id", menu.Destroy)
 
+		//Book
+		book := &controllers.Book{}
+		admin.GET("book", book.Index)
+		admin.GET("book/data", book.Data)
+		admin.GET("book/create", book.Create)
+		admin.POST("book", book.Store)
+		admin.GET("book/edit/:id", book.Edit)
+		admin.POST("book/update/:id", book.Update)
+		admin.GET("book/show/:id", book.Show)
+		admin.GET("book/delete/:id", book.Destroy)
+
 		//Article
 		article := &controllers.Article{}
 		admin.GET("article", article.Index)

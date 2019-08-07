@@ -1,17 +1,31 @@
 package helper
 
 import (
-	"reflect"
+	"strconv"
 )
 
 type Convert struct{}
 
-func (c *Convert) Interface2Int64(data interface{}) int64 {
+func (c *Convert) Interface2Int64(data interface{}) (result int64) {
+	var err error
 	if data == nil {
 		return 0
 	}
-	if reflect.TypeOf(data).String() == "float64" {
-		return int64(data.(float64))
+
+	switch data.(type) {
+	case string:
+		result, err = strconv.ParseInt(data.(string), 10, 64)
+		break
+	case int:
+		result = int64(data.(int))
+		break
+	case float64:
+		result = int64(data.(float64))
+		break
 	}
-	return data.(int64)
+
+	if err != nil {
+		return 0
+	}
+	return
 }
