@@ -18,7 +18,7 @@ func (Admin) TableName() string {
 	return "admin"
 }
 
-func (m *Admin) GeneratePassword(password string) string {
+func (a *Admin) GeneratePassword(password string) string {
 	s := sha1.New()
 	s.Write([]byte(password))
 	return hex.EncodeToString(s.Sum([]byte("")))

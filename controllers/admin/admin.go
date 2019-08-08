@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ import (
 type Admin struct{}
 
 // Index handles GET /admin/admin route
-func (_ *Admin) Index(c *gin.Context) {
+func (a *Admin) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 	c.HTML(http.StatusOK, "admin/index", gin.H{
@@ -22,7 +22,7 @@ func (_ *Admin) Index(c *gin.Context) {
 	})
 }
 
-func (_ *Admin) Data(c *gin.Context) {
+func (a *Admin) Data(c *gin.Context) {
 
 	var admin []models.Admin
 
@@ -72,7 +72,7 @@ func (_ *Admin) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/admin/create route
-func (_ *Admin) Create(c *gin.Context) {
+func (a *Admin) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -83,7 +83,7 @@ func (_ *Admin) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/admin/store route
-func (_ *Admin) Store(c *gin.Context) {
+func (a *Admin) Store(c *gin.Context) {
 
 	admin := models.Admin{}
 	err := c.ShouldBind(&admin)
@@ -142,7 +142,7 @@ func (_ *Admin) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/admin")
 }
 
-func (_ *Admin) Edit(c *gin.Context) {
+func (a *Admin) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
@@ -159,7 +159,7 @@ func (_ *Admin) Edit(c *gin.Context) {
 	})
 }
 
-func (_ *Admin) Update(c *gin.Context) {
+func (a *Admin) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	admin := models.Admin{}
@@ -219,7 +219,7 @@ func (_ *Admin) Update(c *gin.Context) {
 
 }
 
-func (_ *Admin) Show(c *gin.Context) {
+func (a *Admin) Show(c *gin.Context) {
 	id := c.Param("id")
 
 	admin := models.Admin{}
@@ -233,7 +233,7 @@ func (_ *Admin) Show(c *gin.Context) {
 	})
 }
 
-func (_ *Admin) Destroy(c *gin.Context) {
+func (a *Admin) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
 	admin := models.Admin{}

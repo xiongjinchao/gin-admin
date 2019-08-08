@@ -23,13 +23,13 @@ func (User) TableName() string {
 	return "user"
 }
 
-func (m *User) GeneratePassword(password string) string {
+func (u *User) GeneratePassword(password string) string {
 	s := sha1.New()
 	s.Write([]byte(password))
 	return hex.EncodeToString(s.Sum([]byte("")))
 }
 
-func (m *User) GenerateToken(id int64) (accessToken, resetKey string, err error) {
+func (u *User) GenerateToken(id int64) (accessToken, resetKey string, err error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":  id,

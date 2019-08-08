@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ import (
 type User struct{}
 
 // Index handles GET /admin/user route
-func (_ *User) Index(c *gin.Context) {
+func (u *User) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 	c.HTML(http.StatusOK, "user/index", gin.H{
@@ -22,7 +22,7 @@ func (_ *User) Index(c *gin.Context) {
 	})
 }
 
-func (_ *User) Data(c *gin.Context) {
+func (u *User) Data(c *gin.Context) {
 
 	var user []models.User
 
@@ -72,7 +72,7 @@ func (_ *User) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/user/create route
-func (_ *User) Create(c *gin.Context) {
+func (u *User) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -83,7 +83,7 @@ func (_ *User) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/user/store route
-func (_ *User) Store(c *gin.Context) {
+func (u *User) Store(c *gin.Context) {
 
 	user := models.User{}
 	err := c.ShouldBind(&user)
@@ -154,7 +154,7 @@ func (_ *User) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/user")
 }
 
-func (_ *User) Edit(c *gin.Context) {
+func (u *User) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
@@ -171,7 +171,7 @@ func (_ *User) Edit(c *gin.Context) {
 	})
 }
 
-func (_ *User) Update(c *gin.Context) {
+func (u *User) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	user := models.User{}
@@ -231,7 +231,7 @@ func (_ *User) Update(c *gin.Context) {
 
 }
 
-func (_ *User) Show(c *gin.Context) {
+func (u *User) Show(c *gin.Context) {
 	id := c.Param("id")
 
 	user := models.User{}
@@ -245,7 +245,7 @@ func (_ *User) Show(c *gin.Context) {
 	})
 }
 
-func (_ *User) Destroy(c *gin.Context) {
+func (u *User) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
 	user := models.User{}

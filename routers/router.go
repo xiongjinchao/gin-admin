@@ -3,6 +3,7 @@ package routers
 import (
 	"gin/config"
 	"gin/controllers"
+	manager "gin/controllers/admin"
 	"gin/helper"
 	"gin/middleware"
 	"github.com/foolin/gin-template"
@@ -54,10 +55,10 @@ func Router() *gin.Engine {
 	admin.Use((&middleware.Auth{}).CheckLogin())
 	{
 		//Admin Dashboard
-		admin.GET("dashboard", (&controllers.Home{}).Dashboard)
+		admin.GET("dashboard", (&manager.Home{}).Dashboard)
 
 		//Admin
-		administrator := &controllers.Admin{}
+		administrator := &manager.Admin{}
 		admin.GET("admin", administrator.Index)
 		admin.GET("admin/data", administrator.Data)
 		admin.GET("admin/create", administrator.Create)
@@ -68,7 +69,7 @@ func Router() *gin.Engine {
 		admin.GET("admin/delete/:id", administrator.Destroy)
 
 		//User
-		user := &controllers.User{}
+		user := &manager.User{}
 		admin.GET("user", user.Index)
 		admin.GET("user/data", user.Data)
 		admin.GET("user/create", user.Create)
@@ -79,7 +80,7 @@ func Router() *gin.Engine {
 		admin.GET("user/delete/:id", user.Destroy)
 
 		//Menu
-		menu := &controllers.Menu{}
+		menu := &manager.Menu{}
 		admin.GET("menu", menu.Index)
 		admin.GET("menu/data", menu.Data)
 		admin.GET("menu/create", menu.Create)
@@ -90,7 +91,7 @@ func Router() *gin.Engine {
 		admin.GET("menu/delete/:id", menu.Destroy)
 
 		//Book
-		book := &controllers.Book{}
+		book := &manager.Book{}
 		admin.GET("book", book.Index)
 		admin.GET("book/data", book.Data)
 		admin.GET("book/create", book.Create)
@@ -101,7 +102,7 @@ func Router() *gin.Engine {
 		admin.GET("book/delete/:id", book.Destroy)
 
 		//Article
-		article := &controllers.Article{}
+		article := &manager.Article{}
 		admin.GET("article", article.Index)
 		admin.GET("article/data", article.Data)
 		admin.GET("article/create", article.Create)
@@ -112,7 +113,7 @@ func Router() *gin.Engine {
 		admin.GET("article/delete/:id", article.Destroy)
 
 		//Article Category
-		articleCategory := &controllers.ArticleCategory{}
+		articleCategory := &manager.ArticleCategory{}
 		admin.GET("article-category", articleCategory.Index)
 		admin.GET("article-category/data", articleCategory.Data)
 		admin.GET("article-category/create", articleCategory.Create)
@@ -123,7 +124,7 @@ func Router() *gin.Engine {
 		admin.GET("article-category/delete/:id", articleCategory.Destroy)
 
 		//File
-		file := &controllers.File{}
+		file := &manager.File{}
 		admin.POST("file/upload", file.Upload)
 		admin.POST("file/delete", file.Delete)
 

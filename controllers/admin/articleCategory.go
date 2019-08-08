@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 type ArticleCategory struct{}
 
 // GetArticleCategoryList handles GET /admin/article-category route
-func (_ *ArticleCategory) Index(c *gin.Context) {
+func (a *ArticleCategory) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -25,7 +25,7 @@ func (_ *ArticleCategory) Index(c *gin.Context) {
 }
 
 // Datatable
-func (_ *ArticleCategory) Data(c *gin.Context) {
+func (a *ArticleCategory) Data(c *gin.Context) {
 
 	var articleCategory, data []models.ArticleCategory
 
@@ -57,7 +57,7 @@ func (_ *ArticleCategory) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/article-category/create route
-func (_ *ArticleCategory) Create(c *gin.Context) {
+func (a *ArticleCategory) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -76,7 +76,7 @@ func (_ *ArticleCategory) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/article-category route
-func (_ *ArticleCategory) Store(c *gin.Context) {
+func (a *ArticleCategory) Store(c *gin.Context) {
 	articleCategory := models.ArticleCategory{}
 	err := c.ShouldBind(&articleCategory)
 	if old, err := json.Marshal(articleCategory); err == nil {
@@ -112,7 +112,7 @@ func (_ *ArticleCategory) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
 
-func (_ *ArticleCategory) Edit(c *gin.Context) {
+func (a *ArticleCategory) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
@@ -137,7 +137,7 @@ func (_ *ArticleCategory) Edit(c *gin.Context) {
 	})
 }
 
-func (_ *ArticleCategory) Update(c *gin.Context) {
+func (a *ArticleCategory) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	articleCategory := models.ArticleCategory{}
@@ -179,7 +179,7 @@ func (_ *ArticleCategory) Update(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
 
-func (_ *ArticleCategory) Show(c *gin.Context) {
+func (a *ArticleCategory) Show(c *gin.Context) {
 
 	id := c.Param("id")
 
@@ -194,7 +194,7 @@ func (_ *ArticleCategory) Show(c *gin.Context) {
 	})
 }
 
-func (_ *ArticleCategory) Destroy(c *gin.Context) {
+func (a *ArticleCategory) Destroy(c *gin.Context) {
 
 	id := c.Param("id")
 

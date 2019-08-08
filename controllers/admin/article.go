@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 type Article struct{}
 
 // GetArticleList handles GET /admin/article route
-func (_ *Article) Index(c *gin.Context) {
+func (a *Article) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -25,7 +25,7 @@ func (_ *Article) Index(c *gin.Context) {
 }
 
 // Datatable
-func (_ *Article) Data(c *gin.Context) {
+func (a *Article) Data(c *gin.Context) {
 	var article []models.Article
 
 	query := db.Mysql.Model(&models.Article{}).Preload("ArticleCategory").Preload("User").Preload("File")
@@ -73,7 +73,7 @@ func (_ *Article) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/article/create route
-func (_ *Article) Create(c *gin.Context) {
+func (a *Article) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -98,7 +98,7 @@ func (_ *Article) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/article route
-func (_ *Article) Store(c *gin.Context) {
+func (a *Article) Store(c *gin.Context) {
 
 	article := models.Article{}
 	err := c.ShouldBind(&article)
@@ -128,7 +128,7 @@ func (_ *Article) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/article")
 }
 
-func (_ *Article) Edit(c *gin.Context) {
+func (a *Article) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
@@ -188,7 +188,7 @@ func (_ *Article) Edit(c *gin.Context) {
 	})
 }
 
-func (_ *Article) Update(c *gin.Context) {
+func (a *Article) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	article := models.Article{}
@@ -223,7 +223,7 @@ func (_ *Article) Update(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/article")
 }
 
-func (_ *Article) Show(c *gin.Context) {
+func (a *Article) Show(c *gin.Context) {
 	id := c.Param("id")
 
 	article := models.Article{}
@@ -237,7 +237,7 @@ func (_ *Article) Show(c *gin.Context) {
 	})
 }
 
-func (_ *Article) Destroy(c *gin.Context) {
+func (a *Article) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
 	article := models.Article{}

@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 type Menu struct{}
 
 // GetMenuList handles GET /admin/menu route
-func (_ *Menu) Index(c *gin.Context) {
+func (m *Menu) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -25,7 +25,7 @@ func (_ *Menu) Index(c *gin.Context) {
 }
 
 // Datatable
-func (_ *Menu) Data(c *gin.Context) {
+func (m *Menu) Data(c *gin.Context) {
 
 	var menu, data []models.Menu
 
@@ -57,7 +57,7 @@ func (_ *Menu) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/menu/create route
-func (_ *Menu) Create(c *gin.Context) {
+func (m *Menu) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -76,7 +76,7 @@ func (_ *Menu) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/menu route
-func (_ *Menu) Store(c *gin.Context) {
+func (m *Menu) Store(c *gin.Context) {
 	menu := models.Menu{}
 	err := c.ShouldBind(&menu)
 	if old, err := json.Marshal(menu); err == nil {
@@ -112,7 +112,7 @@ func (_ *Menu) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/menu")
 }
 
-func (_ *Menu) Edit(c *gin.Context) {
+func (m *Menu) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
@@ -137,7 +137,7 @@ func (_ *Menu) Edit(c *gin.Context) {
 	})
 }
 
-func (_ *Menu) Update(c *gin.Context) {
+func (m *Menu) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	menu := models.Menu{}
@@ -179,7 +179,7 @@ func (_ *Menu) Update(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/menu")
 }
 
-func (_ *Menu) Show(c *gin.Context) {
+func (m *Menu) Show(c *gin.Context) {
 
 	id := c.Param("id")
 
@@ -194,7 +194,7 @@ func (_ *Menu) Show(c *gin.Context) {
 	})
 }
 
-func (_ *Menu) Destroy(c *gin.Context) {
+func (m *Menu) Destroy(c *gin.Context) {
 
 	id := c.Param("id")
 

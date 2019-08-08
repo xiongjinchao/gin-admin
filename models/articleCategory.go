@@ -22,19 +22,19 @@ func (ArticleCategory) TableName() string {
 	return "article_category"
 }
 
-func (m *ArticleCategory) Sortable(data *[]ArticleCategory, parent int64, result *[]ArticleCategory) {
+func (a *ArticleCategory) Sortable(data *[]ArticleCategory, parent int64, result *[]ArticleCategory) {
 	for _, v := range *data {
 		if v.Parent == parent {
 			*result = append(*result, v)
-			m.Sortable(data, v.ID, result)
+			a.Sortable(data, v.ID, result)
 		}
 	}
 }
 
-func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]interface{}) {
+func (a *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]interface{}) {
 
 	for i, v := range data {
-		item := m.Convert2Map(v)
+		item := a.Convert2Map(v)
 		space := ""
 		if i == 0 {
 			space += "┣ "
@@ -57,7 +57,7 @@ func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]
 
 		// set all parent
 		var parents []map[string]interface{}
-		m.SetParents(&data, v.Parent, &parents)
+		a.SetParents(&data, v.Parent, &parents)
 		item["parents"] = parents
 
 		result = append(result, item)
@@ -65,12 +65,12 @@ func (m *ArticleCategory) SetSpace(data []ArticleCategory) (result []map[string]
 	return
 }
 
-func (m *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, parents *[]map[string]interface{}) {
+func (a *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, parents *[]map[string]interface{}) {
 	for _, v := range *data {
-		item := m.Convert2Map(v)
+		item := a.Convert2Map(v)
 		if v.ID == parent {
 			*parents = append(*parents, item)
-			m.SetParents(data, v.Parent, parents)
+			a.SetParents(data, v.Parent, parents)
 		}
 	}
 }

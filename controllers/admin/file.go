@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -17,7 +17,7 @@ import (
 type File struct{}
 
 // Upload handles POST /admin/file/upload route
-func (_ *File) Upload(c *gin.Context) {
+func (f *File) Upload(c *gin.Context) {
 	file, header, err := c.Request.FormFile("file")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -115,7 +115,7 @@ func (_ *File) Upload(c *gin.Context) {
 }
 
 // Delete handles POST /admin/file/delete route
-func (_ *File) Delete(c *gin.Context) {
+func (f *File) Delete(c *gin.Context) {
 	id := c.PostForm("key")
 
 	file := models.File{}

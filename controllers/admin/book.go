@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 type Book struct{}
 
 // GetBookList handles GET /admin/book route
-func (_ *Book) Index(c *gin.Context) {
+func (b *Book) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
@@ -25,7 +25,7 @@ func (_ *Book) Index(c *gin.Context) {
 }
 
 // Datatable
-func (_ *Book) Data(c *gin.Context) {
+func (b *Book) Data(c *gin.Context) {
 	var book []models.Book
 
 	query := db.Mysql.Model(&models.Book{})
@@ -73,7 +73,7 @@ func (_ *Book) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/book/create route
-func (_ *Book) Create(c *gin.Context) {
+func (b *Book) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 	c.HTML(http.StatusOK, "book/create", gin.H{
@@ -83,7 +83,7 @@ func (_ *Book) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/book route
-func (_ *Book) Store(c *gin.Context) {
+func (b *Book) Store(c *gin.Context) {
 
 	book := models.Book{}
 	err := c.ShouldBind(&book)
@@ -113,7 +113,7 @@ func (_ *Book) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/book")
 }
 
-func (_ *Book) Edit(c *gin.Context) {
+func (b *Book) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
@@ -130,7 +130,7 @@ func (_ *Book) Edit(c *gin.Context) {
 	})
 }
 
-func (_ *Book) Update(c *gin.Context) {
+func (b *Book) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	book := models.Book{}
@@ -165,7 +165,7 @@ func (_ *Book) Update(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/book")
 }
 
-func (_ *Book) Show(c *gin.Context) {
+func (b *Book) Show(c *gin.Context) {
 	id := c.Param("id")
 
 	book := models.Book{}
@@ -179,7 +179,7 @@ func (_ *Book) Show(c *gin.Context) {
 	})
 }
 
-func (_ *Book) Destroy(c *gin.Context) {
+func (b *Book) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
 	book := models.Book{}

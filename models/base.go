@@ -12,7 +12,7 @@ type Base struct {
 	DeletedAt *time.Time `json:"deleted_at" sql:"index"`
 }
 
-func (m *Base) Convert2Map(data interface{}) map[string]interface{} {
+func (b *Base) Convert2Map(data interface{}) map[string]interface{} {
 	typ := reflect.TypeOf(data)
 	val := reflect.ValueOf(data)
 	result := make(map[string]interface{})
@@ -21,8 +21,8 @@ func (m *Base) Convert2Map(data interface{}) map[string]interface{} {
 		if key == "" {
 			key = typ.Field(i).Name
 		}
-		if val.Field(i).Type() == reflect.TypeOf(*m) {
-			result[key] = m.Convert2Map(val.Field(i).Interface())
+		if val.Field(i).Type() == reflect.TypeOf(*b) {
+			result[key] = b.Convert2Map(val.Field(i).Interface())
 		} else {
 			result[key] = val.Field(i).Interface()
 		}

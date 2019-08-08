@@ -1,4 +1,4 @@
-package controllers
+package admin
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,7 +8,7 @@ import (
 type Home struct{}
 
 // Index handles GET /admin route
-func (_ *Home) Dashboard(c *gin.Context) {
+func (h *Home) Dashboard(c *gin.Context) {
 	c.HTML(http.StatusOK, "home/index", gin.H{
 		"title": "系统面板",
 	})
