@@ -15,6 +15,7 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 		auth := session.Get("auth")
 		if auth == nil {
 			c.Redirect(http.StatusFound, "/login")
+			return
 		}
 
 		identification := make(map[string]interface{})

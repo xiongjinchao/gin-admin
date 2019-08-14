@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"gin/config"
 	db "gin/database"
 	"gin/routers"
@@ -9,6 +10,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -48,6 +50,21 @@ func main() {
 	*/
 
 	router := routers.Router()
+
+	// write all routes in redis
+	routing := make([]string, 0)
+	for _, v := range router.Routes() {
+		if strings.Contains(v.Path, "admin") {
+			end := strings.Index(v.Path, "/:")
+			if end > 0 {
+				routing = append(routing, v.Path[0:end])
+			} else {
+				routing = append(routing, v.Path)
+			}
+		}
+	}
+	data, _ := json.Marshal(routing)
+	db.Redis.Set("routers", data, 0)
 
 	if err := router.Run(":8080"); err != nil {
 		panic(err)
