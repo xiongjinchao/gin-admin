@@ -3,7 +3,7 @@ package routers
 import (
 	"gin/config"
 	"gin/controllers"
-	manager "gin/controllers/admin"
+	"gin/controllers/admin"
 	"gin/helper"
 	"gin/middleware"
 	"github.com/foolin/gin-template"
@@ -51,85 +51,85 @@ func Router() *gin.Engine {
 	//Logout
 	router.GET("/logout", (&controllers.Auth{}).Logout)
 
-	admin := router.Group("admin")
-	admin.Use((&middleware.Auth{}).CheckLogin())
+	authorization := router.Group("admin")
+	authorization.Use((&middleware.Auth{}).CheckLogin())
 	{
 		//Admin Dashboard
-		admin.GET("dashboard", (&manager.Home{}).Dashboard)
+		authorization.GET("dashboard", (&admin.Home{}).Dashboard)
 
 		//Admin
-		administrator := &manager.Admin{}
-		admin.GET("admin", administrator.Index)
-		admin.GET("admin/data", administrator.Data)
-		admin.GET("admin/create", administrator.Create)
-		admin.POST("admin", administrator.Store)
-		admin.GET("admin/edit/:id", administrator.Edit)
-		admin.POST("admin/update/:id", administrator.Update)
-		admin.GET("admin/show/:id", administrator.Show)
-		admin.GET("admin/delete/:id", administrator.Destroy)
+		administrator := &admin.Admin{}
+		authorization.GET("admin", administrator.Index)
+		authorization.GET("admin/data", administrator.Data)
+		authorization.GET("admin/create", administrator.Create)
+		authorization.POST("admin", administrator.Store)
+		authorization.GET("admin/edit/:id", administrator.Edit)
+		authorization.POST("admin/update/:id", administrator.Update)
+		authorization.GET("admin/show/:id", administrator.Show)
+		authorization.GET("admin/delete/:id", administrator.Destroy)
 
 		//User
-		user := &manager.User{}
-		admin.GET("user", user.Index)
-		admin.GET("user/data", user.Data)
-		admin.GET("user/create", user.Create)
-		admin.POST("user", user.Store)
-		admin.GET("user/edit/:id", user.Edit)
-		admin.POST("user/update/:id", user.Update)
-		admin.GET("user/show/:id", user.Show)
-		admin.GET("user/delete/:id", user.Destroy)
+		user := &admin.User{}
+		authorization.GET("user", user.Index)
+		authorization.GET("user/data", user.Data)
+		authorization.GET("user/create", user.Create)
+		authorization.POST("user", user.Store)
+		authorization.GET("user/edit/:id", user.Edit)
+		authorization.POST("user/update/:id", user.Update)
+		authorization.GET("user/show/:id", user.Show)
+		authorization.GET("user/delete/:id", user.Destroy)
 
 		//Menu
-		menu := &manager.Menu{}
-		admin.GET("menu", menu.Index)
-		admin.GET("menu/data", menu.Data)
-		admin.GET("menu/create", menu.Create)
-		admin.POST("menu", menu.Store)
-		admin.GET("menu/edit/:id", menu.Edit)
-		admin.POST("menu/update/:id", menu.Update)
-		admin.GET("menu/show/:id", menu.Show)
-		admin.GET("menu/delete/:id", menu.Destroy)
+		menu := &admin.Menu{}
+		authorization.GET("menu", menu.Index)
+		authorization.GET("menu/data", menu.Data)
+		authorization.GET("menu/create", menu.Create)
+		authorization.POST("menu", menu.Store)
+		authorization.GET("menu/edit/:id", menu.Edit)
+		authorization.POST("menu/update/:id", menu.Update)
+		authorization.GET("menu/show/:id", menu.Show)
+		authorization.GET("menu/delete/:id", menu.Destroy)
 
 		//Book
-		book := &manager.Book{}
-		admin.GET("book", book.Index)
-		admin.GET("book/data", book.Data)
-		admin.GET("book/create", book.Create)
-		admin.POST("book", book.Store)
-		admin.GET("book/edit/:id", book.Edit)
-		admin.POST("book/update/:id", book.Update)
-		admin.GET("book/show/:id", book.Show)
-		admin.GET("book/delete/:id", book.Destroy)
+		book := &admin.Book{}
+		authorization.GET("book", book.Index)
+		authorization.GET("book/data", book.Data)
+		authorization.GET("book/create", book.Create)
+		authorization.POST("book", book.Store)
+		authorization.GET("book/edit/:id", book.Edit)
+		authorization.POST("book/update/:id", book.Update)
+		authorization.GET("book/show/:id", book.Show)
+		authorization.GET("book/delete/:id", book.Destroy)
 
 		//Article
-		article := &manager.Article{}
-		admin.GET("article", article.Index)
-		admin.GET("article/data", article.Data)
-		admin.GET("article/create", article.Create)
-		admin.POST("article", article.Store)
-		admin.GET("article/edit/:id", article.Edit)
-		admin.POST("article/update/:id", article.Update)
-		admin.GET("article/show/:id", article.Show)
-		admin.GET("article/delete/:id", article.Destroy)
+		article := &admin.Article{}
+		authorization.GET("article", article.Index)
+		authorization.GET("article/data", article.Data)
+		authorization.GET("article/create", article.Create)
+		authorization.POST("article", article.Store)
+		authorization.GET("article/edit/:id", article.Edit)
+		authorization.POST("article/update/:id", article.Update)
+		authorization.GET("article/show/:id", article.Show)
+		authorization.GET("article/delete/:id", article.Destroy)
 
 		//Article Category
-		articleCategory := &manager.ArticleCategory{}
-		admin.GET("article-category", articleCategory.Index)
-		admin.GET("article-category/data", articleCategory.Data)
-		admin.GET("article-category/create", articleCategory.Create)
-		admin.POST("article-category", articleCategory.Store)
-		admin.GET("article-category/edit/:id", articleCategory.Edit)
-		admin.POST("article-category/update/:id", articleCategory.Update)
-		admin.GET("article-category/show/:id", articleCategory.Show)
-		admin.GET("article-category/delete/:id", articleCategory.Destroy)
+		articleCategory := &admin.ArticleCategory{}
+		authorization.GET("article-category", articleCategory.Index)
+		authorization.GET("article-category/data", articleCategory.Data)
+		authorization.GET("article-category/create", articleCategory.Create)
+		authorization.POST("article-category", articleCategory.Store)
+		authorization.GET("article-category/edit/:id", articleCategory.Edit)
+		authorization.POST("article-category/update/:id", articleCategory.Update)
+		authorization.GET("article-category/show/:id", articleCategory.Show)
+		authorization.GET("article-category/delete/:id", articleCategory.Destroy)
 
 		//File
-		file := &manager.File{}
-		admin.POST("file/upload", file.Upload)
-		admin.POST("file/delete", file.Delete)
+		file := &admin.File{}
+		authorization.POST("file/upload", file.Upload)
+		authorization.POST("file/delete", file.Delete)
 
 		//Goroutines
-		admin.GET("goroutines", func(c *gin.Context) {
+		authorization.GET("goroutines", func(c *gin.Context) {
 			//go func() {
 			//	time.Sleep(10 * time.Second)
 			//	log.Println("Done2! in path " + c.Request.URL.Path)
