@@ -52,19 +52,27 @@ func main() {
 	router := routers.Router()
 
 	// write all routes in redis
-	routing := make([]string, 0)
+	routing := make([]map[string]string, 0)
 	for _, v := range router.Routes() {
 		if strings.Contains(v.Path, "admin") {
+			item := make(map[string]string, 0)
+			item["method"] = v.Method
 			end := strings.Index(v.Path, "/:")
 			if end > 0 {
-				routing = append(routing, v.Path[0:end])
+				item["path"] = v.Path[0:end]
 			} else {
-				routing = append(routing, v.Path)
+				item["path"] = v.Path
 			}
+			routing = append(routing, item)
 		}
 	}
-	data, _ := json.Marshal(routing)
-	db.Redis.Set("routers", data, 0)
+	data, err := json.Marshal(routing)
+	if err != nil {
+		panic(err)
+	}
+
+	(&gin.Context{}).Set("routers", string(data))
+	db.Redis.Set("routers", string(data), 0)
 
 	if err := router.Run(":8080"); err != nil {
 		panic(err)
