@@ -15,18 +15,21 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 		auth := session.Get("auth")
 		if auth == nil {
 			c.Redirect(http.StatusFound, "/login")
+			c.Abort()
 			return
 		}
 
 		identification := make(map[string]interface{})
 		if err := json.Unmarshal([]byte(auth.(string)), &identification); err != nil {
 			c.Redirect(http.StatusFound, "/login")
+			c.Abort()
 			return
 		}
 
 		base := identification["base"].(map[string]interface{})
 		if int64(base["id"].(float64)) <= 0 {
 			c.Redirect(http.StatusFound, "/login")
+			c.Abort()
 			return
 		}
 		c.Next()

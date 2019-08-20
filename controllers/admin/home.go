@@ -15,11 +15,7 @@ func (h *Home) Dashboard(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	_ = routers
-	//println(routers)
-
-	routers = c.GetString("routers")
-	println(routers + " HERE")
+	println(routers)
 
 	c.HTML(http.StatusOK, "home/index", gin.H{
 		"title": "系统面板",

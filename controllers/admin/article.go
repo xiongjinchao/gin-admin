@@ -130,6 +130,9 @@ func (a *Article) Store(c *gin.Context) {
 
 func (a *Article) Edit(c *gin.Context) {
 
+	println(c.Request.Method)
+	println(c.Request.URL.Path)
+
 	id := c.Param("id")
 	flash := (&helper.Flash{}).GetFlash(c)
 

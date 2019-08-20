@@ -71,7 +71,6 @@ func main() {
 		panic(err)
 	}
 
-	(&gin.Context{}).Set("routers", string(data))
 	db.Redis.Set("routers", string(data), 0)
 
 	if err := router.Run(":8080"); err != nil {
