@@ -3,6 +3,10 @@
 	"ignore": "test",
 	"package": [
 		{
+			"path": "appengine/cloudsql",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "XRH9UcCo34OZ0TARtNCsGJq0CM8=",
 			"path": "github.com/Knetic/govaluate",
 			"revision": "9aa49832a739dcd78a5542ff189fb82c3e423116",
@@ -13,50 +17,6 @@
 			"path": "github.com/boj/redistore",
 			"revision": "cd5dcc76aeff9ba06b0a924829fe24fd69cdd517",
 			"revisionTime": "2018-09-17T11:49:10Z"
-		},
-		{
-			"checksumSHA1": "/KQUP3MBAHGTXwJtpXy8qrD0a60=",
-			"path": "github.com/casbin/casbin",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a",
-			"revisionTime": "2019-08-17T02:25:33Z"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/effect",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/log",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/model",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/persist",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/persist/file-adapter",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/rbac",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/rbac/default-role-manager",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"path": "github.com/casbin/casbin/v2/util",
-			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
-		},
-		{
-			"checksumSHA1": "OAeAjTAlolLINYQ2s2Ui4rlnEnI=",
-			"path": "github.com/casbin/gorm-adapter",
-			"revision": "f359d633e049a451dbfa5d017b19c80c4469d1a9",
-			"revisionTime": "2019-07-15T16:20:32Z"
 		},
 		{
 			"checksumSHA1": "0cytTxS0qPVjtknc7OrfuNmxvBE=",
@@ -227,8 +187,10 @@
 			"revisionTime": "2019-06-03T04:28:36Z"
 		},
 		{
+			"checksumSHA1": "JXlC3eSy7kLsz93aVdKGKtfBSj0=",
 			"path": "github.com/json-iterator/go",
-			"revision": ""
+			"revision": "27518f6661eba504be5a7a9a9f6d9460d892ade3",
+			"revisionTime": "2019-06-21T16:12:01Z"
 		},
 		{
 			"checksumSHA1": "STo3TnkoYreaIlW7ORH3V6uy3ns=",
@@ -261,6 +223,18 @@
 			"revisionTime": "2019-07-08T05:43:38Z"
 		},
 		{
+			"checksumSHA1": "R7UwDjqiaLRoaEanrANwPOfbgN4=",
+			"path": "github.com/modern-go/concurrent",
+			"revision": "bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94",
+			"revisionTime": "2018-03-06T01:26:44Z"
+		},
+		{
+			"checksumSHA1": "SnVnj87vJdiHFJUcwdL03T0ZMhI=",
+			"path": "github.com/modern-go/reflect2",
+			"revision": "94122c33edd36123c84d5368cfb2b69df93a0ec8",
+			"revisionTime": "2018-07-18T01:23:57Z"
+		},
+		{
 			"checksumSHA1": "3JBPxvZn52LORHX9F382xpkt1sA=",
 			"path": "github.com/satori/go.uuid",
 			"revision": "b2ce2384e17bbe0c6d34077efa39dbab3e09123b",
@@ -273,12 +247,16 @@
 			"revisionTime": "2019-07-23T09:17:30Z"
 		},
 		{
+			"checksumSHA1": "2DA7yQXGLTxH4M5zugia3YpJAV0=",
 			"path": "golang.org/x/sys/unix",
-			"revision": ""
+			"revision": "fde4db37ae7ad8191b03d30d27f258b5291ae4e3",
+			"revisionTime": "2019-08-12T08:24:04Z"
 		},
 		{
+			"checksumSHA1": "W/pYxFe8/FHT10/wulwesJsOoUw=",
 			"path": "google.golang.org/appengine/cloudsql",
-			"revision": ""
+			"revision": "fb139bde60fa77cede04f226b4d5a3cf68dcce27",
+			"revisionTime": "2019-08-01T18:14:06Z"
 		},
 		{
 			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",

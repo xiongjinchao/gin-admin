@@ -128,6 +128,10 @@ func Router() *gin.Engine {
 		authorized.POST("file/upload", file.Upload)
 		authorized.POST("file/delete", file.Delete)
 
+		//Role
+		role := &admin.Role{}
+		authorized.GET("role", role.Index)
+
 		//Goroutines
 		authorized.GET("goroutines", func(c *gin.Context) {
 			//go func() {
