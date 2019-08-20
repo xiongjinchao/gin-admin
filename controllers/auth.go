@@ -68,5 +68,6 @@ func (_ *Auth) Logout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("auth")
 	session.Clear()
+	_ = session.Save()
 	c.Redirect(http.StatusFound, "/login")
 }

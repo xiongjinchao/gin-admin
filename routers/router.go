@@ -19,10 +19,10 @@ func Router() *gin.Engine {
 	router := gin.Default()
 
 	// SESSION with cookie
-	store := sessions.NewCookieStore([]byte(config.Setting["session"]["id"]))
+	store := sessions.NewCookieStore([]byte(config.Setting["session"]["secret"]))
 	// SESSION with redis
-	// store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte(config.Setting["session"]["id"]))
-	router.Use(sessions.Sessions(config.Setting["session"]["key"], store))
+	// store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte(config.Setting["session"]["secret"]))
+	router.Use(sessions.Sessions(config.Setting["session"]["id"], store))
 
 	router.Static("/public", "./public")
 	router.StaticFile("/favicon.ico", "./public/image/favicon.ico")

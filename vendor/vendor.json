@@ -3,10 +3,60 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "XRH9UcCo34OZ0TARtNCsGJq0CM8=",
+			"path": "github.com/Knetic/govaluate",
+			"revision": "9aa49832a739dcd78a5542ff189fb82c3e423116",
+			"revisionTime": "2017-10-22T00:36:10Z"
+		},
+		{
 			"checksumSHA1": "FG2DkqrwE8opKUY+Yh2Akcw4QBo=",
 			"path": "github.com/boj/redistore",
 			"revision": "cd5dcc76aeff9ba06b0a924829fe24fd69cdd517",
 			"revisionTime": "2018-09-17T11:49:10Z"
+		},
+		{
+			"checksumSHA1": "/KQUP3MBAHGTXwJtpXy8qrD0a60=",
+			"path": "github.com/casbin/casbin",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a",
+			"revisionTime": "2019-08-17T02:25:33Z"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/effect",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/log",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/model",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/persist",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/persist/file-adapter",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/rbac",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/rbac/default-role-manager",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"path": "github.com/casbin/casbin/v2/util",
+			"revision": "6100a6f7a2c4cb5708892f3e6dba55600e405c4a"
+		},
+		{
+			"checksumSHA1": "OAeAjTAlolLINYQ2s2Ui4rlnEnI=",
+			"path": "github.com/casbin/gorm-adapter",
+			"revision": "f359d633e049a451dbfa5d017b19c80c4469d1a9",
+			"revisionTime": "2019-07-15T16:20:32Z"
 		},
 		{
 			"checksumSHA1": "0cytTxS0qPVjtknc7OrfuNmxvBE=",
@@ -33,10 +83,10 @@
 			"revisionTime": "2019-05-26T02:17:35Z"
 		},
 		{
-			"checksumSHA1": "A8+3Dr7pvqLoG8T1ttDY03sb+u4=",
+			"checksumSHA1": "PqIw8BFuLT3nIkHXd3dsZQHesuE=",
 			"path": "github.com/gin-gonic/gin",
-			"revision": "461df9320ac22d12d19a4e93894c54dd113b60c3",
-			"revisionTime": "2019-07-27T01:06:37Z"
+			"revision": "9a820cf0054bcd769f785457b7dbd149a7b29fdd",
+			"revisionTime": "2019-08-16T01:10:44Z"
 		},
 		{
 			"checksumSHA1": "aw60+zrdHljLi87Opq74tg0Hors=",
@@ -185,6 +235,24 @@
 			"path": "github.com/leodido/go-urn",
 			"revision": "a67a23e1c1af3c66528573bb86a87246477277c1",
 			"revisionTime": "2018-12-04T09:21:09Z"
+		},
+		{
+			"checksumSHA1": "rzptgFeOQbuYGWFESUmMh/uHWrY=",
+			"path": "github.com/lib/pq",
+			"revision": "78223426e7c66d631117c0a9da1b7f3fde4d23a5",
+			"revisionTime": "2019-08-13T06:55:22Z"
+		},
+		{
+			"checksumSHA1": "GX2hcQP8YqrXH+laJJIxUFsqoxU=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "78223426e7c66d631117c0a9da1b7f3fde4d23a5",
+			"revisionTime": "2019-08-13T06:55:22Z"
+		},
+		{
+			"checksumSHA1": "PStZaE3pKgMy1kk+hHB/of2FYBk=",
+			"path": "github.com/lib/pq/scram",
+			"revision": "78223426e7c66d631117c0a9da1b7f3fde4d23a5",
+			"revisionTime": "2019-08-13T06:55:22Z"
 		},
 		{
 			"checksumSHA1": "p/g8QEmoH6/jBQNFU0q2P9NcNKI=",
