@@ -1,9 +1,14 @@
 package admin
 
 import (
+	"fmt"
 	"gin/helper"
+	"github.com/casbin/casbin"
+	"github.com/casbin/gorm-adapter"
 	"github.com/gin-gonic/gin"
 	"net/http"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Role struct{}
@@ -12,6 +17,33 @@ type Role struct{}
 func (u *Role) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
+
+	a, err := gormadapter.NewAdapter("mysql", "mysql_username:mysql_password@tcp(127.0.0.1:3306)/")
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	e, err := casbin.NewEnforcer("config/rabc_model.conf", a)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	fmt.Println(e)
+
+	//_ = e.LoadModel()
+
+	//_ = e.LoadPolicy()
+
+	//roles := e.GetAllRoles()
+
+	//fmt.Println(roles);
+
+	// e.Enforce("alice", "data1", "read")
+
+	// e.AddPolicy(...)
+	// e.RemovePolicy(...)
+
+	// e.SavePolicy()
+
 	c.HTML(http.StatusOK, "role/index", gin.H{
 		"title": "角色管理",
 		"flash": flash,
