@@ -1,5 +1,8 @@
 {{ define "css" }}
     <link href="/public/inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <style>
+        .dataTables .label{padding:0 8px;}
+    </style>
 {{ end }}
 
 {{ define "content" }}
@@ -54,33 +57,32 @@
                             <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th style="text-align:center;width:50px;"># </th>
                                         <th>角色</th>
-                                        <th>拥有的角色</th>
-                                        <th>拥有的权限</th>
+                                        <th>拥有的 <span class="label label-primary">R</span> 角色 <span class="label label-warning">P</span> 权限</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {{ range $i, $v := .roles }}
                                     <tr>
-                                        <td>{{ Add $i 1 }}</td>
-                                        <td>{{ $v }}</td>
-                                        <td style="width:10%">
-                                            {{ range $k,$p := $.permissions }}
-                                                {{ if eq $k $v}}
-                                                    {{ range $p.roles}}
-                                                        {{ . }}<br/>
-                                                    {{ end }}
-                                                {{ end}}
-                                            {{ end }}
-                                        </td>
-                                        <td style="width:60%">
+                                        <td style="text-align:center">{{ Add $i 1 }}</td>
+                                        <td style="width:12%"><h4>{{ $v }}</h4></td>
+                                        <td style="width:72%">
+                                            <div class="row">
+                                                {{ range $k,$p := $.permissions }}
+                                                    {{ if eq $k $v}}
+                                                        {{ range $p.roles}}
+                                                            <div class="col-lg-4 py-1"><span class="label label-primary">R</span> {{ . }}</div>
+                                                        {{ end }}
+                                                    {{ end}}
+                                                {{ end }}
+                                            </div>
                                             <div class="row">
                                                 {{ range $k,$p := $.permissions }}
                                                     {{ if eq $k $v}}
                                                         {{ range $p.permissions}}
-                                                            <div class="col-lg-3">{{ . }}</div>
+                                                            <div class="col-lg-4 pt-1 py-1"><span class="label label-warning">P</span> {{ . }}</div>
                                                         {{ end }}
                                                     {{ end}}
                                                 {{ end }}
