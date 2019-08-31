@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"encoding/json"
+	"github.com/casbin/casbin"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -9,8 +10,10 @@ import (
 
 type Auth struct{}
 
-func (_ *Auth) CheckLogin() gin.HandlerFunc {
+func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		// check login
 		session := sessions.Default(c)
 		auth := session.Get("auth")
 		if auth == nil {
@@ -32,13 +35,18 @@ func (_ *Auth) CheckLogin() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		c.Next()
-	}
-}
 
-func (_ *Auth) CheckJwt() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		//TODO JWT
+		// check policy
+		user := "user:" + identification["name"].(string)
+		permission := c.Request.Method + " " + c.FullPath()
+		action := c.Request.Method
+
+		e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+		allowed, _ := e.Enforce(user, permission, action)
+		if allowed == false {
+			println("403")
+		}
+
 		c.Next()
 	}
 }

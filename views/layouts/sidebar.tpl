@@ -39,7 +39,7 @@
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/admin"><i class="fa fa-graduation-cap text-warning"></i> 管理员</a></li>
                         <li><a href="/admin/user"><i class="fa fa-user-o text-warning"></i> 用户管理</a></li>
-                        <li><a href="/admin/role"><i class="fa fa-github-alt text-warning"></i> 角色管理</a></li>
+                        <li><a href="/admin/policy"><i class="fa fa-github-alt text-warning"></i> 角色权限</a></li>
                     </ul>
                 </li>
                 <li>

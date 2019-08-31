@@ -57,12 +57,8 @@ func main() {
 		if strings.Contains(v.Path, "admin") {
 			item := make(map[string]string, 0)
 			item["method"] = v.Method
-			end := strings.Index(v.Path, "/:")
-			if end > 0 {
-				item["path"] = v.Path[0:end]
-			} else {
-				item["path"] = v.Path
-			}
+			item["path"] = v.Path
+			item["handler"] = v.Handler
 			routing = append(routing, item)
 		}
 	}

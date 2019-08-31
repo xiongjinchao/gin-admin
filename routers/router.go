@@ -52,7 +52,7 @@ func Router() *gin.Engine {
 	router.GET("/logout", (&controllers.Auth{}).Logout)
 
 	authorized := router.Group("admin")
-	authorized.Use((&middleware.Auth{}).CheckLogin())
+	authorized.Use((&middleware.Auth{}).CheckPolicy())
 	{
 		//Admin Dashboard
 		authorized.GET("dashboard", (&admin.Home{}).Dashboard)
@@ -129,8 +129,15 @@ func Router() *gin.Engine {
 		authorized.POST("file/delete", file.Delete)
 
 		//Role
-		role := &admin.Role{}
-		authorized.GET("role", role.Index)
+		policy := &admin.Policy{}
+		authorized.GET("policy", policy.Index)
+		authorized.GET("policy/upgrade", policy.Upgrade)
+		authorized.GET("policy/create", policy.Create)
+		authorized.POST("policy", policy.Store)
+		authorized.GET("policy/edit/:role", policy.Edit)
+		authorized.POST("policy/update/:role", policy.Update)
+		authorized.GET("policy/show/:role", policy.Show)
+		authorized.GET("policy/delete/:role", policy.Destroy)
 
 		//Goroutines
 		authorized.GET("goroutines", func(c *gin.Context) {
