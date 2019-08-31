@@ -12,6 +12,7 @@ import (
 	"html/template"
 	"net/http"
 	"reflect"
+	"strings"
 )
 
 //Router defined all routers
@@ -36,6 +37,11 @@ func Router() *gin.Engine {
 		Funcs: template.FuncMap{
 			"Interface2Int64": (&helper.Convert{}).Interface2Int64,
 			"TypeOf":          reflect.TypeOf,
+			"Add": func(x, y int) int {
+				return x + y
+			},
+			"Split":    strings.Split,
+			"Contains": strings.Contains,
 		},
 		DisableCache: true,
 	})
@@ -140,12 +146,14 @@ func Router() *gin.Engine {
 		authorized.GET("policy/delete/:role", policy.Destroy)
 
 		//Goroutines
-		authorized.GET("goroutines", func(c *gin.Context) {
-			//go func() {
-			//	time.Sleep(10 * time.Second)
-			//	log.Println("Done2! in path " + c.Request.URL.Path)
-			//}()
-		})
+		/*
+			authorized.GET("goroutines", func(c *gin.Context) {
+				//go func() {
+				//	time.Sleep(10 * time.Second)
+				//	log.Println("Done2! in path " + c.Request.URL.Path)
+				//}()
+			})
+		*/
 	}
 
 	return router

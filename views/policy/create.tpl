@@ -1,4 +1,11 @@
 {{ define "css" }}
+    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style>
+        .checkbox label::before{
+            top:1px;
+            left:1px;
+        }
+    </style>
 {{ end }}
 
 {{ define "content" }}
@@ -47,45 +54,27 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="user-form" role="form" action="/admin/user" method="post">
+                        <form id="user-form" role="form" action="/admin/policy" method="post">
                             <div class="form-group">
-                                <label class="font-bold">姓名</label>
+                                <label class="font-bold">角色名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="name" placeholder="请输入角色名称" class="form-control" value="{{ .flash.old.name }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">手机号码</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-mobile"></i>
-                                    </span>
-                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control" value="{{ .flash.old.mobile }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">邮箱</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control" value="{{ .flash.old.email }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">密码</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                    <input type="password" name="password" placeholder="" class="form-control">
-                                </div>
+                                <label class="font-bold">选择权限</label>
+                                    {{ range $i, $v := .permissions }}
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" name="permissions" id="permissions{{$i}}" value="{{$v}}">
+                                            <label for="permissions{{$i}}">
+                                                {{$v}}
+                                            </label>
+                                        </div>
+                                    {{ end }}
                             </div>
 
                             <div>
@@ -103,34 +92,14 @@
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
-        jQuery.validator.addMethod("mobileCN", function(value, element) {
-            var length = value.length;
-            var mobile = /^(1[0-9]{10})$/;
-            return this.optional(element) || (length == 11 && mobile.test(value));
-        }, "请正确填写手机号码");
 
         $().ready(function() {
             $("#user-form").validate({
                 rules: {
                     name: "required",
-                    mobile: {
-                        required: true,
-                        mobileCN: true,
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                    }
                 },
                 messages: {
-                    name: "请输入真实姓名",
-                    mobile: {
-                        required: "请输入您的手机号码"
-                    },
-                    email: {
-                        required: "请输入邮箱",
-                        email: "请输入有效的邮箱",
-                    }
+                    name: "请输入角色名称",
                 }
             })
         });

@@ -8,6 +8,7 @@ import (
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -20,21 +21,28 @@ func (p *Policy) Index(c *gin.Context) {
 	flash := (&helper.Flash{}).GetFlash(c)
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
-	fmt.Println("所有角色：")
 	roles := e.GetAllRoles()
+	permissions := make(map[string]map[string][]string, 0)
 	for _, v := range roles {
-		fmt.Println(v)
-	}
-
-	fmt.Println("所有权限：")
-	permissions := e.GetAllObjects()
-	for _, v := range permissions {
-		fmt.Println(v)
+		permissions[v] = make(map[string][]string, 0)
+		permissions[v]["roles"] = make([]string, 0)
+		permissions[v]["permissions"] = make([]string, 0)
+		// has some roles
+		for _, i := range e.GetFilteredGroupingPolicy(0, v) {
+			fmt.Println(i)
+			permissions[v]["roles"] = append(permissions[v]["roles"], i[1])
+		}
+		// has some permissions
+		for _, i := range e.GetFilteredPolicy(0, v) {
+			permissions[v]["permissions"] = append(permissions[v]["permissions"], i[1])
+		}
 	}
 
 	c.HTML(http.StatusOK, "policy/index", gin.H{
-		"title": "角色管理",
-		"flash": flash,
+		"title":       "角色管理",
+		"flash":       flash,
+		"roles":       roles,
+		"permissions": permissions,
 	})
 }
 
@@ -44,7 +52,7 @@ func (p *Policy) Upgrade(c *gin.Context) {
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	// create a user named admin has the role named admin
-	if ok, err := e.AddRoleForUser("user:admin", "role:admin"); ok && err == nil {
+	if ok, err := e.AddRoleForUser("user:admin", "role:sys:admin"); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
@@ -59,21 +67,38 @@ func (p *Policy) Upgrade(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	path := make(map[string]string, 0)
+	permissions := make(map[string]string, 0)
+	roles := make(map[string]string, 0)
 
 	for _, v := range routing {
-		path[v["method"]+" "+v["path"]] = "1"
-		// add all permissions to role:admin
-		if ok, err := e.AddPolicy("role:admin", v["method"]+" "+v["path"], v["method"]); ok && err == nil {
+		permissions[v["method"]+" "+v["path"]] = "1"
+
+		// every controller as a ctr:role
+		item := strings.Split(v["path"], "/")
+		roles["role:ctr:"+item[2]] = "1"
+		if ok, err := e.AddPolicy("role:ctr:"+item[2], v["method"]+" "+v["path"], v["method"]); ok && err == nil {
+			_ = e.SavePolicy()
+		}
+
+		// add all permissions to role:sys:admin
+		if ok, err := e.AddGroupingPolicy("role:sys:admin", "role:ctr:"+item[2]); ok && err == nil {
 			_ = e.SavePolicy()
 		}
 	}
 
-	permissions := e.GetAllObjects()
-	for _, v := range permissions {
+	for _, v := range e.GetAllObjects() {
 		// delete permission not exist
-		if _, exist := path[v]; exist == false {
+		if _, exist := permissions[v]; exist == false {
 			if ok, _ := e.DeletePermission(v); ok {
+				_ = e.SavePolicy()
+			}
+		}
+	}
+
+	for _, v := range e.GetAllRoles() {
+		// delete roles not exist
+		if _, exist := roles[v]; exist == false && v != "role:sys:admin" {
+			if ok, _ := e.DeleteRole(v); ok {
 				_ = e.SavePolicy()
 			}
 		}
@@ -84,10 +109,14 @@ func (p *Policy) Upgrade(c *gin.Context) {
 func (p *Policy) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+
+	permissions := e.GetAllObjects()
 
 	c.HTML(http.StatusOK, "policy/create", gin.H{
-		"title": "创建角色",
-		"flash": flash,
+		"title":       "创建角色",
+		"flash":       flash,
+		"permissions": permissions,
 	})
 }
 

@@ -54,7 +54,7 @@ func main() {
 	// write all routes in redis
 	routing := make([]map[string]string, 0)
 	for _, v := range router.Routes() {
-		if strings.Contains(v.Path, "admin") {
+		if strings.Contains(v.Path, "admin") && v.Path != "/admin/dashboard" {
 			item := make(map[string]string, 0)
 			item["method"] = v.Method
 			item["path"] = v.Path

@@ -38,6 +38,13 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 		}
 
 		// check policy
+
+		home := "/admin/dashboard"
+		if c.FullPath() == home || c.FullPath() == "/admin/policy/upgrade" {
+			c.Next()
+			return
+		}
+
 		user := "user:" + identification["name"].(string)
 		permission := c.Request.Method + " " + c.FullPath()
 		action := c.Request.Method
@@ -47,7 +54,7 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 		if allowed == false {
 			referer := c.Request.Header.Get("Referer")
 			if referer == "" {
-				referer = "/admin/dashboard"
+				referer = home
 			}
 			(&helper.Flash{}).SetFlash(c, "你没有权限执行该操作", "error")
 			c.Redirect(http.StatusFound, referer)
