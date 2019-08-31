@@ -37,11 +37,11 @@ func Router() *gin.Engine {
 		Funcs: template.FuncMap{
 			"Interface2Int64": (&helper.Convert{}).Interface2Int64,
 			"TypeOf":          reflect.TypeOf,
+			"Split":           strings.Split,
+			"Contains":        strings.Contains,
 			"Add": func(x, y int) int {
 				return x + y
 			},
-			"Split":    strings.Split,
-			"Contains": strings.Contains,
 		},
 		DisableCache: true,
 	})
