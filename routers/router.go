@@ -128,7 +128,7 @@ func Router() *gin.Engine {
 		authorized.POST("file/upload", file.Upload)
 		authorized.POST("file/delete", file.Delete)
 
-		//Role
+		//Policy
 		policy := &admin.Policy{}
 		authorized.GET("policy", policy.Index)
 		authorized.GET("policy/upgrade", policy.Upgrade)

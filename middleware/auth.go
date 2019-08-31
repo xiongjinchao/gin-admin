@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"encoding/json"
+	"gin/helper"
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -44,7 +45,14 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 		e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 		allowed, _ := e.Enforce(user, permission, action)
 		if allowed == false {
-			println("403")
+			referer := c.Request.Header.Get("Referer")
+			if referer == "" {
+				referer = "/admin/dashboard"
+			}
+			(&helper.Flash{}).SetFlash(c, "你没有权限执行该操作", "error")
+			c.Redirect(http.StatusFound, referer)
+			c.Abort()
+			return
 		}
 
 		c.Next()

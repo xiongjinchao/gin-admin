@@ -18,76 +18,19 @@ type Policy struct{}
 func (p *Policy) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
-
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	fmt.Println("所有角色：")
-	allRoles := e.GetAllRoles()
-	for _, v := range allRoles {
-		fmt.Println(v)
-	}
-	fmt.Println("所有角色和角色：")
-	roles := e.GetAllSubjects()
+	roles := e.GetAllRoles()
 	for _, v := range roles {
 		fmt.Println(v)
 	}
-	fmt.Println("熊雅萱的角色：")
-	roles, _ = e.GetRolesForUser("user:xiongyaxuan")
-	for _, v := range roles {
-		fmt.Println(v)
-	}
+
 	fmt.Println("所有权限：")
 	permissions := e.GetAllObjects()
 	for _, v := range permissions {
 		fmt.Println(v)
 	}
-
-	fmt.Println("所有角色对应的角色：")
-	ur := e.GetGroupingPolicy()
-	for _, v := range ur {
-		fmt.Println(v)
-	}
-
-	fmt.Println("权限关系列表：")
-	up := e.GetPolicy()
-	for _, v := range up {
-		fmt.Println(v)
-	}
-
-	fmt.Println("熊雅萱的权限：")
-	pp := e.GetPermissionsForUser("user:xiongyaxuan")
-	for _, v := range pp {
-		fmt.Println(v)
-	}
-	pp = e.GetPermissionsForUser("user:editor")
-	for _, v := range pp {
-		fmt.Println(v)
-	}
-	fmt.Println("熊雅萱所有权限：")
-	pp, _ = e.GetImplicitPermissionsForUser("user:xiongyaxuan")
-	for _, v := range pp {
-		fmt.Println(v)
-	}
-
-	//if ok,err := e.AddRoleForUser("user:xiongjinchao","role:editor"); ok && err == nil{
-	//	_  = e.SavePolicy()
-	//}
-	//if ok,err := e.AddPolicy("user:xiongjinchao", "/admin/article/:id", "POST"); ok && err == nil{
-	//	_  = e.SavePolicy()
-	//}
-	/*
-		allowed :=e.HasPermissionForUser("xiongyaxuan", "/admin/article", "GET")
-		if allowed == true{
-			println("xiongyaxuan can GET /admin/article")
-		}
-	*/
-
-	// e.Enforce("alice", "data1", "read")
-
-	// e.AddPolicy(...)
-	// e.RemovePolicy(...)
-
-	// e.SavePolicy()
 
 	c.HTML(http.StatusOK, "policy/index", gin.H{
 		"title": "角色管理",
