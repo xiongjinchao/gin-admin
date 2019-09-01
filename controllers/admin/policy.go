@@ -22,27 +22,26 @@ func (p *Policy) Index(c *gin.Context) {
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	roles := e.GetAllRoles()
-	permissions := make(map[string]map[string][]string, 0)
+	fmt.Println(roles)
+	policy := make(map[string]map[string][]string, 0)
 	for _, v := range roles {
-		permissions[v] = make(map[string][]string, 0)
-		permissions[v]["roles"] = make([]string, 0)
-		permissions[v]["permissions"] = make([]string, 0)
-		// has some roles
+		policy[v] = make(map[string][]string, 0)
+		policy[v]["roles"] = make([]string, 0)
+		policy[v]["permissions"] = make([]string, 0)
+		// role has some roles
 		for _, i := range e.GetFilteredGroupingPolicy(0, v) {
-			fmt.Println(i)
-			permissions[v]["roles"] = append(permissions[v]["roles"], i[1])
+			policy[v]["roles"] = append(policy[v]["roles"], i[1])
 		}
-		// has some permissions
+		// role has some permissions
 		for _, i := range e.GetFilteredPolicy(0, v) {
-			permissions[v]["permissions"] = append(permissions[v]["permissions"], i[1])
+			policy[v]["permissions"] = append(policy[v]["permissions"], i[1])
 		}
 	}
 
 	c.HTML(http.StatusOK, "policy/index", gin.H{
-		"title":       "角色管理",
-		"flash":       flash,
-		"roles":       roles,
-		"permissions": permissions,
+		"title":  "角色管理",
+		"flash":  flash,
+		"policy": policy,
 	})
 }
 
@@ -80,7 +79,7 @@ func (p *Policy) Upgrade(c *gin.Context) {
 			_ = e.SavePolicy()
 		}
 
-		// add all permissions to role:sys:admin
+		// add all controller role to role:sys:admin
 		if ok, err := e.AddGroupingPolicy("role:sys:admin", "role:ctr:"+item[2]); ok && err == nil {
 			_ = e.SavePolicy()
 		}
@@ -103,6 +102,8 @@ func (p *Policy) Upgrade(c *gin.Context) {
 			}
 		}
 	}
+	(&helper.Flash{}).SetFlash(c, "角色重置成功", "success")
+	c.Redirect(http.StatusFound, "/admin/policy")
 }
 
 // Create handles GET /admin/policy/create route
@@ -111,18 +112,50 @@ func (p *Policy) Create(c *gin.Context) {
 	flash := (&helper.Flash{}).GetFlash(c)
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
-	permissions := e.GetAllObjects()
+	roles := e.GetAllRoles()
+	policy := make(map[string][]string, 0)
+	for _, v := range roles {
+		if strings.Contains(v, ":sys:") {
+			continue
+		}
+		policy[v] = make([]string, 0)
+		// role has some permissions
+		for _, i := range e.GetFilteredPolicy(0, v) {
+			policy[v] = append(policy[v], i[1])
+		}
+	}
 
 	c.HTML(http.StatusOK, "policy/create", gin.H{
-		"title":       "创建角色",
-		"flash":       flash,
-		"permissions": permissions,
+		"title":  "创建角色",
+		"flash":  flash,
+		"policy": policy,
 	})
 }
 
 // Store handles POST /admin/policy/store route
 func (p *Policy) Store(c *gin.Context) {
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
+	name := c.PostForm("name")
+	roles := c.PostFormArray("roles[]")
+	permissions := c.PostFormArray("permissions[]")
+
+	// role must assignment to a user
+	if ok, err := e.AddRoleForUser("user:admin", "role:"+name); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+
+	for _, v := range roles {
+		if ok, err := e.AddGroupingPolicy("role:"+name, v); ok && err == nil {
+			_ = e.SavePolicy()
+		}
+	}
+	for _, v := range permissions {
+		permission := strings.Split(v, " ")
+		if ok, err := e.AddPolicy("role:"+name, v, permission[0]); ok && err == nil {
+			_ = e.SavePolicy()
+		}
+	}
 	(&helper.Flash{}).SetFlash(c, "创建角色成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 }

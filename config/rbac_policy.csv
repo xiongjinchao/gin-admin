@@ -56,6 +56,8 @@ p, role:ctr:file, POST /admin/file/upload, POST
 p, role:ctr:file, POST /admin/file/delete, POST
 p, role:ctr:policy, POST /admin/policy, POST
 p, role:ctr:policy, POST /admin/policy/update/:role, POST
+p, role:editor, GET /admin/menu, GET
+p, role:editor, GET /admin/policy, GET
 g, user:admin, role:sys:admin
 g, role:sys:admin, role:ctr:article
 g, role:sys:admin, role:ctr:article-category
@@ -65,3 +67,6 @@ g, role:sys:admin, role:ctr:menu
 g, role:sys:admin, role:ctr:book
 g, role:sys:admin, role:ctr:policy
 g, role:sys:admin, role:ctr:file
+g, user:admin, role:editor
+g, role:editor, role:ctr:article
+g, role:editor, role:ctr:article-category

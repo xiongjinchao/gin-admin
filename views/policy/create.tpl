@@ -1,10 +1,8 @@
 {{ define "css" }}
     <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <style>
-        .checkbox label::before{
-            top:1px;
-            left:1px;
-        }
+        .checkbox label::before{top:1px; left:1px;}
+        #policy-form .label{padding:0 8px;}
     </style>
 {{ end }}
 
@@ -33,7 +31,7 @@
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>{{ .title }}</h5>
@@ -54,7 +52,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="user-form" role="form" action="/admin/policy" method="post">
+                        <form id="policy-form" role="form" action="/admin/policy" method="post">
                             <div class="form-group">
                                 <label class="font-bold">角色名称</label>
                                 <div class="input-group">
@@ -66,15 +64,27 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">选择权限</label>
-                                    {{ range $i, $v := .permissions }}
-                                        <div class="checkbox checkbox-primary">
-                                            <input type="checkbox" name="permissions" id="permissions{{$i}}" value="{{$v}}">
-                                            <label for="permissions{{$i}}">
-                                                {{$v}}
-                                            </label>
+                                <label class="font-bold full-width">选择角色 / 权限 <span class="pull-right"><span class="label label-primary">R</span> 角色 <span class="label label-warning">P</span> 权限</span></label>
+                                <div class="row">
+                                    {{ range $i, $v := .policy }}
+                                        <div class="col-lg-3 col-md-6 py-3 policy">
+                                            <div class="checkbox checkbox-primary py-2">
+                                                <input type="checkbox" class="role" name="roles[]" id="{{$i}}" value="{{$i}}">
+                                                <label for="{{$i}}" class="font-bold">
+                                                    <span class="label label-primary">R</span> {{$i}}
+                                                </label>
+                                            </div>
+                                            {{ range $p := $v }}
+                                                <div class="checkbox checkbox-warning">
+                                                    <input type="checkbox" class="permission" name="permissions[]" id="{{ Replace $p " " "_" 1 }}" value="{{$p}}">
+                                                    <label for="{{ Replace $p " " "_" 1 }}">
+                                                        <span class="label label-warning">P</span> {{$p}}
+                                                    </label>
+                                                </div>
+                                            {{ end }}
                                         </div>
                                     {{ end }}
+                                </div>
                             </div>
 
                             <div>
@@ -94,7 +104,7 @@
     <script type="text/javascript">
 
         $().ready(function() {
-            $("#user-form").validate({
+            $("#policy-form").validate({
                 rules: {
                     name: "required",
                 },
@@ -103,5 +113,26 @@
                 }
             })
         });
+
+        $("input.role").on("click",function(){
+            if($(this).prop("checked")){
+                $(this).closest(".policy").find(".permission").prop("checked",true);
+                $(this).closest(".policy").find(".permission").attr("disabled",true);
+            }else{
+                $(this).closest(".policy").find(".permission").prop("checked",false);
+                $(this).closest(".policy").find(".permission").removeAttr("disabled");
+            }
+        });
+
+        $("input.permission").on("click",function(){
+            if($(this).closest(".policy").find(".permission:checked").length == $(this).closest(".policy").find(".permission").length){
+                $(this).closest(".policy").find(".role").prop("checked",true);
+                $(this).closest(".policy").find(".permission").attr("disabled",true);
+            }else{
+                $(this).closest(".policy").find(".role").prop("checked",false);
+                $(this).closest(".policy").find(".permission").removeAttr("disabled");
+            }
+        });
+
     </script>
 {{ end }}

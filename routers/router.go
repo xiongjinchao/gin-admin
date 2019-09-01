@@ -39,6 +39,7 @@ func Router() *gin.Engine {
 			"TypeOf":          reflect.TypeOf,
 			"Split":           strings.Split,
 			"Contains":        strings.Contains,
+			"Replace":         strings.Replace,
 			"Add": func(x, y int) int {
 				return x + y
 			},
