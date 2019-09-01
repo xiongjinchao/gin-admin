@@ -281,10 +281,11 @@ func (p *Policy) Show(c *gin.Context) {
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	roles := make([]string, 0)
-	permissions := make([]string, 0)
 	for _, r := range e.GetFilteredGroupingPolicy(0, "role:"+role) {
 		roles = append(roles, r[1])
 	}
+
+	permissions := make([]string, 0)
 	for _, p := range e.GetFilteredPolicy(0, "role:"+role) {
 		permissions = append(permissions, p[1])
 	}
