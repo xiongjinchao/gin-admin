@@ -108,9 +108,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="/admin/policy/show/{{$i}}" class="btn btn-xs btn-outline btn-primary {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-eye"></i> 查看</a>
-                                            <a href="/admin/policy/edit/{{$i}}" class="btn btn-xs btn-outline btn-success {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-edit"></i> 编辑</a>
-                                            <a href="/admin/policy/delete/{{$i}}" class="btn btn-xs btn-outline btn-danger {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-trash"></i> 删除</a>
+                                            <a href="/admin/policy/show/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-primary {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-eye"></i> 查看</a>
+                                            <a href="/admin/policy/edit/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-success {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-edit"></i> 编辑</a>
+                                            <a href="/admin/policy/delete/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-danger {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-trash"></i> 删除</a>
                                         </td>
                                     </tr>
                                 {{ end }}

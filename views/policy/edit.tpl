@@ -1,4 +1,9 @@
 {{ define "css" }}
+    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style>
+        .checkbox label::before{top:1px; left:1px;}
+        #policy-form .label{padding:0 8px;}
+    </style>
 {{ end }}
 
 {{ define "content" }}
@@ -26,7 +31,7 @@
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>{{ .title }}</h5>
@@ -47,49 +52,51 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="user-form" role="form" action="/admin/user/update/{{ .user.ID }}" method="post">
+                        <form id="policy-form" role="form" action="/admin/policy/update/{{.role}}" method="post">
                             <div class="form-group">
-                                <label class="font-bold">姓名</label>
+                                <label class="font-bold">角色名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .user.Name }}">
+                                    <input type="text" name="name" placeholder="请输入角色名称" class="form-control" value="{{ .role }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">手机号码</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-mobile"></i>
-                                    </span>
-                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control" value="{{ .user.Mobile }}">
-                                </div>
-                            </div>
+                                <label class="font-bold full-width">选择角色 / 权限 <span class="pull-right"><span class="label label-primary">R</span> 角色 <span class="label label-warning">P</span> 权限</span></label>
+                                <div class="row">
+                                    {{ range $i, $v := .policy }}
+                                        <div class="col-lg-3 col-md-6 py-3 policy">
 
-                            <div class="form-group">
-                                <label class="font-bold">邮箱</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control" value="{{ .user.Email }}">
-                                </div>
-                            </div>
+                                            {{$allowed := "0"}}
+                                            {{ range $r := $v.roles }}
+                                                {{if eq $r.name $i}}
+                                                    {{$allowed = $r.allowed}}
+                                                {{end}}
+                                            {{ end }}
 
-                            <div class="form-group">
-                                <label class="font-bold">密码</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                    <input type="password" name="password" placeholder="为空则不修改原密码" class="form-control">
+                                            <div class="checkbox checkbox-primary py-2">
+                                                <input type="checkbox" class="role" name="roles[]" id="{{$i}}" value="{{$i}}" {{if eq $allowed "1"}}checked{{end}}>
+                                                <label for="{{$i}}" class="font-bold">
+                                                    <span class="label label-primary">R</span> {{$i}}
+                                                </label>
+                                            </div>
+                                            {{ range $p := $v.permissions }}
+                                                <div class="checkbox checkbox-warning">
+                                                    <input type="checkbox" class="permission" name="permissions[]" id="{{ Replace $p.name " " "_" 1 }}" value="{{$p.name}}" {{if eq $p.allowed "1"}}checked{{end}}>
+                                                    <label for="{{ Replace $p.name " " "_" 1 }}">
+                                                        <span class="label label-warning">P</span> {{$p.name}}
+                                                    </label>
+                                                </div>
+                                            {{ end }}
+                                        </div>
+                                    {{ end }}
                                 </div>
                             </div>
 
                             <div>
-                                <button type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>
@@ -103,36 +110,46 @@
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
-        jQuery.validator.addMethod("mobileCN", function(value, element) {
-            var length = value.length;
-            var mobile = /^(1[0-9]{10})$/;
-            return this.optional(element) || (length == 11 && mobile.test(value));
-        }, "请正确填写手机号码");
 
         $().ready(function() {
-            $("#user-form").validate({
+            $("#policy-form").validate({
                 rules: {
                     name: "required",
-                    mobile: {
-                        required: true,
-                        mobileCN: true,
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                    }
                 },
                 messages: {
-                    name: "请输入真实姓名",
-                    mobile: {
-                        required: "请输入您的手机号码"
-                    },
-                    email: {
-                        required: "请输入邮箱",
-                        email: "请输入有效的邮箱",
-                    }
+                    name: "请输入角色名称",
                 }
             })
         });
+
+        $("input.role").each(function(i,item){
+            if($(item).prop("checked")){
+                $(item).closest(".policy").find(".permission").prop("checked",true);
+                $(item).closest(".policy").find(".permission").attr("disabled",true);
+            }else{
+                $(item).closest(".policy").find(".permission").removeAttr("disabled");
+            }
+        });
+
+        $("input.role").on("click",function(){
+            if($(this).prop("checked")){
+                $(this).closest(".policy").find(".permission").prop("checked",true);
+                $(this).closest(".policy").find(".permission").attr("disabled",true);
+            }else{
+                $(this).closest(".policy").find(".permission").prop("checked",false);
+                $(this).closest(".policy").find(".permission").removeAttr("disabled");
+            }
+        });
+
+        $("input.permission").on("click",function(){
+            if($(this).closest(".policy").find(".permission:checked").length == $(this).closest(".policy").find(".permission").length){
+                $(this).closest(".policy").find(".role").prop("checked",true);
+                $(this).closest(".policy").find(".permission").attr("disabled",true);
+            }else{
+                $(this).closest(".policy").find(".role").prop("checked",false);
+                $(this).closest(".policy").find(".permission").removeAttr("disabled");
+            }
+        });
+
     </script>
 {{ end }}
