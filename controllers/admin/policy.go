@@ -54,7 +54,7 @@ func (p *Policy) Upgrade(c *gin.Context) {
 	if ok, err := e.AddRoleForUser("admin:admin", "role:sys:admin"); ok && err == nil {
 		_ = e.SavePolicy()
 	}
-	if ok, err := e.AddRoleForUser("admin:1", "role:sys:admin"); ok && err == nil {
+	if ok, err := e.AddGroupingPolicy("admin:1", "role:sys:admin"); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 

@@ -16,6 +16,8 @@ p, role:ctr:admin, GET /admin/admin/delete/:id, GET
 p, role:ctr:admin, GET /admin/admin/create, GET
 p, role:ctr:admin, GET /admin/admin/edit/:id, GET
 p, role:ctr:admin, GET /admin/admin/show/:id, GET
+p, role:ctr:admin, GET /admin/admin/role/:id, GET
+p, role:ctr:admin, GET /admin/admin/policy/:id, GET
 p, role:ctr:user, GET /admin/user, GET
 p, role:ctr:user, GET /admin/user/data, GET
 p, role:ctr:user, GET /admin/user/delete/:id, GET
@@ -56,8 +58,8 @@ p, role:ctr:file, POST /admin/file/upload, POST
 p, role:ctr:file, POST /admin/file/delete, POST
 p, role:ctr:policy, POST /admin/policy, POST
 p, role:ctr:policy, POST /admin/policy/update/:role, POST
-p, role:ctr:admin, GET /admin/admin/role/:id, GET
-p, role:ctr:admin, GET /admin/admin/policy/:id, GET
+g, admin:admin, role:sys:admin
+g, admin:1, role:sys:admin
 g, role:sys:admin, role:ctr:article
 g, role:sys:admin, role:ctr:article-category
 g, role:sys:admin, role:ctr:admin
@@ -66,5 +68,3 @@ g, role:sys:admin, role:ctr:menu
 g, role:sys:admin, role:ctr:book
 g, role:sys:admin, role:ctr:policy
 g, role:sys:admin, role:ctr:file
-g, admin:1, role:sys:admin
-g, admin:admin, role:sys:admin
