@@ -8,6 +8,7 @@ import (
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -50,7 +51,10 @@ func (p *Policy) Upgrade(c *gin.Context) {
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	// create a user named admin has the role named admin
-	if ok, err := e.AddRoleForUser("user:admin", "role:sys:admin"); ok && err == nil {
+	if ok, err := e.AddRoleForUser("admin:admin", "role:sys:admin"); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+	if ok, err := e.AddRoleForUser("admin:1", "role:sys:admin"); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
@@ -119,7 +123,12 @@ func (p *Policy) Upgrade(c *gin.Context) {
 				_ = e.SavePolicy()
 			}
 		}
-		if strings.Contains(v[0], "user:") && (!strings.Contains(v[0], ":admin")) {
+		item := strings.Split(v[0], ":")
+		id, _ := strconv.Atoi(item[1])
+		if item[0] == "admin" && item[1] == "admin" {
+			continue
+		}
+		if item[0] == "admin" && id <= 0 {
 			if ok, _ := e.RemoveGroupingPolicy(v); ok {
 				_ = e.SavePolicy()
 			}
@@ -164,7 +173,7 @@ func (p *Policy) Store(c *gin.Context) {
 	permissions := c.PostFormArray("permissions[]")
 
 	// role must assignment to a user
-	if ok, err := e.AddRoleForUser("user:"+name, "role:"+name); ok && err == nil {
+	if ok, err := e.AddRoleForUser("admin:"+name, "role:"+name); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
@@ -212,7 +221,7 @@ func (p *Policy) Edit(c *gin.Context) {
 				item["name"] = p[1]
 				item["allowed"] = "0"
 				action := strings.Split(p[1], " ")
-				allowed, _ := e.Enforce("user:"+role, p[1], action[0])
+				allowed, _ := e.Enforce("admin:"+role, p[1], action[0])
 				if allowed {
 					item["allowed"] = "1"
 				}
@@ -238,7 +247,7 @@ func (p *Policy) Update(c *gin.Context) {
 	roles := c.PostFormArray("roles[]")
 	permissions := c.PostFormArray("permissions[]")
 
-	if ok, err := e.DeletePermissionsForUser("user:" + old); ok && err == nil {
+	if ok, err := e.DeletePermissionsForUser("admin:" + old); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
@@ -246,7 +255,7 @@ func (p *Policy) Update(c *gin.Context) {
 		_ = e.SavePolicy()
 	}
 
-	if ok, err := e.DeleteRolesForUser("user:" + old); ok && err == nil {
+	if ok, err := e.DeleteRolesForUser("admin:" + old); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 	if ok, err := e.DeleteRolesForUser("role:" + old); ok && err == nil {
@@ -256,13 +265,13 @@ func (p *Policy) Update(c *gin.Context) {
 		_ = e.SavePolicy()
 	}
 
-	if ok, err := e.DeleteUser("user:" + old); ok && err == nil {
+	if ok, err := e.DeleteUser("admin:" + old); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
 	// role must assignment to a user
 
-	if ok, err := e.AddRoleForUser("user:"+name, "role:"+name); ok && err == nil {
+	if ok, err := e.AddRoleForUser("admin:"+name, "role:"+name); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
@@ -299,7 +308,7 @@ func (p *Policy) Show(c *gin.Context) {
 	}
 
 	policy := make([]string, 0)
-	all, err := e.GetImplicitPermissionsForUser("user:" + role)
+	all, err := e.GetImplicitPermissionsForUser("admin:" + role)
 	if err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
@@ -321,7 +330,7 @@ func (p *Policy) Destroy(c *gin.Context) {
 	role := c.Param("role")
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
-	if ok, err := e.DeletePermissionsForUser("user:" + role); ok && err == nil {
+	if ok, err := e.DeletePermissionsForUser("admin:" + role); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
@@ -329,7 +338,7 @@ func (p *Policy) Destroy(c *gin.Context) {
 		_ = e.SavePolicy()
 	}
 
-	if ok, err := e.DeleteRolesForUser("user:" + role); ok && err == nil {
+	if ok, err := e.DeleteRolesForUser("admin:" + role); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 	if ok, err := e.DeleteRolesForUser("role:" + role); ok && err == nil {
@@ -339,7 +348,7 @@ func (p *Policy) Destroy(c *gin.Context) {
 		_ = e.SavePolicy()
 	}
 
-	if ok, err := e.DeleteUser("user:" + role); ok && err == nil {
+	if ok, err := e.DeleteUser("admin:" + role); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 

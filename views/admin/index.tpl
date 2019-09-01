@@ -1,5 +1,9 @@
 {{ define "css" }}
     <link href="/public/inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <style>
+        .checkbox label::before{top:1px; left:1px;}
+    </style>
 {{ end }}
 
 {{ define "content" }}
@@ -82,6 +86,74 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal inmodal" id="policy-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-github-alt modal-icon"></i>
+                    <h4 class="modal-title">管理员授权</h4>
+                    <small class="font-bold">你可以在角色权限中自定义你需要的角色</small>
+                </div>
+                <div class="modal-body">
+                    <h3><i class="fa fa-user"></i> 系统角色</h3>
+                    <div class="row">
+                        {{ range $r := .roles}}
+                            {{if Contains $r ":sys:" }}
+                                <div class="col-lg-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="role" name="roles[]" id="{{$r}}" value="{{$r}}" >
+                                        <label for="{{$r}}" class="font-bold">
+                                            {{$r}}
+                                        </label>
+                                    </div>
+                                </div>
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                    <h3><i class="fa fa-user-o"></i> 控制器角色</h3>
+                    <div class="row">
+                        {{ range $r := .roles}}
+                            {{if Contains $r ":ctr:" }}
+                                <div class="col-lg-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="role" name="roles[]" id="{{$r}}" value="{{$r}}" >
+                                        <label for="{{$r}}" class="font-bold">
+                                            {{$r}}
+                                        </label>
+                                    </div>
+                                </div>
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                    <h3><i class="fa fa-github-alt"></i> 自定义角色</h3>
+                    <div class="row">
+                        {{ range $r := .roles}}
+                            {{if or (Contains $r ":sys:") (Contains $r ":ctr:")}}
+
+                            {{ else }}
+                                <div class="col-lg-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="role" name="roles[]" id="{{$r}}" value="{{$r}}" >
+                                        <label for="{{$r}}" class="font-bold">
+                                            {{$r}}
+                                        </label>
+                                    </div>
+                                </div>
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
+                    <button type="button" class="btn btn-primary"><i class="fa fa-paper-plane"></i> 保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {{ end }}
 
 {{ define "js" }}
@@ -125,6 +197,7 @@
                         function(data, type, row, meta){
                             return '<a href="/admin/admin/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
                                 '<a href="/admin/admin/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                                '<a href="javascript:void(0)" class="btn btn-xs btn-outline btn-warning '+(row.name=="admin"?"disabled":"")+'" data-toggle="modal" data-target="#policy-modal"><i class="fa fa-gears"></i> 授权</a> ' +
                                 '<a href="/admin/admin/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }

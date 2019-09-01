@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type Auth struct{}
@@ -40,17 +41,17 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 		// check policy
 
 		home := "/admin/dashboard"
-		if c.FullPath() == home || c.FullPath() == "/admin/policy/upgrade" {
+		if c.FullPath() == home || (c.FullPath() == "/admin/policy/upgrade" && base["id"].(float64) == 1) {
 			c.Next()
 			return
 		}
 
-		user := "user:" + identification["name"].(string)
+		admin := "admin:" + strconv.FormatInt(int64(base["id"].(float64)), 10)
 		permission := c.Request.Method + " " + c.FullPath()
 		action := c.Request.Method
 
 		e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
-		allowed, _ := e.Enforce(user, permission, action)
+		allowed, _ := e.Enforce(admin, permission, action)
 		if allowed == false {
 			referer := c.Request.Header.Get("Referer")
 			if referer == "" {

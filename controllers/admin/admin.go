@@ -6,6 +6,7 @@ import (
 	db "gin/database"
 	"gin/helper"
 	"gin/models"
+	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -16,9 +17,14 @@ type Admin struct{}
 func (a *Admin) Index(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
+
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+	roles := e.GetAllRoles()
+
 	c.HTML(http.StatusOK, "admin/index", gin.H{
 		"title": "管理员管理",
 		"flash": flash,
+		"roles": roles,
 	})
 }
 
@@ -243,4 +249,24 @@ func (a *Admin) Destroy(c *gin.Context) {
 
 	(&helper.Flash{}).SetFlash(c, "删除管理员成功", "success")
 	c.Redirect(http.StatusFound, "/admin/admin")
+}
+
+func (a *Admin) Role(c *gin.Context) {
+	//id := c.Param("id")
+	//
+	//c.HTML(http.StatusOK, "admin/edit", gin.H{
+	//	"title": "编辑管理员",
+	//	"admin": admin,
+	//	"flash": flash,
+	//})
+}
+
+func (a *Admin) Policy(c *gin.Context) {
+	//id := c.Param("id")
+	//
+	//c.HTML(http.StatusOK, "admin/edit", gin.H{
+	//	"title": "编辑管理员",
+	//	"admin": admin,
+	//	"flash": flash,
+	//})
 }

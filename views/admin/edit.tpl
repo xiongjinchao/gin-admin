@@ -54,7 +54,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .admin.Name }}">
+                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .admin.Name }}" {{if eq .admin.Name "admin"}}readonly{{end}}>
                                 </div>
                             </div>
 

@@ -74,6 +74,8 @@ func Router() *gin.Engine {
 		authorized.POST("admin/update/:id", administrator.Update)
 		authorized.GET("admin/show/:id", administrator.Show)
 		authorized.GET("admin/delete/:id", administrator.Destroy)
+		authorized.GET("admin/role/:id", administrator.Role)
+		authorized.GET("admin/policy/:id", administrator.Policy)
 
 		//User
 		user := &admin.User{}
