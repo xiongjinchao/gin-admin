@@ -56,9 +56,9 @@ p, role:ctr:file, POST /admin/file/upload, POST
 p, role:ctr:file, POST /admin/file/delete, POST
 p, role:ctr:policy, POST /admin/policy, POST
 p, role:ctr:policy, POST /admin/policy/update/:role, POST
-p, role:editor, GET /admin/article-category/show/:id, GET
-p, role:editor, POST /admin/article-category, POST
-p, role:editor, POST /admin/article-category/update/:id, POST
+p, role:editor, GET /admin/article-category, GET
+p, role:editor, GET /admin/article-category/data, GET
+p, role:editor, GET /admin/article-category/delete/:id, GET
 g, user:admin, role:sys:admin
 g, role:sys:admin, role:ctr:article
 g, role:sys:admin, role:ctr:article-category
@@ -72,4 +72,3 @@ g, user:editor, role:editor
 g, role:editor, role:ctr:admin
 g, role:editor, role:ctr:article
 g, role:editor, role:ctr:file
-g, role:editor, role:ctr:menu

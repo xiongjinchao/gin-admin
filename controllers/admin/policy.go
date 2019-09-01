@@ -284,9 +284,9 @@ func (p *Policy) Show(c *gin.Context) {
 	permissions := make([]string, 0)
 	for _, r := range e.GetFilteredGroupingPolicy(0, "role:"+role) {
 		roles = append(roles, r[1])
-		for _, p := range e.GetFilteredPolicy(0, r[1]) {
-			permissions = append(permissions, p[1])
-		}
+	}
+	for _, p := range e.GetFilteredPolicy(0, "role:"+role) {
+		permissions = append(permissions, p[1])
 	}
 
 	policy := make([]string, 0)
