@@ -1,5 +1,4 @@
 {{ define "css" }}
-    <link href="/public/inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <style>
         .dataTables .label{padding:0 8px;}
     </style>

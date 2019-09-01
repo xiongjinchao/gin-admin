@@ -1,4 +1,7 @@
 {{ define "css" }}
+    <style>
+        #policy-table .label{padding:0 8px;}
+    </style>
 {{ end }}
 
 {{ define "content" }}
@@ -26,10 +29,10 @@
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <p>
-                    <a class="btn btn-outline btn-success" href="/admin/user/edit/{{ .user.ID }}"><i class="fa fa-edit"></i> 更新</a>
-                    <a class="btn btn-outline btn-danger" href="/admin/user/delete/{{ .user.ID }}"><i class="fa fa-trash"></i> 删除</a>
+                    <a class="btn btn-outline btn-success" href="/admin/policy/edit/{{ .role }}"><i class="fa fa-edit"></i> 更新</a>
+                    <a class="btn btn-outline btn-danger" href="/admin/policy/delete/{{ .role }}"><i class="fa fa-trash"></i> 删除</a>
                 </p>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -51,43 +54,49 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table id="w0" class="table table-striped table-bordered detail-view" style="table-layout:fixed">
+                        <table id="policy-table" class="table table-striped table-bordered detail-view" style="table-layout:fixed">
                             <tbody>
                                 <tr>
-                                    <th style="width:20%;">用户编号</th>
-                                    <td>{{ .user.ID }}</td>
+                                    <th style="width:10%;">角色名称</th>
+                                    <td><h4>{{ .role }}</h4></td>
                                 </tr>
                                 <tr>
-                                    <th>姓名</th>
-                                    <td>{{ .user.Name }}</td>
+                                    <th>拥有的角色</th>
+                                    <td>
+                                        <div class="row">
+                                            {{ range .roles}}
+                                                <div class="col-lg-3 py-1">
+                                                    {{if or (Contains . ":sys:") (Contains . ":ctr:")}}
+                                                        <span class="label label-danger">S</span>
+                                                    {{ else }}
+                                                        <span class="label label-success">C</span>
+                                                    {{ end }}
+                                                    <span class="label label-primary">R</span>
+                                                    {{ . }}
+                                                </div>
+                                            {{ end }}
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>手机号</th>
-                                    <td>{{ .user.Mobile }}</td>
+                                    <th>拥有的权限</th>
+                                    <td>
+                                        <div class="row">
+                                            {{ range .permissions}}
+                                                <div class="col-lg-3 py-1"><span class="label label-warning">P</span> {{ . }}</div>
+                                            {{ end }}
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>邮箱</th>
-                                    <td>{{ .user.Email }}</td>
-                                </tr>
-                                <tr>
-                                    <th>密码</th>
-                                    <td>{{ .user.Password }}</td>
-                                </tr>
-                                <tr>
-                                    <th>AccessToken</th>
-                                    <td style="word-wrap:break-word;">{{ .user.AccessToken }}</td>
-                                </tr>
-                                <tr>
-                                    <th>ResetKey</th>
-                                    <td>{{ .user.ResetKey }}</td>
-                                </tr>
-                                <tr>
-                                    <th>创建时间</th>
-                                    <td>{{ .user.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                </tr>
-                                <tr>
-                                    <th>更新时间</th>
-                                    <td>{{ .user.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>所有权限</th>
+                                    <td>
+                                        <div class="row">
+                                            {{ range .policy}}
+                                                <div class="col-lg-3 py-1"><span class="label label-warning">P</span> {{ . }}</div>
+                                            {{ end }}
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

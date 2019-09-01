@@ -276,18 +276,60 @@ func (p *Policy) Update(c *gin.Context) {
 }
 
 func (p *Policy) Show(c *gin.Context) {
+
 	role := c.Param("role")
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
-	_ = e
+
+	roles := make([]string, 0)
+	permissions := make([]string, 0)
+	for _, r := range e.GetFilteredGroupingPolicy(0, "role:"+role) {
+		roles = append(roles, r[1])
+		for _, p := range e.GetFilteredPolicy(0, r[1]) {
+			permissions = append(permissions, p[1])
+		}
+	}
+
+	policy := make([]string, 0)
+	all, err := e.GetImplicitPermissionsForUser("user:" + role)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	for _, p := range all {
+		policy = append(policy, p[1])
+	}
 
 	c.HTML(http.StatusOK, "policy/show", gin.H{
-		"title": "查看角色",
-		"role":  role,
+		"title":       "查看角色",
+		"role":        role,
+		"roles":       roles,
+		"permissions": permissions,
+		"policy":      policy,
 	})
 }
 
 func (p *Policy) Destroy(c *gin.Context) {
-	_ = c.Param("role")
+
+	role := c.Param("role")
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+
+	if ok, err := e.DeletePermissionsForUser("user:" + role); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+
+	if ok, err := e.DeletePermissionsForUser("role:" + role); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+
+	if ok, err := e.DeleteRolesForUser("user:" + role); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+	if ok, err := e.DeleteRolesForUser("role:" + role); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+
+	if ok, err := e.DeleteUser("user:" + role); ok && err == nil {
+		_ = e.SavePolicy()
+	}
 
 	(&helper.Flash{}).SetFlash(c, "删除角色成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
