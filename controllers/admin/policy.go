@@ -119,6 +119,11 @@ func (p *Policy) Upgrade(c *gin.Context) {
 				_ = e.SavePolicy()
 			}
 		}
+		if strings.Contains(v[0], "user:") && (!strings.Contains(v[0], ":admin")) {
+			if ok, _ := e.RemoveGroupingPolicy(v); ok {
+				_ = e.SavePolicy()
+			}
+		}
 	}
 
 	(&helper.Flash{}).SetFlash(c, "角色重置成功", "success")
@@ -247,6 +252,9 @@ func (p *Policy) Update(c *gin.Context) {
 	if ok, err := e.DeleteRolesForUser("role:" + old); ok && err == nil {
 		_ = e.SavePolicy()
 	}
+	if ok, err := e.DeleteRole("role:" + old); ok && err == nil {
+		_ = e.SavePolicy()
+	}
 
 	if ok, err := e.DeleteUser("user:" + old); ok && err == nil {
 		_ = e.SavePolicy()
@@ -325,6 +333,9 @@ func (p *Policy) Destroy(c *gin.Context) {
 		_ = e.SavePolicy()
 	}
 	if ok, err := e.DeleteRolesForUser("role:" + role); ok && err == nil {
+		_ = e.SavePolicy()
+	}
+	if ok, err := e.DeleteRole("role:" + role); ok && err == nil {
 		_ = e.SavePolicy()
 	}
 
