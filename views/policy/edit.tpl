@@ -79,7 +79,8 @@
                                             <div class="checkbox checkbox-primary py-2">
                                                 <input type="checkbox" class="role" name="roles[]" id="{{$i}}" value="{{$i}}" {{if eq $allowed "1"}}checked{{end}}>
                                                 <label for="{{$i}}" class="font-bold">
-                                                    <span class="label label-primary">R</span> {{$i}}
+                                                    <span class="label label-primary">R</span>
+                                                    {{ Replace (Replace (Replace $i "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                                 </label>
                                             </div>
                                             {{ range $p := $v.permissions }}

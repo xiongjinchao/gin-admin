@@ -61,7 +61,7 @@
                                     <td><h4>{{ .role }}</h4></td>
                                 </tr>
                                 <tr>
-                                    <th>拥有的角色</th>
+                                    <th>拥有角色</th>
                                     <td>
                                         <div class="row">
                                             {{ range .roles}}
@@ -72,14 +72,14 @@
                                                         <span class="label label-success">C</span>
                                                     {{ end }}
                                                     <span class="label label-primary">R</span>
-                                                    {{ . }}
+                                                    {{ Replace (Replace (Replace . "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                                 </div>
                                             {{ end }}
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>拥有的权限</th>
+                                    <th>拥有权限</th>
                                     <td>
                                         <div class="row">
                                             {{ range .permissions}}

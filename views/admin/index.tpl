@@ -98,7 +98,7 @@
                     <small class="font-bold">你可以在角色权限中自定义你需要的角色</small>
                 </div>
                 <div class="modal-body">
-                    <h3><i class="fa fa-user"></i> 系统角色</h3>
+                    <h3><i class="fa fa-gears"></i> 系统角色</h3>
                     <div class="row">
                         {{ range $r := .roles}}
                             {{if Contains $r ":sys:" }}
@@ -106,7 +106,7 @@
                                     <div class="checkbox checkbox-primary">
                                         <input type="checkbox" class="role" name="roles[]" id="{{$r}}" value="{{$r}}" >
                                         <label for="{{$r}}" class="font-bold">
-                                            {{$r}}
+                                            {{ Replace (Replace (Replace $r "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                         </label>
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@
                                     <div class="checkbox checkbox-primary">
                                         <input type="checkbox" class="role" name="roles[]" id="{{$r}}" value="{{$r}}" >
                                         <label for="{{$r}}" class="font-bold">
-                                            {{$r}}
+                                            {{ Replace (Replace (Replace $r "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                         </label>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                     <div class="checkbox checkbox-primary">
                                         <input type="checkbox" class="role" name="roles[]" id="{{$r}}" value="{{$r}}" >
                                         <label for="{{$r}}" class="font-bold">
-                                            {{$r}}
+                                            {{ Replace (Replace (Replace $r "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                         </label>
                                     </div>
                                 </div>

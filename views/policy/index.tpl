@@ -83,7 +83,7 @@
                                                     <span class="label label-success">C</span>
                                                 {{ end }}
                                                 <span class="label label-primary">R</span>
-                                                {{ $i }}
+                                                {{ Replace (Replace (Replace $i "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                             </h4>
                                         </td>
                                         <td style="width:70%">
@@ -96,7 +96,7 @@
                                                             <span class="label label-success">C</span>
                                                         {{ end }}
                                                         <span class="label label-primary">R</span>
-                                                        {{ . }}
+                                                        {{ Replace (Replace (Replace . "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
                                                     </div>
                                                 {{ end }}
                                             </div>
