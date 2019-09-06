@@ -16,8 +16,6 @@ p, role:ctr:admin, GET /admin/admin/delete/:id, GET
 p, role:ctr:admin, GET /admin/admin/create, GET
 p, role:ctr:admin, GET /admin/admin/edit/:id, GET
 p, role:ctr:admin, GET /admin/admin/show/:id, GET
-p, role:ctr:admin, GET /admin/admin/role/:id, GET
-p, role:ctr:admin, GET /admin/admin/policy/:id, GET
 p, role:ctr:user, GET /admin/user, GET
 p, role:ctr:user, GET /admin/user/data, GET
 p, role:ctr:user, GET /admin/user/delete/:id, GET
@@ -58,6 +56,9 @@ p, role:ctr:file, POST /admin/file/upload, POST
 p, role:ctr:file, POST /admin/file/delete, POST
 p, role:ctr:policy, POST /admin/policy, POST
 p, role:ctr:policy, POST /admin/policy/update/:role, POST
+p, role:ctr:admin, GET /admin/admin/roles/:id, GET
+p, role:ctr:admin, POST /admin/admin/roles/:id, POST
+p, role:ctr:policy, GET /admin/policy/reset, GET
 p, role:编辑, GET /admin/menu, GET
 p, role:编辑, GET /admin/menu/data, GET
 g, admin:admin, role:sys:admin
@@ -73,3 +74,8 @@ g, role:sys:admin, role:ctr:file
 g, admin:编辑, role:编辑
 g, role:编辑, role:ctr:article
 g, role:编辑, role:ctr:article-category
+g, role:编辑, role:ctr:file
+g, admin:2, role:编辑
+g, admin:2, role:ctr:file
+g, admin:2, role:ctr:book
+g, admin:2, role:ctr:admin

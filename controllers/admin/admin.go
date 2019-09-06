@@ -251,22 +251,30 @@ func (a *Admin) Destroy(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/admin")
 }
 
-func (a *Admin) Role(c *gin.Context) {
-	//id := c.Param("id")
-	//
-	//c.HTML(http.StatusOK, "admin/edit", gin.H{
-	//	"title": "编辑管理员",
-	//	"admin": admin,
-	//	"flash": flash,
-	//})
+// get roles for user
+func (a *Admin) Roles(c *gin.Context) {
+	id := c.Param("id")
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+	roles := make([]string, 0)
+	for _, r := range e.GetFilteredGroupingPolicy(0, "admin:"+id) {
+		roles = append(roles, r[1])
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"roles": roles,
+	})
 }
 
 func (a *Admin) Policy(c *gin.Context) {
-	//id := c.Param("id")
-	//
-	//c.HTML(http.StatusOK, "admin/edit", gin.H{
-	//	"title": "编辑管理员",
-	//	"admin": admin,
-	//	"flash": flash,
-	//})
+	id := c.Param("id")
+	roles := c.PostFormArray("roles[]")
+
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+	for _, v := range roles {
+		if ok, err := e.AddRoleForUser("admin:"+id, v); ok && err == nil {
+			_ = e.SavePolicy()
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+	})
 }

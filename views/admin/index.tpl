@@ -148,7 +148,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
-                    <button type="button" class="btn btn-primary"><i class="fa fa-paper-plane"></i> 保存</button>
+                    <button type="button" class="btn btn-primary btn-save"><i class="fa fa-paper-plane"></i> 保存</button>
                 </div>
             </div>
         </div>
@@ -197,7 +197,7 @@
                         function(data, type, row, meta){
                             return '<a href="/admin/admin/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
                                 '<a href="/admin/admin/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                                '<a href="javascript:void(0)" class="btn btn-xs btn-outline btn-warning '+(row.name=="admin"?"disabled":"")+'" data-toggle="modal" data-target="#policy-modal"><i class="fa fa-gears"></i> 授权</a> ' +
+                                '<a href="javascript:void(0)" class="btn btn-xs btn-outline btn-warning policy '+(row.name=="admin"?"disabled":"")+'" data-toggle="modal" data-target="#policy-modal" data-url="/admin/admin/roles/'+row.base.id+'"><i class="fa fa-gears"></i> 授权</a> ' +
                                 '<a href="/admin/admin/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }
@@ -223,7 +223,39 @@
                 ]
 
             });
+        });
 
+        $("#page-wrapper").on("click",".policy",function(){
+            let url = $(this).attr('data-url');
+            $("#policy-modal").attr('data-url',url);
+            $.get(url,function(result){
+                if(result.roles.length > 0){
+                    $.each(result.roles,function (i,item) {
+                        $('input.role').each(function(j,input){
+                            if($(input).val() == item){
+                                $(input).prop('checked', true);
+                            }
+                        })
+                    })
+                }
+            })
+        });
+
+        $("#policy-modal .btn-save").on("click",function(){
+            let url = $("#policy-modal").attr('data-url');
+            let params = {
+                roles:[]
+            };
+            $('input.role').each(function(j,input){
+                if($(input).prop('checked') == true){
+                    params.roles.push($(input).val());
+                }
+            });
+            $.post(url, params,function (result) {
+                if(result.status == "success"){
+                    $('#policy-modal').modal('hide');
+                }
+            })
         });
 
     </script>

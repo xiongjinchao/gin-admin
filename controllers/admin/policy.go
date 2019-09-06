@@ -45,9 +45,9 @@ func (p *Policy) Index(c *gin.Context) {
 	})
 }
 
-// Upgrade handles GET /admin/policy/upgrade route
-// add new permissions and delete not exist permissions
-func (p *Policy) Upgrade(c *gin.Context) {
+// Reset handles GET /admin/policy/reset route
+// reset all policy
+func (p *Policy) Reset(c *gin.Context) {
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	// create a user named admin has the role named admin
@@ -136,6 +136,64 @@ func (p *Policy) Upgrade(c *gin.Context) {
 	}
 
 	(&helper.Flash{}).SetFlash(c, "角色重置成功", "success")
+	c.Redirect(http.StatusFound, "/admin/policy")
+}
+
+// Upgrade handles GET /admin/policy/upgrade route
+// add new permissions and delete not exist permissions
+func (p *Policy) Upgrade(c *gin.Context) {
+	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
+
+	routers, err := db.Redis.Get("routers").Result()
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	routing := make([]map[string]string, 0)
+
+	if err := json.Unmarshal([]byte(routers), &routing); err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
+	permissions := make(map[string]string, 0)
+	roles := make(map[string]string, 0)
+	roles["role:sys:admin"] = "1"
+
+	for _, v := range routing {
+		permissions[v["method"]+" "+v["path"]] = "1"
+
+		// every controller as a ctr:role
+		item := strings.Split(v["path"], "/")
+		roles["role:ctr:"+item[2]] = "1"
+		if ok, err := e.AddPolicy("role:ctr:"+item[2], v["method"]+" "+v["path"], v["method"]); ok && err == nil {
+			_ = e.SavePolicy()
+		}
+
+		// add all controller role to role:sys:admin
+		if ok, err := e.AddGroupingPolicy("role:sys:admin", "role:ctr:"+item[2]); ok && err == nil {
+			_ = e.SavePolicy()
+		}
+	}
+
+	for _, v := range e.GetAllObjects() {
+		// delete permission witch is not exist
+		if _, exist := permissions[v]; exist == false {
+			if ok, _ := e.DeletePermission(v); ok {
+				_ = e.SavePolicy()
+			}
+		}
+	}
+
+	for _, v := range e.GetAllRoles() {
+		// delete controller roles witch is not exist
+		if _, exist := roles[v]; exist == false {
+			if ok, _ := e.DeleteRole(v); ok {
+				_ = e.SavePolicy()
+			}
+		}
+	}
+
+	(&helper.Flash{}).SetFlash(c, "权限索引成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 }
 

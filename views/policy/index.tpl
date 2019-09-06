@@ -30,7 +30,8 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <p>
             <a class="btn btn-primary" href="policy/create"> <i class="fa fa-plus-circle"></i> 创建角色</a>
-            <a class="btn btn-danger" href="policy/upgrade"> <i class="fa fa-plus-circle"></i> 角色重置</a>
+            <a class="btn btn-success" href="policy/upgrade"> <i class="fa fa-search"></i> 权限检索</a>
+            <a class="btn btn-danger" href="policy/reset"> <i class="fa fa-recycle"></i> 角色重置</a>
         </p>
         <div class="row">
             <div class="col-lg-12">

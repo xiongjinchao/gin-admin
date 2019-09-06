@@ -74,8 +74,8 @@ func Router() *gin.Engine {
 		authorized.POST("admin/update/:id", administrator.Update)
 		authorized.GET("admin/show/:id", administrator.Show)
 		authorized.GET("admin/delete/:id", administrator.Destroy)
-		authorized.GET("admin/role/:id", administrator.Role)
-		authorized.GET("admin/policy/:id", administrator.Policy)
+		authorized.GET("admin/roles/:id", administrator.Roles)
+		authorized.POST("admin/roles/:id", administrator.Policy)
 
 		//User
 		user := &admin.User{}
@@ -140,6 +140,7 @@ func Router() *gin.Engine {
 		//Policy
 		policy := &admin.Policy{}
 		authorized.GET("policy", policy.Index)
+		authorized.GET("policy/reset", policy.Reset)
 		authorized.GET("policy/upgrade", policy.Upgrade)
 		authorized.GET("policy/create", policy.Create)
 		authorized.POST("policy", policy.Store)
