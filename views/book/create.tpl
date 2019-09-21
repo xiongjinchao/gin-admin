@@ -1,6 +1,6 @@
 {{ define "css" }}
     <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="/public/inspinia/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet">
+    <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -28,7 +28,7 @@
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-10">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>{{ .title }}</h5>
@@ -72,7 +72,9 @@
 
                             <div class="form-group">
                                 <label class="font-bold">目录</label>
-                                <textarea id="catalogue" name="catalogue" placeholder="" class="form-control" rows="12">{{ .flash.old.catalogue }}</textarea>
+                                <div id="catalogue">
+                                    <textarea style="display:none" name="catalogue" placeholder="" class="form-control" rows="12">{{ .flash.old.catalogue }}</textarea>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -137,11 +139,14 @@
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
 
-    <script src="/public/inspinia/js/plugins/bootstrap-markdown/bootstrap-markdown.js"></script>
-    <script src="/public/inspinia/js/plugins/bootstrap-markdown/markdown.js"></script>
-    <script src="/public/inspinia/js/plugins/bootstrap-markdown/bootstrap-markdown.zh.js"></script>
+    <script src="/public/plug-in/editor-md/editormd.min.js"></script>
+
     <script type="text/javascript">
-        $("#catalogue").markdown({language:'zh'});
+        var editor = editormd("catalogue", {
+            width:"100%",
+            height:"500",
+            path:"/public/plug-in/editor-md/lib/"
+        });
         $().ready(function() {
             $("#book-form").validate({
                 rules: {
