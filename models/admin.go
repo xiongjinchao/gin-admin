@@ -3,6 +3,7 @@ package models
 import (
 	"crypto/sha1"
 	"encoding/hex"
+	"encoding/json"
 )
 
 type Admin struct {
@@ -22,4 +23,9 @@ func (a *Admin) GeneratePassword(password string) string {
 	s := sha1.New()
 	s.Write([]byte(password))
 	return hex.EncodeToString(s.Sum([]byte("")))
+}
+
+func (a *Admin) ParseAuth(auth string) (admin Admin, err error) {
+	err = json.Unmarshal([]byte(auth), &admin)
+	return
 }

@@ -7,8 +7,8 @@ import (
 	"gin/helper"
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
 	"net/http"
-	"strconv"
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -48,6 +48,12 @@ func (p *Policy) Index(c *gin.Context) {
 // Reset handles GET /admin/policy/reset route
 // reset all policy
 func (p *Policy) Reset(c *gin.Context) {
+
+	if err := ioutil.WriteFile("config/rbac_policy.csv", []byte(""), 0644); err != nil {
+		(&helper.Flash{}).SetFlash(c, "权限文件无法写入", "error")
+		c.Redirect(http.StatusFound, "/admin/policy")
+	}
+
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	// create a user named admin has the role named admin
@@ -64,21 +70,13 @@ func (p *Policy) Reset(c *gin.Context) {
 	}
 
 	routing := make([]map[string]string, 0)
-
 	if err := json.Unmarshal([]byte(routers), &routing); err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	permissions := make(map[string]string, 0)
-	roles := make(map[string]string, 0)
-	roles["role:sys:admin"] = "1"
-
 	for _, v := range routing {
-		permissions[v["method"]+" "+v["path"]] = "1"
-
 		// every controller as a ctr:role
 		item := strings.Split(v["path"], "/")
-		roles["role:ctr:"+item[2]] = "1"
 		if ok, err := e.AddPolicy("role:ctr:"+item[2], v["method"]+" "+v["path"], v["method"]); ok && err == nil {
 			_ = e.SavePolicy()
 		}
@@ -86,52 +84,6 @@ func (p *Policy) Reset(c *gin.Context) {
 		// add all controller role to role:sys:admin
 		if ok, err := e.AddGroupingPolicy("role:sys:admin", "role:ctr:"+item[2]); ok && err == nil {
 			_ = e.SavePolicy()
-		}
-	}
-
-	for _, v := range e.GetAllObjects() {
-		// delete permission witch is not exist
-		if _, exist := permissions[v]; exist == false {
-			if ok, _ := e.DeletePermission(v); ok {
-				_ = e.SavePolicy()
-			}
-		}
-	}
-
-	for _, v := range e.GetAllRoles() {
-		// delete controller roles witch is not exist
-		if _, exist := roles[v]; exist == false {
-			if ok, _ := e.DeleteRole(v); ok {
-				_ = e.SavePolicy()
-			}
-		}
-	}
-
-	for _, v := range e.GetPolicy() {
-		// delete customer permission
-		if strings.Contains(v[0], "role:") && (!strings.Contains(v[0], ":sys:") && !strings.Contains(v[0], ":ctr:")) {
-			if ok, _ := e.RemoveGroupingPolicy(v); ok {
-				_ = e.SavePolicy()
-			}
-		}
-	}
-
-	for _, v := range e.GetGroupingPolicy() {
-		// delete customer roles
-		if strings.Contains(v[0], "role:") && (!strings.Contains(v[0], ":sys:") && !strings.Contains(v[0], ":ctr:")) {
-			if ok, _ := e.RemoveGroupingPolicy(v); ok {
-				_ = e.SavePolicy()
-			}
-		}
-		item := strings.Split(v[0], ":")
-		id, _ := strconv.Atoi(item[1])
-		if item[0] == "admin" && item[1] == "admin" {
-			continue
-		}
-		if item[0] == "admin" && id <= 0 {
-			if ok, _ := e.RemoveGroupingPolicy(v); ok {
-				_ = e.SavePolicy()
-			}
 		}
 	}
 
@@ -186,6 +138,9 @@ func (p *Policy) Upgrade(c *gin.Context) {
 
 	for _, v := range e.GetAllRoles() {
 		// delete controller roles witch is not exist
+		if strings.Contains(v, ":ctr:") == false {
+			continue
+		}
 		if _, exist := roles[v]; exist == false {
 			if ok, _ := e.DeleteRole(v); ok {
 				_ = e.SavePolicy()

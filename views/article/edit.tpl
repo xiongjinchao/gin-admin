@@ -89,7 +89,7 @@
 
                             <div class="form-group">
                                 <label class="font-bold">内容</label>
-                                <textarea id="content" name="content" placeholder="" class="form-control" rows="12">{{ .article.Content }}</textarea>
+                                <textarea id="content" name="content" placeholder="" class="form-control p-2" rows="12">{{ .article.Content }}</textarea>
                             </div>
 
                             <div class="form-group">

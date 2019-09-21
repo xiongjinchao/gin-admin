@@ -112,7 +112,7 @@
                     { "data": "base.id" },
                     { "data": "name", "render":
                         function(data, type, row, meta){
-                            return row.space + row.name;
+                            return row.name;
                         }
                     },
                     { "data": "tag" },

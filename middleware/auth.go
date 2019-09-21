@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"encoding/json"
 	"gin/helper"
+	"gin/models"
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -24,33 +24,30 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 			return
 		}
 
-		identification := make(map[string]interface{})
-		if err := json.Unmarshal([]byte(auth.(string)), &identification); err != nil {
+		identification, err := (&models.Admin{}).ParseAuth(auth.(string))
+		if err != nil {
 			c.Redirect(http.StatusFound, "/login")
 			c.Abort()
 			return
 		}
-
-		base := identification["base"].(map[string]interface{})
-		if int64(base["id"].(float64)) <= 0 {
+		if identification.ID < 0 {
 			c.Redirect(http.StatusFound, "/login")
 			c.Abort()
 			return
 		}
 
 		// check policy
-
 		home := "/admin/dashboard"
 		if c.FullPath() == home {
 			c.Next()
 			return
 		}
-		if (c.FullPath() == "/admin/policy/upgrade" || c.FullPath() == "/admin/policy/reset") && base["id"].(float64) == 1 {
+		if (c.FullPath() == "/admin/policy/upgrade" || c.FullPath() == "/admin/policy/reset") && identification.ID == 1 {
 			c.Next()
 			return
 		}
 
-		admin := "admin:" + strconv.FormatInt(int64(base["id"].(float64)), 10)
+		admin := "admin:" + strconv.FormatInt(identification.ID, 10)
 		permission := c.Request.Method + " " + c.FullPath()
 		action := c.Request.Method
 

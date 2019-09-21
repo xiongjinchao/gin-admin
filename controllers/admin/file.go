@@ -1,13 +1,17 @@
 package admin
 
 import (
-	"encoding/json"
 	db "gin/database"
 	"gin/models"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
+	"image"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -46,7 +50,27 @@ func (f *File) Upload(c *gin.Context) {
 		return
 	}
 
-	out, err := os.Create(path + "/" + name)
+	creator, err := os.Create(path + "/" + name)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failure",
+			"message": err.Error(),
+			"data":    "",
+		})
+		return
+	}
+	_, err = io.Copy(creator, file)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failure",
+			"message": err.Error(),
+			"data":    "",
+		})
+		return
+	}
+	_ = creator.Close()
+
+	opener, err := os.Open(path + "/" + name)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failure",
@@ -56,9 +80,9 @@ func (f *File) Upload(c *gin.Context) {
 		return
 	}
 	defer func() {
-		_ = out.Close()
+		_ = opener.Close()
 	}()
-	_, err = io.Copy(out, file)
+	picture, _, err := image.DecodeConfig(opener)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failure",
@@ -67,11 +91,11 @@ func (f *File) Upload(c *gin.Context) {
 		})
 		return
 	}
+
 	session := sessions.Default(c)
 	auth := session.Get("auth")
 
-	user := make(map[string]interface{})
-	err = json.Unmarshal([]byte(auth.(string)), &user)
+	identification, err := (&models.Admin{}).ParseAuth(auth.(string))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failure",
@@ -81,15 +105,16 @@ func (f *File) Upload(c *gin.Context) {
 		return
 	}
 
+	ratio := float64(picture.Width) / float64(picture.Height)
 	model := &models.File{}
 	model.Name = name
 	model.Category = category
 	model.Path = "/" + path + "/" + name
-	model.Width = 100
-	model.Height = 100
+	model.Width = picture.Width
+	model.Height = picture.Height
 	model.Size = header.Size
-	model.Ratio = 1
-	model.UserID = int64(user["id"].(float64))
+	model.Ratio = math.Trunc(ratio*1e2+0.5) * 1e-2
+	model.UserID = identification.ID
 
 	if err := db.Mysql.Model(&models.File{}).Save(&model).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
