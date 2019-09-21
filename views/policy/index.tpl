@@ -65,9 +65,10 @@
                                             拥有的角色 / 权限
                                             <span class="pull-right font-normal">
                                                 <span class="mr-3"><span class="label label-primary">R</span> 角色</span>
-                                                <span class="mr-3"><span class="label label-warning">P</span> 权限</span>
+                                                <span class="mr-3"><span class="label label-default">P</span> 权限</span>
+                                                <span class="mr-3"><span class="label label-warning">C</span> 控制器级别</span>
                                                 <span class="mr-3"><span class="label label-danger">S</span> 系统级别</span>
-                                                <span class="mr-3"><span class="label label-success">C</span> 用户级别</span>
+                                                <span class="mr-3"><span class="label label-success">U</span> 用户级别</span>
                                             </span>
                                         </th>
                                         <th>操作</th>
@@ -78,10 +79,12 @@
                                     <tr>
                                         <td style="width:15%">
                                             <h4>
-                                                {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}}
+                                                {{if Contains $i ":sys:"}}
                                                     <span class="label label-danger">S</span>
+                                                {{else if Contains $i ":ctr:"}}
+                                                    <span class="label label-warning">C</span>
                                                 {{ else }}
-                                                    <span class="label label-success">C</span>
+                                                    <span class="label label-success">U</span>
                                                 {{ end }}
                                                 <span class="label label-primary">R</span>
                                                 {{ Replace (Replace (Replace $i "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
@@ -91,10 +94,12 @@
                                             <div class="row">
                                                 {{ range $v.roles }}
                                                     <div class="col-lg-4 py-1">
-                                                        {{if or (Contains . ":sys:") (Contains . ":ctr:")}}
+                                                        {{if Contains . ":sys:"}}
                                                             <span class="label label-danger">S</span>
+                                                        {{else if Contains . ":ctr:"}}
+                                                            <span class="label label-warning">C</span>
                                                         {{ else }}
-                                                            <span class="label label-success">C</span>
+                                                            <span class="label label-success">U</span>
                                                         {{ end }}
                                                         <span class="label label-primary">R</span>
                                                         {{ Replace (Replace (Replace . "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
@@ -103,7 +108,7 @@
                                             </div>
                                             <div class="row">
                                                 {{ range $v.permissions}}
-                                                    <div class="col-lg-4 pt-1 py-1"><span class="label label-warning">P</span> {{ . }}</div>
+                                                    <div class="col-lg-4 pt-1 py-1"><span class="label label-default">P</span> {{ . }}</div>
                                                 {{ end }}
                                             </div>
                                         </td>

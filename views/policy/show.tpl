@@ -58,7 +58,18 @@
                             <tbody>
                                 <tr>
                                     <th style="width:10%;">角色名称</th>
-                                    <td><h4>{{ .role }}</h4></td>
+                                    <td>
+                                        <h4>
+                                            {{ .role }}
+                                            <span class="pull-right font-normal">
+                                                <span class="mr-3"><span class="label label-primary">R</span> 角色</span>
+                                                <span class="mr-3"><span class="label label-default">P</span> 权限</span>
+                                                <span class="mr-3"><span class="label label-warning">C</span> 控制器级别</span>
+                                                <span class="mr-3"><span class="label label-danger">S</span> 系统级别</span>
+                                                <span class="mr-3"><span class="label label-success">U</span> 用户级别</span>
+                                            </span>
+                                        </h4>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>拥有角色</th>
@@ -66,10 +77,12 @@
                                         <div class="row">
                                             {{ range .roles}}
                                                 <div class="col-lg-3 py-1">
-                                                    {{if or (Contains . ":sys:") (Contains . ":ctr:")}}
+                                                    {{if Contains . ":sys:"}}
                                                         <span class="label label-danger">S</span>
+                                                    {{else if Contains . ":ctr:"}}
+                                                        <span class="label label-warning">C</span>
                                                     {{ else }}
-                                                        <span class="label label-success">C</span>
+                                                        <span class="label label-success">U</span>
                                                     {{ end }}
                                                     <span class="label label-primary">R</span>
                                                     {{ Replace (Replace (Replace . "role:" "" 1) "sys:" "" 1) "ctr:" "" 1}}
@@ -83,7 +96,7 @@
                                     <td>
                                         <div class="row">
                                             {{ range .permissions}}
-                                                <div class="col-lg-3 py-1"><span class="label label-warning">P</span> {{ . }}</div>
+                                                <div class="col-lg-3 py-1"><span class="label label-default">P</span> {{ . }}</div>
                                             {{ end }}
                                         </div>
                                     </td>
@@ -93,7 +106,7 @@
                                     <td>
                                         <div class="row">
                                             {{ range .policy}}
-                                                <div class="col-lg-3 py-1"><span class="label label-warning">P</span> {{ . }}</div>
+                                                <div class="col-lg-3 py-1"><span class="label label-default">P</span> {{ . }}</div>
                                             {{ end }}
                                         </div>
                                     </td>

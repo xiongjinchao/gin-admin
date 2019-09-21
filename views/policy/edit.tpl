@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold full-width">选择角色 / 权限 <span class="pull-right"><span class="label label-primary">R</span> 角色 <span class="label label-warning">P</span> 权限</span></label>
+                                <label class="font-bold full-width">选择角色 / 权限 <span class="pull-right"><span class="label label-primary">R</span> 角色 <span class="label label-default">P</span> 权限</span></label>
                                 <div class="row">
                                     {{ range $i, $v := .policy }}
                                         <div class="col-lg-3 col-md-6 py-3 policy">
@@ -84,10 +84,10 @@
                                                 </label>
                                             </div>
                                             {{ range $p := $v.permissions }}
-                                                <div class="checkbox checkbox-warning">
+                                                <div class="checkbox checkbox-default">
                                                     <input type="checkbox" class="permission" name="permissions[]" id="{{ Replace $p.name " " "_" 1 }}" value="{{$p.name}}" {{if eq $p.allowed "1"}}checked{{end}}>
                                                     <label for="{{ Replace $p.name " " "_" 1 }}">
-                                                        <span class="label label-warning">P</span> {{$p.name}}
+                                                        <span class="label label-default">P</span> {{$p.name}}
                                                     </label>
                                                 </div>
                                             {{ end }}
