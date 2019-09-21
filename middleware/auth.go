@@ -41,7 +41,11 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 		// check policy
 
 		home := "/admin/dashboard"
-		if c.FullPath() == home || (c.FullPath() == "/admin/policy/upgrade" && base["id"].(float64) == 1) {
+		if c.FullPath() == home {
+			c.Next()
+			return
+		}
+		if (c.FullPath() == "/admin/policy/upgrade" || c.FullPath() == "/admin/policy/reset") && base["id"].(float64) == 1 {
 			c.Next()
 			return
 		}
