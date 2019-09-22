@@ -76,7 +76,7 @@ func (m *Menu) UpdateChildrenLevel(data *[]Menu, parent Menu) {
 	for _, v := range *data {
 		if v.Parent == parent.ID {
 			v.Level = parent.Level + 1
-			db.Mysql.Model(Menu{}).Save(&v)
+			db.Mysql.Model(Menu{}).Omit("Parents", "Space").Save(&v)
 
 			m.UpdateChildrenLevel(data, v)
 		}

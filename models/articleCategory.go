@@ -76,7 +76,7 @@ func (a *ArticleCategory) UpdateChildrenLevel(data *[]ArticleCategory, parent Ar
 	for _, v := range *data {
 		if v.Parent == parent.ID {
 			v.Level = parent.Level + 1
-			db.Mysql.Model(ArticleCategory{}).Save(&v)
+			db.Mysql.Model(ArticleCategory{}).Omit("Parents", "Space").Save(&v)
 
 			a.UpdateChildrenLevel(data, v)
 		}
