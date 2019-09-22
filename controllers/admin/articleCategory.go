@@ -45,14 +45,14 @@ func (a *ArticleCategory) Data(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	(&models.ArticleCategory{}).Sortable(&articleCategory, 0, &data)
-	categories := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).SetSort(&articleCategory, 0, &data)
+	(&models.ArticleCategory{}).SetSpace(&data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
 		"recordsTotal":    len(articleCategory),
 		"recordsFiltered": total,
-		"data":            categories,
+		"data":            data,
 	})
 }
 
@@ -65,13 +65,13 @@ func (a *ArticleCategory) Create(c *gin.Context) {
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.ArticleCategory{}).Sortable(&articleCategories, 0, &data)
-	categories := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
+	(&models.ArticleCategory{}).SetSpace(&data)
 
 	c.HTML(http.StatusOK, "article-category/create", gin.H{
 		"title":             "创建文章分类",
 		"flash":             flash,
-		"articleCategories": categories,
+		"articleCategories": data,
 	})
 }
 
@@ -102,7 +102,7 @@ func (a *ArticleCategory) Store(c *gin.Context) {
 		articleCategory.Level = parent.Level + 1
 	}
 
-	if err := db.Mysql.Create(&articleCategory).Error; err != nil {
+	if err := db.Mysql.Omit("Parents", "Space").Create(&articleCategory).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/create")
 		return
@@ -126,14 +126,14 @@ func (a *ArticleCategory) Edit(c *gin.Context) {
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.ArticleCategory{}).Sortable(&articleCategories, 0, &data)
-	categories := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
+	(&models.ArticleCategory{}).SetSpace(&data)
 
 	c.HTML(http.StatusOK, "article-category/edit", gin.H{
 		"title":             "编辑文章分类",
 		"flash":             flash,
 		"articleCategory":   articleCategory,
-		"articleCategories": categories,
+		"articleCategories": data,
 	})
 }
 
@@ -170,7 +170,7 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Save(&articleCategory).Error; err != nil {
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Omit("Parents", "Space").Save(&articleCategory).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return

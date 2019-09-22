@@ -78,9 +78,9 @@
                                     </span>
                                     <select class="form-control" name="parent">
                                         <option value="0">设为主菜单</option>
-                                        {{$parent := Interface2Int64 .menu.Parent}}
+                                        {{$parent := .menu.Parent}}
                                         {{range .menus}}
-                                            <option value="{{.base.id}}" {{if eq .base.id $parent}}selected{{end}}>{{.space}}{{.name}}</option>
+                                            <option value="{{.ID}}" {{if eq .ID $parent}}selected{{end}}>{{.Space}}{{.Name}}</option>
                                         {{end}}
                                     </select>
                                 </div>

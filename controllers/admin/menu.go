@@ -45,14 +45,14 @@ func (m *Menu) Data(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	(&models.Menu{}).Sortable(&menu, 0, &data)
-	menus := (&models.Menu{}).SetSpace(data)
+	(&models.Menu{}).SetSort(&menu, 0, &data)
+	(&models.Menu{}).SetSpace(&data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
 		"recordsTotal":    len(menu),
 		"recordsFiltered": total,
-		"data":            menus,
+		"data":            data,
 	})
 }
 
@@ -61,17 +61,17 @@ func (m *Menu) Create(c *gin.Context) {
 
 	flash := (&helper.Flash{}).GetFlash(c)
 
-	var articleCategories, data []models.Menu
-	if err := db.Mysql.Model(&models.Menu{}).Find(&articleCategories).Error; err != nil {
+	var menus, data []models.Menu
+	if err := db.Mysql.Model(&models.Menu{}).Find(&menus).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.Menu{}).Sortable(&articleCategories, 0, &data)
-	menus := (&models.Menu{}).SetSpace(data)
+	(&models.Menu{}).SetSort(&menus, 0, &data)
+	(&models.Menu{}).SetSpace(&data)
 
 	c.HTML(http.StatusOK, "menu/create", gin.H{
 		"title": "创建菜单",
 		"flash": flash,
-		"menus": menus,
+		"menus": data,
 	})
 }
 
@@ -102,7 +102,7 @@ func (m *Menu) Store(c *gin.Context) {
 		menu.Level = parent.Level + 1
 	}
 
-	if err := db.Mysql.Create(&menu).Error; err != nil {
+	if err := db.Mysql.Omit("Parents", "Space").Create(&menu).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/create")
 		return
@@ -122,18 +122,18 @@ func (m *Menu) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	var articleCategories, data []models.Menu
-	if err := db.Mysql.Model(&models.Menu{}).Find(&articleCategories).Error; err != nil {
+	var menus, data []models.Menu
+	if err := db.Mysql.Model(&models.Menu{}).Find(&menus).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.Menu{}).Sortable(&articleCategories, 0, &data)
-	menus := (&models.Menu{}).SetSpace(data)
+	(&models.Menu{}).SetSort(&menus, 0, &data)
+	(&models.Menu{}).SetSpace(&data)
 
 	c.HTML(http.StatusOK, "menu/edit", gin.H{
 		"title": "编辑菜单",
 		"flash": flash,
 		"menu":  menu,
-		"menus": menus,
+		"menus": data,
 	})
 }
 
@@ -170,7 +170,7 @@ func (m *Menu) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.Menu{}).Save(&menu).Error; err != nil {
+	if err := db.Mysql.Model(&models.Menu{}).Omit("Parents", "Space").Save(&menu).Error; err != nil {
 		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return

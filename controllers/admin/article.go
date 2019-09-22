@@ -81,8 +81,8 @@ func (a *Article) Create(c *gin.Context) {
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.ArticleCategory{}).Sortable(&articleCategories, 0, &data)
-	categories := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
+	(&models.ArticleCategory{}).SetSpace(&data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -92,7 +92,7 @@ func (a *Article) Create(c *gin.Context) {
 	c.HTML(http.StatusOK, "article/create", gin.H{
 		"title":             "创建文章",
 		"flash":             flash,
-		"articleCategories": categories,
+		"articleCategories": data,
 		"user":              user,
 	})
 }
@@ -169,8 +169,8 @@ func (a *Article) Edit(c *gin.Context) {
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	(&models.ArticleCategory{}).Sortable(&articleCategories, 0, &data)
-	categories := (&models.ArticleCategory{}).SetSpace(data)
+	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
+	(&models.ArticleCategory{}).SetSpace(&data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -181,7 +181,7 @@ func (a *Article) Edit(c *gin.Context) {
 		"title":                "编辑文章",
 		"flash":                flash,
 		"article":              article,
-		"articleCategories":    categories,
+		"articleCategories":    data,
 		"user":                 user,
 		"initialPreview":       string(initialPreview),
 		"initialPreviewConfig": string(initialPreviewConfig),

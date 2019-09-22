@@ -123,17 +123,14 @@
                     },
                     { "data": "tag" },
                     { "data": "parent", "render":
-                        function(data, type, row, meta){
-                            let result = '';
-                            if(row.parents != null){
-                                row.parents.reverse();
-                                $.each(row.parents, function(i,item){
-                                    result += " "+item.name + " /"
-                                });
-                                result = result.substring(0,result.length-1);
+                            function(data, type, row, meta){
+                                let result = '';
+                                if(row.parents != null){
+                                    row.parents.reverse();
+                                    result = row.parents.join(' / ');
+                                }
+                                return result;
                             }
-                            return result;
-                        }
                     },
                     { "data": "level", "class":"text-center" },
                     { "data": "sort", "class":"text-center" },

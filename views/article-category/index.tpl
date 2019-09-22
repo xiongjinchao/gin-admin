@@ -127,10 +127,7 @@
                             let result = '';
                             if(row.parents != null){
                                 row.parents.reverse();
-                                $.each(row.parents, function(i,item){
-                                    result += " "+item.name + " /"
-                                });
-                                result = result.substring(0,result.length-1);
+                                result = row.parents.join(' / ');
                             }
                             return result;
                         }
