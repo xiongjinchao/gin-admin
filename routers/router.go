@@ -137,6 +137,17 @@ func Router() *gin.Engine {
 		authorized.POST("file/upload", file.Upload)
 		authorized.POST("file/delete", file.Delete)
 
+		//Friend Link
+		friendLink := &admin.FriendLink{}
+		authorized.GET("friend-link", friendLink.Index)
+		authorized.GET("friend-link/data", friendLink.Data)
+		authorized.GET("friend-link/create", friendLink.Create)
+		authorized.POST("friend-link", friendLink.Store)
+		authorized.GET("friend-link/edit/:id", friendLink.Edit)
+		authorized.POST("friend-link/update/:id", friendLink.Update)
+		authorized.GET("friend-link/show/:id", friendLink.Show)
+		authorized.GET("friend-link/delete/:id", friendLink.Destroy)
+
 		//Policy
 		policy := &admin.Policy{}
 		authorized.GET("policy", policy.Index)

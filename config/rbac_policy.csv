@@ -63,6 +63,14 @@ p, role:editor, GET /admin/menu, GET
 p, role:editor, GET /admin/menu/data, GET
 p, role:editor, GET /admin/policy, GET
 p, role:editor, GET /admin/policy/reset, GET
+p, role:ctr:friend-link, GET /admin/friend-link, GET
+p, role:ctr:friend-link, GET /admin/friend-link/data, GET
+p, role:ctr:friend-link, GET /admin/friend-link/delete/:id, GET
+p, role:ctr:friend-link, GET /admin/friend-link/create, GET
+p, role:ctr:friend-link, GET /admin/friend-link/edit/:id, GET
+p, role:ctr:friend-link, GET /admin/friend-link/show/:id, GET
+p, role:ctr:friend-link, POST /admin/friend-link, POST
+p, role:ctr:friend-link, POST /admin/friend-link/update/:id, POST
 g, admin:admin, role:sys:admin
 g, admin:1, role:sys:admin
 g, role:sys:admin, role:ctr:article
@@ -76,3 +84,4 @@ g, role:sys:admin, role:ctr:file
 g, admin:editor, role:editor
 g, role:editor, role:ctr:admin
 g, role:editor, role:ctr:article
+g, role:sys:admin, role:ctr:friend-link

@@ -163,10 +163,16 @@
                 rules: {
                     name: "required",
                     parent: "required",
+                    sort:{
+                        digits:true
+                    }
                 },
                 messages: {
                     name: "请输入菜单名称",
                     parent:"请选择所属菜单",
+                    sort: {
+                        digits: "排序值无效",
+                    }
                 }
             })
         });

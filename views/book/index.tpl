@@ -123,12 +123,12 @@
                     },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
-                            return moment(row.created_at).format("YYYY-MM-DD HH:mm:ss");
+                            return moment(row.base.created_at).format("YYYY-MM-DD HH:mm:ss");
                         }
                     },
                     { "data": "updated_at", "render":
                         function(data, type, row, meta){
-                            return moment(row.updated_at).format("YYYY-MM-DD HH:mm:ss");
+                            return moment(row.base.updated_at).format("YYYY-MM-DD HH:mm:ss");
                         }
                     },
                     { "data": null, "render": function(data, type, row, meta){

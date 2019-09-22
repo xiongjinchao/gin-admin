@@ -45,11 +45,11 @@ func (b *Book) Data(c *gin.Context) {
 
 	switch order {
 	case "1":
-		query = query.Order("title " + sort)
+		query = query.Order("name " + sort)
 	case "2":
-		query = query.Order("category_id " + sort)
+		query = query.Order("tag " + sort)
 	case "3":
-		query = query.Order("user_id " + sort)
+		query = query.Order("audit " + sort)
 	case "4":
 		query = query.Order("created_at " + sort)
 	case "5":

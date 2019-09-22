@@ -163,10 +163,16 @@
                 rules: {
                     name: "required",
                     parent: "required",
+                    sort:{
+                        digits:true
+                    }
                 },
                 messages: {
                     name: "请输入分类名称",
                     parent:"请选择所属分类",
+                    sort: {
+                        digits: "排序值无效",
+                    }
                 }
             })
         });
