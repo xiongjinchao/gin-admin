@@ -1,6 +1,9 @@
 package models
 
 import (
+	"fmt"
+	db "gin/database"
+	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
 )
@@ -67,4 +70,24 @@ func (m *Menu) SetParents(data *[]Menu, parent int64, parents *[]string) {
 			m.SetParents(data, v.Parent, parents)
 		}
 	}
+}
+
+func (m *Menu) UpdateChildrenLevel(data *[]Menu, parent Menu) {
+	for _, v := range *data {
+		if v.Parent == parent.ID {
+			v.Level = parent.Level + 1
+			db.Mysql.Model(Menu{}).Save(&v)
+
+			m.UpdateChildrenLevel(data, v)
+		}
+	}
+}
+
+func (m *Menu) UpdateChildren(parent Menu) {
+
+	var menus []Menu
+	if err := db.Mysql.Model(Menu{}).Find(&menus).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	m.UpdateChildrenLevel(&menus, parent)
 }

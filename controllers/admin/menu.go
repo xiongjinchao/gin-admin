@@ -175,6 +175,9 @@ func (m *Menu) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return
 	}
+
+	(&models.Menu{}).UpdateChildren(menu)
+
 	(&helper.Flash{}).SetFlash(c, "修改菜单成功", "success")
 	c.Redirect(http.StatusFound, "/admin/menu")
 }

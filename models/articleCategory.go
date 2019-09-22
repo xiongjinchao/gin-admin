@@ -1,6 +1,9 @@
 package models
 
 import (
+	"fmt"
+	db "gin/database"
+	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
 )
@@ -67,4 +70,24 @@ func (a *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, pare
 			a.SetParents(data, v.Parent, parents)
 		}
 	}
+}
+
+func (a *ArticleCategory) UpdateChildrenLevel(data *[]ArticleCategory, parent ArticleCategory) {
+	for _, v := range *data {
+		if v.Parent == parent.ID {
+			v.Level = parent.Level + 1
+			db.Mysql.Model(ArticleCategory{}).Save(&v)
+
+			a.UpdateChildrenLevel(data, v)
+		}
+	}
+}
+
+func (a *ArticleCategory) UpdateChildren(parent ArticleCategory) {
+
+	var articleCategories []ArticleCategory
+	if err := db.Mysql.Model(ArticleCategory{}).Find(&articleCategories).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	a.UpdateChildrenLevel(&articleCategories, parent)
 }

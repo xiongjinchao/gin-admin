@@ -175,6 +175,8 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return
 	}
+	(&models.ArticleCategory{}).UpdateChildren(articleCategory)
+
 	(&helper.Flash{}).SetFlash(c, "修改文章分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
