@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"fmt"
 	"gin/config"
 	"gin/controllers"
 	"gin/controllers/admin"
@@ -12,8 +13,12 @@ import (
 	"html/template"
 	"net/http"
 	"reflect"
+	"strconv"
 	"strings"
+	"sync"
 )
+
+var wg sync.WaitGroup
 
 //Router defined all routers
 func Router() *gin.Engine {
@@ -45,6 +50,29 @@ func Router() *gin.Engine {
 			},
 		},
 		DisableCache: true,
+	})
+
+	//Goroutines
+	router.GET("/goroutines", func(c *gin.Context) {
+		count := 10
+		ch := make(chan int, count)
+		for i := 0; i < count; i++ {
+			wg.Add(1)
+			j := i + 1
+			go func(x, y int, ch *chan int) {
+				fmt.Println("do:" + strconv.Itoa(x))
+				*ch <- x * y
+				wg.Done()
+			}(i, j, &ch)
+		}
+
+		wg.Wait()
+		close(ch)
+
+		for j := 0; j < count; j++ {
+			v := <-ch
+			fmt.Println(v)
+		}
 	})
 
 	router.GET("/", func(c *gin.Context) {
@@ -160,15 +188,6 @@ func Router() *gin.Engine {
 		authorized.GET("policy/show/:role", policy.Show)
 		authorized.GET("policy/delete/:role", policy.Destroy)
 
-		//Goroutines
-		/*
-			authorized.GET("goroutines", func(c *gin.Context) {
-				//go func() {
-				//	time.Sleep(10 * time.Second)
-				//	log.Println("Done2! in path " + c.Request.URL.Path)
-				//}()
-			})
-		*/
 	}
 
 	return router
