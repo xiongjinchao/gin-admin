@@ -66,8 +66,8 @@
                                             <span class="pull-right font-normal">
                                                 <span class="mr-3"><span class="label label-primary">R</span> 角色</span>
                                                 <span class="mr-3"><span class="label label-default">P</span> 权限</span>
-                                                <span class="mr-3"><span class="label label-warning">C</span> 控制器级别</span>
                                                 <span class="mr-3"><span class="label label-danger">S</span> 系统级别</span>
+                                                <span class="mr-3"><span class="label label-warning">C</span> 控制器级别</span>
                                                 <span class="mr-3"><span class="label label-success">U</span> 用户级别</span>
                                             </span>
                                         </th>
