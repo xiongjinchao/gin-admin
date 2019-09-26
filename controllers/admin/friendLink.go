@@ -17,7 +17,7 @@ type FriendLink struct{}
 // GetFriendLinkList handles GET /admin/friend-link route
 func (b *FriendLink) Index(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	c.HTML(http.StatusOK, "friend-link/index", gin.H{
 		"title": "友情链接管理",
@@ -84,7 +84,7 @@ func (b *FriendLink) Data(c *gin.Context) {
 // Create handles GET /admin/friend-link/create route
 func (b *FriendLink) Create(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 	c.HTML(http.StatusOK, "friend-link/create", gin.H{
 		"title": "创建友情链接",
 		"flash": flash,
@@ -105,29 +105,29 @@ func (b *FriendLink) Store(c *gin.Context) {
 	friendLink.EndAt, _ = time.ParseInLocation("2006-01-02 15:04:05", c.PostForm("end_at"), time.Local)
 
 	if old, err := json.Marshal(friendLink); err == nil {
-		(&helper.Flash{}).SetFlash(c, string(old), "old")
+		helper.SetFlash(c, string(old), "old")
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(friendLink); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(friendLink); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/create")
 		return
 	}
 
 	if err := db.Mysql.Omit("File").Create(&friendLink).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/create")
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "创建友情链接成功", "success")
+	helper.SetFlash(c, "创建友情链接成功", "success")
 	c.Redirect(http.StatusFound, "/admin/friend-link")
 }
 
 func (b *FriendLink) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	friendLink := models.FriendLink{}
 	if err := db.Mysql.Preload("File").First(&friendLink, id).Error; err != nil {
@@ -185,7 +185,7 @@ func (b *FriendLink) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	friendLink := models.FriendLink{}
-	// time.Time bing error
+	// struct time.Time bing error
 	friendLink.Title = c.PostForm("title")
 	friendLink.Link = c.PostForm("link")
 	friendLink.Image, _ = strconv.ParseInt(c.PostForm("image"), 10, 64)
@@ -196,25 +196,25 @@ func (b *FriendLink) Update(c *gin.Context) {
 	// when ID >0 use save() is for update.
 	ID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/edit/"+id)
 		return
 	}
 	friendLink.ID = ID
 
-	if err := (&helper.Validate{}).ValidateStr(friendLink); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(friendLink); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/edit/"+id)
 		return
 	}
 
 	// save() function can update empty,zero,bool column.
 	if err := db.Mysql.Model(&models.FriendLink{}).Omit("File").Save(&friendLink).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/edit/"+id)
 		return
 	}
-	(&helper.Flash{}).SetFlash(c, "修改友情链接成功", "success")
+	helper.SetFlash(c, "修改友情链接成功", "success")
 	c.Redirect(http.StatusFound, "/admin/friend-link")
 }
 
@@ -237,9 +237,9 @@ func (b *FriendLink) Destroy(c *gin.Context) {
 
 	friendLink := models.FriendLink{}
 	if err := db.Mysql.Where("id = ?", id).Delete(&friendLink).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 	}
 
-	(&helper.Flash{}).SetFlash(c, "删除友情链接成功", "success")
+	helper.SetFlash(c, "删除友情链接成功", "success")
 	c.Redirect(http.StatusFound, "/admin/friend-link")
 }

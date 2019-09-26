@@ -18,7 +18,7 @@ type Auth struct{}
 //Login handles GET /login route
 func (_ *Auth) Login(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 	c.HTML(http.StatusOK, "auth/login.tpl", gin.H{
 		"title": "Gin Blog",
 		"flash": flash,
@@ -29,12 +29,12 @@ func (_ *Auth) Login(c *gin.Context) {
 func (_ *Auth) SignIn(c *gin.Context) {
 	auth := models.Auth{}
 	if err := c.ShouldBind(&auth); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(auth); err != nil {
+	if err := helper.ValidateStruct(auth); err != nil {
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
@@ -43,14 +43,14 @@ func (_ *Auth) SignIn(c *gin.Context) {
 	auth.Password = (&models.Admin{}).GeneratePassword(auth.Password)
 	err := db.Mysql.Model(&models.Admin{}).Where("mobile = ? AND password = ?", auth.Mobile, auth.Password).First(&admin).Error
 	if gorm.IsRecordNotFoundError(err) {
-		(&helper.Flash{}).SetFlash(c, "账号或密码错误，请重新输入", "error")
+		helper.SetFlash(c, "账号或密码错误，请重新输入", "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
 	data, err := json.Marshal(admin)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, "系统错误，请重试", "error")
+		helper.SetFlash(c, "系统错误，请重试", "error")
 		c.Redirect(http.StatusFound, "/login")
 		return
 	}

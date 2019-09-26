@@ -16,7 +16,7 @@ type Book struct{}
 // GetBookList handles GET /admin/book route
 func (b *Book) Index(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	c.HTML(http.StatusOK, "book/index", gin.H{
 		"title": "书籍管理",
@@ -75,7 +75,7 @@ func (b *Book) Data(c *gin.Context) {
 // Create handles GET /admin/book/create route
 func (b *Book) Create(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 	c.HTML(http.StatusOK, "book/create", gin.H{
 		"title": "创建书籍",
 		"flash": flash,
@@ -88,35 +88,35 @@ func (b *Book) Store(c *gin.Context) {
 	book := models.Book{}
 	err := c.ShouldBind(&book)
 	if old, err := json.Marshal(book); err == nil {
-		(&helper.Flash{}).SetFlash(c, string(old), "old")
+		helper.SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/create")
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(book); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(book); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/create")
 		return
 	}
 
 	if err := db.Mysql.Create(&book).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/create")
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "创建书籍成功", "success")
+	helper.SetFlash(c, "创建书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
 }
 
 func (b *Book) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	book := models.Book{}
 	if err := db.Mysql.First(&book, id).Error; err != nil {
@@ -135,7 +135,7 @@ func (b *Book) Update(c *gin.Context) {
 	id := c.Param("id")
 	book := models.Book{}
 	if err := c.ShouldBind(&book); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return
 	}
@@ -143,25 +143,25 @@ func (b *Book) Update(c *gin.Context) {
 	// when ID >0 use save() is for update.
 	ID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return
 	}
 	book.ID = ID
 
-	if err := (&helper.Validate{}).ValidateStr(book); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(book); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return
 	}
 
 	// save() function can update empty,zero,bool column.
 	if err := db.Mysql.Model(&models.Book{}).Save(&book).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return
 	}
-	(&helper.Flash{}).SetFlash(c, "修改书籍成功", "success")
+	helper.SetFlash(c, "修改书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
 }
 
@@ -184,9 +184,9 @@ func (b *Book) Destroy(c *gin.Context) {
 
 	book := models.Book{}
 	if err := db.Mysql.Where("id = ?", id).Delete(&book).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 	}
 
-	(&helper.Flash{}).SetFlash(c, "删除书籍成功", "success")
+	helper.SetFlash(c, "删除书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
 }

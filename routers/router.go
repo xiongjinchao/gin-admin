@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"fmt"
 	"gin/config"
 	"gin/controllers"
 	"gin/controllers/admin"
@@ -13,12 +12,8 @@ import (
 	"html/template"
 	"net/http"
 	"reflect"
-	"strconv"
 	"strings"
-	"sync"
 )
-
-var wg sync.WaitGroup
 
 //Router defined all routers
 func Router() *gin.Engine {
@@ -40,7 +35,7 @@ func Router() *gin.Engine {
 		Master:    "layouts/main",
 		Partials:  []string{"layouts/header", "layouts/sidebar", "layouts/footer"},
 		Funcs: template.FuncMap{
-			"Interface2Int64": (&helper.Convert{}).Interface2Int64,
+			"Interface2Int64": helper.Interface2Int64,
 			"TypeOf":          reflect.TypeOf,
 			"Split":           strings.Split,
 			"Contains":        strings.Contains,
@@ -50,29 +45,6 @@ func Router() *gin.Engine {
 			},
 		},
 		DisableCache: true,
-	})
-
-	//Goroutines
-	router.GET("/goroutines", func(c *gin.Context) {
-		count := 10
-		ch := make(chan int, count)
-		for i := 0; i < count; i++ {
-			wg.Add(1)
-			j := i + 1
-			go func(x, y int, ch *chan int) {
-				fmt.Println("do:" + strconv.Itoa(x))
-				*ch <- x * y
-				wg.Done()
-			}(i, j, &ch)
-		}
-
-		wg.Wait()
-		close(ch)
-
-		for j := 0; j < count; j++ {
-			v := <-ch
-			fmt.Println(v)
-		}
 	})
 
 	router.GET("/", func(c *gin.Context) {

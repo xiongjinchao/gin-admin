@@ -11,10 +11,8 @@ import (
 	"strings"
 )
 
-type Validate struct{}
-
 // Validate struct
-func (_ *Validate) ValidateStr(data interface{}) (err error) {
+func ValidateStruct(data interface{}) (err error) {
 
 	validate := &validator.Validate{}
 	validate = validator.New()
@@ -26,7 +24,7 @@ func (_ *Validate) ValidateStr(data interface{}) (err error) {
 }
 
 // Validate variable
-func (_ *Validate) ValidateVar(data interface{}, rule string) (err error) {
+func ValidateVariable(data interface{}, rule string) (err error) {
 
 	validate := &validator.Validate{}
 	validate = validator.New()
@@ -39,7 +37,7 @@ func (_ *Validate) ValidateVar(data interface{}, rule string) (err error) {
 }
 
 // Validate struct and translate
-func (_ *Validate) ValidateStrTranslate(data interface{}) (message string, err error) {
+func ValidateStructTranslate(data interface{}) (message string, err error) {
 
 	uni := &ut.UniversalTranslator{}
 	validate := &validator.Validate{}

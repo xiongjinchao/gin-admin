@@ -16,7 +16,7 @@ type Menu struct{}
 // GetMenuList handles GET /admin/menu route
 func (m *Menu) Index(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	c.HTML(http.StatusOK, "menu/index", gin.H{
 		"title": "菜单管理",
@@ -59,7 +59,7 @@ func (m *Menu) Data(c *gin.Context) {
 // Create handles GET /admin/menu/create route
 func (m *Menu) Create(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	var menus, data []models.Menu
 	if err := db.Mysql.Model(&models.Menu{}).Find(&menus).Error; err != nil {
@@ -80,17 +80,17 @@ func (m *Menu) Store(c *gin.Context) {
 	menu := models.Menu{}
 	err := c.ShouldBind(&menu)
 	if old, err := json.Marshal(menu); err == nil {
-		(&helper.Flash{}).SetFlash(c, string(old), "old")
+		helper.SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/create")
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(menu); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(menu); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/create")
 		return
 	}
@@ -103,19 +103,19 @@ func (m *Menu) Store(c *gin.Context) {
 	}
 
 	if err := db.Mysql.Omit("Parents", "Space").Create(&menu).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/create")
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "创建菜单成功", "success")
+	helper.SetFlash(c, "创建菜单成功", "success")
 	c.Redirect(http.StatusFound, "/admin/menu")
 }
 
 func (m *Menu) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	menu := models.Menu{}
 	if err := db.Mysql.First(&menu, id).Error; err != nil {
@@ -142,7 +142,7 @@ func (m *Menu) Update(c *gin.Context) {
 	id := c.Param("id")
 	menu := models.Menu{}
 	if err := c.ShouldBind(&menu); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return
 	}
@@ -150,14 +150,14 @@ func (m *Menu) Update(c *gin.Context) {
 	// when ID >0 use save() is for update.
 	ID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return
 	}
 	menu.ID = ID
 
-	if err := (&helper.Validate{}).ValidateStr(menu); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(menu); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return
 	}
@@ -171,14 +171,14 @@ func (m *Menu) Update(c *gin.Context) {
 
 	// save() function can update empty,zero,bool column.
 	if err := db.Mysql.Model(&models.Menu{}).Omit("Parents", "Space").Save(&menu).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return
 	}
 
 	(&models.Menu{}).UpdateChildren(menu)
 
-	(&helper.Flash{}).SetFlash(c, "修改菜单成功", "success")
+	helper.SetFlash(c, "修改菜单成功", "success")
 	c.Redirect(http.StatusFound, "/admin/menu")
 }
 
@@ -203,9 +203,9 @@ func (m *Menu) Destroy(c *gin.Context) {
 
 	menu := models.Menu{}
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&menu).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 	}
 
-	(&helper.Flash{}).SetFlash(c, "删除菜单成功", "success")
+	helper.SetFlash(c, "删除菜单成功", "success")
 	c.Redirect(http.StatusFound, "/admin/menu")
 }

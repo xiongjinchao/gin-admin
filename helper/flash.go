@@ -7,10 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Flash struct{}
-
 // set flash data
-func (f *Flash) SetFlash(c *gin.Context, data interface{}, key string) {
+func SetFlash(c *gin.Context, data interface{}, key string) {
 	session := sessions.Default(c)
 	session.AddFlash(data, key)
 	if err := session.Save(); err != nil {
@@ -19,7 +17,7 @@ func (f *Flash) SetFlash(c *gin.Context, data interface{}, key string) {
 }
 
 // get flash data
-func (f *Flash) GetFlash(c *gin.Context) (data map[string]interface{}) {
+func GetFlash(c *gin.Context) (data map[string]interface{}) {
 	session := sessions.Default(c)
 
 	data = make(map[string]interface{})

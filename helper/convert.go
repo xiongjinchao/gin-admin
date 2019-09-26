@@ -4,9 +4,9 @@ import (
 	"strconv"
 )
 
-type Convert struct{}
+type Helper struct{}
 
-func (c *Convert) Interface2Int64(data interface{}) (result int64) {
+func Interface2Int64(data interface{}) (result int64) {
 	var err error
 	if data == nil {
 		return 0

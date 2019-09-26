@@ -16,7 +16,7 @@ type Admin struct{}
 // Index handles GET /admin/admin route
 func (a *Admin) Index(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 	roles := e.GetAllRoles()
@@ -80,7 +80,7 @@ func (a *Admin) Data(c *gin.Context) {
 // Create handles GET /admin/admin/create route
 func (a *Admin) Create(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	c.HTML(http.StatusOK, "admin/create", gin.H{
 		"title": "创建管理员",
@@ -94,23 +94,23 @@ func (a *Admin) Store(c *gin.Context) {
 	admin := models.Admin{}
 	err := c.ShouldBind(&admin)
 	if old, err := json.Marshal(admin); err == nil {
-		(&helper.Flash{}).SetFlash(c, string(old), "old")
+		helper.SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(admin); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(admin); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateVar(admin.Password, "gte=6,lte=18"); err != nil {
-		(&helper.Flash{}).SetFlash(c, "密码长度为6-18个字符", "error")
+	if err := helper.ValidateVariable(admin.Password, "gte=6,lte=18"); err != nil {
+		helper.SetFlash(c, "密码长度为6-18个字符", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
@@ -119,39 +119,39 @@ func (a *Admin) Store(c *gin.Context) {
 	existed := 0
 	db.Mysql.Model(&models.Admin{}).Where("name = ?", admin.Name).Count(&existed)
 	if existed > 0 {
-		(&helper.Flash{}).SetFlash(c, "姓名已经存在", "error")
+		helper.SetFlash(c, "姓名已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
 
 	db.Mysql.Model(&models.Admin{}).Where("mobile = ?", admin.Mobile).Count(&existed)
 	if existed > 0 {
-		(&helper.Flash{}).SetFlash(c, "手机号码已经存在", "error")
+		helper.SetFlash(c, "手机号码已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
 
 	db.Mysql.Model(&models.Admin{}).Where("email = ?", admin.Email).Count(&existed)
 	if existed > 0 {
-		(&helper.Flash{}).SetFlash(c, "邮箱已经存在", "error")
+		helper.SetFlash(c, "邮箱已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
 
 	if err := db.Mysql.Create(&admin).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/admin/create")
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "创建管理员成功", "success")
+	helper.SetFlash(c, "创建管理员成功", "success")
 	c.Redirect(http.StatusFound, "/admin/admin")
 }
 
 func (a *Admin) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	admin := models.Admin{}
 	if err := db.Mysql.First(&admin, id).Error; err != nil {
@@ -171,20 +171,20 @@ func (a *Admin) Update(c *gin.Context) {
 	admin := models.Admin{}
 	err := c.ShouldBind(&admin)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(admin); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(admin); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 		return
 	}
 
 	if admin.Password != "" {
-		if err := (&helper.Validate{}).ValidateVar(admin.Password, "gte=6,lte=18"); err != nil {
-			(&helper.Flash{}).SetFlash(c, "密码长度为6-18个字符", "error")
+		if err := helper.ValidateVariable(admin.Password, "gte=6,lte=18"); err != nil {
+			helper.SetFlash(c, "密码长度为6-18个字符", "error")
 			c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 			return
 		}
@@ -194,33 +194,33 @@ func (a *Admin) Update(c *gin.Context) {
 	existed := 0
 	db.Mysql.Model(&models.Admin{}).Where("id <> ?", id).Where("name = ?", admin.Name).Count(&existed)
 	if existed > 0 {
-		(&helper.Flash{}).SetFlash(c, "姓名已经存在", "error")
+		helper.SetFlash(c, "姓名已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 		return
 	}
 
 	db.Mysql.Model(&models.Admin{}).Where("id <> ?", id).Where("mobile = ?", admin.Mobile).Count(&existed)
 	if existed > 0 {
-		(&helper.Flash{}).SetFlash(c, "手机号码已经存在", "error")
+		helper.SetFlash(c, "手机号码已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 		return
 	}
 
 	db.Mysql.Model(&models.Admin{}).Where("id <> ?", id).Where("email = ?", admin.Email).Count(&existed)
 	if existed > 0 {
-		(&helper.Flash{}).SetFlash(c, "邮箱已经存在", "error")
+		helper.SetFlash(c, "邮箱已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 		return
 	}
 
 	// save() function can update empty,zero,bool column, but updates cant. so use updates()
 	if err := db.Mysql.Model(&models.Admin{}).Where("id = ?", id).Updates(admin).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/admin/edit/"+id)
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "修改管理员成功", "success")
+	helper.SetFlash(c, "修改管理员成功", "success")
 	c.Redirect(http.StatusFound, "/admin/admin")
 
 }
@@ -244,10 +244,10 @@ func (a *Admin) Destroy(c *gin.Context) {
 
 	admin := models.Admin{}
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&admin).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 	}
 
-	(&helper.Flash{}).SetFlash(c, "删除管理员成功", "success")
+	helper.SetFlash(c, "删除管理员成功", "success")
 	c.Redirect(http.StatusFound, "/admin/admin")
 }
 

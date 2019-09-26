@@ -16,7 +16,7 @@ type ArticleCategory struct{}
 // GetArticleCategoryList handles GET /admin/article-category route
 func (a *ArticleCategory) Index(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	c.HTML(http.StatusOK, "article-category/index", gin.H{
 		"title": "文章分类",
@@ -59,7 +59,7 @@ func (a *ArticleCategory) Data(c *gin.Context) {
 // Create handles GET /admin/article-category/create route
 func (a *ArticleCategory) Create(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	var articleCategories, data []models.ArticleCategory
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Find(&articleCategories).Error; err != nil {
@@ -80,17 +80,17 @@ func (a *ArticleCategory) Store(c *gin.Context) {
 	articleCategory := models.ArticleCategory{}
 	err := c.ShouldBind(&articleCategory)
 	if old, err := json.Marshal(articleCategory); err == nil {
-		(&helper.Flash{}).SetFlash(c, string(old), "old")
+		helper.SetFlash(c, string(old), "old")
 	}
 
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/create")
 		return
 	}
 
-	if err := (&helper.Validate{}).ValidateStr(articleCategory); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(articleCategory); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/create")
 		return
 	}
@@ -103,19 +103,19 @@ func (a *ArticleCategory) Store(c *gin.Context) {
 	}
 
 	if err := db.Mysql.Omit("Parents", "Space").Create(&articleCategory).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/create")
 		return
 	}
 
-	(&helper.Flash{}).SetFlash(c, "创建文章分类成功", "success")
+	helper.SetFlash(c, "创建文章分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
 
 func (a *ArticleCategory) Edit(c *gin.Context) {
 
 	id := c.Param("id")
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 
 	articleCategory := models.ArticleCategory{}
 	if err := db.Mysql.First(&articleCategory, id).Error; err != nil {
@@ -142,7 +142,7 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 	id := c.Param("id")
 	articleCategory := models.ArticleCategory{}
 	if err := c.ShouldBind(&articleCategory); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return
 	}
@@ -150,14 +150,14 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 	// when ID >0 use save() is for update.
 	ID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return
 	}
 	articleCategory.ID = ID
 
-	if err := (&helper.Validate{}).ValidateStr(articleCategory); err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+	if err := helper.ValidateStruct(articleCategory); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return
 	}
@@ -171,13 +171,13 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 
 	// save() function can update empty,zero,bool column.
 	if err := db.Mysql.Model(&models.ArticleCategory{}).Omit("Parents", "Space").Save(&articleCategory).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return
 	}
 	(&models.ArticleCategory{}).UpdateChildren(articleCategory)
 
-	(&helper.Flash{}).SetFlash(c, "修改文章分类成功", "success")
+	helper.SetFlash(c, "修改文章分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
 
@@ -202,9 +202,9 @@ func (a *ArticleCategory) Destroy(c *gin.Context) {
 
 	articleCategory := models.ArticleCategory{}
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&articleCategory).Error; err != nil {
-		(&helper.Flash{}).SetFlash(c, err.Error(), "error")
+		helper.SetFlash(c, err.Error(), "error")
 	}
 
-	(&helper.Flash{}).SetFlash(c, "删除文章分类成功", "success")
+	helper.SetFlash(c, "删除文章分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }

@@ -19,7 +19,7 @@ type Policy struct{}
 // Index handles GET /admin/policy route
 func (p *Policy) Index(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	roles := e.GetAllRoles()
@@ -50,7 +50,7 @@ func (p *Policy) Index(c *gin.Context) {
 func (p *Policy) Reset(c *gin.Context) {
 
 	if err := ioutil.WriteFile("config/rbac_policy.csv", []byte(""), 0644); err != nil {
-		(&helper.Flash{}).SetFlash(c, "权限文件无法写入", "error")
+		helper.SetFlash(c, "权限文件无法写入", "error")
 		c.Redirect(http.StatusFound, "/admin/policy")
 	}
 
@@ -87,7 +87,7 @@ func (p *Policy) Reset(c *gin.Context) {
 		}
 	}
 
-	(&helper.Flash{}).SetFlash(c, "角色重置成功", "success")
+	helper.SetFlash(c, "角色重置成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 }
 
@@ -148,14 +148,14 @@ func (p *Policy) Upgrade(c *gin.Context) {
 		}
 	}
 
-	(&helper.Flash{}).SetFlash(c, "权限索引成功", "success")
+	helper.SetFlash(c, "权限索引成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 }
 
 // Create handles GET /admin/policy/create route
 func (p *Policy) Create(c *gin.Context) {
 
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	roles := e.GetAllRoles()
@@ -201,14 +201,14 @@ func (p *Policy) Store(c *gin.Context) {
 			_ = e.SavePolicy()
 		}
 	}
-	(&helper.Flash{}).SetFlash(c, "创建角色成功", "success")
+	helper.SetFlash(c, "创建角色成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 }
 
 func (p *Policy) Edit(c *gin.Context) {
 
 	role := c.Param("role")
-	flash := (&helper.Flash{}).GetFlash(c)
+	flash := helper.GetFlash(c)
 	e, _ := casbin.NewEnforcer("config/rbac_model.conf", "config/rbac_policy.csv")
 
 	roles := e.GetAllRoles()
@@ -300,7 +300,7 @@ func (p *Policy) Update(c *gin.Context) {
 		}
 	}
 
-	(&helper.Flash{}).SetFlash(c, "修改角色成功", "success")
+	helper.SetFlash(c, "修改角色成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 
 }
@@ -365,6 +365,6 @@ func (p *Policy) Destroy(c *gin.Context) {
 		_ = e.SavePolicy()
 	}
 
-	(&helper.Flash{}).SetFlash(c, "删除角色成功", "success")
+	helper.SetFlash(c, "删除角色成功", "success")
 	c.Redirect(http.StatusFound, "/admin/policy")
 }

@@ -58,7 +58,7 @@ func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 			if referer == "" {
 				referer = home
 			}
-			(&helper.Flash{}).SetFlash(c, "你没有权限执行该操作", "error")
+			helper.SetFlash(c, "你没有权限执行该操作", "error")
 			c.Redirect(http.StatusFound, referer)
 			c.Abort()
 			return

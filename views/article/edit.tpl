@@ -72,7 +72,7 @@
                                         <option value="0">请选择</option>
                                         {{$CategoryID := .article.CategoryID}}
                                         {{range .articleCategories}}
-                                            <option value="{{.base.id}}" {{if eq .base.id $CategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
+                                            <option value="{{.ID}}" {{if eq .ID $CategoryID}}selected{{end}}>{{.Space}}{{.Name}}</option>
                                         {{end}}
                                     </select>
                                 </div>
