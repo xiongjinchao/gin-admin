@@ -252,9 +252,19 @@
     <script src="/public/plug-in/editor-md/editormd.min.js"></script>
 
     <script type="text/javascript">
-        var editor = editormd("content", {
+        let editor = editormd("content", {
             width:"100%",
             height:"500",
+            theme : "dark",
+            previewTheme : "dark",
+            editorTheme : "pastel-on-dark",
+            codeFold : true,
+            htmlDecode : true,
+            tex : true,
+            taskList : true,
+            emoji : true,
+            flowChart : true,
+            sequenceDiagram : true,
             path:"/public/plug-in/editor-md/lib/"
         });
         $("#file").fileinput({
