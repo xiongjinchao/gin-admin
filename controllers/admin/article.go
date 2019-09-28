@@ -3,6 +3,7 @@ package admin
 import (
 	"encoding/json"
 	"fmt"
+	"gin-blog/config"
 	db "gin-blog/database"
 	"gin-blog/helper"
 	"gin-blog/models"
@@ -138,13 +139,13 @@ func (a *Article) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
-	var config []map[string]interface{}
+	var previewConfig []map[string]interface{}
 	var preview []string
 	var initialPreview, initialPreviewConfig []byte
 	var err error
 
 	if article.Cover > 0 {
-		domain := "http://localhost:8080"
+		domain := config.Setting["app"]["domain"]
 		preview = append(preview, domain+article.File.Path)
 
 		item := make(map[string]interface{})
@@ -152,14 +153,14 @@ func (a *Article) Edit(c *gin.Context) {
 		item["size"] = article.File.Size
 		item["url"] = "/admin/file/delete"
 		item["key"] = article.File.ID
-		config = append(config, item)
+		previewConfig = append(previewConfig, item)
 
 		initialPreview, err = json.Marshal(preview)
 		if err != nil {
 			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 		}
 
-		initialPreviewConfig, err = json.Marshal(config)
+		initialPreviewConfig, err = json.Marshal(previewConfig)
 		if err != nil {
 			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 		}

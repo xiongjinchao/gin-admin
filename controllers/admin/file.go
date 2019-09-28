@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"gin-blog/config"
 	db "gin-blog/database"
 	"gin-blog/models"
 	"github.com/gin-gonic/contrib/sessions"
@@ -125,7 +126,7 @@ func (f *File) Upload(c *gin.Context) {
 		return
 	}
 
-	domain := "http://localhost:8080"
+	domain := config.Setting["app"]["domain"]
 	c.JSON(http.StatusCreated, gin.H{
 		"status":  "success",
 		"message": "upload success",
