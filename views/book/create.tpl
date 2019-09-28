@@ -72,7 +72,7 @@
 
                             <div class="form-group">
                                 <label class="font-bold">目录</label>
-                                <div id="catalogue">
+                                <div id="content">
                                     <textarea style="display:none" name="catalogue" placeholder="" class="form-control" rows="12">{{ .flash.old.catalogue }}</textarea>
                                 </div>
                             </div>
