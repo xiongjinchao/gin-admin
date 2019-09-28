@@ -29,7 +29,7 @@ func (m *Menu) Data(c *gin.Context) {
 
 	var menu, data []models.Menu
 
-	query := db.Mysql.Model(&models.Menu{})
+	query := db.Mysql.Model(&models.Menu{}).Order("level asc, sort DESC")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -62,7 +62,7 @@ func (m *Menu) Create(c *gin.Context) {
 	flash := helper.GetFlash(c)
 
 	var menus, data []models.Menu
-	if err := db.Mysql.Model(&models.Menu{}).Find(&menus).Error; err != nil {
+	if err := db.Mysql.Model(&models.Menu{}).Order("level asc, sort DESC").Find(&menus).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.Menu{}).SetSort(&menus, 0, &data)
@@ -123,7 +123,7 @@ func (m *Menu) Edit(c *gin.Context) {
 	}
 
 	var menus, data []models.Menu
-	if err := db.Mysql.Model(&models.Menu{}).Find(&menus).Error; err != nil {
+	if err := db.Mysql.Model(&models.Menu{}).Order("level asc, sort DESC").Find(&menus).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.Menu{}).SetSort(&menus, 0, &data)

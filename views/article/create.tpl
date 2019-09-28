@@ -72,7 +72,7 @@
                                         <option value="0">请选择</option>
                                         {{$CategoryID := Interface2Int64 .flash.old.category_id}}
                                         {{range .articleCategories}}
-                                            <option value="{{.base.id}}" {{if eq .base.id $CategoryID}}selected{{end}}>{{.space}}{{.name}}</option>
+                                            <option value="{{.ID}}" {{if eq .ID $CategoryID}}selected{{end}}>{{.Space}}{{.Name}}</option>
                                         {{end}}
                                     </select>
                                 </div>
