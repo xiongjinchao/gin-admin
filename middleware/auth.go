@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"gin/helper"
-	"gin/models"
+	"gin-blog/helper"
+	"gin-blog/models"
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"

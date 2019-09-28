@@ -3,8 +3,8 @@ package admin
 import (
 	"encoding/json"
 	"fmt"
-	db "gin/database"
-	"gin/helper"
+	db "gin-blog/database"
+	"gin-blog/helper"
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"

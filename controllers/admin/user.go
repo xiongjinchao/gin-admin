@@ -3,9 +3,9 @@ package admin
 import (
 	"encoding/json"
 	"fmt"
-	db "gin/database"
-	"gin/helper"
-	"gin/models"
+	db "gin-blog/database"
+	"gin-blog/helper"
+	"gin-blog/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

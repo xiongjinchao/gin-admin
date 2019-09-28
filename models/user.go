@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
-	"gin/config"
+	"gin-blog/config"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
