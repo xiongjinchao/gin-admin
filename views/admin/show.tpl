@@ -74,12 +74,8 @@
                                     <td>{{ .admin.Password }}</td>
                                 </tr>
                                 <tr>
-                                    <th>AccessToken</th>
-                                    <td style="word-wrap:break-word;">{{ .admin.AccessToken }}</td>
-                                </tr>
-                                <tr>
-                                    <th>ResetKey</th>
-                                    <td>{{ .admin.ResetKey }}</td>
+                                    <th>RememberToken</th>
+                                    <td style="word-wrap:break-word;">{{ .admin.RememberToken }}</td>
                                 </tr>
                                 <tr>
                                     <th>创建时间</th>
