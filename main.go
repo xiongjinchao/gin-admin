@@ -9,6 +9,8 @@ import (
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"io"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -39,15 +41,12 @@ func main() {
 	})
 
 	// Log
-	gin.ForceConsoleColor()
-	/*
-		gin.DisableConsoleColor()
-		log, err := os.Create("logs/gin.log")
-		if err != nil {
-			panic(err)
-		}
-		gin.DefaultWriter = io.MultiWriter(log)
-	*/
+	gin.DisableConsoleColor()
+	log, err := os.Create("logs/gin.log")
+	if err != nil {
+		panic(err)
+	}
+	gin.DefaultWriter = io.MultiWriter(log)
 
 	router := routers.Router()
 
