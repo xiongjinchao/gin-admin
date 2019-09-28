@@ -19,6 +19,12 @@
 			"revisionTime": "2018-09-17T11:49:10Z"
 		},
 		{
+			"checksumSHA1": "vjhWsyw/Q3dfFfjMXe/NBTJyues=",
+			"path": "github.com/casbin/casbin",
+			"revision": "060f0429e2ebe92d7163ef2a0d805330d52de5ca",
+			"revisionTime": "2019-08-27T00:34:41Z"
+		},
+		{
 			"checksumSHA1": "0cytTxS0qPVjtknc7OrfuNmxvBE=",
 			"path": "github.com/dgrijalva/jwt-go",
 			"revision": "5e25c22bd5d6de03265bbe5462dcd162f85046f6",
