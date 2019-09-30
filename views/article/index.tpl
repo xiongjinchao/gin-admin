@@ -54,7 +54,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                 <tr>
-                                    <th>编号</th>
+                                    <th>ID</th>
                                     <th>封面</th>
                                     <th>标题</th>
                                     <th>分类</th>
@@ -70,7 +70,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>编号</th>
+                                    <th>ID</th>
                                     <th>封面</th>
                                     <th>标题</th>
                                     <th>分类</th>

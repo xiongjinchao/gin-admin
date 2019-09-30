@@ -54,7 +54,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                 <tr>
-                                    <th>编号</th>
+                                    <th>ID</th>
                                     <th>名称</th>
                                     <th>标签</th>
                                     <th>父级</th>
@@ -68,7 +68,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>编号</th>
+                                    <th>ID</th>
                                     <th>名称</th>
                                     <th>标签</th>
                                     <th>父级</th>

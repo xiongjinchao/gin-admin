@@ -58,7 +58,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                     <tr>
-                                        <th>管理员编号</th>
+                                        <th>ID</th>
                                         <th>姓名</th>
                                         <th>邮箱</th>
                                         <th>手机号码</th>
@@ -69,7 +69,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>管理员编号</th>
+                                        <th>ID</th>
                                         <th>姓名</th>
                                         <th>邮箱</th>
                                         <th>手机号码</th>

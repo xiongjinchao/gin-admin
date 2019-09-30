@@ -51,10 +51,10 @@
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables">
+                            <table class="table table-striped table-bordered table-hover dataTables" style="table-layout: fixed;overflow: paged-x-controls">
                                 <thead>
                                     <tr>
-                                        <th>用户编号</th>
+                                        <th>ID</th>
                                         <th>姓名</th>
                                         <th>邮箱</th>
                                         <th>手机号码</th>
@@ -65,7 +65,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>用户编号</th>
+                                        <th>ID</th>
                                         <th>姓名</th>
                                         <th>邮箱</th>
                                         <th>手机号码</th>
