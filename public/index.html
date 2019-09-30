@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/site.css">
+    <title>Gin Blog</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">
+        🍺 Gin Blog
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    笔记
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Golang</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">MySQL</a>
+                    <a class="dropdown-item" href="#">Redis</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Linux</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">杂谈</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">技术手册</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">资讯</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">优秀博客</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">我的收藏</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Who is Susan?</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="搜索..." aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> 搜索</button>
+        </form>
+    </div>
+</nav>
+
+<div id="main-carousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#main-carousel" data-slide-to="0" class=""></li>
+        <li data-target="#main-carousel" data-slide-to="1" class="active"></li>
+        <li data-target="#main-carousel" data-slide-to="2" class=""></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <defs>
+                    <linearGradient id="line-gradient1" x1="0" x2="1" y1="0" y2="0">
+                        <stop offset="0%" stop-color="#563d7c"/>
+                        <stop offset="100%" stop-color="#020031"/>
+                    </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#line-gradient1)"></rect>
+            </svg>
+            <div class="container">
+                <div class="carousel-caption text-left">
+                    <h1>Susan👸🏻 个人博客</h1>
+                    <p>使用gin框架开发的个人博客。后台整合了文章，分类，菜单，权限等功能模块</p>
+                    <p>欢迎Golang初学者来拍砖✨</p>
+                    <p><a class="btn btn-lg btn-outline-primary" href="#" role="button"><i class="fa fa-github"></i> github</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item active">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <linearGradient id="line-gradient2" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#020031"/>
+                    <stop offset="100%" stop-color="#6d3353"/>
+                </linearGradient>
+                <rect width="100%" height="100%" fill="url(#line-gradient2)"></rect>
+            </svg>
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Susan👸🏻 个人博客</h1>
+                    <p>使用gin框架开发的个人博客。后台整合了文章，分类，菜单，权限等管理模块</p>
+                    <p>欢迎Golang初学者来拍砖✨</p>
+                    <p><a class="btn btn-lg btn-outline-primary" href="#" role="button"><i class="fa fa-github"></i> github</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <linearGradient id="line-gradient3" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#6d3353"/>
+                    <stop offset="100%" stop-color="#563d7c"/>
+                </linearGradient>
+                <rect width="100%" height="100%" fill="url(#line-gradient3)"></rect>
+            </svg>
+            <div class="container">
+                <div class="carousel-caption text-right">
+                    <h1>Susan👸🏻 个人博客</h1>
+                    <p>使用gin框架开发的个人博客。后台整合了文章，分类，菜单，权限等功能模块</p>
+                    <p>欢迎Golang初学者来拍砖✨</p>
+                    <p><a class="btn btn-lg btn-outline-primary" href="#" role="button"><i class="fa fa-github"></i> github</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#main-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#main-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<div class="container-fluid container">
+    <!-- Content here -->
+    <div class="row mt-5">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1 class="font-weight-light">
+                🍺Gin-Blog·技术栈
+            </h1>
+            <p class="text-gray">Some technology used in Gin Blog. </p>
+        </div>
+    </div>
+
+
+    <div class="card-deck mt-3">
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">GoLang 入门</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Gin 框架手册</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">MySQL 数据库</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Bootstrap</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row mt-5">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1 class="font-weight-light">
+                大牛🐮肩膀
+            </h1>
+            <p class="text-gray">Daniel's shoulders.</p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-6">
+            <ul class="m-0 p-0">
+                <li class="mb-1"><span class="float-left">我的 Go 语言学习之路</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">为什么80%的码农都做不了架构师？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">gdb调试运行时go程序</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">架构师应该如何判断技术演进的方向？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+            </ul>
+        </div>
+        <div class="col-lg-6">
+            <ul class="m-0 p-0">
+                <li class="mb-1"><span class="float-left">gdb调试运行时go程序</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">架构师应该如何判断技术演进的方向？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">我的 Go 语言学习之路</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">为什么80%的码农都做不了架构师？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="row mt-5">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1 class="font-weight-light">
+                互联网🕸️那点事
+            </h1>
+            <p class="text-gray">The internet event.</p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-6">
+            <ul class="m-0 p-0">
+                <li class="mb-1"><span class="float-left">我的 Go 语言学习之路</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">为什么80%的码农都做不了架构师？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">gdb调试运行时go程序</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">架构师应该如何判断技术演进的方向？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+            </ul>
+        </div>
+        <div class="col-lg-6">
+            <ul class="m-0 p-0">
+                <li class="mb-1"><span class="float-left">gdb调试运行时go程序</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">架构师应该如何判断技术演进的方向？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">我的 Go 语言学习之路</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">为什么80%的码农都做不了架构师？</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+                <li class="mb-1"><span class="float-left">GCTT：Go中文翻译组成立了，期待大家的加入</span><span class="float-lg-right text-gray">2019-10-01</span></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="row mt-5">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1 class="font-weight-light">
+                精选📚手册
+            </h1>
+            <p class="text-gray">Handbook of selection</p>
+        </div>
+    </div>
+
+    <div class="card-deck mt-3">
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">GoLang 入门</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Gin 框架手册</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">MySQL 数据库</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/public/image/image.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Bootstrap</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-5"></div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="/public/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/public/js/popper.min.js"></script>
+<script src="/public/js/bootstrap.min.js"></script>
+<script src="/public/js/site.js"></script>
+</body>
+</html>
