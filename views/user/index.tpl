@@ -51,7 +51,7 @@
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables" style="table-layout: fixed;overflow: paged-x-controls">
+                            <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
