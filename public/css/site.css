@@ -1,6 +1,7 @@
 body{font-family:"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif,"微软雅黑";color:#666666}
 
 /*导航*/
+.navbar a.navbar-brand{font-size:1.125rem}
 .navbar a {font-size:.875rem;}
 .navbar .form-control,.navbar .btn {font-size:.875rem;}
 .navbar-toggler{font-size:.875rem}
