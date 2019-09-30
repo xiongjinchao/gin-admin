@@ -3,6 +3,7 @@ body{font-family:"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif,"�
 /*导航*/
 .navbar a {font-size:.875rem;}
 .navbar .form-control,.navbar .btn {font-size:.875rem;}
+.navbar-toggler{font-size:.875rem}
 
 /*轮播*/
 #main-carousel {margin-top:3.12rem;}
