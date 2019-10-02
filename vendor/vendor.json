@@ -3,10 +3,6 @@
 	"ignore": "test",
 	"package": [
 		{
-			"path": "appengine/cloudsql",
-			"revision": ""
-		},
-		{
 			"checksumSHA1": "XRH9UcCo34OZ0TARtNCsGJq0CM8=",
 			"path": "github.com/Knetic/govaluate",
 			"revision": "9aa49832a739dcd78a5542ff189fb82c3e423116",
@@ -19,10 +15,10 @@
 			"revisionTime": "2018-09-17T11:49:10Z"
 		},
 		{
-			"checksumSHA1": "vjhWsyw/Q3dfFfjMXe/NBTJyues=",
+			"checksumSHA1": "3CbCScgd9HctijzPTQYQur1BmeU=",
 			"path": "github.com/casbin/casbin",
-			"revision": "060f0429e2ebe92d7163ef2a0d805330d52de5ca",
-			"revisionTime": "2019-08-27T00:34:41Z"
+			"revision": "5c217886e47a7f9adc0c2b50c0ccda1980b4684d",
+			"revisionTime": "2019-07-16T01:07:29Z"
 		},
 		{
 			"checksumSHA1": "0cytTxS0qPVjtknc7OrfuNmxvBE=",
@@ -261,8 +257,8 @@
 		{
 			"checksumSHA1": "W/pYxFe8/FHT10/wulwesJsOoUw=",
 			"path": "google.golang.org/appengine/cloudsql",
-			"revision": "fb139bde60fa77cede04f226b4d5a3cf68dcce27",
-			"revisionTime": "2019-08-01T18:14:06Z"
+			"revision": "bddb1f54ecfd64b1350fd2dd897fa11d426632bc",
+			"revisionTime": "2019-09-26T21:58:30Z"
 		},
 		{
 			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",
@@ -289,5 +285,5 @@
 			"revisionTime": "2018-11-15T11:05:04Z"
 		}
 	],
-	"rootPath": "gin"
+	"rootPath": "gin-admin"
 }
