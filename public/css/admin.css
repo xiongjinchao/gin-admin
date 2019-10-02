@@ -18,3 +18,6 @@
  .kv-fileinput-caption{
      height:2.1rem;
  }
+ .file-drop-zone{
+     overflow:hidden;
+ }

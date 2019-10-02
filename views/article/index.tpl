@@ -120,7 +120,7 @@
                     { "data": "base.id" },
                     { "data": "cover", "render":
                         function(data, type, row, meta){
-                            return row.cover > 0? '<img class="img-thumbnail" src="'+row.file.path+'" style="max-height:80px"/>':'';
+                            return row.cover > 0? '<img class="img-thumbnail" src="http://localhost:8080'+row.file.path+'" style="max-height:80px"/>':'';
                         }
                     },
                     { "data": "title" },

@@ -40,7 +40,7 @@ func (f *File) Upload(c *gin.Context) {
 		category = "other"
 	}
 
-	path := "public/uploads/" + category + "/" + time.Now().Format("2006-01-02")
+	path := "uploads/" + category + "/" + time.Now().Format("2006-01-02")
 	err = os.MkdirAll(path, os.ModePerm)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -126,12 +126,12 @@ func (f *File) Upload(c *gin.Context) {
 		return
 	}
 
-	domain := config.Setting["app"]["domain"]
+	image := config.Setting["domain"]["image"]
 	c.JSON(http.StatusCreated, gin.H{
 		"status":  "success",
 		"message": "upload success",
 		"data": gin.H{
-			"url":  domain + model.Path,
+			"url":  image + model.Path,
 			"name": model.Name,
 			"path": model.Path,
 			"size": model.Size,

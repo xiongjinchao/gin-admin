@@ -26,6 +26,7 @@ func Router() *gin.Engine {
 	router.Use(sessions.Sessions(config.Setting["session"]["id"], store))
 
 	router.Static("/public", "./public")
+	router.Static("/uploads", "./uploads")
 	router.StaticFile("/favicon.ico", "./public/image/favicon.ico")
 
 	//router.LoadHTMLGlob("views/**/*")

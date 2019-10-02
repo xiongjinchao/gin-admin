@@ -22,6 +22,7 @@ func (a *Article) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "article/index", gin.H{
 		"title": "文章管理",
 		"flash": flash,
+		"image": config.Setting["domain"]["image"],
 	})
 }
 
@@ -145,8 +146,8 @@ func (a *Article) Edit(c *gin.Context) {
 	var err error
 
 	if article.Cover > 0 {
-		domain := config.Setting["app"]["domain"]
-		preview = append(preview, domain+article.File.Path)
+		image := config.Setting["domain"]["image"]
+		preview = append(preview, image+article.File.Path)
 
 		item := make(map[string]interface{})
 		item["caption"] = article.File.Name

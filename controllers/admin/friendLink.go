@@ -23,6 +23,7 @@ func (b *FriendLink) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "friend-link/index", gin.H{
 		"title": "友情链接管理",
 		"flash": flash,
+		"image": config.Setting["domain"]["image"],
 	})
 }
 
@@ -141,8 +142,8 @@ func (b *FriendLink) Edit(c *gin.Context) {
 	var err error
 
 	if friendLink.Image > 0 {
-		domain := config.Setting["app"]["domain"]
-		preview = append(preview, domain+friendLink.File.Path)
+		image := config.Setting["domain"]["image"]
+		preview = append(preview, image+friendLink.File.Path)
 
 		item := make(map[string]interface{})
 		item["caption"] = friendLink.File.Name
