@@ -4,3 +4,4 @@ uploads
 
 /vendor/*
 !/vendor/vendor.json
+gin-admin
