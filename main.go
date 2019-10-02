@@ -68,7 +68,7 @@ func main() {
 
 	db.Redis.Set("routers", string(data), 0)
 
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(":9090"); err != nil {
 		panic(err)
 	}
 }
