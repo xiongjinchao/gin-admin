@@ -3,9 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	db "gin-blog/database"
-	"gin-blog/helper"
-	"gin-blog/models"
+	db "gin-admin/database"
+	"gin-admin/helper"
+	"gin-admin/models"
 	"github.com/jinzhu/gorm"
 	"net/http"
 

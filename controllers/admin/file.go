@@ -1,9 +1,9 @@
 package admin
 
 import (
-	"gin-blog/config"
-	db "gin-blog/database"
-	"gin-blog/models"
+	"gin-admin/config"
+	db "gin-admin/database"
+	"gin-admin/models"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"

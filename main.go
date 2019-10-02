@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"gin-blog/config"
-	db "gin-blog/database"
-	"gin-blog/routers"
+	"gin-admin/config"
+	db "gin-admin/database"
+	"gin-admin/routers"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
