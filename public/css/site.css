@@ -19,6 +19,7 @@ body{font-family:"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif,"�
 .navy-line{width: 80px;height: 1px;margin: 0 auto;border-bottom: 3px solid #007bff;}
 /*卡片*/
 .card-text{font-size:.875rem}
+.github-title{font-size:1rem;font-weight:200;}
 
 /*文章列表*/
 .list-group-item{padding:.25rem 1.25rem .25rem 0;font-size:.875rem}
