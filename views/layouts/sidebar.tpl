@@ -25,13 +25,21 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> <span class="nav-label">系统面板</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">内容管理</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">基础数据</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/menu"><i class="fa fa-star text-info"></i> 菜单管理</a></li>
-                        <li><a href="/admin/book"><i class="fa fa-book text-info"></i> 书籍管理</a></li>
+                        <li><a href="/admin/book"><i class="fa fa-bookmark text-info"></i> 书籍管理</a></li>
                         <li><a href="/admin/article"><i class="fa fa-file-text-o text-info"></i> 文章管理</a></li>
                         <li><a href="/admin/article-category"><i class="fa fa-th-list text-info"></i> 文章分类</a></li>
+                        <li><a href="/admin/comment"><i class="fa fa-wechat text-info"></i> 评论管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-chrome"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/friend-link"><i class="fa fa-link text-info"></i> 友情链接</a></li>
+                        <li><a href="/admin/friend-link-category"><i class="fa fa-th-list text-info"></i> 友情分类</a></li>
+                        <li><a href="/admin/action-record"><i class="fa fa-clock-o text-info"></i> 操作记录</a></li>
                     </ul>
                 </li>
                 <li>
