@@ -156,6 +156,26 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">喜欢量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-heart-o"></i>
+                                    </span>
+                                    <input type="text" name="favorite" placeholder="" class="form-control" value="{{ .flash.old.favorite }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">评论量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-comment-o"></i>
+                                    </span>
+                                    <input type="text" name="comment" placeholder="" class="form-control" value="{{ .flash.old.comment }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">所属用户</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">

@@ -56,6 +56,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>名称</th>
+                                    <th>分类</th>
                                     <th>链接</th>
                                     <th>图片</th>
                                     <th>排序</th>
@@ -71,6 +72,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>名称</th>
+                                    <th>分类</th>
                                     <th>链接</th>
                                     <th>图片</th>
                                     <th>排序</th>
@@ -118,6 +120,7 @@
                 columns: [
                     { "data": "base.id" },
                     { "data": "title"},
+                    { "data": "friend_link_category.name" },
                     { "data": "link" },
                     { "data": "image", "render":
                         function(data, type, row, meta){

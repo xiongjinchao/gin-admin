@@ -78,6 +78,36 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">点击量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-hand-o-up"></i>
+                                    </span>
+                                    <input type="text" name="hit" placeholder="" class="form-control" value="{{ .book.Hit }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">喜欢量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-heart-o"></i>
+                                    </span>
+                                    <input type="text" name="favorite" placeholder="" class="form-control" value="{{ .book.Favorite }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">评论量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-comment-o"></i>
+                                    </span>
+                                    <input type="text" name="comment" placeholder="" class="form-control" value="{{ .book.Comment }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">审核</label>
                                 <div class="radio radio-primary">
                                     <input type="radio" name="audit" id="audit1" value="1" {{if eq .book.Audit 1}}checked{{end}}>

@@ -58,6 +58,9 @@
                                     <th>名称</th>
                                     <th>标签</th>
                                     <th>审核</th>
+                                    <th>点击量</th>
+                                    <th>喜欢量</th>
+                                    <th>评论量</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -69,6 +72,9 @@
                                     <th>名称</th>
                                     <th>排序</th>
                                     <th>审核</th>
+                                    <th>点击量</th>
+                                    <th>喜欢量</th>
+                                    <th>评论量</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -121,6 +127,9 @@
                             return row.audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
                         }
                     },
+                    { "data": "hit" },
+                    { "data": "favorite" },
+                    { "data": "comment" },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.base.created_at).format("YYYY-MM-DD HH:mm:ss");

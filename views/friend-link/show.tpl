@@ -60,6 +60,9 @@
                                     <th>名称</th><td>{{ .friendLink.Tile }}</td>
                                 </tr>
                                 <tr>
+                                    <th>链接分类</th><td>{{ .friendLink.CategoryID }}</td>
+                                </tr>
+                                <tr>
                                     <th>链接</th><td>{{ .friendLink.Link }}</td>
                                 </tr>
                                 <tr>

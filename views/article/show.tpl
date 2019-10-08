@@ -81,6 +81,12 @@
                                     <th>点击量</th><td>{{ .article.Hit }}</td>
                                 </tr>
                                 <tr>
+                                    <th>喜欢量</th><td>{{ .article.Favorite }}</td>
+                                </tr>
+                                <tr>
+                                    <th>评论量</th><td>{{ .article.Comment }}</td>
+                                </tr>
+                                <tr>
                                     <th>用户编号</th><td>{{ .article.UserID }}</td>
                                 </tr>
                                 <tr>

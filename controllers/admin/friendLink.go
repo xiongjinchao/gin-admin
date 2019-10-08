@@ -87,9 +87,18 @@ func (b *FriendLink) Data(c *gin.Context) {
 func (b *FriendLink) Create(c *gin.Context) {
 
 	flash := helper.GetFlash(c)
+
+	var friendLinkCategories, data []models.FriendLinkCategory
+	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level asc, sort DESC").Find(&friendLinkCategories).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
+	(&models.FriendLinkCategory{}).SetSpace(&data)
+
 	c.HTML(http.StatusOK, "friend-link/create", gin.H{
-		"title": "创建友情链接",
-		"flash": flash,
+		"title":                "创建友情链接",
+		"flash":                flash,
+		"friendLinkCategories": data,
 	})
 }
 
@@ -116,7 +125,7 @@ func (b *FriendLink) Store(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Omit("File").Create(&friendLink).Error; err != nil {
+	if err := db.Mysql.Omit("FriendLinkCategory", "File").Create(&friendLink).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/create")
 		return
@@ -163,6 +172,13 @@ func (b *FriendLink) Edit(c *gin.Context) {
 		}
 	}
 
+	var friendLinkCategories, data []models.FriendLinkCategory
+	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level asc, sort DESC").Find(&friendLinkCategories).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
+	(&models.FriendLinkCategory{}).SetSpace(&data)
+
 	startAt := friendLink.StartAt.Format("2006-01-02 15:04:05")
 	endAt := friendLink.EndAt.Format("2006-01-02 15:04:05")
 	if startAt == "0001-01-01 00:00:00" {
@@ -180,6 +196,7 @@ func (b *FriendLink) Edit(c *gin.Context) {
 		"endAt":                endAt,
 		"initialPreview":       string(initialPreview),
 		"initialPreviewConfig": string(initialPreviewConfig),
+		"friendLinkCategories": data,
 	})
 }
 
@@ -211,7 +228,7 @@ func (b *FriendLink) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.FriendLink{}).Omit("File").Save(&friendLink).Error; err != nil {
+	if err := db.Mysql.Model(&models.FriendLink{}).Omit("FriendLinkCategory", "File").Save(&friendLink).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link/edit/"+id)
 		return

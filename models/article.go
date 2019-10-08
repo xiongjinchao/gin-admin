@@ -10,6 +10,8 @@ type Article struct {
 	Hot             int64           `json:"hot" form:"hot"`
 	Recommend       int64           `json:"recommend" form:"recommend"`
 	Hit             int64           `json:"hit" form:"hit"`
+	Favorite        int64           `json:"favorite" form:"favorite"`
+	Comment         int64           `json:"comment" form:"comment"`
 	UserID          int64           `json:"user_id" form:"user_id" gorm:"column:user_id"`
 	Author          string          `json:"author" form:"author"`
 	Source          string          `json:"source" form:"source"`

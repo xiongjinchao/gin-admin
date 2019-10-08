@@ -66,6 +66,15 @@
                                     <th>审核</th><td>{{ .book.Audit }}</td>
                                 </tr>
                                 <tr>
+                                    <th>点击量</th><td>{{ .book.Hit }}</td>
+                                </tr>
+                                <tr>
+                                    <th>喜欢量</th><td>{{ .book.Favorite }}</td>
+                                </tr>
+                                <tr>
+                                    <th>评论量</th><td>{{ .book.Comment }}</td>
+                                </tr>
+                                <tr>
                                     <th>Seo Title</th><td>{{ .book.SeoTitle }}</td>
                                 </tr>
                                 <tr>

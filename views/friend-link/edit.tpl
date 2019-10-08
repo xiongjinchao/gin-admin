@@ -61,6 +61,22 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">所属分类</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-th-list"></i>
+                                    </span>
+                                    <select class="form-control" name="category_id">
+                                        <option value="0">请选择</option>
+                                        {{$CategoryID := .friendLink.CategoryID}}
+                                        {{range .friendLinkCategories}}
+                                            <option value="{{.ID}}" {{if eq .ID $CategoryID}}selected{{end}}>{{.Space}}{{.Name}}</option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">链接</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">

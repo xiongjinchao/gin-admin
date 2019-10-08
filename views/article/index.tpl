@@ -63,6 +63,8 @@
                                     <th>热门</th>
                                     <th>推荐</th>
                                     <th>点击量</th>
+                                    <th>喜欢量</th>
+                                    <th>评论量</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -79,6 +81,8 @@
                                     <th>热门</th>
                                     <th>推荐</th>
                                     <th>点击量</th>
+                                    <th>喜欢量</th>
+                                    <th>评论量</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -142,6 +146,8 @@
                             }
                     },
                     { "data": "hit" },
+                    { "data": "favorite" },
+                    { "data": "comment" },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.base.created_at).format("YYYY-MM-DD HH:mm:ss");
