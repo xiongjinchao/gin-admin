@@ -38,7 +38,7 @@
                     <a href="#"><i class="fa fa-chrome"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/friend-link"><i class="fa fa-link text-info"></i> 友情链接</a></li>
-                        <li><a href="/admin/friend-link-category"><i class="fa fa-th-list text-info"></i> 友情分类</a></li>
+                        <li><a href="/admin/friend-link-category"><i class="fa fa-th-list text-info"></i> 链接分类</a></li>
                         <li><a href="/admin/action-record"><i class="fa fa-clock-o text-info"></i> 操作记录</a></li>
                     </ul>
                 </li>
