@@ -249,12 +249,6 @@
 			"revisionTime": "2019-07-23T09:17:30Z"
 		},
 		{
-			"checksumSHA1": "2DA7yQXGLTxH4M5zugia3YpJAV0=",
-			"path": "golang.org/x/sys/unix",
-			"revision": "fde4db37ae7ad8191b03d30d27f258b5291ae4e3",
-			"revisionTime": "2019-08-12T08:24:04Z"
-		},
-		{
 			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",
 			"path": "gopkg.in/go-playground/validator.v8",
 			"revision": "5f1438d3fca68893a817e4a66806cea46a9e4ebf",
