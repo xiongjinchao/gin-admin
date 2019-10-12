@@ -40,6 +40,24 @@ func (f *File) Upload(c *gin.Context) {
 		category = "other"
 	}
 
+	/* 获取项目根目录的上一级目录
+	parent, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failure",
+			"message": err.Error(),
+			"data":    "",
+		})
+		return
+	}
+	runes := []rune(parent)
+	l := 0 + strings.LastIndex(parent, "/")
+	if l > len(runes) {
+		l = len(runes)
+	}
+	parent = string(runes[0:l])
+	*/
+
 	path := "uploads/" + category + "/" + time.Now().Format("2006-01-02")
 	err = os.MkdirAll(path, os.ModePerm)
 	if err != nil {
@@ -126,12 +144,12 @@ func (f *File) Upload(c *gin.Context) {
 		return
 	}
 
-	image := config.Setting["domain"]["image"]
+	domain := config.Setting["domain"]["image"]
 	c.JSON(http.StatusCreated, gin.H{
 		"status":  "success",
 		"message": "upload success",
 		"data": gin.H{
-			"url":  image + model.Path,
+			"url":  domain + model.Path,
 			"name": model.Name,
 			"path": model.Path,
 			"size": model.Size,

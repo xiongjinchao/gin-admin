@@ -66,6 +66,9 @@
                                     <th>文章分类</th><td>{{ .article.CategoryID }}</td>
                                 </tr>
                                 <tr>
+                                    <th>概要</th><td>{{ .article.Summary }}</td>
+                                </tr>
+                                <tr>
                                     <th>内容</th><td>{{ .article.Content }}</td>
                                 </tr>
                                 <tr>
@@ -99,13 +102,7 @@
                                     <th>来源地址</th><td>{{ .article.SourceUrl }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Seo Title</th><td>{{ .article.SeoTitle }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Description</th><td>{{ .article.SeoDescription }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Keyword</th><td>{{ .article.SeoKeyword }}</td>
+                                    <th>关键字</th><td>{{ .article.Keyword }}</td>
                                 </tr>
                                 <tr>
                                     <th>创建时间</th><td>{{ .article.CreatedAt.Format "2006-01-02 15:04:05" }}</td>

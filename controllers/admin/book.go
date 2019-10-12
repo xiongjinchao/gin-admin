@@ -3,6 +3,7 @@ package admin
 import (
 	"encoding/json"
 	"fmt"
+	"gin-admin/config"
 	db "gin-admin/database"
 	"gin-admin/helper"
 	"gin-admin/models"
@@ -21,6 +22,7 @@ func (b *Book) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "book/index", gin.H{
 		"title": "书籍管理",
 		"flash": flash,
+		"image": config.Setting["domain"]["image"],
 	})
 }
 
@@ -28,7 +30,7 @@ func (b *Book) Index(c *gin.Context) {
 func (b *Book) Data(c *gin.Context) {
 	var book []models.Book
 
-	query := db.Mysql.Model(&models.Book{})
+	query := db.Mysql.Model(&models.Book{}).Preload("BookCategory").Preload("File")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -45,15 +47,21 @@ func (b *Book) Data(c *gin.Context) {
 
 	switch order {
 	case "1":
-		query = query.Order("name " + sort)
+		query = query.Order("cover " + sort)
 	case "2":
-		query = query.Order("tag " + sort)
+		query = query.Order("name " + sort)
 	case "3":
-		query = query.Order("audit " + sort)
+		query = query.Order("tag " + sort)
 	case "4":
-		query = query.Order("created_at " + sort)
+		query = query.Order("category_id " + sort)
 	case "5":
-		query = query.Order("updated_at " + sort)
+		query = query.Order("audit " + sort)
+	case "6":
+		query = query.Order("hit " + sort)
+	case "7":
+		query = query.Order("favorite " + sort)
+	case "8":
+		query = query.Order("comment " + sort)
 	default:
 		query = query.Order("id " + sort)
 	}
@@ -76,6 +84,14 @@ func (b *Book) Data(c *gin.Context) {
 func (b *Book) Create(c *gin.Context) {
 
 	flash := helper.GetFlash(c)
+
+	var bookCategories, data []models.BookCategory
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
+	(&models.BookCategory{}).SetSpace(&data)
+
 	c.HTML(http.StatusOK, "book/create", gin.H{
 		"title": "创建书籍",
 		"flash": flash,
@@ -103,7 +119,7 @@ func (b *Book) Store(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Create(&book).Error; err != nil {
+	if err := db.Mysql.Omit("BookCategory", "File").Create(&book).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/create")
 		return
@@ -123,10 +139,47 @@ func (b *Book) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
+	var previewConfig []map[string]interface{}
+	var preview []string
+	var initialPreview, initialPreviewConfig []byte
+	var err error
+
+	if book.Cover > 0 {
+		image := config.Setting["domain"]["image"]
+		preview = append(preview, image+book.File.Path)
+
+		item := make(map[string]interface{})
+		item["caption"] = book.File.Name
+		item["size"] = book.File.Size
+		item["url"] = "/admin/file/delete"
+		item["key"] = book.File.ID
+		previewConfig = append(previewConfig, item)
+
+		initialPreview, err = json.Marshal(preview)
+		if err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		}
+
+		initialPreviewConfig, err = json.Marshal(previewConfig)
+		if err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+		}
+	}
+
+	var bookCategories, data []models.BookCategory
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
+	(&models.BookCategory{}).SetSpace(&data)
+
 	c.HTML(http.StatusOK, "book/edit", gin.H{
-		"title": "编辑书籍",
-		"flash": flash,
-		"book":  book,
+		"title":                "编辑书籍",
+		"flash":                flash,
+		"book":                 book,
+		"bookCategories":       data,
+		"initialPreview":       string(initialPreview),
+		"initialPreviewConfig": string(initialPreviewConfig),
 	})
 }
 
@@ -156,7 +209,7 @@ func (b *Book) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.Book{}).Save(&book).Error; err != nil {
+	if err := db.Mysql.Model(&models.Book{}).Omit("BookCategory", "File").Save(&book).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return

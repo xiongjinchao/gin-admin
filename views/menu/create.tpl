@@ -87,6 +87,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">概要</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-globe"></i>
+                                    </span>
+                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .flash.old.summary }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">审核</label>
                                 {{$audit := Interface2Int64 .flash.old.audit}}
                                 <div class="radio radio-primary">
@@ -114,32 +124,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">SEO Title</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-header"></i>
-                                    </span>
-                                    <input type="text" name="seo_title" placeholder="" class="form-control" value="{{ .flash.old.seo_title }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">SEO Description</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
-                                    <input type="text" name="seo_description" placeholder="" class="form-control" value="{{ .flash.old.seo_description }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">SEO Keyword</label>
+                                <label class="font-bold">关键字</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-key"></i>
                                     </span>
-                                    <input type="text" name="seo_keyword" placeholder="" class="form-control" value="{{ .flash.old.seo_keyword }}">
+                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .flash.old.keyword }}">
                                 </div>
                             </div>
 

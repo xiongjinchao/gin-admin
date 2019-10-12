@@ -79,6 +79,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">概要</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-globe"></i>
+                                    </span>
+                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .article.Summary }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">封面</label>
                                 <input id="file" type="file" name="file" accept="image/*"
                                        data-category="article"
@@ -219,32 +229,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">SEO Title</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-header"></i>
-                                    </span>
-                                    <input type="text" name="seo_title" placeholder="" class="form-control" value="{{ .article.SeoTitle }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">SEO Description</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
-                                    <input type="text" name="seo_description" placeholder="" class="form-control" value="{{ .article.SeoDescription }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">SEO Keyword</label>
+                                <label class="font-bold">关键字</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-key"></i>
                                     </span>
-                                    <input type="text" name="seo_keyword" placeholder="" class="form-control" value="{{ .article.SeoKeyword }}">
+                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .article.Keyword }}">
                                 </div>
                             </div>
 
@@ -284,6 +274,7 @@
             sequenceDiagram : true,
             path:"/public/plug-in/editor-md/lib/"
         });
+
         $("#file").fileinput({
             uploadUrl: '/admin/file/upload',
             language: 'zh',

@@ -66,6 +66,9 @@
                                     <th>所属菜单</th><td>{{ .menu.Parent }}</td>
                                 </tr>
                                 <tr>
+                                    <th>概要</th><td>{{ .menu.Summary }}</td>
+                                </tr>
+                                <tr>
                                     <th>级别</th><td>{{ .menu.Level }}</td>
                                 </tr>
                                 <tr>
@@ -75,13 +78,7 @@
                                     <th>排序</th><td>{{ .menu.Sort }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Seo Title</th><td>{{ .menu.SeoTitle }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Description</th><td>{{ .menu.SeoDescription }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Keyword</th><td>{{ .menu.SeoKeyword }}</td>
+                                    <th>关键字</th><td>{{ .menu.Keyword }}</td>
                                 </tr>
                                 <tr>
                                     <th>创建时间</th><td>{{ .menu.CreatedAt.Format "2006-01-02 15:04:05" }}</td>

@@ -63,6 +63,18 @@
                                     <th>标签</th><td>{{ .book.Tag }}</td>
                                 </tr>
                                 <tr>
+                                    <th>封面</th><td>{{ .book.Cover }}</td>
+                                </tr>
+                                <tr>
+                                    <th>文章分类</th><td>{{ .book.CategoryID }}</td>
+                                </tr>
+                                <tr>
+                                    <th>概要</th><td>{{ .book.Summary }}</td>
+                                </tr>
+                                <tr>
+                                    <th>文章目录</th><td>{{ .book.Catalogue }}</td>
+                                </tr>
+                                <tr>
                                     <th>审核</th><td>{{ .book.Audit }}</td>
                                 </tr>
                                 <tr>
@@ -75,13 +87,7 @@
                                     <th>评论量</th><td>{{ .book.Comment }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Seo Title</th><td>{{ .book.SeoTitle }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Description</th><td>{{ .book.SeoDescription }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Keyword</th><td>{{ .book.SeoKeyword }}</td>
+                                    <th>关键字</th><td>{{ .book.Keyword }}</td>
                                 </tr>
                                 <tr>
                                     <th>创建时间</th><td>{{ .book.CreatedAt.Format "2006-01-02 15:04:05" }}</td>

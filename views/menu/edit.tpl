@@ -87,6 +87,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">概要</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-globe"></i>
+                                    </span>
+                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .menu.Summary }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">审核</label>
                                 <div class="radio radio-primary">
                                     <input type="radio" name="audit" id="audit1" value="1" {{if eq .menu.Audit 1}}checked{{end}}>
@@ -113,32 +123,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">SEO Title</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-header"></i>
-                                    </span>
-                                    <input type="text" name="seo_title" placeholder="" class="form-control" value="{{ .menu.SeoTitle }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">SEO Description</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
-                                    <input type="text" name="seo_description" placeholder="" class="form-control" value="{{ .menu.SeoDescription }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">SEO Keyword</label>
+                                <label class="font-bold">关键字</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-key"></i>
                                     </span>
-                                    <input type="text" name="seo_keyword" placeholder="" class="form-control" value="{{ .menu.SeoKeyword }}">
+                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .menu.Keyword }}">
                                 </div>
                             </div>
 

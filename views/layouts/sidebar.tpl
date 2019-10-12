@@ -28,7 +28,9 @@
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">基础数据</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/menu"><i class="fa fa-star text-info"></i> 菜单管理</a></li>
-                        <li><a href="/admin/book"><i class="fa fa-bookmark text-info"></i> 书籍管理</a></li>
+                        <li><a href="/admin/book"><i class="fa fa-book text-info"></i> 书籍管理</a></li>
+                        <li><a href="/admin/book-chapter"><i class="fa fa-bookmark text-info"></i> 书籍章节</a></li>
+                        <li><a href="/admin/book-category"><i class="fa fa-th-list text-info"></i> 书籍分类</a></li>
                         <li><a href="/admin/article"><i class="fa fa-file-text-o text-info"></i> 文章管理</a></li>
                         <li><a href="/admin/article-category"><i class="fa fa-th-list text-info"></i> 文章分类</a></li>
                         <li><a href="/admin/comment"><i class="fa fa-wechat text-info"></i> 评论管理</a></li>

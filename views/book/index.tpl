@@ -55,8 +55,10 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>封面</th>
                                     <th>名称</th>
                                     <th>标签</th>
+                                    <th>分类</th>
                                     <th>审核</th>
                                     <th>点击量</th>
                                     <th>喜欢量</th>
@@ -69,8 +71,10 @@
                                 <tfoot>
                                 <tr>
                                     <th>ID</th>
+                                    <th>封面</th>
                                     <th>名称</th>
-                                    <th>排序</th>
+                                    <th>标签</th>
+                                    <th>分类</th>
                                     <th>审核</th>
                                     <th>点击量</th>
                                     <th>喜欢量</th>
@@ -116,12 +120,18 @@
                 },
                 columns: [
                     { "data": "base.id" },
+                    { "data": "cover", "render":
+                            function(data, type, row, meta){
+                                return row.cover > 0? '<img class="img-thumbnail" src="http://localhost:8080'+row.file.path+'" style="max-height:80px"/>':'';
+                            }
+                    },
                     { "data": "name", "render":
                         function(data, type, row, meta){
                             return row.name;
                         }
                     },
                     { "data": "tag" },
+                    { "data": "book_category.name" },
                     { "data": "audit", "class":"text-center", "render":
                         function(data, type, row, meta){
                             return row.audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';

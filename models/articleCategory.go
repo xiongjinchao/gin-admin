@@ -9,18 +9,17 @@ import (
 )
 
 type ArticleCategory struct {
-	Base           `json:"base"`
-	Name           string   `json:"name" form:"name"`
-	Tag            string   `json:"tag" form:"tag"`
-	Parent         int64    `json:"parent" form:"parent"`
-	Level          int64    `json:"level" form:"-"`
-	Audit          int64    `json:"audit" form:"audit"`
-	Sort           int64    `json:"sort" form:"sort"`
-	SeoTitle       string   `json:"seo_title" form:"seo_title"`
-	SeoDescription string   `json:"seo_description" form:"seo_description"`
-	SeoKeyword     string   `json:"seo_keyword" form:"seo_keyword"`
-	Parents        []string `json:"parents" validate:"-"`
-	Space          string   `json:"space" validate:"-"`
+	Base    `json:"base"`
+	Name    string   `json:"name" form:"name"`
+	Tag     string   `json:"tag" form:"tag"`
+	Summary string   `json:"summary" form:"summary"`
+	Parent  int64    `json:"parent" form:"parent"`
+	Level   int64    `json:"level" form:"-"`
+	Audit   int64    `json:"audit" form:"audit"`
+	Sort    int64    `json:"sort" form:"sort"`
+	Keyword string   `json:"keyword" form:"keyword"`
+	Parents []string `json:"parents" validate:"-"`
+	Space   string   `json:"space" validate:"-"`
 }
 
 func (ArticleCategory) TableName() string {

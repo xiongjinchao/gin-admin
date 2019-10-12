@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2019-10-12 16:04:54
+-- 生成日期： 2019-10-12 22:26:43
 -- 服务器版本： 10.2.24-MariaDB-log
 -- PHP 版本： 7.3.9
 
@@ -11,12 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- 数据库： `gin-blog`
@@ -81,6 +75,7 @@ CREATE TABLE `article` (
   `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `cover` int(11) DEFAULT 0,
   `category_id` int(4) DEFAULT 0,
+  `summary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `audit` tinyint(4) DEFAULT 0,
   `hot` tinyint(4) DEFAULT 0,
@@ -92,9 +87,7 @@ CREATE TABLE `article` (
   `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `source` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `source_url` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -104,10 +97,10 @@ CREATE TABLE `article` (
 -- 转存表中的数据 `article`
 --
 
-INSERT INTO `article` (`id`, `title`, `cover`, `category_id`, `content`, `audit`, `hot`, `recommend`, `hit`, `favorite`, `comment`, `user_id`, `author`, `source`, `source_url`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '【Golang】接口断言为指针类型，内存分配问题', 0, 0, '> 其实这都是一些基础问题，但是自己总是忘记，在这里做个记录。\r\n\r\n```go\r\npackage main\r\n\r\nimport \"fmt\"\r\n\r\nfunc main() {\r\n   var a = 34\r\n  var i interface{} = &a\r\n  o := i.(*int)\r\n   fmt.Println(i, o)\r\n}\r\n\r\n// output: 0xc4200160a0 0xc4200160a0\r\n```\r\n\r\n很明显了，就不解释了', 1, 1, 1, 0, 0, 0, 1, '', '', '', '', '', '', '2019-08-06 02:03:39', '2019-09-30 01:31:33', NULL),
-(2, '【Golang】去除slice中重复的元素，认识空struct', 0, 3, '> 其实这都是一些基础问题，但是自己总是忘记，在这里做个记录。\r\n\r\n1. 删除slice中的一个或多个元素\r\n\r\n`s = append(s[:i], s[i+1:]...)`\r\n\r\n> 我第一次看到这种结构时感觉很迷茫，其实可以分开来看。首先s[:i]相当于slice截取，也就是说s[:i]本身就是一个slice。然后s[i+1:]...相当于变长参数。append()函数内部，通过循环append()递归操作即可。s本身的长度会发生改变，因为append()参数的是一个新的slice，然后赋值给s。但是s的容量不会变化。\r\n\r\n2. slice共享问题\r\n\r\n- 首先，slice之间赋值，是共享了内存地址的，如果修改其中一个，另外一个也会修改。就像函数传递slice参数的效果。\r\n\r\n- 如果两个slice之间共享，如果其中一个slice的长度发生了改变，另一个slice的长度是不会发生改变的，改变的是内存中的数据。\r\n\r\n```go\r\na1 := []int{1, 2, 3, 4, 5}\r\na2 := a1\r\n\r\na1 = append(a1[:1], a1[2:]...)\r\n\r\nfmt.Println(a2)\r\nfmt.Println(a1)\r\n\r\n//output:\r\n[1 3 4 5 5]\r\n[1 3 4 5]\r\n```', 1, 1, 1, 0, 0, 0, 1, '', '', '', '', '', '', '2019-09-28 16:20:21', '2019-09-28 16:27:50', NULL),
-(3, '【Golang】json自定义序列化的深入解析', 0, 0, '> golang标准库本身没有提供一个去除slice中重复元素的函数，需要自己去实现。今天读源码时发现了一个，算是比较优秀的技巧了，如果你有更好的办法，欢迎讨论！\r\n\r\n另外让我们看一下空struct的作用，他之前一直没有被我重视，看来以后要多审视自己的coding了！\r\n\r\n```go\r\nfunc main() {\r\n    s := []string{\"hello\", \"world\", \"hello\", \"golang\", \"hello\", \"ruby\", \"php\", \"java\"}\r\n\r\n    fmt.Println(removeDuplicateElement(s))\r\n}\r\n\r\nfunc removeDuplicateElement(addrs []string) []string {\r\n    result := make([]string, 0, len(addrs))\r\n    temp := map[string]struct{}{}\r\n    for _, item := range addrs {\r\n        if _, ok := temp[item]; !ok {\r\n            temp[item] = struct{}{}\r\n            result = append(result, item)\r\n        }\r\n    }\r\n    return result\r\n}\r\n\r\n//output:\r\n[hello world golang ruby php java]\r\n```\r\n\r\n点评\r\n\r\n- 该函数总共初始化两个变量，一个长度为0的slice，一个空map。由于slice传参是按引用传递，没有创建额外的变量。\r\n\r\n- 只是用了一个for循环，代码更简洁易懂。\r\n\r\n- 利用了map的多返回值特性。\r\n\r\n- 空struct不占内存空间，可谓巧妙。\r\n', 1, 1, 1, 0, 0, 0, 1, '', '简书', 'https://www.jianshu.com/p/f8b0ed37513a', '', '', '', '2019-09-28 16:30:43', '2019-09-30 01:31:47', NULL);
+INSERT INTO `article` (`id`, `title`, `cover`, `category_id`, `summary`, `content`, `audit`, `hot`, `recommend`, `hit`, `favorite`, `comment`, `user_id`, `author`, `source`, `source_url`, `keyword`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '【Golang】接口断言为指针类型，内存分配问题', 0, 0, '', '> 其实这都是一些基础问题，但是自己总是忘记，在这里做个记录。\r\n\r\n```go\r\npackage main\r\n\r\nimport \"fmt\"\r\n\r\nfunc main() {\r\n   var a = 34\r\n  var i interface{} = &a\r\n  o := i.(*int)\r\n   fmt.Println(i, o)\r\n}\r\n\r\n// output: 0xc4200160a0 0xc4200160a0\r\n```\r\n\r\n很明显了，就不解释了', 1, 1, 1, 0, 0, 0, 1, '', '', '', '', '2019-08-06 02:03:39', '2019-09-30 01:31:33', NULL),
+(2, '【Golang】去除slice中重复的元素，认识空struct', 0, 3, '', '> 其实这都是一些基础问题，但是自己总是忘记，在这里做个记录。\r\n\r\n1. 删除slice中的一个或多个元素\r\n\r\n`s = append(s[:i], s[i+1:]...)`\r\n\r\n> 我第一次看到这种结构时感觉很迷茫，其实可以分开来看。首先s[:i]相当于slice截取，也就是说s[:i]本身就是一个slice。然后s[i+1:]...相当于变长参数。append()函数内部，通过循环append()递归操作即可。s本身的长度会发生改变，因为append()参数的是一个新的slice，然后赋值给s。但是s的容量不会变化。\r\n\r\n2. slice共享问题\r\n\r\n- 首先，slice之间赋值，是共享了内存地址的，如果修改其中一个，另外一个也会修改。就像函数传递slice参数的效果。\r\n\r\n- 如果两个slice之间共享，如果其中一个slice的长度发生了改变，另一个slice的长度是不会发生改变的，改变的是内存中的数据。\r\n\r\n```go\r\na1 := []int{1, 2, 3, 4, 5}\r\na2 := a1\r\n\r\na1 = append(a1[:1], a1[2:]...)\r\n\r\nfmt.Println(a2)\r\nfmt.Println(a1)\r\n\r\n//output:\r\n[1 3 4 5 5]\r\n[1 3 4 5]\r\n```', 1, 1, 1, 0, 0, 0, 1, '', '', '', '', '2019-09-28 16:20:21', '2019-09-28 16:27:50', NULL),
+(3, '【Golang】json自定义序列化的深入解析', 0, 0, '', '> golang标准库本身没有提供一个去除slice中重复元素的函数，需要自己去实现。今天读源码时发现了一个，算是比较优秀的技巧了，如果你有更好的办法，欢迎讨论！\r\n\r\n另外让我们看一下空struct的作用，他之前一直没有被我重视，看来以后要多审视自己的coding了！\r\n\r\n```go\r\nfunc main() {\r\n    s := []string{\"hello\", \"world\", \"hello\", \"golang\", \"hello\", \"ruby\", \"php\", \"java\"}\r\n\r\n    fmt.Println(removeDuplicateElement(s))\r\n}\r\n\r\nfunc removeDuplicateElement(addrs []string) []string {\r\n    result := make([]string, 0, len(addrs))\r\n    temp := map[string]struct{}{}\r\n    for _, item := range addrs {\r\n        if _, ok := temp[item]; !ok {\r\n            temp[item] = struct{}{}\r\n            result = append(result, item)\r\n        }\r\n    }\r\n    return result\r\n}\r\n\r\n//output:\r\n[hello world golang ruby php java]\r\n```\r\n\r\n点评\r\n\r\n- 该函数总共初始化两个变量，一个长度为0的slice，一个空map。由于slice传参是按引用传递，没有创建额外的变量。\r\n\r\n- 只是用了一个for循环，代码更简洁易懂。\r\n\r\n- 利用了map的多返回值特性。\r\n\r\n- 空struct不占内存空间，可谓巧妙。\r\n', 1, 1, 1, 0, 0, 0, 1, '', '简书', 'https://www.jianshu.com/p/f8b0ed37513a', '', '2019-09-28 16:30:43', '2019-09-30 01:31:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -120,13 +113,12 @@ CREATE TABLE `article_category` (
   `id` int(10) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tag` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `summary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent` int(10) NOT NULL DEFAULT 0,
   `level` int(10) DEFAULT 1,
   `audit` tinyint(4) DEFAULT 0,
   `sort` int(4) DEFAULT 0,
-  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -143,14 +135,15 @@ CREATE TABLE `book` (
   `id` int(10) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tag` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cover` int(11) NOT NULL DEFAULT 0,
+  `category_id` int(4) DEFAULT 0,
+  `summary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `catalogue` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `audit` tinyint(4) DEFAULT 0,
   `hit` int(11) NOT NULL DEFAULT 0 COMMENT '点击总数',
   `favorite` int(11) NOT NULL DEFAULT 0 COMMENT '喜欢总数',
   `comment` int(11) NOT NULL DEFAULT 0 COMMENT '评论总数',
-  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -160,8 +153,27 @@ CREATE TABLE `book` (
 -- 转存表中的数据 `book`
 --
 
-INSERT INTO `book` (`id`, `name`, `tag`, `catalogue`, `audit`, `hit`, `favorite`, `comment`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Gin框架中文手册', 'gin web framework', '```go\r\nfunction main(){\r\n	fmt.Println(\"Hello world!\")\r\n}\r\n```', 1, 0, 0, 0, '', '', '', '2019-08-07 23:43:36', '2019-09-30 17:42:10', NULL);
+INSERT INTO `book` (`id`, `name`, `tag`, `cover`, `category_id`, `summary`, `catalogue`, `audit`, `hit`, `favorite`, `comment`, `keyword`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Gin框架中文手册', 'gin web framework', 0, 0, '', '```go\r\nfunction main(){\r\n	fmt.Println(\"Hello world!\")\r\n}\r\n```', 1, 0, 0, 0, '', '2019-08-07 23:43:36', '2019-09-30 17:42:10', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `book_category`
+--
+
+DROP TABLE IF EXISTS `book_category`;
+CREATE TABLE `book_category` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent` int(10) NOT NULL DEFAULT 0,
+  `level` int(10) DEFAULT 1,
+  `audit` tinyint(4) DEFAULT 0,
+  `sort` int(4) DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -280,13 +292,12 @@ CREATE TABLE `menu` (
   `id` int(10) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tag` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `summary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent` int(10) NOT NULL DEFAULT 0,
   `level` int(10) DEFAULT 1,
   `audit` tinyint(4) DEFAULT 0,
   `sort` int(4) DEFAULT 0,
-  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -296,16 +307,16 @@ CREATE TABLE `menu` (
 -- 转存表中的数据 `menu`
 --
 
-INSERT INTO `menu` (`id`, `name`, `tag`, `parent`, `level`, `audit`, `sort`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '首页', '/', 0, 1, 1, 1, '', '', '', '2019-08-06 22:35:17', '2019-09-22 23:49:31', NULL),
-(2, '资讯', 'article', 0, 1, 1, 0, '', '', '', '2019-08-06 22:35:47', '2019-08-06 22:35:47', NULL),
-(3, '朋友圈', 'friend', 0, 1, 1, 0, '', '', '', '2019-08-06 22:36:09', '2019-08-06 22:36:09', NULL),
-(4, '名人名言', 'star', 2, 2, 1, 0, '', '', '', '2019-08-06 22:36:40', '2019-09-23 00:08:28', NULL),
-(5, '名人故事', 'story', 9, 4, 1, 0, '', '', '', '2019-08-06 22:43:37', '2019-09-30 20:02:02', NULL),
-(6, '匠人故事', 'story', 8, 2, 1, 0, '', '', '', '2019-08-06 22:44:32', '2019-09-23 01:41:31', NULL),
-(7, '星座', 'star', 6, 3, 1, 0, '', '', '', '2019-08-06 22:44:46', '2019-09-23 01:41:31', NULL),
-(8, '关于我', 'about-me', 0, 1, 1, 0, '', '', '', '2019-08-06 22:58:25', '2019-09-23 01:38:28', NULL),
-(9, '运营', 'star', 6, 3, 0, 0, '', '', '', '2019-09-22 23:50:16', '2019-09-30 20:02:02', NULL);
+INSERT INTO `menu` (`id`, `name`, `tag`, `summary`, `parent`, `level`, `audit`, `sort`, `keyword`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '首页', '/', '', 0, 1, 1, 1, '', '2019-08-06 22:35:17', '2019-09-22 23:49:31', NULL),
+(2, '资讯', 'article', '', 0, 1, 1, 0, '', '2019-08-06 22:35:47', '2019-08-06 22:35:47', NULL),
+(3, '朋友圈', 'friend', '', 0, 1, 1, 0, '', '2019-08-06 22:36:09', '2019-08-06 22:36:09', NULL),
+(4, '名人名言', 'star', '', 2, 2, 1, 0, '', '2019-08-06 22:36:40', '2019-09-23 00:08:28', NULL),
+(5, '名人故事', 'story', '', 9, 4, 1, 0, '', '2019-08-06 22:43:37', '2019-09-30 20:02:02', NULL),
+(6, '匠人故事', 'story', '', 8, 2, 1, 0, '', '2019-08-06 22:44:32', '2019-09-23 01:41:31', NULL),
+(7, '星座', 'star', '', 6, 3, 1, 0, '', '2019-08-06 22:44:46', '2019-09-23 01:41:31', NULL),
+(8, '关于我', 'about-me', '', 0, 1, 1, 0, '', '2019-08-06 22:58:25', '2019-09-23 01:38:28', NULL),
+(9, '运营', 'star', '', 6, 3, 0, 0, '', '2019-09-22 23:50:16', '2019-09-30 20:02:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -416,6 +427,12 @@ ALTER TABLE `book`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- 表的索引 `book_category`
+--
+ALTER TABLE `book_category`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
 -- 表的索引 `book_chapter`
 --
 ALTER TABLE `book_chapter`
@@ -506,6 +523,12 @@ ALTER TABLE `book`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- 使用表AUTO_INCREMENT `book_category`
+--
+ALTER TABLE `book_category`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- 使用表AUTO_INCREMENT `book_chapter`
 --
 ALTER TABLE `book_chapter`
@@ -559,7 +582,3 @@ ALTER TABLE `user`
 ALTER TABLE `user_auth`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

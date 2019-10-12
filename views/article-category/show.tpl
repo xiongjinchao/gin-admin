@@ -66,6 +66,9 @@
                                     <th>所属分类</th><td>{{ .articleCategory.Parent }}</td>
                                 </tr>
                                 <tr>
+                                    <th>概要</th><td>{{ .articleCategory.Summary }}</td>
+                                </tr>
+                                <tr>
                                     <th>级别</th><td>{{ .articleCategory.Level }}</td>
                                 </tr>
                                 <tr>
@@ -75,13 +78,7 @@
                                     <th>排序</th><td>{{ .articleCategory.Sort }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Seo Title</th><td>{{ .articleCategory.SeoTitle }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Description</th><td>{{ .articleCategory.SeoDescription }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Seo Keyword</th><td>{{ .articleCategory.SeoKeyword }}</td>
+                                    <th>关键字</th><td>{{ .articleCategory.Keyword }}</td>
                                 </tr>
                                 <tr>
                                     <th>创建时间</th><td>{{ .articleCategory.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
