@@ -33,7 +33,7 @@ func (b *Book) Data(c *gin.Context) {
 	search := c.Query("search[value]")
 	if search != "" {
 		query = query.Where("id = ?", search).
-			Or("title LIKE ?", "%"+search+"%").
+			Or("name LIKE ?", "%"+search+"%").
 			Or("content LIKE ?", "%"+search+"%")
 	}
 	total := 0

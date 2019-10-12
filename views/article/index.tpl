@@ -100,6 +100,7 @@
 
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
+    <!-- https://datatables.net/download/index -->
 
     <script src="/public/inspinia/js/plugins/dataTables/datatables.min.js"></script>
     <script src="/public/inspinia/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
