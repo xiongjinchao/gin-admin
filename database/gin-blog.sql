@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2019-10-12 15:31:57
+-- 生成日期： 2019-10-12 16:04:54
 -- 服务器版本： 10.2.24-MariaDB-log
 -- PHP 版本： 7.3.9
 
@@ -176,6 +176,7 @@ CREATE TABLE `book_chapter` (
   `book_id` int(11) DEFAULT 0 COMMENT '所属书籍',
   `chapter` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '章节内容',
   `audit` tinyint(4) DEFAULT 0,
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序值',
   `hit` int(11) NOT NULL DEFAULT 0 COMMENT '点击总数',
   `favorite` int(11) NOT NULL DEFAULT 0 COMMENT '喜欢总数',
   `comment` int(11) NOT NULL DEFAULT 0 COMMENT '评论总数',
