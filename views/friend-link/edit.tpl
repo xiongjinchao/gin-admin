@@ -13,7 +13,7 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-link"></i> 友情链接管理</strong>

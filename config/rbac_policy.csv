@@ -73,6 +73,22 @@ p, role:editor, GET /admin/menu, GET
 p, role:editor, GET /admin/menu/data, GET
 p, role:editor, GET /admin/policy, GET
 p, role:editor, GET /admin/policy/reset, GET
+p, role:ctr:book-category, GET /admin/book-category, GET
+p, role:ctr:book-category, GET /admin/book-category/data, GET
+p, role:ctr:book-category, GET /admin/book-category/delete/:id, GET
+p, role:ctr:book-category, GET /admin/book-category/create, GET
+p, role:ctr:book-category, GET /admin/book-category/edit/:id, GET
+p, role:ctr:book-category, GET /admin/book-category/show/:id, GET
+p, role:ctr:book-category, POST /admin/book-category, POST
+p, role:ctr:book-category, POST /admin/book-category/update/:id, POST
+p, role:ctr:friend-link-category, GET /admin/friend-link-category, GET
+p, role:ctr:friend-link-category, GET /admin/friend-link-category/data, GET
+p, role:ctr:friend-link-category, GET /admin/friend-link-category/delete/:id, GET
+p, role:ctr:friend-link-category, GET /admin/friend-link-category/create, GET
+p, role:ctr:friend-link-category, GET /admin/friend-link-category/edit/:id, GET
+p, role:ctr:friend-link-category, GET /admin/friend-link-category/show/:id, GET
+p, role:ctr:friend-link-category, POST /admin/friend-link-category, POST
+p, role:ctr:friend-link-category, POST /admin/friend-link-category/update/:id, POST
 g, admin:admin, role:sys:admin
 g, admin:1, role:sys:admin
 g, role:sys:admin, role:ctr:article
@@ -87,3 +103,5 @@ g, role:sys:admin, role:ctr:friend-link
 g, admin:editor, role:editor
 g, role:editor, role:ctr:admin
 g, role:editor, role:ctr:article
+g, role:sys:admin, role:ctr:book-category
+g, role:sys:admin, role:ctr:friend-link-category

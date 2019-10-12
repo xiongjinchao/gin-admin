@@ -111,6 +111,17 @@ func Router() *gin.Engine {
 		authorized.GET("book/show/:id", book.Show)
 		authorized.GET("book/delete/:id", book.Destroy)
 
+		//Book Category
+		bookCategory := &admin.BookCategory{}
+		authorized.GET("book-category", bookCategory.Index)
+		authorized.GET("book-category/data", bookCategory.Data)
+		authorized.GET("book-category/create", bookCategory.Create)
+		authorized.POST("book-category", bookCategory.Store)
+		authorized.GET("book-category/edit/:id", bookCategory.Edit)
+		authorized.POST("book-category/update/:id", bookCategory.Update)
+		authorized.GET("book-category/show/:id", bookCategory.Show)
+		authorized.GET("book-category/delete/:id", bookCategory.Destroy)
+
 		//Article
 		article := &admin.Article{}
 		authorized.GET("article", article.Index)
@@ -148,6 +159,17 @@ func Router() *gin.Engine {
 		authorized.POST("friend-link/update/:id", friendLink.Update)
 		authorized.GET("friend-link/show/:id", friendLink.Show)
 		authorized.GET("friend-link/delete/:id", friendLink.Destroy)
+
+		//Friend Link Category
+		friendLinkCategory := &admin.FriendLinkCategory{}
+		authorized.GET("friend-link-category", friendLinkCategory.Index)
+		authorized.GET("friend-link-category/data", friendLinkCategory.Data)
+		authorized.GET("friend-link-category/create", friendLinkCategory.Create)
+		authorized.POST("friend-link-category", friendLinkCategory.Store)
+		authorized.GET("friend-link-category/edit/:id", friendLinkCategory.Edit)
+		authorized.POST("friend-link-category/update/:id", friendLinkCategory.Update)
+		authorized.GET("friend-link-category/show/:id", friendLinkCategory.Show)
+		authorized.GET("friend-link-category/delete/:id", friendLinkCategory.Destroy)
 
 		//Policy
 		policy := &admin.Policy{}

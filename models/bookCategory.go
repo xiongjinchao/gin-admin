@@ -11,6 +11,7 @@ import (
 type BookCategory struct {
 	Base    `json:"base"`
 	Name    string   `json:"name" form:"name"`
+	Summary string   `json:"summary" form:"summary"`
 	Parent  int64    `json:"parent" form:"parent"`
 	Level   int64    `json:"level" form:"-"`
 	Audit   int64    `json:"audit" form:"audit"`

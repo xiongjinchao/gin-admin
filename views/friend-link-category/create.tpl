@@ -12,10 +12,10 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-th-list"></i> 文章分类</strong>
+                    <strong><i class="fa fa-th-list"></i> 链接分类</strong>
                 </li>
             </ol>
         </div>
@@ -48,27 +48,16 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="article-category-form" role="form" action="/admin/article-category" method="post">
+                        <form id="friend-link-category-form" role="form" action="/admin/friend-link-category" method="post">
                             <div class="form-group">
                                 <label class="font-bold">名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fa fa-header"></i>
                                     </span>
                                     <input type="text" name="name" placeholder="请输入分类名称" class="form-control" value="{{ .flash.old.name }}">
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">标签</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
-                                    </span>
-                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
-                                </div>
-                            </div>
-
 
                             <div class="form-group">
                                 <label class="font-bold">所属分类</label>
@@ -79,7 +68,7 @@
                                     <select class="form-control" name="parent">
                                         <option value="0">设为主分类</option>
                                         {{$parent := Interface2Int64 .flash.old.parent}}
-                                        {{range .articleCategories}}
+                                        {{range .friendLinkCategories}}
                                             <option value="{{.ID}}" {{if eq .ID $parent}}selected{{end}}>{{.Space}}{{.Name}}</option>
                                         {{end}}
                                     </select>
@@ -89,9 +78,6 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
                                     <textarea name="summary" rows="3" class="form-control">{{ .flash.old.summary }}</textarea>
                                 </div>
                             </div>
@@ -123,16 +109,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="font-bold">关键字</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .flash.old.keyword }}">
-                                </div>
-                            </div>
-
                             <div>
                                 <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
                             </div>
@@ -149,7 +125,7 @@
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
         $().ready(function() {
-            $("#article-category-form").validate({
+            $("#friend-link-category-form").validate({
                 rules: {
                     name: "required",
                     parent: "required",

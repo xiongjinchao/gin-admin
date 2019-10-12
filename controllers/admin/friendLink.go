@@ -16,7 +16,7 @@ import (
 type FriendLink struct{}
 
 // GetFriendLinkList handles GET /admin/friend-link route
-func (b *FriendLink) Index(c *gin.Context) {
+func (f *FriendLink) Index(c *gin.Context) {
 
 	flash := helper.GetFlash(c)
 
@@ -28,10 +28,10 @@ func (b *FriendLink) Index(c *gin.Context) {
 }
 
 // Datatable
-func (b *FriendLink) Data(c *gin.Context) {
+func (f *FriendLink) Data(c *gin.Context) {
 	var friendLink []models.FriendLink
 
-	query := db.Mysql.Model(&models.FriendLink{}).Preload("File")
+	query := db.Mysql.Model(&models.FriendLink{}).Preload("FriendLinkCategory").Preload("File")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -50,20 +50,22 @@ func (b *FriendLink) Data(c *gin.Context) {
 	case "1":
 		query = query.Order("title " + sort)
 	case "2":
-		query = query.Order("link " + sort)
+		query = query.Order("category_id " + sort)
 	case "3":
-		query = query.Order("image " + sort)
+		query = query.Order("link " + sort)
 	case "4":
-		query = query.Order("sort " + sort)
+		query = query.Order("image " + sort)
 	case "5":
-		query = query.Order("audit " + sort)
+		query = query.Order("sort " + sort)
 	case "6":
-		query = query.Order("start_at " + sort)
+		query = query.Order("audit " + sort)
 	case "7":
-		query = query.Order("end_at " + sort)
+		query = query.Order("start_at " + sort)
 	case "8":
-		query = query.Order("created_at " + sort)
+		query = query.Order("end_at " + sort)
 	case "9":
+		query = query.Order("created_at " + sort)
+	case "10":
 		query = query.Order("updated_at " + sort)
 	default:
 		query = query.Order("id " + sort)
@@ -84,7 +86,7 @@ func (b *FriendLink) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/friend-link/create route
-func (b *FriendLink) Create(c *gin.Context) {
+func (f *FriendLink) Create(c *gin.Context) {
 
 	flash := helper.GetFlash(c)
 
@@ -103,12 +105,13 @@ func (b *FriendLink) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/friend-link route
-func (b *FriendLink) Store(c *gin.Context) {
+func (f *FriendLink) Store(c *gin.Context) {
 
 	friendLink := models.FriendLink{}
 	// struct time.Time bing error
 	friendLink.Title = c.PostForm("title")
 	friendLink.Link = c.PostForm("link")
+	friendLink.CategoryID, _ = strconv.ParseInt(c.PostForm("category_id"), 10, 64)
 	friendLink.Image, _ = strconv.ParseInt(c.PostForm("image"), 10, 64)
 	friendLink.Sort, _ = strconv.ParseInt(c.PostForm("sort"), 10, 64)
 	friendLink.Audit, _ = strconv.ParseInt(c.PostForm("audit"), 10, 64)
@@ -135,13 +138,13 @@ func (b *FriendLink) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/friend-link")
 }
 
-func (b *FriendLink) Edit(c *gin.Context) {
+func (f *FriendLink) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := helper.GetFlash(c)
 
 	friendLink := models.FriendLink{}
-	if err := db.Mysql.Preload("File").First(&friendLink, id).Error; err != nil {
+	if err := db.Mysql.Preload("FriendLinkCategory").Preload("File").First(&friendLink, id).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
@@ -200,13 +203,14 @@ func (b *FriendLink) Edit(c *gin.Context) {
 	})
 }
 
-func (b *FriendLink) Update(c *gin.Context) {
+func (f *FriendLink) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	friendLink := models.FriendLink{}
 	// struct time.Time bing error
 	friendLink.Title = c.PostForm("title")
 	friendLink.Link = c.PostForm("link")
+	friendLink.CategoryID, _ = strconv.ParseInt(c.PostForm("category_id"), 10, 64)
 	friendLink.Image, _ = strconv.ParseInt(c.PostForm("image"), 10, 64)
 	friendLink.Sort, _ = strconv.ParseInt(c.PostForm("sort"), 10, 64)
 	friendLink.Audit, _ = strconv.ParseInt(c.PostForm("audit"), 10, 64)
@@ -237,7 +241,7 @@ func (b *FriendLink) Update(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/friend-link")
 }
 
-func (b *FriendLink) Show(c *gin.Context) {
+func (f *FriendLink) Show(c *gin.Context) {
 	id := c.Param("id")
 
 	friendLink := models.FriendLink{}
@@ -251,7 +255,7 @@ func (b *FriendLink) Show(c *gin.Context) {
 	})
 }
 
-func (b *FriendLink) Destroy(c *gin.Context) {
+func (f *FriendLink) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
 	friendLink := models.FriendLink{}

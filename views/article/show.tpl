@@ -11,7 +11,7 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-user-o"></i> 文章管理</strong>

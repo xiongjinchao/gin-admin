@@ -12,7 +12,7 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-th-list"></i> {{ .title}}</strong>
@@ -26,7 +26,7 @@
 
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
-        <p><a class="btn btn-primary" href="menu/create"> <i class="fa fa-plus-circle"></i> 创建菜单</a></p>
+        <p><a class="btn btn-primary" href="friend-link-category/create"> <i class="fa fa-plus-circle"></i> 创建分类</a></p>
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -56,7 +56,6 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>名称</th>
-                                    <th>标签</th>
                                     <th>父级</th>
                                     <th>级别</th>
                                     <th>排序</th>
@@ -70,7 +69,6 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>名称</th>
-                                    <th>标签</th>
                                     <th>父级</th>
                                     <th>级别</th>
                                     <th>排序</th>
@@ -111,7 +109,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "/admin/menu/data",
+                    url: "/admin/friend-link-category/data",
                     type: "GET"
                 },
                 columns: [
@@ -121,16 +119,15 @@
                             return row.space + row.name;
                         }
                     },
-                    { "data": "tag" },
                     { "data": "parent", "render":
-                            function(data, type, row, meta){
-                                let result = '';
-                                if(row.parents != null){
-                                    row.parents.reverse();
-                                    result = row.parents.join(' / ');
-                                }
-                                return result;
+                        function(data, type, row, meta){
+                            let result = '';
+                            if(row.parents != null){
+                                row.parents.reverse();
+                                result = row.parents.join(' / ');
                             }
+                            return result;
+                        }
                     },
                     { "data": "level", "class":"text-center" },
                     { "data": "sort", "class":"text-center" },
@@ -150,9 +147,9 @@
                         }
                     },
                     { "data": null, "render": function(data, type, row, meta){
-                        return '<a href="/admin/menu/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                            '<a href="/admin/menu/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                            '<a href="/admin/menu/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                        return '<a href="/admin/friend-link-category/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/friend-link-category/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/friend-link-category/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }
                 ],

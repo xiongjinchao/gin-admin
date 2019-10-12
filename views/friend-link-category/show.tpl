@@ -11,10 +11,10 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-th-list"></i> 文章分类</strong>
+                    <strong><i class="fa fa-th-list"></i> 链接分类</strong>
                 </li>
             </ol>
         </div>
@@ -28,8 +28,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <p>
-                    <a class="btn btn-outline btn-success" href="/admin/article-category/edit/{{ .articleCategory.ID }}"><i class="fa fa-edit"></i> 更新</a>
-                    <a class="btn btn-outline btn-danger" href="/admin/article-category/delete/{{ .articleCategory.ID }}"><i class="fa fa-trash"></i> 删除</a>
+                    <a class="btn btn-outline btn-success" href="/admin/friend-link-category/edit/{{ .friendLinkCategory.ID }}"><i class="fa fa-edit"></i> 更新</a>
+                    <a class="btn btn-outline btn-danger" href="/admin/friend-link-category/delete/{{ .friendLinkCategory.ID }}"><i class="fa fa-trash"></i> 删除</a>
                 </p>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -54,37 +54,31 @@
                         <table id="w0" class="table table-striped table-bordered detail-view">
                             <tbody>
                                 <tr>
-                                    <th>文章分类编号</th><td>{{ .articleCategory.ID }}</td>
+                                    <th>链接分类编号</th><td>{{ .friendLinkCategory.ID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>名称</th><td>{{ .articleCategory.Name }}</td>
+                                    <th>名称</th><td>{{ .friendLinkCategory.Name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>标签</th><td>{{ .articleCategory.Tag }}</td>
+                                    <th>所属分类</th><td>{{ .friendLinkCategory.Parent }}</td>
                                 </tr>
                                 <tr>
-                                    <th>所属分类</th><td>{{ .articleCategory.Parent }}</td>
+                                    <th>概要</th><td>{{ .friendLinkCategory.Summary }}</td>
                                 </tr>
                                 <tr>
-                                    <th>概要</th><td>{{ .articleCategory.Summary }}</td>
+                                    <th>级别</th><td>{{ .friendLinkCategory.Level }}</td>
                                 </tr>
                                 <tr>
-                                    <th>级别</th><td>{{ .articleCategory.Level }}</td>
+                                    <th>审核</th><td>{{ .friendLinkCategory.Audit }}</td>
                                 </tr>
                                 <tr>
-                                    <th>审核</th><td>{{ .articleCategory.Audit }}</td>
+                                    <th>排序</th><td>{{ .friendLinkCategory.Sort }}</td>
                                 </tr>
                                 <tr>
-                                    <th>排序</th><td>{{ .articleCategory.Sort }}</td>
+                                    <th>创建时间</th><td>{{ .friendLinkCategory.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                                 <tr>
-                                    <th>关键字</th><td>{{ .articleCategory.Keyword }}</td>
-                                </tr>
-                                <tr>
-                                    <th>创建时间</th><td>{{ .articleCategory.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                </tr>
-                                <tr>
-                                    <th>更新时间</th><td>{{ .articleCategory.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>更新时间</th><td>{{ .friendLinkCategory.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                             </tbody>
                         </table>

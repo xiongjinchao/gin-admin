@@ -14,7 +14,7 @@ import (
 type BookCategory struct{}
 
 // GetBookCategoryList handles GET /admin/book-category route
-func (a *BookCategory) Index(c *gin.Context) {
+func (b *BookCategory) Index(c *gin.Context) {
 
 	flash := helper.GetFlash(c)
 
@@ -25,7 +25,7 @@ func (a *BookCategory) Index(c *gin.Context) {
 }
 
 // Datatable
-func (a *BookCategory) Data(c *gin.Context) {
+func (b *BookCategory) Data(c *gin.Context) {
 
 	var bookCategory, data []models.BookCategory
 
@@ -57,7 +57,7 @@ func (a *BookCategory) Data(c *gin.Context) {
 }
 
 // Create handles GET /admin/book-category/create route
-func (a *BookCategory) Create(c *gin.Context) {
+func (b *BookCategory) Create(c *gin.Context) {
 
 	flash := helper.GetFlash(c)
 
@@ -76,7 +76,7 @@ func (a *BookCategory) Create(c *gin.Context) {
 }
 
 // Store handles POST /admin/book-category route
-func (a *BookCategory) Store(c *gin.Context) {
+func (b *BookCategory) Store(c *gin.Context) {
 	bookCategory := models.BookCategory{}
 	err := c.ShouldBind(&bookCategory)
 	if old, err := json.Marshal(bookCategory); err == nil {
@@ -112,7 +112,7 @@ func (a *BookCategory) Store(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/book-category")
 }
 
-func (a *BookCategory) Edit(c *gin.Context) {
+func (b *BookCategory) Edit(c *gin.Context) {
 
 	id := c.Param("id")
 	flash := helper.GetFlash(c)
@@ -137,7 +137,7 @@ func (a *BookCategory) Edit(c *gin.Context) {
 	})
 }
 
-func (a *BookCategory) Update(c *gin.Context) {
+func (b *BookCategory) Update(c *gin.Context) {
 
 	id := c.Param("id")
 	bookCategory := models.BookCategory{}
@@ -181,7 +181,7 @@ func (a *BookCategory) Update(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/book-category")
 }
 
-func (a *BookCategory) Show(c *gin.Context) {
+func (b *BookCategory) Show(c *gin.Context) {
 
 	id := c.Param("id")
 
@@ -196,7 +196,7 @@ func (a *BookCategory) Show(c *gin.Context) {
 	})
 }
 
-func (a *BookCategory) Destroy(c *gin.Context) {
+func (b *BookCategory) Destroy(c *gin.Context) {
 
 	id := c.Param("id")
 

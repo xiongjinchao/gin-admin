@@ -12,7 +12,7 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-th-list"></i> 文章分类</strong>
@@ -89,10 +89,7 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
-                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .articleCategory.Summary }}">
+                                    <textarea name="summary" rows="3" class="form-control">{{ .articleCategory.Summary }}</textarea>
                                 </div>
                             </div>
 

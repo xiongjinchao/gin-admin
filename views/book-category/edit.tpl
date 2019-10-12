@@ -15,7 +15,7 @@
                     <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-th-list"></i> 文章分类</strong>
+                    <strong><i class="fa fa-th-list"></i> 书籍分类</strong>
                 </li>
             </ol>
         </div>
@@ -48,27 +48,16 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="article-category-form" role="form" action="/admin/article-category" method="post">
+                        <form id="book-category-form" role="form" action="/admin/book-category/update/{{ .bookCategory.ID }}" method="post">
                             <div class="form-group">
                                 <label class="font-bold">名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fa fa-header"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入分类名称" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="name" placeholder="请输入分类名称" class="form-control" value="{{ .bookCategory.Name }}">
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">标签</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
-                                    </span>
-                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
-                                </div>
-                            </div>
-
 
                             <div class="form-group">
                                 <label class="font-bold">所属分类</label>
@@ -78,8 +67,8 @@
                                     </span>
                                     <select class="form-control" name="parent">
                                         <option value="0">设为主分类</option>
-                                        {{$parent := Interface2Int64 .flash.old.parent}}
-                                        {{range .articleCategories}}
+                                        {{$parent := .bookCategory.Parent}}
+                                        {{range .bookCategories}}
                                             <option value="{{.ID}}" {{if eq .ID $parent}}selected{{end}}>{{.Space}}{{.Name}}</option>
                                         {{end}}
                                     </select>
@@ -89,24 +78,20 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
-                                    <textarea name="summary" rows="3" class="form-control">{{ .flash.old.summary }}</textarea>
+                                    <textarea name="summary" rows="3" class="form-control">{{ .bookCategory.Summary }}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="font-bold">审核</label>
-                                {{$audit := Interface2Int64 .flash.old.audit}}
                                 <div class="radio radio-primary">
-                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq $audit 1}}checked{{end}}>
+                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq .bookCategory.Audit 1}}checked{{end}}>
                                     <label for="audit1">
                                         已审核
                                     </label>
                                 </div>
                                 <div class="radio radio-primary">
-                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq $audit 0}}checked{{end}}>
+                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq .bookCategory.Audit 0}}checked{{end}}>
                                     <label for="audit2">
                                         未审核
                                     </label>
@@ -119,17 +104,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-sort-amount-desc"></i>
                                     </span>
-                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">关键字</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .flash.old.keyword }}">
+                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .bookCategory.Sort }}">
                                 </div>
                             </div>
 
@@ -149,7 +124,7 @@
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
         $().ready(function() {
-            $("#article-category-form").validate({
+            $("#book-category-form").validate({
                 rules: {
                     name: "required",
                     parent: "required",

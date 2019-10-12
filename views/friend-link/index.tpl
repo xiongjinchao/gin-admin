@@ -12,7 +12,7 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 内容管理
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
                     <strong><i class="fa fa-link"></i> {{ .title}}</strong>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="ibox-content">
 
-                        <div class="table-responsive">
+                        <div class="table-responsive" data-image="{{.image}}">
                             <table class="table table-striped table-bordered table-hover dataTables">
                                 <thead>
                                 <tr>
@@ -124,7 +124,7 @@
                     { "data": "link" },
                     { "data": "image", "render":
                         function(data, type, row, meta){
-                            return row.image > 0? '<img class="img-thumbnail" src="http://localhost:8080'+row.file.path+'" style="max-height:80px"/>':'';
+                            return row.image > 0? '<img class="img-thumbnail" src="'+$(".table-responsive").data('image')+row.file.path+'" style="max-height:80px"/>':'';
                         }
                     },
                     { "data": "sort" },

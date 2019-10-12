@@ -34,7 +34,7 @@
                         <li><a href="/admin/article"><i class="fa fa-file-text-o text-info"></i> 文章管理</a></li>
                         <li><a href="/admin/article-category"><i class="fa fa-th-list text-info"></i> 文章分类</a></li>
                         <li><a href="/admin/comment"><i class="fa fa-wechat text-info"></i> 评论管理</a></li>
-                        <li><a href="/admin/tag"><i class="fa fa-tags text-info"></i> 标签</a></li>
+                        <li><a href="/admin/tag"><i class="fa fa-tags text-info"></i> 标签管理</a></li>
                     </ul>
                 </li>
                 <li>

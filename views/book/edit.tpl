@@ -90,10 +90,7 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
-                                    </span>
-                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .book.Summary }}">
+                                    <textarea name="summary" rows="3" class="form-control">{{ .book.Summary }}</textarea>
                                 </div>
                             </div>
 

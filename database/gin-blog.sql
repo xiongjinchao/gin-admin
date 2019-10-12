@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2019-10-12 22:26:43
+-- 生成日期： 2019-10-13 00:02:58
 -- 服务器版本： 10.2.24-MariaDB-log
 -- PHP 版本： 7.3.9
 
@@ -166,6 +166,7 @@ DROP TABLE IF EXISTS `book_category`;
 CREATE TABLE `book_category` (
   `id` int(10) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `summary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `parent` int(10) NOT NULL DEFAULT 0,
   `level` int(10) DEFAULT 1,
   `audit` tinyint(4) DEFAULT 0,
@@ -271,7 +272,7 @@ DROP TABLE IF EXISTS `friend_link_category`;
 CREATE TABLE `friend_link_category` (
   `id` int(10) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tag` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `summary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '概要',
   `parent` int(10) NOT NULL DEFAULT 0,
   `level` int(10) DEFAULT 1,
   `audit` tinyint(4) DEFAULT 0,
