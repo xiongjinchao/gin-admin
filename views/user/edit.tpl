@@ -100,8 +100,8 @@
 {{ end }}
 
 {{ define "js" }}
-    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+    <script src="/public/plug-in/validate/jquery.validate.min.js"></script>
+    <script src="/public/plug-in/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
         jQuery.validator.addMethod("mobileCN", function(value, element) {
             var length = value.length;

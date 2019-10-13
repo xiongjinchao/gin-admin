@@ -1,6 +1,6 @@
 {{ define "css" }}
     <!-- Gritter -->
-    <link href="/public/inspinia/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/public/plug-in/gritter/jquery.gritter.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content"}}
@@ -196,7 +196,7 @@
                                     <div class="feed-activity-list">
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/profile.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/profile.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right">5m ago</small>
@@ -206,7 +206,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/a2.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a2.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right">2h ago</small>
@@ -216,7 +216,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/a3.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a3.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right">2h ago</small>
@@ -226,7 +226,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/a4.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a4.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right text-navy">5h ago</small>
@@ -240,7 +240,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/a5.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a5.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right">2h ago</small>
@@ -257,7 +257,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/profile.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/profile.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right">23h ago</small>
@@ -267,7 +267,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="float-left" href="profile.html">
-                                                <img alt="image" class="rounded-circle" src="/public/inspinia/img/a7.jpg">
+                                                <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a7.jpg">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="float-right">46h ago</small>
@@ -414,27 +414,27 @@
 
 {{ define "js" }}
     <!-- Flot -->
-    <script src="/public/inspinia/js/plugins/flot/jquery.flot.js"></script>
-    <script src="/public/inspinia/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="/public/inspinia/js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="/public/inspinia/js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="/public/inspinia/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="/public/plug-in/flot/jquery.flot.js"></script>
+    <script src="/public/plug-in/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/public/plug-in/flot/jquery.flot.spline.js"></script>
+    <script src="/public/plug-in/flot/jquery.flot.resize.js"></script>
+    <script src="/public/plug-in/flot/jquery.flot.pie.js"></script>
 
     <!-- Peity -->
-    <script src="/public/inspinia/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="/public/inspinia/js/demo/peity-demo.js"></script>
+    <script src="/public/js/jquery.peity.min.js"></script>
+    <!-- <script src="/public/inspinia/js/demo/peity-demo.js"></script>-->
 
     <!-- GITTER -->
-    <script src="/public/inspinia/js/plugins/gritter/jquery.gritter.min.js"></script>
+    <script src="/public/plug-in/gritter/jquery.gritter.min.js"></script>
 
     <!-- Sparkline -->
-    <script src="/public/inspinia/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="/public/js/jquery.sparkline.min.js"></script>
 
     <!-- Sparkline demo data  -->
-    <script src="/public/inspinia/js/demo/sparkline-demo.js"></script>
+    <!-- <script src="/public/inspinia/js/demo/sparkline-demo.js"></script>  -->
 
     <!-- ChartJS-->
-    <script src="/public/inspinia/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="/public/plug-in/chartjs/Chart.min.js"></script>
 
     <script>
         $(document).ready(function() {

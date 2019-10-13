@@ -1,5 +1,5 @@
 {{ define "css" }}
-    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -124,8 +124,8 @@
 {{ end }}
 
 {{ define "js" }}
-    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+    <script src="/public/plug-in/validate/jquery.validate.min.js"></script>
+    <script src="/public/plug-in/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
         $().ready(function() {
             $("#book-category-form").validate({

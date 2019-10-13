@@ -1,6 +1,6 @@
 {{ define "css" }}
     <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
-    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
 {{ end }}
 

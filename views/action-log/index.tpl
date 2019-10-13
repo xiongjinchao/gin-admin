@@ -1,5 +1,5 @@
 {{ define "css" }}
-    <link href="/public/inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="/public/plug-in/dataTables/css/datatables.min.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -89,8 +89,8 @@
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
 
-    <script src="/public/inspinia/js/plugins/dataTables/datatables.min.js"></script>
-    <script src="/public/inspinia/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="/public/plug-in/dataTables/js/datatables.min.js"></script>
+    <script src="/public/plug-in/dataTables/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -99,7 +99,7 @@
                 searching: false,
                 autoWidth: false,
                 language:{
-                    url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
+                    url: '/public/plug-in/dataTables/Zh_cn.json',
                 },
                 ordering: false,
                 pageLength: 25,

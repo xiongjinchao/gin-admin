@@ -9,11 +9,11 @@
 
         <title>GinBlog后台 | Login</title>
 
-        <link href="/public/inspinia/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/public/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/public/plug-in/fontawesome/css/all.min.css" rel="stylesheet">
 
-        <link href="/public/inspinia/css/animate.css" rel="stylesheet">
-        <link href="/public/inspinia/css/style.css" rel="stylesheet">
+        <link href="/public/plug-in/inspinia/css/animate.css" rel="stylesheet">
+        <link href="/public/plug-in/inspinia/css/style.css" rel="stylesheet">
 
     </head>
 
@@ -53,10 +53,10 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="/public/inspinia/js/jquery-3.1.1.min.js"></script>
-    <script src="/public/inspinia/js/bootstrap.min.js"></script>
-    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+    <script src="/public/js/jquery-3.4.1.min.js"></script>
+    <script src="/public/js/bootstrap.min.js"></script>
+    <script src="/public/plug-in/validate/jquery.validate.min.js"></script>
+    <script src="/public/plug-in/validate/localization/messages_zh.js"></script>
 
     <script type="text/javascript">
         $().ready(function() {

@@ -1,6 +1,6 @@
 {{ define "css" }}
-    <link href="/public/inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/plug-in/dataTables/css/datatables.min.css" rel="stylesheet">
+    <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <style>
         .checkbox label::before{top:1px; left:1px;}
     </style>
@@ -159,8 +159,8 @@
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
 
-    <script src="/public/inspinia/js/plugins/dataTables/datatables.min.js"></script>
-    <script src="/public/inspinia/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="/public/plug-in/dataTables/js/datatables.min.js"></script>
+    <script src="/public/plug-in/dataTables/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -168,7 +168,7 @@
                 order: [[ 0, "desc" ]],
                 autoWidth: false,
                 language:{
-                    url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
+                    url: '/public/plug-in/dataTables/Zh_cn.json',
                 },
                 pageLength: 25,
                 responsive: true,

@@ -4,7 +4,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element text-center">
-                        <img alt="image" class="rounded-circle" src="/public/inspinia/img/profile_small.jpg" />
+                        <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/profile_small.jpg" />
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="block m-t-xs font-bold">Gin Blog管理员</span>
                             <span class="text-muted text-xs block">管理员 <b class="caret"></b></span>

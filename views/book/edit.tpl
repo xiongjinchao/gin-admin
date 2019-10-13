@@ -1,6 +1,6 @@
 {{ define "css" }}
     <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
-    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
 {{ end }}
 
@@ -187,8 +187,8 @@
     <script src="/public/plug-in/bootstrap-fileinput/js/fileinput.min.js"></script>
     <script src="/public/plug-in/bootstrap-fileinput/js/zh.js"></script>
 
-    <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+    <script src="/public/plug-in/validate/jquery.validate.min.js"></script>
+    <script src="/public/plug-in/validate/localization/messages_zh.js"></script>
 
     <script src="/public/plug-in/editor-md/editormd.min.js"></script>
 

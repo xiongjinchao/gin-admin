@@ -9,16 +9,16 @@
 
     <title>{{ .title }} | GinBlog后台</title>
 
-    <link href="/public/inspinia/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/public/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="/public/inspinia/css/plugins/jQueryUI/jquery-ui.css" rel="stylesheet">
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/plug-in/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/public/plug-in/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
     {{ template "css"}}
 
     <!-- Toastr style -->
-    <link href="/public/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-    <link href="/public/inspinia/css/animate.css" rel="stylesheet">
-    <link href="/public/inspinia/css/style.css" rel="stylesheet">
+    <link href="/public/plug-in/toastr/toastr.min.css" rel="stylesheet">
+    <link href="/public/plug-in/inspinia/css/animate.css" rel="stylesheet">
+    <link href="/public/plug-in/inspinia/css/style.css" rel="stylesheet">
     <link href="/public/css/admin.css" rel="stylesheet">
 </head>
 
@@ -131,7 +131,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a1.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a1.jpg">
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
                                         <i class="fa fa-star text-warning"></i>
@@ -147,7 +147,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a2.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a2.jpg">
                                 </div>
                                 <div class="media-body">
                                     The point of using Lorem Ipsum is that it has a more-or-less normal.
@@ -159,7 +159,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a3.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a3.jpg">
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
                                         <i class="fa fa-star text-warning"></i>
@@ -176,7 +176,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a4.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a4.jpg">
                                 </div>
                                 <div class="media-body">
                                     Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the
@@ -188,7 +188,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a8.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a8.jpg">
                                 </div>
                                 <div class="media-body">
                                     All the Lorem Ipsum generators on the Internet tend to repeat.
@@ -200,7 +200,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a7.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a7.jpg">
                                 </div>
                                 <div class="media-body">
                                     Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
@@ -212,7 +212,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a3.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a3.jpg">
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
                                         <i class="fa fa-star text-warning"></i>
@@ -229,7 +229,7 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="float-left text-center">
-                                    <img alt="image" class="rounded-circle message-avatar" src="/public/inspinia/img/a4.jpg">
+                                    <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a4.jpg">
                                 </div>
                                 <div class="media-body">
                                     Uncover many web sites still in their infancy. Various versions have.
@@ -468,53 +468,26 @@
 
 
 <!-- Mainly scripts -->
-<script src="/public/inspinia/js/jquery-3.1.1.min.js"></script>
-<script src="/public/inspinia/js/popper.min.js"></script>
-<script src="/public/inspinia/js/bootstrap.min.js"></script>
-<script src="/public/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="/public/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/public/inspinia/js/plugins/fullcalendar/moment.min.js"></script>
+<script src="/public/js/jquery-3.4.1.min.js"></script>
+<script src="/public/js/popper.min.js"></script>
+<script src="/public/js/bootstrap.min.js"></script>
+<script src="/public/plug-in/metisMenu/metisMenu.min.js"></script>
+<script src="/public/js/jquery.slimscroll.min.js"></script>
+<script src="/public/js/moment.min.js"></script>
 
-<script src="/public/inspinia/js/inspinia.js"></script>
-<script src="/public/inspinia/js/plugins/pace/pace.min.js"></script>
+<script src="/public/plug-in/inspinia/js/inspinia.js"></script>
+<script src="/public/plug-in/pace/pace.min.js"></script>
 
 <!-- jquery UI -->
-<script src="/public/inspinia/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/public/plug-in/jquery-ui/jquery-ui.min.js"></script>
 
 <!-- Touch Punch - Touch Event Support for jQuery UI -->
-<script src="/public/inspinia/js/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+<script src="/public/js/jquery.ui.touch-punch.min.js"></script>
 
 <!-- Toastr -->
-<script src="/public/inspinia/js/plugins/toastr/toastr.min.js"></script>
+<script src="/public/plug-in/toastr/toastr.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".toastr-success li").each(function(i,item){
-            setTimeout(function () {
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.success($(item).text(), '系统提示');
-            }, 1000);
-        });
-
-        $(".toastr-error li").each(function(i,item){
-            setTimeout(function () {
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 60000,
-                    extendedTimeOut: 60000
-                };
-                toastr.error($(item).text(), '系统错误');
-            }, 1000);
-        });
-    });
-</script>
+<script src="/public/js/admin.js"></script>
 
 {{ template "js"}}
 </body>

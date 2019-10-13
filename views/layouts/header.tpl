@@ -21,7 +21,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a class="dropdown-item float-left" href="profile.html">
-                                    <img alt="image" class="rounded-circle" src="/public/inspinia/img/a7.jpg">
+                                    <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a7.jpg">
                                 </a>
                                 <div class="media-body">
                                     <small class="float-right">46h ago</small>
@@ -34,7 +34,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a class="dropdown-item float-left" href="profile.html">
-                                    <img alt="image" class="rounded-circle" src="/public/inspinia/img/a4.jpg">
+                                    <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/a4.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="float-right text-navy">5h ago</small>
@@ -47,7 +47,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a class="dropdown-item float-left" href="profile.html">
-                                    <img alt="image" class="rounded-circle" src="/public/inspinia/img/profile.jpg">
+                                    <img alt="image" class="rounded-circle" src="/public/plug-in/inspinia/img/profile.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="float-right">23h ago</small>
