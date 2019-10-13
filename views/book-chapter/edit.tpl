@@ -1,5 +1,6 @@
 {{ define "css" }}
     <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -12,10 +13,10 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fa fa-gears"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-star"></i> 菜单管理</strong>
+                    <strong><i class="fa fa-bookmark"></i> 书籍章节</strong>
                 </li>
             </ol>
         </div>
@@ -27,7 +28,7 @@
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-10">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>{{ .title }}</h5>
@@ -48,65 +49,80 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="menu-form" role="form" action="/admin/menu" method="post">
+                        <form id="book-chapter-form" role="form" action="/admin/book-chapter/update/{{ .bookChapter.ID }}" method="post">
                             <div class="form-group">
-                                <label class="font-bold">名称</label>
+                                <label class="font-bold">章节名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入菜单名称" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="title" placeholder="请输入章节名称" class="form-control" value="{{ .bookChapter.Title }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">标签</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
-                                    </span>
-                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="font-bold">所属菜单</label>
+                                <label class="font-bold">所属书籍</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-th-list"></i>
                                     </span>
-                                    <select class="form-control" name="parent">
-                                        <option value="0">设为主菜单</option>
-                                        {{$parent := Interface2Int64 .flash.old.parent}}
-                                        {{range .menus}}
-                                            <option value="{{.ID}}" {{if eq .ID $parent}}selected{{end}}>{{.Space}}{{.Name}}</option>
+                                    <select class="form-control" name="book_id">
+                                        <option value="0">请选择</option>
+                                        {{$BookID := .bookChapter.BookID}}
+                                        {{range .book}}
+                                            <option value="{{.ID}}" {{if eq .ID $BookID}}selected{{end}}>{{.Name}}</option>
                                         {{end}}
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">概要</label>
+                                <label class="font-bold">章节内容</label>
+                                <div id="content">
+                                    <textarea style="display:none" name="chapter" placeholder="" class="form-control" rows="12">{{ .bookChapter.Chapter }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">点击量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
+                                        <i class="fa fa-hand-o-up"></i>
                                     </span>
-                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .flash.old.summary }}">
+                                    <input type="text" name="hit" placeholder="" class="form-control" value="{{ .bookChapter.Hit }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">喜欢量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-heart-o"></i>
+                                    </span>
+                                    <input type="text" name="favorite" placeholder="" class="form-control" value="{{ .bookChapter.Favorite }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">评论量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-comment-o"></i>
+                                    </span>
+                                    <input type="text" name="comment" placeholder="" class="form-control" value="{{ .bookChapter.Comment }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="font-bold">审核</label>
-                                {{$audit := Interface2Int64 .flash.old.audit}}
                                 <div class="radio radio-primary">
-                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq $audit 1}}checked{{end}}>
+                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq .bookChapter.Audit 1}}checked{{end}}>
                                     <label for="audit1">
                                         已审核
                                     </label>
                                 </div>
                                 <div class="radio radio-primary">
-                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq $audit 0}}checked{{end}}>
+                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq .bookChapter.Audit 0}}checked{{end}}>
                                     <label for="audit2">
                                         未审核
                                     </label>
@@ -119,17 +135,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-sort-amount-desc"></i>
                                     </span>
-                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">关键字</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .flash.old.keyword }}">
+                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .bookChapter.Sort }}">
                                 </div>
                             </div>
 
@@ -147,19 +153,40 @@
 {{ define "js" }}
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
+
+    <script src="/public/plug-in/editor-md/editormd.min.js"></script>
+
     <script type="text/javascript">
+        let editor = editormd("content", {
+            width:"100%",
+            height:"500",
+            theme : "dark",
+            previewTheme : "dark",
+            editorTheme : "pastel-on-dark",
+            codeFold : true,
+            htmlDecode : true,
+            tex : true,
+            taskList : true,
+            emoji : true,
+            flowChart : true,
+            sequenceDiagram : true,
+            path:"/public/plug-in/editor-md/lib/"
+        });
+
         $().ready(function() {
-            $("#menu-form").validate({
+            $("#book-chapter-form").validate({
                 rules: {
-                    name: "required",
-                    parent: "required",
+                    title: "required",
+                    book_id: "required",
+                    chapter: "required",
                     sort:{
                         digits:true
                     }
                 },
                 messages: {
-                    name: "请输入菜单名称",
-                    parent:"请选择所属菜单",
+                    title: "请输入章节名称",
+                    book_id: "请选择书籍",
+                    chapter: "请输入章节内容",
                     sort: {
                         digits: "排序值无效",
                     }

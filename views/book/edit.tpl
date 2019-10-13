@@ -17,7 +17,7 @@
                     <i class="fa fa-gears"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-th-list"></i> 书籍管理</strong>
+                    <strong><i class="fa fa-book"></i> 书籍管理</strong>
                 </li>
             </ol>
         </div>

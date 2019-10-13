@@ -19,7 +19,7 @@
                     <i class="fa fa-gears"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-github-alt"></i> {{ .title}}</strong>
+                    <strong><i class="fa fa-graduation-cap"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>

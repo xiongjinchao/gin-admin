@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2019-10-13 00:02:58
+-- 生成日期： 2019-10-13 13:15:13
 -- 服务器版本： 10.2.24-MariaDB-log
 -- PHP 版本： 7.3.9
 
@@ -21,11 +21,11 @@ USE `gin-blog`;
 -- --------------------------------------------------------
 
 --
--- 表的结构 `action_record`
+-- 表的结构 `action_log`
 --
 
-DROP TABLE IF EXISTS `action_record`;
-CREATE TABLE `action_record` (
+DROP TABLE IF EXISTS `action_log`;
+CREATE TABLE `action_log` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `model` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所属模型',
@@ -210,8 +210,8 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL DEFAULT 0,
   `model` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所属模型',
   `model_id` int(11) NOT NULL DEFAULT 0 COMMENT '模型ID',
-  `root_id` int(11) NOT NULL DEFAULT 0 COMMENT '主评论ID',
-  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '回复评论ID',
+  `root` int(11) NOT NULL DEFAULT 0 COMMENT '主评论ID',
+  `parent` int(11) NOT NULL DEFAULT 0 COMMENT '回复评论ID',
   `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '评论内容',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -396,9 +396,9 @@ CREATE TABLE `user_auth` (
 --
 
 --
--- 表的索引 `action_record`
+-- 表的索引 `action_log`
 --
-ALTER TABLE `action_record`
+ALTER TABLE `action_log`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -494,9 +494,9 @@ ALTER TABLE `user_auth`
 --
 
 --
--- 使用表AUTO_INCREMENT `action_record`
+-- 使用表AUTO_INCREMENT `action_log`
 --
-ALTER TABLE `action_record`
+ALTER TABLE `action_log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

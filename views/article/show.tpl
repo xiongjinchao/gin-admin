@@ -14,7 +14,7 @@
                     <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-user-o"></i> 文章管理</strong>
+                    <strong><i class="fa fa-file-text-o"></i> 文章管理</strong>
                 </li>
             </ol>
         </div>

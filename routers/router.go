@@ -111,6 +111,17 @@ func Router() *gin.Engine {
 		authorized.GET("book/show/:id", book.Show)
 		authorized.GET("book/delete/:id", book.Destroy)
 
+		//BookChapter
+		bookChapter := &admin.BookChapter{}
+		authorized.GET("book-chapter", bookChapter.Index)
+		authorized.GET("book-chapter/data", bookChapter.Data)
+		authorized.GET("book-chapter/create", bookChapter.Create)
+		authorized.POST("book-chapter", bookChapter.Store)
+		authorized.GET("book-chapter/edit/:id", bookChapter.Edit)
+		authorized.POST("book-chapter/update/:id", bookChapter.Update)
+		authorized.GET("book-chapter/show/:id", bookChapter.Show)
+		authorized.GET("book-chapter/delete/:id", bookChapter.Destroy)
+
 		//Book Category
 		bookCategory := &admin.BookCategory{}
 		authorized.GET("book-category", bookCategory.Index)
@@ -148,6 +159,39 @@ func Router() *gin.Engine {
 		file := &admin.File{}
 		authorized.POST("file/upload", file.Upload)
 		authorized.POST("file/delete", file.Delete)
+
+		//Tag
+		tag := &admin.Tag{}
+		authorized.GET("tag", tag.Index)
+		authorized.GET("tag/data", tag.Data)
+		authorized.GET("tag/create", tag.Create)
+		authorized.POST("tag", tag.Store)
+		authorized.GET("tag/edit/:id", tag.Edit)
+		authorized.POST("tag/update/:id", tag.Update)
+		authorized.GET("tag/show/:id", tag.Show)
+		authorized.GET("tag/delete/:id", tag.Destroy)
+
+		//Comment
+		comment := &admin.Comment{}
+		authorized.GET("comment", comment.Index)
+		authorized.GET("comment/data", comment.Data)
+		authorized.GET("comment/create", comment.Create)
+		authorized.POST("comment", comment.Store)
+		authorized.GET("comment/edit/:id", comment.Edit)
+		authorized.POST("comment/update/:id", comment.Update)
+		authorized.GET("comment/show/:id", comment.Show)
+		authorized.GET("comment/delete/:id", comment.Destroy)
+
+		//ActionLog
+		actionLog := &admin.ActionLog{}
+		authorized.GET("action-log", actionLog.Index)
+		authorized.GET("action-log/data", actionLog.Data)
+		authorized.GET("action-log/create", actionLog.Create)
+		authorized.POST("action-log", actionLog.Store)
+		authorized.GET("action-log/edit/:id", actionLog.Edit)
+		authorized.POST("action-log/update/:id", actionLog.Update)
+		authorized.GET("action-log/show/:id", actionLog.Show)
+		authorized.GET("action-log/delete/:id", actionLog.Destroy)
 
 		//Friend Link
 		friendLink := &admin.FriendLink{}

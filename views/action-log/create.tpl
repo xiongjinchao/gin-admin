@@ -1,4 +1,5 @@
 {{ define "css" }}
+    <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -11,10 +12,10 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-graduation-cap"></i> 管理员</strong>
+                    <strong><i class="fa fa-clock-o"></i> 操作记录</strong>
                 </li>
             </ol>
         </div>
@@ -37,7 +38,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="fa fa-wrench"></i>
                             </a>
-                            <ul class="dropdown-menu dropdown-admin">
+                            <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
@@ -47,44 +48,45 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="admin-form" role="form" action="/admin/admin" method="post">
+                        <form id="action-log-form" role="form" action="/admin/action-log" method="post">
+
                             <div class="form-group">
-                                <label class="font-bold">姓名</label>
+                                <label class="font-bold">用户</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="user_id" placeholder="请输入用户ID" class="form-control" value="{{ .flash.old.user_id }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">手机号码</label>
+                                <label class="font-bold">模型名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-mobile"></i>
+                                        <i class="fa fa-th-list"></i>
                                     </span>
-                                    <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control" value="{{ .flash.old.mobile }}">
+                                    <input type="text" name="model" placeholder="" class="form-control" value="{{ .flash.old.model }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">邮箱</label>
+                                <label class="font-bold">模型编号</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
+                                        <i class="fa fa-id-card"></i>
                                     </span>
-                                    <input type="email" name="email" placeholder="请输入邮箱" class="form-control" value="{{ .flash.old.email }}">
+                                    <input type="text" name="model_id" placeholder="" class="form-control" value="{{ .flash.old.model_id }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">密码</label>
+                                <label class="font-bold">操作</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-tag"></i>
                                     </span>
-                                    <input type="password" name="password" placeholder="" class="form-control">
+                                    <input type="text" name="action" placeholder="" class="form-control" value="{{ .flash.old.action }}">
                                 </div>
                             </div>
 
@@ -103,34 +105,23 @@
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
-        jQuery.validator.addMethod("mobileCN", function(value, element) {
-            var length = value.length;
-            var mobile = /^(1[0-9]{10})$/;
-            return this.optional(element) || (length == 11 && mobile.test(value));
-        }, "请正确填写手机号码");
-
         $().ready(function() {
-            $("#admin-form").validate({
+            $("#action-log-form").validate({
                 rules: {
-                    name: "required",
-                    mobile: {
+                    model:"required",
+                    model_id: {
                         required: true,
-                        mobileCN: true,
+                        digits:true
                     },
-                    email: {
-                        required: true,
-                        email: true,
-                    }
+                    action-log:"required",
                 },
                 messages: {
-                    name: "请输入真实姓名",
-                    mobile: {
-                        required: "请输入您的手机号码"
+                    model: "请输入模型名称",
+                    model_id: {
+                        required: "请输入模型ID",
+                        digits:"模型ID无效"
                     },
-                    email: {
-                        required: "请输入邮箱",
-                        email: "请输入有效的邮箱",
-                    }
+                    action-log:"请输入操作记录",
                 }
             })
         });

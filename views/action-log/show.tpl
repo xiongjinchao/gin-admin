@@ -11,10 +11,10 @@
                     <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <<i class="fa fa-th-large"></i> 基础数据
+                    <i class="fa fa-chrome"></i> 其他
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-book"></i> 书籍管理</strong>
+                    <strong><i class="fa fa-clock-o"></i> 操作记录</strong>
                 </li>
             </ol>
         </div>
@@ -28,8 +28,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <p>
-                    <a class="btn btn-outline btn-success" href="/admin/book/edit/{{ .book.ID }}"><i class="fa fa-edit"></i> 更新</a>
-                    <a class="btn btn-outline btn-danger" href="/admin/book/delete/{{ .book.ID }}"><i class="fa fa-trash"></i> 删除</a>
+                    <a class="btn btn-outline btn-success" href="/admin/action-log/edit/{{ .actionLog.ID }}"><i class="fa fa-edit"></i> 更新</a>
+                    <a class="btn btn-outline btn-danger" href="/admin/action-log/delete/{{ .actionLog.ID }}"><i class="fa fa-trash"></i> 删除</a>
                 </p>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -54,46 +54,25 @@
                         <table id="w0" class="table table-striped table-bordered detail-view">
                             <tbody>
                                 <tr>
-                                    <th>书籍管理编号</th><td>{{ .book.ID }}</td>
+                                    <th>记录编号</th><td>{{ .actionLog.ID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>名称</th><td>{{ .book.Name }}</td>
+                                    <th>用户</th><td>{{ .actionLog.UserID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>标签</th><td>{{ .book.Tag }}</td>
+                                    <th>模型</th><td>{{ .actionLog.Model }}</td>
                                 </tr>
                                 <tr>
-                                    <th>封面</th><td>{{ .book.Cover }}</td>
+                                    <th>模型编号</th><td>{{ .actionLog.ModelID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>文章分类</th><td>{{ .book.CategoryID }}</td>
+                                    <th>操作</th><td>{{ .actionLog.Action }}</td>
                                 </tr>
                                 <tr>
-                                    <th>概要</th><td>{{ .book.Summary }}</td>
+                                    <th>创建时间</th><td>{{ .actionLog.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                                 <tr>
-                                    <th>文章目录</th><td>{{ .book.Catalogue }}</td>
-                                </tr>
-                                <tr>
-                                    <th>审核</th><td>{{ .book.Audit }}</td>
-                                </tr>
-                                <tr>
-                                    <th>点击量</th><td>{{ .book.Hit }}</td>
-                                </tr>
-                                <tr>
-                                    <th>喜欢量</th><td>{{ .book.Favorite }}</td>
-                                </tr>
-                                <tr>
-                                    <th>评论量</th><td>{{ .book.Comment }}</td>
-                                </tr>
-                                <tr>
-                                    <th>关键字</th><td>{{ .book.Keyword }}</td>
-                                </tr>
-                                <tr>
-                                    <th>创建时间</th><td>{{ .book.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
-                                </tr>
-                                <tr>
-                                    <th>更新时间</th><td>{{ .book.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>更新时间</th><td>{{ .actionLog.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                             </tbody>
                         </table>

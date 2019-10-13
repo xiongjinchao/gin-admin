@@ -15,7 +15,7 @@
                     <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-book"></i> {{ .title}}</strong>
+                    <strong><i class="fa fa-bookmark"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>
@@ -26,7 +26,7 @@
 
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
-        <p><a class="btn btn-primary" href="book/create"> <i class="fa fa-plus-circle"></i> 创建书籍</a></p>
+        <p><a class="btn btn-primary" href="book-chapter/create"> <i class="fa fa-plus-circle"></i> 创建章节</a></p>
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -55,14 +55,13 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>封面</th>
-                                    <th>名称</th>
-                                    <th>标签</th>
-                                    <th>分类</th>
+                                    <th>标题</th>
+                                    <th>所属书籍</th>
                                     <th>审核</th>
                                     <th>点击量</th>
                                     <th>喜欢量</th>
                                     <th>评论量</th>
+                                    <th>排序</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -71,14 +70,13 @@
                                 <tfoot>
                                 <tr>
                                     <th>ID</th>
-                                    <th>封面</th>
-                                    <th>名称</th>
-                                    <th>标签</th>
-                                    <th>分类</th>
+                                    <th>标题</th>
+                                    <th>所属书籍</th>
                                     <th>审核</th>
                                     <th>点击量</th>
                                     <th>喜欢量</th>
                                     <th>评论量</th>
+                                    <th>排序</th>
                                     <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
@@ -104,34 +102,24 @@
         $(document).ready(function() {
             $('.dataTables').DataTable({
                 order: [[ 0, "desc" ]],
-                searching: false,
+                searching: true,
                 autoWidth: false,
                 language:{
                     url: '/public/inspinia/js/plugins/dataTables/Zh_cn.json',
                 },
-                ordering: false,
+                ordering: true,
                 pageLength: 25,
                 responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "/admin/book/data",
+                    url: "/admin/book-chapter/data",
                     type: "GET"
                 },
                 columns: [
                     { "data": "base.id" },
-                    { "data": "cover", "render":
-                            function(data, type, row, meta){
-                                return row.cover > 0? '<img class="img-thumbnail" src="'+$(".table-responsive").data('image')+row.file.path+'" style="max-height:80px"/>':'';
-                            }
-                    },
-                    { "data": "name", "render":
-                        function(data, type, row, meta){
-                            return row.name;
-                        }
-                    },
-                    { "data": "tag" },
-                    { "data": "book_category.name" },
+                    { "data": "title"},
+                    { "data": "book.name" },
                     { "data": "audit", "class":"text-center", "render":
                         function(data, type, row, meta){
                             return row.audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>';
@@ -140,6 +128,7 @@
                     { "data": "hit" },
                     { "data": "favorite" },
                     { "data": "comment" },
+                    { "data": "sort" },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.base.created_at).format("YYYY-MM-DD HH:mm:ss");
@@ -151,9 +140,9 @@
                         }
                     },
                     { "data": null, "render": function(data, type, row, meta){
-                        return '<a href="/admin/book/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                            '<a href="/admin/book/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                            '<a href="/admin/book/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                        return '<a href="/admin/book-chapter/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/book-chapter/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/book-chapter/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
                         }
                     }
                 ],

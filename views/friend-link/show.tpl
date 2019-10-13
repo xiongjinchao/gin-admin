@@ -28,8 +28,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <p>
-                    <a class="btn btn-outline btn-success" href="/admin/book/edit/{{ .friendLink.ID }}"><i class="fa fa-edit"></i> 更新</a>
-                    <a class="btn btn-outline btn-danger" href="/admin/book/delete/{{ .friendLink.ID }}"><i class="fa fa-trash"></i> 删除</a>
+                    <a class="btn btn-outline btn-success" href="/admin/friend-link/edit/{{ .friendLink.ID }}"><i class="fa fa-edit"></i> 更新</a>
+                    <a class="btn btn-outline btn-danger" href="/admin/friend-link/delete/{{ .friendLink.ID }}"><i class="fa fa-trash"></i> 删除</a>
                 </p>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -54,10 +54,10 @@
                         <table id="w0" class="table table-striped table-bordered detail-view">
                             <tbody>
                                 <tr>
-                                    <th>友情链接管理编号</th><td>{{ .friendLink.ID }}</td>
+                                    <th>友情链接编号</th><td>{{ .friendLink.ID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>名称</th><td>{{ .friendLink.Tile }}</td>
+                                    <th>名称</th><td>{{ .friendLink.Title }}</td>
                                 </tr>
                                 <tr>
                                     <th>链接分类</th><td>{{ .friendLink.CategoryID }}</td>

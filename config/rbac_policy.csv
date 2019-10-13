@@ -89,6 +89,38 @@ p, role:ctr:friend-link-category, GET /admin/friend-link-category/edit/:id, GET
 p, role:ctr:friend-link-category, GET /admin/friend-link-category/show/:id, GET
 p, role:ctr:friend-link-category, POST /admin/friend-link-category, POST
 p, role:ctr:friend-link-category, POST /admin/friend-link-category/update/:id, POST
+p, role:ctr:action-log, GET /admin/action-log, GET
+p, role:ctr:action-log, GET /admin/action-log/data, GET
+p, role:ctr:action-log, GET /admin/action-log/delete/:id, GET
+p, role:ctr:action-log, GET /admin/action-log/create, GET
+p, role:ctr:action-log, GET /admin/action-log/edit/:id, GET
+p, role:ctr:action-log, GET /admin/action-log/show/:id, GET
+p, role:ctr:book-chapter, GET /admin/book-chapter, GET
+p, role:ctr:book-chapter, GET /admin/book-chapter/data, GET
+p, role:ctr:book-chapter, GET /admin/book-chapter/delete/:id, GET
+p, role:ctr:book-chapter, GET /admin/book-chapter/create, GET
+p, role:ctr:book-chapter, GET /admin/book-chapter/edit/:id, GET
+p, role:ctr:book-chapter, GET /admin/book-chapter/show/:id, GET
+p, role:ctr:tag, GET /admin/tag, GET
+p, role:ctr:tag, GET /admin/tag/data, GET
+p, role:ctr:tag, GET /admin/tag/delete/:id, GET
+p, role:ctr:tag, GET /admin/tag/create, GET
+p, role:ctr:tag, GET /admin/tag/edit/:id, GET
+p, role:ctr:tag, GET /admin/tag/show/:id, GET
+p, role:ctr:comment, GET /admin/comment, GET
+p, role:ctr:comment, GET /admin/comment/data, GET
+p, role:ctr:comment, GET /admin/comment/delete/:id, GET
+p, role:ctr:comment, GET /admin/comment/create, GET
+p, role:ctr:comment, GET /admin/comment/edit/:id, GET
+p, role:ctr:comment, GET /admin/comment/show/:id, GET
+p, role:ctr:action-log, POST /admin/action-log, POST
+p, role:ctr:action-log, POST /admin/action-log/update/:id, POST
+p, role:ctr:book-chapter, POST /admin/book-chapter, POST
+p, role:ctr:book-chapter, POST /admin/book-chapter/update/:id, POST
+p, role:ctr:tag, POST /admin/tag, POST
+p, role:ctr:tag, POST /admin/tag/update/:id, POST
+p, role:ctr:comment, POST /admin/comment, POST
+p, role:ctr:comment, POST /admin/comment/update/:id, POST
 g, admin:admin, role:sys:admin
 g, admin:1, role:sys:admin
 g, role:sys:admin, role:ctr:article
@@ -105,3 +137,7 @@ g, role:editor, role:ctr:admin
 g, role:editor, role:ctr:article
 g, role:sys:admin, role:ctr:book-category
 g, role:sys:admin, role:ctr:friend-link-category
+g, role:sys:admin, role:ctr:action-log
+g, role:sys:admin, role:ctr:book-chapter
+g, role:sys:admin, role:ctr:tag
+g, role:sys:admin, role:ctr:comment

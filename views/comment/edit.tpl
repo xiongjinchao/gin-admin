@@ -15,7 +15,7 @@
                     <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-star"></i> 菜单管理</strong>
+                    <strong><i class="fa fa-wechat"></i> 评论管理</strong>
                 </li>
             </ol>
         </div>
@@ -48,88 +48,61 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="menu-form" role="form" action="/admin/menu" method="post">
+                        <form id="comment-form" role="form" action="/admin/comment/update/{{ .comment.ID }}" method="post">
                             <div class="form-group">
-                                <label class="font-bold">名称</label>
+                                <label class="font-bold">用户</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入菜单名称" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="user_id" placeholder="请输入用户ID" class="form-control" value="{{ .comment.UserID }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">标签</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
-                                    </span>
-                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="font-bold">所属菜单</label>
+                                <label class="font-bold">模型名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-th-list"></i>
                                     </span>
-                                    <select class="form-control" name="parent">
-                                        <option value="0">设为主菜单</option>
-                                        {{$parent := Interface2Int64 .flash.old.parent}}
-                                        {{range .menus}}
-                                            <option value="{{.ID}}" {{if eq .ID $parent}}selected{{end}}>{{.Space}}{{.Name}}</option>
-                                        {{end}}
-                                    </select>
+                                    <input type="text" name="model" placeholder="" class="form-control" value="{{ .comment.Model }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">概要</label>
+                                <label class="font-bold">模型编号</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
+                                        <i class="fa fa-id-card"></i>
                                     </span>
-                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .flash.old.summary }}">
+                                    <input type="text" name="model_id" placeholder="" class="form-control" value="{{ .comment.ModelID }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">审核</label>
-                                {{$audit := Interface2Int64 .flash.old.audit}}
-                                <div class="radio radio-primary">
-                                    <input type="radio" name="audit" id="audit1" value="1" {{if eq $audit 1}}checked{{end}}>
-                                    <label for="audit1">
-                                        已审核
-                                    </label>
-                                </div>
-                                <div class="radio radio-primary">
-                                    <input type="radio" name="audit" id="audit2" value="0" {{if eq $audit 0}}checked{{end}}>
-                                    <label for="audit2">
-                                        未审核
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">排序</label>
+                                <label class="font-bold">根级</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-sort-amount-desc"></i>
                                     </span>
-                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
+                                    <input type="text" name="root" placeholder="" class="form-control" value="{{ .comment.Root }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">关键字</label>
+                                <label class="font-bold">父级</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
+                                        <i class="fa fa-sort-amount-desc"></i>
                                     </span>
-                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .flash.old.keyword }}">
+                                    <input type="text" name="parent" placeholder="" class="form-control" value="{{ .comment.Parent }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">内容</label>
+                                <div class="input-group">
+                                    <textarea name="content" rows="3" class="form-control">{{ .comment.Content }}</textarea>
                                 </div>
                             </div>
 
@@ -149,20 +122,46 @@
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
     <script type="text/javascript">
         $().ready(function() {
-            $("#menu-form").validate({
+            $("#comment-form").validate({
                 rules: {
-                    name: "required",
-                    parent: "required",
-                    sort:{
+                    user_id: {
+                        required: true,
                         digits:true
-                    }
+                    },
+                    model:"required",
+                    model_id: {
+                        required: true,
+                        digits:true
+                    },
+                    root:{
+                        required: true,
+                        digits:true
+                    },
+                    parent:{
+                        required: true,
+                        digits:true
+                    },
+                    content:"required",
                 },
                 messages: {
-                    name: "请输入菜单名称",
-                    parent:"请选择所属菜单",
-                    sort: {
-                        digits: "排序值无效",
-                    }
+                    user_id: {
+                        required: "请输入用户ID",
+                        digits: "用户ID无效"
+                    },
+                    model: "请输入模型名称",
+                    model_id: {
+                        required: "请输入模型ID",
+                        digits:"模型ID无效"
+                    },
+                    root:{
+                        required: "请输入评论根级ID",
+                        digits:"根级ID无效"
+                    },
+                    parent:{
+                        required: "请输入评论父级ID",
+                        digits:"父级ID无效"
+                    },
+                    content:"请输入内容",
                 }
             })
         });

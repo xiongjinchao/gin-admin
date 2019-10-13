@@ -1,6 +1,6 @@
 package models
 
-type ActionRecord struct {
+type ActionLog struct {
 	Base    `json:"base"`
 	UserID  int64  `json:"user_id" form:"user_id" gorm:"column:user_id"`
 	Model   string `json:"model" form:"model"`
@@ -8,6 +8,6 @@ type ActionRecord struct {
 	Action  string `json:"action" form:"action"`
 }
 
-func (ActionRecord) TableName() string {
-	return "action_record"
+func (ActionLog) TableName() string {
+	return "action_log"
 }

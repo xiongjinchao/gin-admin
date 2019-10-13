@@ -1,5 +1,4 @@
 {{ define "css" }}
-    <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
     <link href="/public/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
 {{ end }}
@@ -17,7 +16,7 @@
                     <i class="fa fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-book"></i> 书籍管理</strong>
+                    <strong><i class="fa fa-bookmark"></i> 书籍章节</strong>
                 </li>
             </ol>
         </div>
@@ -50,63 +49,37 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="book-form" role="form" action="/admin/book" method="post">
+                        <form id="book-chapter-form" role="form" action="/admin/book-chapter" method="post">
                             <div class="form-group">
-                                <label class="font-bold">名称</label>
+                                <label class="font-bold">章节名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user-o"></i>
                                     </span>
-                                    <input type="text" name="name" placeholder="请输入书籍名称" class="form-control" value="{{ .flash.old.name }}">
+                                    <input type="text" name="title" placeholder="请输入章节名称" class="form-control" value="{{ .flash.old.title }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">标签</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
-                                    </span>
-                                    <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">所属分类</label>
+                                <label class="font-bold">所属书籍</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-th-list"></i>
                                     </span>
-                                    <select class="form-control" name="category_id">
+                                    <select class="form-control" name="book_id">
                                         <option value="0">请选择</option>
-                                        {{$CategoryID := Interface2Int64 .flash.old.category_id}}
-                                        {{range .bookCategories}}
-                                            <option value="{{.ID}}" {{if eq .ID $CategoryID}}selected{{end}}>{{.Space}}{{.Name}}</option>
+                                        {{$BookID := Interface2Int64 .flash.old.book_id}}
+                                        {{range .book}}
+                                            <option value="{{.ID}}" {{if eq .ID $BookID}}selected{{end}}>{{.Name}}</option>
                                         {{end}}
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">概要</label>
-                                <div class="input-group">
-                                    <textarea name="summary" rows="3" class="form-control">{{ .flash.old.summary }}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">封面</label>
-                                <input id="file" type="file" name="file" accept="image/*"
-                                       data-category="book"
-                                       data-initial-preview=''
-                                       data-initial-preview-config=''>
-                                <input id="cover" type="hidden" name="cover" value="">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">目录</label>
+                                <label class="font-bold">章节内容</label>
                                 <div id="content">
-                                    <textarea style="display:none" name="catalogue" placeholder="" class="form-control" rows="12">{{ .flash.old.catalogue }}</textarea>
+                                    <textarea style="display:none" name="chapter" placeholder="" class="form-control" rows="12">{{ .flash.old.chapter }}</textarea>
                                 </div>
                             </div>
 
@@ -158,12 +131,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">关键字</label>
+                                <label class="font-bold">排序</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
+                                        <i class="fa fa-sort-amount-desc"></i>
                                     </span>
-                                    <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .flash.old.keyword }}">
+                                    <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
                                 </div>
                             </div>
 
@@ -179,12 +152,6 @@
 {{ end }}
 
 {{ define "js" }}
-    <script src="/public/plug-in/bootstrap-fileinput/js/piexif.min.js"></script>
-    <script src="/public/plug-in/bootstrap-fileinput/js/sortable.min.js"></script>
-    <script src="/public/plug-in/bootstrap-fileinput/js/purify.min.js"></script>
-    <script src="/public/plug-in/bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script src="/public/plug-in/bootstrap-fileinput/js/zh.js"></script>
-
     <script src="/public/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/public/inspinia/js/plugins/validate/localization/messages_zh.js"></script>
 
@@ -207,85 +174,23 @@
             path:"/public/plug-in/editor-md/lib/"
         });
 
-        $("#file").fileinput({
-            uploadUrl: '/admin/file/upload',
-            language: 'zh',
-            maxFileSize: 5000,
-            showRemove: false,
-            showUpload: false,
-            autoReplace: true,
-            maxFileCount: 1,
-            showClose: false,
-            previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
-            allowedFileExtensions: ["jpg", "png", "gif"],
-            allowedFileTypes: ['image'],
-            uploadExtraData: {category:$("#file").data('category')},
-            deleteExtraData: {key:$("#cover").val()},
-            initialPreviewAsData: true,
-            overwriteInitial: true,
-            allowedPreviewTypes: ['image'],
-            previewFileIconSettings: {
-                'doc': '<i class="fas fa-file-word text-primary"></i>',
-                'xls': '<i class="fas fa-file-excel text-success"></i>',
-                'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
-                'jpg': '<i class="fas fa-file-image text-warning"></i>',
-                'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
-                'zip': '<i class="fas fa-file-archive text-muted"></i>',
-                'htm': '<i class="fas fa-file-code text-info"></i>',
-                'txt': '<i class="fas fa-file-text text-info"></i>',
-                'mov': '<i class="fas fa-file-movie-o text-warning"></i>',
-                'mp3': '<i class="fas fa-file-audio text-warning"></i>',
-            },
-            previewFileExtSettings: {
-                'doc': function(ext) {
-                    return ext.match(/(doc|docx)$/i);
-                },
-                'xls': function(ext) {
-                    return ext.match(/(xls|xlsx)$/i);
-                },
-                'ppt': function(ext) {
-                    return ext.match(/(ppt|pptx)$/i);
-                },
-                'zip': function(ext) {
-                    return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
-                },
-                'htm': function(ext) {
-                    return ext.match(/(php|js|css|htm|html)$/i);
-                },
-                'txt': function(ext) {
-                    return ext.match(/(txt|ini|md)$/i);
-                },
-                'mov': function(ext) {
-                    return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
-                },
-                'mp3': function(ext) {
-                    return ext.match(/(mp3|wav)$/i);
-                },
-            }
-        }).on('filebatchselected', function(event, files) {
-            $(".file-preview-success").remove();
-            $("#cover").val(0);
-        }).on('fileuploaded', function(event, data, previewId, index) {
-            if(data.response.status == 'success') {
-                $("#" + previewId).find(".kv-file-remove:visible").attr({
-                    'data-key': data.response.data.key,
-                    'data-url': '/admin/file/delete',
-                });
-                $("#cover").val(data.response.data.key);
-            }
-        }).on('filesuccessremove', function (event, id) {
-            $("#cover").val(0);
-        }).on('filedeleted', function(event, key, jqXHR, data) {
-            $("#cover").val(0);
-        });
-
         $().ready(function() {
-            $("#book-form").validate({
+            $("#book-chapter-form").validate({
                 rules: {
-                    name: "required",
+                    title: "required",
+                    book_id: "required",
+                    chapter: "required",
+                    sort:{
+                        digits:true
+                    }
                 },
                 messages: {
-                    name: "请输入书籍名称",
+                    title: "请输入章节名称",
+                    book_id: "请选择书籍",
+                    chapter: "请输入章节内容",
+                    sort: {
+                        digits: "排序值无效",
+                    }
                 }
             })
         });

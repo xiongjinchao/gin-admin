@@ -3,7 +3,7 @@ package models
 type BookChapter struct {
 	Base     `json:"base"`
 	Title    string `json:"title" form:"title"`
-	BookID   string `json:"book_id" form:"book_id" gorm:"column:book_id"`
+	BookID   int64  `json:"book_id" form:"book_id" gorm:"column:book_id"`
 	Chapter  string `json:"chapter" form:"chapter"`
 	Audit    int64  `json:"audit" form:"audit"`
 	Sort     int64  `json:"sort" form:"sort"`
