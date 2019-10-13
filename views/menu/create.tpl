@@ -63,7 +63,7 @@
                                 <label class="font-bold">标签</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
+                                        <i class="fa fa-header"></i>
                                     </span>
                                     <input type="text" name="tag" placeholder="请输入标签" class="form-control" value="{{ .flash.old.tag }}">
                                 </div>

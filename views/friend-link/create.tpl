@@ -54,7 +54,7 @@
                                 <label class="font-bold">名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fa fa-header"></i>
                                     </span>
                                     <input type="text" name="title" placeholder="请输入友情链接名称" class="form-control" value="{{ .flash.old.title }}">
                                 </div>

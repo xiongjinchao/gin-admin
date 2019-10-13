@@ -102,6 +102,9 @@
                             <div class="form-group">
                                 <label class="font-bold">内容</label>
                                 <div class="input-group">
+                                    <span class="input-group-addon" style="padding-top:28px;">
+                                        <i class="fa fa-text-width"></i>
+                                    </span>
                                     <textarea name="content" rows="3" class="form-control">{{ .comment.Content }}</textarea>
                                 </div>
                             </div>
