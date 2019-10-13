@@ -23,10 +23,17 @@
  }
 .fal{font-size:14px;}
 .nav.metismenu .fal{
-     font-size:18px;
- }
+    font-size:18px;
+}
+.nav.metismenu .fal.fa-cubes,.nav.metismenu .fal.fa-star-of-david{
+    font-size:20px;
+}
+.nav.metismenu .fal.fa-tags,.nav.metismenu .fal.fa-cogs{
+    font-size:16px;
+}
 
-.dataTables_filter input{height:34px;border-radius: 3px}
+div.dataTables_wrapper div.dataTables_filter label{margin-right:0;}
+.dataTables_filter input{height:34px;border-radius: 1px;margin-right:0}
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{top:auto}
 
 table.dataTable thead .sorting_desc:after {

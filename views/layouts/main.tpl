@@ -18,7 +18,7 @@
     <!-- Toastr style -->
     <link href="/public/plug-in/toastr/toastr.min.css" rel="stylesheet">
     <link href="/public/plug-in/inspinia/css/animate.css" rel="stylesheet">
-    <link href="/public/plug-in/inspinia/css/style.css" rel="stylesheet">
+    <link href="/public/plug-in/inspinia/css/style.min.css" rel="stylesheet">
     <link href="/public/css/admin.css" rel="stylesheet">
 </head>
 
