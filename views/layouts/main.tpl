@@ -479,7 +479,7 @@
 <script src="/public/plug-in/pace/pace.min.js"></script>
 
 <!-- jquery UI -->
-<script src="/public/plug-in/jquery-ui/jquery-ui.min.js"></script>
+<script src="//cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <!-- Touch Punch - Touch Event Support for jQuery UI -->
 <script src="/public/js/jquery.ui.touch-punch.min.js"></script>
