@@ -159,8 +159,6 @@
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
 
-    <script type="text/javascript" src="/public/plug-in/dataTables/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="/public/plug-in/dataTables/js/vfs_fonts.js"></script>
     <script type="text/javascript" src="/public/plug-in/dataTables/js/datatables.min.js"></script>
 
     <script>
@@ -203,25 +201,7 @@
                         }
                     }
                 ],
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy' },
-                    { extend: 'csv' },
-                    { extend: 'excel', title: 'ExampleFile' },
-                    { extend: 'pdf', title: 'ExampleFile' },
-
-                    {
-                        extend: 'print',
-                        customize: function(win) {
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
+                dom: '<"html5buttons"B>lTfgitp'
 
             });
         });
