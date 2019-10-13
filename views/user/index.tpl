@@ -86,9 +86,10 @@
 
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
-
+    <!--
     <script type="text/javascript" src="/public/plug-in/dataTables/js/pdfmake.min.js"></script>
     <script type="text/javascript" src="/public/plug-in/dataTables/js/vfs_fonts.js"></script>
+    -->
     <script type="text/javascript" src="/public/plug-in/dataTables/js/datatables.min.js"></script>
 
     <script>
@@ -131,6 +132,7 @@
                     }
                 ],
                 dom: '<"html5buttons"B>lTfgitp',
+                /*
                 buttons: [
                     { extend: 'copy' },
                     { extend: 'csv' },
@@ -149,6 +151,7 @@
                         }
                     }
                 ]
+                */
 
             });
 
