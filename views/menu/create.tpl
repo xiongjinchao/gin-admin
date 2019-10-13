@@ -92,7 +92,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-globe"></i>
                                     </span>
-                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .flash.old.summary }}">
+                                    <textarea name="summary" rows="3" class="form-control">{{ .flash.old.summary }}</textarea>
                                 </div>
                             </div>
 

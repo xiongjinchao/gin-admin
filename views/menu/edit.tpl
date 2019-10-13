@@ -92,7 +92,7 @@
                                     <span class="input-group-addon" style="padding-top:28px;">
                                         <i class="fa fa-text-width"></i>
                                     </span>
-                                    <input type="text" name="summary" placeholder="" class="form-control" value="{{ .menu.Summary }}">
+                                    <textarea type="text" name="summary" rows="3" class="form-control">{{ .menu.Summary }}</textarea>
                                 </div>
                             </div>
 
