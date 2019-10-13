@@ -11,13 +11,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fal fa-cogs"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-user-o"></i> {{ .title}}</strong>
+                    <strong><i class="fal fa-user"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>
@@ -29,9 +29,9 @@
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <p>
-            <a class="btn btn-primary" href="policy/create"> <i class="fa fa-plus-circle"></i> 创建角色</a>
-            <a class="btn btn-success" href="policy/upgrade"> <i class="fa fa-search"></i> 权限检索</a>
-            <a class="btn btn-danger" href="policy/reset"> <i class="fa fa-recycle"></i> 角色重置</a>
+            <a class="btn btn-primary" href="policy/create"> <i class="fal fa-plus-circle"></i> 创建角色</a>
+            <a class="btn btn-success" href="policy/upgrade"> <i class="fal fa-search"></i> 权限检索</a>
+            <a class="btn btn-danger" href="policy/reset"> <i class="fal fa-recycle"></i> 角色重置</a>
         </p>
         <div class="row">
             <div class="col-lg-12">
@@ -40,17 +40,17 @@
                         <h5>{{ .title}}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-role">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -113,9 +113,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="/admin/policy/show/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-primary {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-eye"></i> 查看</a>
-                                            <a href="/admin/policy/edit/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-success {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-edit"></i> 编辑</a>
-                                            <a href="/admin/policy/delete/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-danger {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fa fa-trash"></i> 删除</a>
+                                            <a href="/admin/policy/show/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-primary {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fal fa-eye"></i> 查看</a>
+                                            <a href="/admin/policy/edit/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-success {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fal fa-edit"></i> 编辑</a>
+                                            <a href="/admin/policy/delete/{{Replace $i "role:" "" 1}}" class="btn btn-xs btn-outline btn-danger {{if or (Contains $i ":sys:") (Contains $i ":ctr:")}} disabled {{end}}"><i class="fal fa-trash-alt"></i> 删除</a>
                                         </td>
                                     </tr>
                                 {{ end }}

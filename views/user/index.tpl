@@ -9,13 +9,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fal fa-cogs"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-user-o"></i> {{ .title}}</strong>
+                    <strong><i class="fal fa-user"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>
@@ -26,7 +26,7 @@
 
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
-        <p><a class="btn btn-primary" href="user/create"> <i class="fa fa-plus-circle"></i> 创建用户</a></p>
+        <p><a class="btn btn-primary" href="user/create"> <i class="fal fa-plus-circle"></i> 创建用户</a></p>
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -34,17 +34,17 @@
                         <h5>{{ .title}}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -123,9 +123,9 @@
                     },
                     { "data": null, "render":
                         function(data, type, row, meta){
-                            return '<a href="/admin/user/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                                '<a href="/admin/user/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                                '<a href="/admin/user/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                            return '<a href="/admin/user/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fal fa-eye"></i> 查看</a> ' +
+                                '<a href="/admin/user/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fal fa-edit"></i> 编辑</a> ' +
+                                '<a href="/admin/user/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fal fa-trash-alt"></i> 删除</a>';
                         }
                     }
                 ],

@@ -8,13 +8,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fal fa-cogs"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-user-o"></i> 用户管理</strong>
+                    <strong><i class="fal fa-user"></i> 用户管理</strong>
                 </li>
             </ol>
         </div>
@@ -32,17 +32,17 @@
                         <h5>{{ .title }}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                                 <label class="font-bold">姓名</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fal fa-user"></i>
                                     </span>
                                     <input type="text" name="name" placeholder="请输入真实姓名" class="form-control" value="{{ .user.Name }}">
                                 </div>
@@ -62,7 +62,7 @@
                                 <label class="font-bold">手机号码</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-mobile"></i>
+                                        <i class="fal fa-mobile-android"></i>
                                     </span>
                                     <input type="text" name="mobile" placeholder="请输入手机号码" class="form-control" value="{{ .user.Mobile }}">
                                 </div>
@@ -72,7 +72,7 @@
                                 <label class="font-bold">邮箱</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
+                                        <i class="fal fa-envelope"></i>
                                     </span>
                                     <input type="email" name="email" placeholder="请输入邮箱" class="form-control" value="{{ .user.Email }}">
                                 </div>
@@ -82,14 +82,14 @@
                                 <label class="font-bold">密码</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-star"></i>
+                                        <i class="fal fa-star-of-david"></i>
                                     </span>
                                     <input type="password" name="password" placeholder="为空则不修改原密码" class="form-control">
                                 </div>
                             </div>
 
                             <div>
-                                <button type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button type="submit" class="btn btn-sm btn-primary"> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>

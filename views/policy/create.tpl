@@ -13,13 +13,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fal fa-cogs"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-github-alt"></i> 角色权限</strong>
+                    <strong><i class="fal fa-user-cog"></i> 角色权限</strong>
                 </li>
             </ol>
         </div>
@@ -37,17 +37,17 @@
                         <h5>{{ .title }}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <label class="font-bold">角色名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fal fa-user"></i>
                                     </span>
                                     <input type="text" name="name" placeholder="请输入角色名称" class="form-control" value="{{ .flash.old.name }}">
                                 </div>
@@ -88,7 +88,7 @@
                             </div>
 
                             <div>
-                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>

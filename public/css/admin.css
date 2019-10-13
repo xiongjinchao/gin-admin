@@ -21,3 +21,7 @@
  .file-drop-zone{
      overflow:hidden;
  }
+.fal{font-size:14px;}
+.nav.metismenu .fal{
+     font-size:18px;
+ }

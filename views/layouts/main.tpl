@@ -10,7 +10,7 @@
     <title>{{ .title }} | GinBlog后台</title>
 
     <link href="/public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/public/plug-in/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/public/plug-in/fontawesome-pro-5.7.2/css/all.min.css" rel="stylesheet">
     <link href="/public/plug-in/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
     {{ template "css"}}
@@ -105,7 +105,7 @@
     <div id="small-chat">
         <span class="badge badge-warning float-right">5</span>
         <a class="open-small-chat" href="">
-            <i class="fa fa-comments"></i>
+            <i class="fal fa-comments"></i>
         </a>
     </div>
     <div id="right-sidebar" class="animated">
@@ -118,14 +118,14 @@
                     <a class="nav-link" data-toggle="tab" href="#tab-2"> Projects </a>
                 </li>
                 <li>
-                    <a class="nav-link" data-toggle="tab" href="#tab-3"> <i class="fa fa-gear"></i> </a>
+                    <a class="nav-link" data-toggle="tab" href="#tab-3"> <i class="fal fa-cog"></i> </a>
                 </li>
             </ul>
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane active">
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-comments-o"></i> Latest Notes</h3>
-                        <small><i class="fa fa-tim"></i> You have 10 new message.</small>
+                        <h3> <i class="fal fa-comments"></i> Latest Notes</h3>
+                        <small><i class="fal fa-clock"></i> You have 10 new message.</small>
                     </div>
                     <div>
                         <div class="sidebar-message">
@@ -133,8 +133,8 @@
                                 <div class="float-left text-center">
                                     <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a1.jpg">
                                     <div class="m-t-xs">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -161,9 +161,9 @@
                                 <div class="float-left text-center">
                                     <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a3.jpg">
                                     <div class="m-t-xs">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -214,9 +214,9 @@
                                 <div class="float-left text-center">
                                     <img alt="image" class="rounded-circle message-avatar" src="/public/plug-in/inspinia/img/a3.jpg">
                                     <div class="m-t-xs">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
+                                        <i class="fal fa-star-of-david text-warning"></i>
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -242,8 +242,8 @@
                 </div>
                 <div id="tab-2" class="tab-pane">
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-cube"></i> Latest projects</h3>
-                        <small><i class="fa fa-tim"></i> You have 14 projects. 10 not completed.</small>
+                        <h3> <i class="fal fa-cube"></i> Latest projects</h3>
+                        <small><i class="fal fa-clock"></i> You have 14 projects. 10 not completed.</small>
                     </div>
                     <ul class="sidebar-list">
                         <li>
@@ -337,8 +337,8 @@
                 </div>
                 <div id="tab-3" class="tab-pane">
                     <div class="sidebar-title">
-                        <h3><i class="fa fa-gears"></i> Settings</h3>
-                        <small><i class="fa fa-tim"></i> You have 14 projects. 10 not completed.</small>
+                        <h3><i class="fal fa-cogs"></i> Settings</h3>
+                        <small><i class="fal fa-clock"></i> You have 14 projects. 10 not completed.</small>
                     </div>
                     <div class="setings-item">
                             <span>

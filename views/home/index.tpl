@@ -99,10 +99,10 @@
                                 <h5>New data for the report</h5> <span class="label label-primary">IN+</span>
                                 <div class="ibox-tools">
                                     <a class="collapse-link" href="">
-                                        <i class="fa fa-chevron-up"></i>
+                                        <i class="fal fa-chevron-up"></i>
                                     </a>
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
+                                        <i class="fal fa-wrench"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-user">
                                         <li><a href="#" class="dropdown-item">Config option 1</a>
@@ -111,7 +111,7 @@
                                         </li>
                                     </ul>
                                     <a class="close-link" href="">
-                                        <i class="fa fa-times"></i>
+                                        <i class="fal fa-times"></i>
                                     </a>
                                 </div>
                             </div>
@@ -134,10 +134,10 @@
                                 <h5>Read below comments</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link" href="">
-                                        <i class="fa fa-chevron-up"></i>
+                                        <i class="fal fa-chevron-up"></i>
                                     </a>
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
+                                        <i class="fal fa-wrench"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-user">
                                         <li><a href="#" class="dropdown-item">Config option 1</a>
@@ -146,7 +146,7 @@
                                         </li>
                                     </ul>
                                     <a class="close-link" href="">
-                                        <i class="fa fa-times"></i>
+                                        <i class="fal fa-times"></i>
                                     </a>
                                 </div>
                             </div>
@@ -154,30 +154,30 @@
                                 <ul class="list-group">
                                     <li class="list-group-item">
                                         <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
+                                        <small class="block text-muted"><i class="fal fa-cabinet-filing"></i> 1 minuts ago</small>
                                     </li>
                                     <li class="list-group-item">
                                         <p><a class="text-info" href="#">@Stock Man</a> Check this stock chart. This price is crazy! </p>
                                         <div class="text-center m">
                                             <span id="sparkline8"></span>
                                         </div>
-                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 hours ago</small>
+                                        <small class="block text-muted"><i class="fal fa-cabinet-filing"></i> 2 hours ago</small>
                                     </li>
                                     <li class="list-group-item">
                                         <p><a class="text-info" href="#">@Kevin Smith</a> Lorem ipsum unknown printer took a galley </p>
-                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
+                                        <small class="block text-muted"><i class="fal fa-cabinet-filing"></i> 2 minuts ago</small>
                                     </li>
                                     <li class="list-group-item ">
                                         <p><a class="text-info" href="#">@Jonathan Febrick</a> The standard chunk of Lorem Ipsum</p>
-                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 hour ago</small>
+                                        <small class="block text-muted"><i class="fal fa-cabinet-filing"></i> 1 hour ago</small>
                                     </li>
                                     <li class="list-group-item">
                                         <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
+                                        <small class="block text-muted"><i class="fal fa-cabinet-filing"></i> 1 minuts ago</small>
                                     </li>
                                     <li class="list-group-item">
                                         <p><a class="text-info" href="#">@Kevin Smith</a> Lorem ipsum unknown printer took a galley </p>
-                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
+                                        <small class="block text-muted"><i class="fal fa-cabinet-filing"></i> 2 minuts ago</small>
                                     </li>
                                 </ul>
                             </div>
@@ -233,8 +233,8 @@
                                                 <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
                                                 <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
                                                 <div class="actions">
-                                                    <a href="" class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                    <a href="" class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
+                                                    <a href="" class="btn btn-xs btn-white"><i class="fal fa-thumbs-up"></i> Like </a>
+                                                    <a href="" class="btn btn-xs btn-white"><i class="fal fa-heart"></i> Love</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,7 +251,7 @@
                                                     Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                                                 </div>
                                                 <div class="float-right">
-                                                    <a href="" class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                    <a href="" class="btn btn-xs btn-white"><i class="fal fa-thumbs-up"></i> Like </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -276,7 +276,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>
+                                    <button class="btn btn-primary btn-block m-t"><i class="fal fa-arrow-down"></i> Show More</button>
                                 </div>
                             </div>
                         </div>
@@ -287,10 +287,10 @@
                                 <h5>Alpha project</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link" href="">
-                                        <i class="fa fa-chevron-up"></i>
+                                        <i class="fal fa-chevron-up"></i>
                                     </a>
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
+                                        <i class="fal fa-wrench"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-user">
                                         <li><a href="#" class="dropdown-item">Config option 1</a>
@@ -299,19 +299,19 @@
                                         </li>
                                     </ul>
                                     <a class="close-link" href="">
-                                        <i class="fa fa-times"></i>
+                                        <i class="fal fa-times"></i>
                                     </a>
                                 </div>
                             </div>
                             <div class="ibox-content ibox-heading">
                                 <h3>You have meeting today!</h3>
-                                <small><i class="fa fa-map-marker"></i> Meeting is on 6:00am. Check your schedule to see detail.</small>
+                                <small><i class="fal fa-map-marker"></i> Meeting is on 6:00am. Check your schedule to see detail.</small>
                             </div>
                             <div class="ibox-content inspinia-timeline">
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-4 date">
-                                            <i class="fa fa-briefcase"></i>
+                                            <i class="fal fa-briefcase"></i>
                                             6:00 am
                                             <br />
                                             <small class="text-navy">2 hour ago</small>
@@ -327,7 +327,7 @@
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-4 date">
-                                            <i class="fa fa-file"></i>
+                                            <i class="fal fa-file-word"></i>
                                             7:00 am
                                             <br />
                                             <small class="text-navy">3 hour ago</small>
@@ -341,7 +341,7 @@
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-4 date">
-                                            <i class="fa fa-coffee"></i>
+                                            <i class="fal fa-coffee"></i>
                                             8:00 am
                                             <br />
                                         </div>
@@ -357,7 +357,7 @@
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-4 date">
-                                            <i class="fa fa-phone"></i>
+                                            <i class="fal fa-phone"></i>
                                             11:00 am
                                             <br />
                                             <small class="text-navy">21 hour ago</small>
@@ -373,7 +373,7 @@
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-4 date">
-                                            <i class="fa fa-user-md"></i>
+                                            <i class="fal fa-user-md"></i>
                                             09:00 pm
                                             <br />
                                             <small>21 hour ago</small>
@@ -389,7 +389,7 @@
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-4 date">
-                                            <i class="fa fa-comments"></i>
+                                            <i class="fal fa-comments"></i>
                                             12:50 pm
                                             <br />
                                             <small class="text-navy">48 hour ago</small>

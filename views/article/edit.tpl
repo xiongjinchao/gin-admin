@@ -11,13 +11,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fal fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-file-text-o"></i> 文章管理</strong>
+                    <strong><i class="fal fa-file-word"></i> 文章管理</strong>
                 </li>
             </ol>
         </div>
@@ -35,17 +35,17 @@
                         <h5>{{ .title }}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                                 <label class="font-bold">标题</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-header"></i>
+                                        <i class="fal fa-heading"></i>
                                     </span>
                                     <input type="text" name="title" placeholder="请输入标题" class="form-control" value="{{ .article.Title }}">
                                 </div>
@@ -66,7 +66,7 @@
                                 <label class="font-bold">所属分类</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-th-list"></i>
+                                        <i class="fal fa-list-ul"></i>
                                     </span>
                                     <select class="form-control" name="category_id">
                                         <option value="0">请选择</option>
@@ -82,7 +82,7 @@
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
                                     <span class="input-group-addon" style="padding-top:28px;">
-                                        <i class="fa fa-text-width"></i>
+                                        <i class="fal fa-text-width"></i>
                                     </span>
                                     <textarea name="summary" rows="3" class="form-control">{{ .article.Summary }}</textarea>
                                 </div>
@@ -156,7 +156,7 @@
                                 <label class="font-bold">点击量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-hand-o-up"></i>
+                                        <i class="fal fa-hand-point-up"></i>
                                     </span>
                                     <input type="text" name="hit" placeholder="" class="form-control" value="{{ .article.Hit }}">
                                 </div>
@@ -166,7 +166,7 @@
                                 <label class="font-bold">喜欢量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-heart-o"></i>
+                                        <i class="fal fa-heart"></i>
                                     </span>
                                     <input type="text" name="favorite" placeholder="" class="form-control" value="{{ .article.Favorite }}">
                                 </div>
@@ -176,7 +176,7 @@
                                 <label class="font-bold">评论量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-comment-o"></i>
+                                        <i class="fal fa-comment"></i>
                                     </span>
                                     <input type="text" name="comment" placeholder="" class="form-control" value="{{ .article.Comment }}">
                                 </div>
@@ -186,7 +186,7 @@
                                 <label class="font-bold">所属用户</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-th-list"></i>
+                                        <i class="fal fa-list-ul"></i>
                                     </span>
                                     <select class="form-control" name="user_id">
                                         <option value="0">请选择</option>
@@ -202,7 +202,7 @@
                                 <label class="font-bold">作者</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fal fa-user"></i>
                                     </span>
                                     <input type="text" name="author" placeholder="" class="form-control" value="{{ .article.Author }}">
                                 </div>
@@ -212,7 +212,7 @@
                                 <label class="font-bold">来源</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-code"></i>
+                                        <i class="fal fa-code"></i>
                                     </span>
                                     <input type="text" name="source" placeholder="" class="form-control" value="{{ .article.Source }}">
                                 </div>
@@ -222,7 +222,7 @@
                                 <label class="font-bold">来源地址</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-link"></i>
+                                        <i class="fal fa-link"></i>
                                     </span>
                                     <input type="text" name="source_url" placeholder="" class="form-control" value="{{ .article.SourceUrl }}">
                                 </div>
@@ -232,14 +232,14 @@
                                 <label class="font-bold">关键字</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
+                                        <i class="fal fa-key"></i>
                                     </span>
                                     <input type="text" name="keyword" placeholder="" class="form-control" value="{{ .article.Keyword }}">
                                 </div>
                             </div>
 
                             <div>
-                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>

@@ -8,13 +8,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fal fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-th-list"></i> 书籍分类</strong>
+                    <strong><i class="fal fa-list-ul"></i> 书籍分类</strong>
                 </li>
             </ol>
         </div>
@@ -28,25 +28,25 @@
         <div class="row">
             <div class="col-lg-6">
                 <p>
-                    <a class="btn btn-outline btn-success" href="/admin/book-category/edit/{{ .bookCategory.ID }}"><i class="fa fa-edit"></i> 更新</a>
-                    <a class="btn btn-outline btn-danger" href="/admin/book-category/delete/{{ .bookCategory.ID }}"><i class="fa fa-trash"></i> 删除</a>
+                    <a class="btn btn-outline btn-success" href="/admin/book-category/edit/{{ .bookCategory.ID }}"><i class="fal fa-edit"></i> 更新</a>
+                    <a class="btn btn-outline btn-danger" href="/admin/book-category/delete/{{ .bookCategory.ID }}"><i class="fal fa-trash-alt"></i> 删除</a>
                 </p>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>{{ .title }}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>

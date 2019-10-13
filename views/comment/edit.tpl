@@ -9,13 +9,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fal fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-wechat"></i> 评论管理</strong>
+                    <strong><i class="fal fa-comments"></i> 评论管理</strong>
                 </li>
             </ol>
         </div>
@@ -33,17 +33,17 @@
                         <h5>{{ .title }}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                 <label class="font-bold">用户</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fal fa-user"></i>
                                     </span>
                                     <input type="text" name="user_id" placeholder="请输入用户ID" class="form-control" value="{{ .comment.UserID }}">
                                 </div>
@@ -63,7 +63,7 @@
                                 <label class="font-bold">模型名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-th-list"></i>
+                                        <i class="fal fa-list-ul"></i>
                                     </span>
                                     <input type="text" name="model" placeholder="" class="form-control" value="{{ .comment.Model }}">
                                 </div>
@@ -73,7 +73,7 @@
                                 <label class="font-bold">模型编号</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-id-card"></i>
+                                        <i class="fal fa-id-card-alt"></i>
                                     </span>
                                     <input type="text" name="model_id" placeholder="" class="form-control" value="{{ .comment.ModelID }}">
                                 </div>
@@ -83,7 +83,7 @@
                                 <label class="font-bold">根级</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-sort-amount-desc"></i>
+                                        <i class="fal fa-sort-amount-down"></i>
                                     </span>
                                     <input type="text" name="root" placeholder="" class="form-control" value="{{ .comment.Root }}">
                                 </div>
@@ -93,7 +93,7 @@
                                 <label class="font-bold">父级</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-sort-amount-desc"></i>
+                                        <i class="fal fa-sort-amount-down"></i>
                                     </span>
                                     <input type="text" name="parent" placeholder="" class="form-control" value="{{ .comment.Parent }}">
                                 </div>
@@ -103,14 +103,14 @@
                                 <label class="font-bold">内容</label>
                                 <div class="input-group">
                                     <span class="input-group-addon" style="padding-top:28px;">
-                                        <i class="fa fa-text-width"></i>
+                                        <i class="fal fa-text-width"></i>
                                     </span>
                                     <textarea name="content" rows="3" class="form-control">{{ .comment.Content }}</textarea>
                                 </div>
                             </div>
 
                             <div>
-                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>

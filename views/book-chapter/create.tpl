@@ -10,13 +10,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-th-large"></i> 基础数据
+                    <i class="fal fa-th-large"></i> 基础数据
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-bookmark"></i> 书籍章节</strong>
+                    <strong><i class="fal fa-bookmark"></i> 书籍章节</strong>
                 </li>
             </ol>
         </div>
@@ -34,17 +34,17 @@
                         <h5>{{ .title }}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                 <label class="font-bold">章节名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-header"></i>
+                                        <i class="fal fa-heading"></i>
                                     </span>
                                     <input type="text" name="title" placeholder="请输入章节名称" class="form-control" value="{{ .flash.old.title }}">
                                 </div>
@@ -64,7 +64,7 @@
                                 <label class="font-bold">所属书籍</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-th-list"></i>
+                                        <i class="fal fa-list-ul"></i>
                                     </span>
                                     <select class="form-control" name="book_id">
                                         <option value="0">请选择</option>
@@ -87,7 +87,7 @@
                                 <label class="font-bold">点击量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-hand-o-up"></i>
+                                        <i class="fal fa-hand-point-up"></i>
                                     </span>
                                     <input type="text" name="hit" placeholder="" class="form-control" value="{{ .flash.old.hit }}">
                                 </div>
@@ -97,7 +97,7 @@
                                 <label class="font-bold">喜欢量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-heart-o"></i>
+                                        <i class="fal fa-heart"></i>
                                     </span>
                                     <input type="text" name="favorite" placeholder="" class="form-control" value="{{ .flash.old.favorite }}">
                                 </div>
@@ -107,7 +107,7 @@
                                 <label class="font-bold">评论量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-comment-o"></i>
+                                        <i class="fal fa-comment"></i>
                                     </span>
                                     <input type="text" name="comment" placeholder="" class="form-control" value="{{ .flash.old.comment }}">
                                 </div>
@@ -134,14 +134,14 @@
                                 <label class="font-bold">排序</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-sort-amount-desc"></i>
+                                        <i class="fal fa-sort-amount-down"></i>
                                     </span>
                                     <input type="text" name="sort" placeholder="" class="form-control" value="{{ .flash.old.sort }}">
                                 </div>
                             </div>
 
                             <div>
-                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fa fa-paper-plane"></i> 保存</button>
+                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>

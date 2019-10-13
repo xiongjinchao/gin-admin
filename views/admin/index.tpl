@@ -13,13 +13,13 @@
             <h2>{{ .title}}</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="/admin/dashboard"><i class="fa fa-desktop"></i> 系统面板</a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> 系统面板</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"></i> 系统设置
+                    <i class="fal fa-cogs"></i> 系统设置
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong><i class="fa fa-graduation-cap"></i> {{ .title}}</strong>
+                    <strong><i class="fal fa-user-tie"></i> {{ .title}}</strong>
                 </li>
             </ol>
         </div>
@@ -30,7 +30,7 @@
 
     {{/*content*/}}
     <div class="wrapper wrapper-content animated fadeInRight">
-        <p><a class="btn btn-primary" href="admin/create"> <i class="fa fa-plus-circle"></i> 创建管理员</a></p>
+        <p><a class="btn btn-primary" href="admin/create"> <i class="fal fa-plus-circle"></i> 创建管理员</a></p>
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -38,17 +38,17 @@
                         <h5>{{ .title}}</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
+                                <i class="fal fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fal fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-admin">
                                 <li><a href="#">选项 1</a></li>
                                 <li><a href="#">选项 2</a></li>
                             </ul>
                             <a class="close-link">
-                                <i class="fa fa-times"></i>
+                                <i class="fal fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -93,12 +93,12 @@
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-github-alt modal-icon"></i>
+                    <i class="fal fa-user-cog modal-icon"></i>
                     <h4 class="modal-title">管理员授权</h4>
                     <small class="font-bold">你可以在角色权限中自定义你需要的角色</small>
                 </div>
                 <div class="modal-body">
-                    <h3><i class="fa fa-gears"></i> 系统角色</h3>
+                    <h3><i class="fal fa-cogs"></i> 系统角色</h3>
                     <div class="row">
                         {{ range $r := .roles}}
                             {{if Contains $r ":sys:" }}
@@ -113,7 +113,7 @@
                             {{ end }}
                         {{ end }}
                     </div>
-                    <h3><i class="fa fa-user-o"></i> 控制器角色</h3>
+                    <h3><i class="fal fa-user"></i> 控制器角色</h3>
                     <div class="row">
                         {{ range $r := .roles}}
                             {{if Contains $r ":ctr:" }}
@@ -128,7 +128,7 @@
                             {{ end }}
                         {{ end }}
                     </div>
-                    <h3><i class="fa fa-github-alt"></i> 自定义角色</h3>
+                    <h3><i class="fal fa-user-cog"></i> 自定义角色</h3>
                     <div class="row">
                         {{ range $r := .roles}}
                             {{if or (Contains $r ":sys:") (Contains $r ":ctr:")}}
@@ -147,8 +147,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
-                    <button type="button" class="btn btn-primary btn-save"><i class="fa fa-paper-plane"></i> 保存</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fal fa-times"></i> 关闭</button>
+                    <button type="button" class="btn btn-primary btn-save"><i class="fal fa-paper-plane"></i> 保存</button>
                 </div>
             </div>
         </div>
@@ -195,10 +195,10 @@
                     },
                     { "data": null, "render":
                         function(data, type, row, meta){
-                            return '<a href="/admin/admin/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-eye"></i> 查看</a> ' +
-                                '<a href="/admin/admin/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> 编辑</a> ' +
-                                '<a href="javascript:void(0)" class="btn btn-xs btn-outline btn-warning policy '+(row.name=="admin"?"disabled":"")+'" data-toggle="modal" data-target="#policy-modal" data-url="/admin/admin/roles/'+row.base.id+'"><i class="fa fa-gears"></i> 授权</a> ' +
-                                '<a href="/admin/admin/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> 删除</a>';
+                            return '<a href="/admin/admin/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fal fa-eye"></i> 查看</a> ' +
+                                '<a href="/admin/admin/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fal fa-edit"></i> 编辑</a> ' +
+                                '<a href="javascript:void(0)" class="btn btn-xs btn-outline btn-warning policy '+(row.name=="admin"?"disabled":"")+'" data-toggle="modal" data-target="#policy-modal" data-url="/admin/admin/roles/'+row.base.id+'"><i class="fal fa-cogs"></i> 授权</a> ' +
+                                '<a href="/admin/admin/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fal fa-trash-alt"></i> 删除</a>';
                         }
                     }
                 ],
