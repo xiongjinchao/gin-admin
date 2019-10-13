@@ -89,8 +89,8 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
+                                    <span class="input-group-addon" style="padding-top:28px;">
+                                        <i class="fa fa-text-width"></i>
                                     </span>
                                     <input type="text" name="summary" placeholder="" class="form-control" value="{{ .menu.Summary }}">
                                 </div>

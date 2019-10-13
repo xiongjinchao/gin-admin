@@ -78,6 +78,9 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
+                                    <span class="input-group-addon" style="padding-top:28px;">
+                                        <i class="fa fa-text-width"></i>
+                                    </span>
                                     <textarea name="summary" rows="3" class="form-control">{{ .friendLinkCategory.Summary }}</textarea>
                                 </div>
                             </div>
