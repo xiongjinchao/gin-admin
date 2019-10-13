@@ -34,7 +34,6 @@
 
 div.dataTables_wrapper div.dataTables_filter label{margin-right:0;}
 .dataTables_filter input{height:34px;border-radius: 1px;margin-right:0}
-table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{top:auto}
 
 table.dataTable thead .sorting_desc:after {
     content: "\e156";
