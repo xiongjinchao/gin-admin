@@ -103,7 +103,7 @@
         $(document).ready(function() {
             $('.dataTables').DataTable({
                 order: [[ 0, "desc" ]],
-                searching: false,
+                searching: true,
                 autoWidth: false,
                 language:{
                     url: '/public/plug-in/dataTables/Zh_cn.json',
