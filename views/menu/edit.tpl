@@ -53,7 +53,7 @@
                                 <label class="font-bold">名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fa fa-star"></i>
                                     </span>
                                     <input type="text" name="name" placeholder="请输入菜单名称" class="form-control" value="{{ .menu.Name }}">
                                 </div>

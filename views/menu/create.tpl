@@ -53,7 +53,7 @@
                                 <label class="font-bold">名称</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fa fa-star"></i>
                                     </span>
                                     <input type="text" name="name" placeholder="请输入菜单名称" class="form-control" value="{{ .flash.old.name }}">
                                 </div>
@@ -89,8 +89,8 @@
                             <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-globe"></i>
+                                    <span class="input-group-addon" style="padding-top:28px">
+                                        <i class="fa fa-text-width"></i>
                                     </span>
                                     <textarea name="summary" rows="3" class="form-control">{{ .flash.old.summary }}</textarea>
                                 </div>
