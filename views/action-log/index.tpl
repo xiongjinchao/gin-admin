@@ -89,8 +89,9 @@
 {{ define "js" }}
     <!-- Custom and plugin javascript -->
 
-    <script src="/public/plug-in/dataTables/js/datatables.min.js"></script>
-    <script src="/public/plug-in/dataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/public/plug-in/dataTables/js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="/public/plug-in/dataTables/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/public/plug-in/dataTables/js/datatables.min.js"></script>
 
     <script>
         $(document).ready(function() {
