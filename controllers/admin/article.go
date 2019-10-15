@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type Article struct{}
@@ -126,6 +127,17 @@ func (a *Article) Store(c *gin.Context) {
 		return
 	}
 
+	if c.PostForm("tags") != "" {
+		tags := strings.Split(c.PostForm("tags"), ",")
+		for _, v := range tags {
+			tag := models.Tag{}
+			tag.Model = article.TableName()
+			tag.ModelID = article.ID
+			tag.Tag = v
+			db.Mysql.Model(&models.Tag{}).Save(&tag)
+		}
+	}
+
 	helper.SetFlash(c, "创建文章成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article")
 }
@@ -179,6 +191,11 @@ func (a *Article) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 
+	tags, err := (&models.Tag{}).GetTags(article.TableName(), article.ID)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
 	c.HTML(http.StatusOK, "article/edit", gin.H{
 		"title":                "编辑文章",
 		"flash":                flash,
@@ -187,6 +204,7 @@ func (a *Article) Edit(c *gin.Context) {
 		"user":                 user,
 		"initialPreview":       string(initialPreview),
 		"initialPreviewConfig": string(initialPreviewConfig),
+		"tags":                 strings.Join(tags, ","),
 	})
 }
 
@@ -221,6 +239,14 @@ func (a *Article) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return
 	}
+
+	// update() article tag
+	if err := (&models.Tag{}).Upgrade(c.PostForm("tags"), article.TableName(), article.ID); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改文章成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article")
 }
@@ -242,8 +268,7 @@ func (a *Article) Show(c *gin.Context) {
 func (a *Article) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
-	article := models.Article{}
-	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&article).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.Article{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

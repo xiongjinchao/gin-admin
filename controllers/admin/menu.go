@@ -201,8 +201,7 @@ func (m *Menu) Destroy(c *gin.Context) {
 
 	id := c.Param("id")
 
-	menu := models.Menu{}
-	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&menu).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.Menu{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

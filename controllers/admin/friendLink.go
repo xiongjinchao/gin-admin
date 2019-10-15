@@ -258,8 +258,7 @@ func (f *FriendLink) Show(c *gin.Context) {
 func (f *FriendLink) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
-	friendLink := models.FriendLink{}
-	if err := db.Mysql.Where("id = ?", id).Delete(&friendLink).Error; err != nil {
+	if err := db.Mysql.Where("id = ?", id).Delete(&models.FriendLink{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

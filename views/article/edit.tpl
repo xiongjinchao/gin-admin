@@ -2,6 +2,7 @@
     <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
     <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
+    <link href="/public/plug-in/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -50,7 +51,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form role="form" action="/admin/article/update/{{ .article.ID }}" method="post" enctype="multipart/form-data">
+                        <form role="form" action="/admin/article/update/{{ .article.ID }}" method="post" enctype="multipart/form-data" οnkeydοwn="if(event.keyCode==13){return false;}">
                             <input type="hidden" name="_method" value="PUT">
                             <div class="form-group">
                                 <label class="font-bold">标题</label>
@@ -101,6 +102,16 @@
                                 <label class="font-bold">内容</label>
                                 <div id="content">
                                     <textarea style="display:none" name="content" placeholder="" class="form-control" rows="12">{{ .article.Content }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">标签</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-tags"></i>
+                                    </span>
+                                    <input id="tags" type="text" name="tags" placeholder="回车添加标签" class="form-control" value="{{.tags}}">
                                 </div>
                             </div>
 
@@ -239,7 +250,7 @@
                             </div>
 
                             <div>
-                                <button class="btn btn-sm btn-primary" type="submit"> <i class="fal fa-paper-plane"></i> 保存</button>
+                                <button class="btn btn-sm btn-primary" type="button" onclick=form.submit()> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>
                         </form>
                     </div>
@@ -257,6 +268,7 @@
     <script src="/public/plug-in/bootstrap-fileinput/js/zh.js"></script>
 
     <script src="/public/plug-in/editor-md/editormd.min.js"></script>
+    <script src="/public/plug-in/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
     <script type="text/javascript">
         let editor = editormd("content", {
@@ -345,6 +357,12 @@
             $("#cover").val(0);
         }).on('filedeleted', function(event, key, jqXHR, data) {
             $("#cover").val(0);
+        });
+
+        $("#tags").tagsinput({
+            tagClass: 'label label-primary',
+            maxTags: 4,
+            trimValue: true
         });
     </script>
 {{ end }}

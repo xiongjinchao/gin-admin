@@ -242,8 +242,7 @@ func (a *Admin) Show(c *gin.Context) {
 func (a *Admin) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
-	admin := models.Admin{}
-	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&admin).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.Admin{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

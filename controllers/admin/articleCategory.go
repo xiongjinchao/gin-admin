@@ -200,8 +200,7 @@ func (a *ArticleCategory) Destroy(c *gin.Context) {
 
 	id := c.Param("id")
 
-	articleCategory := models.ArticleCategory{}
-	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&articleCategory).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.ArticleCategory{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

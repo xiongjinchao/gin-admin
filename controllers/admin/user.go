@@ -248,8 +248,7 @@ func (u *User) Show(c *gin.Context) {
 func (u *User) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
-	user := models.User{}
-	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&user).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.User{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

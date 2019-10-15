@@ -166,8 +166,7 @@ func (a *ActionLog) Destroy(c *gin.Context) {
 
 	id := c.Param("id")
 
-	actionLog := models.ActionLog{}
-	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&actionLog).Error; err != nil {
+	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.ActionLog{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

@@ -162,8 +162,7 @@ func (f *File) Upload(c *gin.Context) {
 func (f *File) Delete(c *gin.Context) {
 	id := c.PostForm("key")
 
-	file := models.File{}
-	if err := db.Mysql.Where("id = ?", id).Delete(&file).Error; err != nil {
+	if err := db.Mysql.Where("id = ?", id).Delete(&models.File{}).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failure",
 			"message": err.Error(),

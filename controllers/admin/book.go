@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type Book struct{}
@@ -173,6 +174,11 @@ func (b *Book) Edit(c *gin.Context) {
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
 	(&models.BookCategory{}).SetSpace(&data)
 
+	tags, err := (&models.Tag{}).GetTags(book.TableName(), book.ID)
+	if err != nil {
+		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	}
+
 	c.HTML(http.StatusOK, "book/edit", gin.H{
 		"title":                "编辑书籍",
 		"flash":                flash,
@@ -180,6 +186,7 @@ func (b *Book) Edit(c *gin.Context) {
 		"bookCategories":       data,
 		"initialPreview":       string(initialPreview),
 		"initialPreviewConfig": string(initialPreviewConfig),
+		"tags":                 strings.Join(tags, ","),
 	})
 }
 
@@ -214,6 +221,14 @@ func (b *Book) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return
 	}
+
+	// update() book tag
+	if err := (&models.Tag{}).Upgrade(c.PostForm("tags"), book.TableName(), book.ID); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
 }
@@ -235,8 +250,7 @@ func (b *Book) Show(c *gin.Context) {
 func (b *Book) Destroy(c *gin.Context) {
 	id := c.Param("id")
 
-	book := models.Book{}
-	if err := db.Mysql.Where("id = ?", id).Delete(&book).Error; err != nil {
+	if err := db.Mysql.Where("id = ?", id).Delete(&models.Book{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 

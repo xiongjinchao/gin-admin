@@ -2,6 +2,7 @@
     <link href="/public/plug-in/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
     <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="/public/plug-in/editor-md/css/editormd.css" rel="stylesheet">
+    <link href="/public/plug-in/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 {{ end }}
 
 {{ define "content" }}
@@ -114,6 +115,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">标签</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-tags"></i>
+                                    </span>
+                                    <input id="tags" type="text" name="tags" placeholder="回车添加标签" class="form-control" value="{{.tags}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">点击量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
@@ -191,6 +202,7 @@
     <script src="/public/plug-in/validate/localization/messages_zh.js"></script>
 
     <script src="/public/plug-in/editor-md/editormd.min.js"></script>
+    <script src="/public/plug-in/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
     <script type="text/javascript">
         let editor = editormd("content", {
@@ -291,6 +303,12 @@
                     name: "请输入书籍名称",
                 }
             })
+        });
+
+        $("#tags").tagsinput({
+            tagClass: 'label label-primary',
+            maxTags: 4,
+            trimValue: true
         });
     </script>
 {{ end }}
