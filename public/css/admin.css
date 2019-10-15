@@ -60,4 +60,9 @@ table.dataTable thead .sorting:after{
     position: absolute;
     bottom: 8px;
     right: 8px;
-    display: block;}
+    display: block;
+}
+table.dataTable thead .sorting_desc:before,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting:before{
+    content: none;
+    display:none;
+}
