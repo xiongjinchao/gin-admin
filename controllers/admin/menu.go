@@ -108,6 +108,12 @@ func (m *Menu) Store(c *gin.Context) {
 		return
 	}
 
+	if err := (&models.Menu{}).Cache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/menu/create")
+		return
+	}
+
 	helper.SetFlash(c, "创建菜单成功", "success")
 	c.Redirect(http.StatusFound, "/admin/menu")
 }
@@ -178,6 +184,12 @@ func (m *Menu) Update(c *gin.Context) {
 
 	(&models.Menu{}).UpdateChildren(menu)
 
+	if err := (&models.Menu{}).Cache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改菜单成功", "success")
 	c.Redirect(http.StatusFound, "/admin/menu")
 }
@@ -203,6 +215,12 @@ func (m *Menu) Destroy(c *gin.Context) {
 
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.Menu{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
+	}
+
+	if err := (&models.Menu{}).Cache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/menu")
+		return
 	}
 
 	helper.SetFlash(c, "删除菜单成功", "success")
