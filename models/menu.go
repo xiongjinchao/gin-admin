@@ -117,6 +117,7 @@ func (m *Menu) SetCache() error {
 }
 
 // get menu data from cache
+/*
 func (m *Menu) GetCache() (menu []Menu, err error) {
 
 	data, err := db.Redis.Get("menu").Result()
@@ -130,3 +131,4 @@ func (m *Menu) GetCache() (menu []Menu, err error) {
 
 	return
 }
+*/
