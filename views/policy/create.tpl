@@ -1,5 +1,6 @@
 {{ define "css" }}
-    <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/public/plug-in/fontawesome-pro-5.7.2/css/font-awesome-4.7.min.css" rel="stylesheet">
+    <link href="/public/plug-in/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.min.css" rel="stylesheet">
     <style>
         .checkbox label::before{top:1px; left:1px;}
         #policy-form .label{padding:0 8px;}
