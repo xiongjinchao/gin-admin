@@ -92,14 +92,13 @@ func (m *Menu) UpdateChildren(parent Menu) {
 	m.UpdateChildrenLevel(&menus, parent)
 }
 
-// cache menu data
-func (m *Menu) Cache() error {
+// cache menu data in redis
+func (m *Menu) SetCache() error {
 
 	var menus, data []Menu
 	if err := db.Mysql.Model(Menu{}).Find(&menus).Error; err != nil {
 		return err
 	}
-
 	if len(menus) == 0 {
 		return nil
 	}
@@ -115,4 +114,19 @@ func (m *Menu) Cache() error {
 	db.Redis.Set("menu", string(menu), 0)
 
 	return nil
+}
+
+// get menu data from cache
+func (m *Menu) GetCache() (menu []Menu, err error) {
+
+	data, err := db.Redis.Get("menu").Result()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal([]byte(data), &menu); err != nil {
+		return nil, err
+	}
+
+	return
 }

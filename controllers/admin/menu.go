@@ -108,7 +108,7 @@ func (m *Menu) Store(c *gin.Context) {
 		return
 	}
 
-	if err := (&models.Menu{}).Cache(); err != nil {
+	if err := (&models.Menu{}).SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/create")
 		return
@@ -184,7 +184,7 @@ func (m *Menu) Update(c *gin.Context) {
 
 	(&models.Menu{}).UpdateChildren(menu)
 
-	if err := (&models.Menu{}).Cache(); err != nil {
+	if err := (&models.Menu{}).SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return
@@ -217,7 +217,7 @@ func (m *Menu) Destroy(c *gin.Context) {
 		helper.SetFlash(c, err.Error(), "error")
 	}
 
-	if err := (&models.Menu{}).Cache(); err != nil {
+	if err := (&models.Menu{}).SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu")
 		return
