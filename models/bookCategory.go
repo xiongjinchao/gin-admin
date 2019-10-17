@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin-admin/database"
 	"github.com/gin-gonic/gin"
@@ -113,4 +114,43 @@ func (a *BookCategory) UpdateChildren(parent BookCategory) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	a.UpdateChildrenLevel(&bookCategories, parent)
+}
+
+// cache book-category data in redis
+func (b *BookCategory) SetCache() error {
+
+	var bookCategories, data []BookCategory
+	if err := db.Mysql.Model(BookCategory{}).Find(&bookCategories).Error; err != nil {
+		return err
+	}
+	if len(bookCategories) == 0 {
+		return nil
+	}
+
+	b.SetSort(&bookCategories, 0, &data)
+	b.SetData(&data)
+
+	bookCategory, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	db.Redis.Set("book-category", string(bookCategory), 0)
+
+	return nil
+}
+
+// get book-category data from cache
+func (b *BookCategory) GetCache() (bookCategory []BookCategory, err error) {
+
+	data, err := db.Redis.Get("book-category").Result()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal([]byte(data), &bookCategory); err != nil {
+		return nil, err
+	}
+
+	return
 }

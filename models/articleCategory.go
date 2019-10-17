@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin-admin/database"
 	"github.com/gin-gonic/gin"
@@ -115,4 +116,43 @@ func (a *ArticleCategory) UpdateChildren(parent ArticleCategory) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	a.UpdateChildrenLevel(&articleCategories, parent)
+}
+
+// cache article-category data in redis
+func (a *ArticleCategory) SetCache() error {
+
+	var articleCategories, data []ArticleCategory
+	if err := db.Mysql.Model(ArticleCategory{}).Find(&articleCategories).Error; err != nil {
+		return err
+	}
+	if len(articleCategories) == 0 {
+		return nil
+	}
+
+	a.SetSort(&articleCategories, 0, &data)
+	a.SetData(&data)
+
+	articleCategory, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	db.Redis.Set("article-category", string(articleCategory), 0)
+
+	return nil
+}
+
+// get article-category data from cache
+func (a *ArticleCategory) GetCache() (articleCategory []ArticleCategory, err error) {
+
+	data, err := db.Redis.Get("article-category").Result()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal([]byte(data), &articleCategory); err != nil {
+		return nil, err
+	}
+
+	return
 }

@@ -108,6 +108,12 @@ func (f *FriendLinkCategory) Store(c *gin.Context) {
 		return
 	}
 
+	if err := (&models.FriendLinkCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/friend-link-category/create")
+		return
+	}
+
 	helper.SetFlash(c, "创建链接分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/friend-link-category")
 }
@@ -177,6 +183,12 @@ func (f *FriendLinkCategory) Update(c *gin.Context) {
 	}
 	(&models.FriendLinkCategory{}).UpdateChildren(friendLinkCategory)
 
+	if err := (&models.FriendLinkCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/friend-link-category/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改链接分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/friend-link-category")
 }
@@ -202,6 +214,12 @@ func (f *FriendLinkCategory) Destroy(c *gin.Context) {
 
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.FriendLinkCategory{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
+	}
+
+	if err := (&models.FriendLinkCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/friend-link-category")
+		return
 	}
 
 	helper.SetFlash(c, "删除链接分类成功", "success")

@@ -108,6 +108,12 @@ func (b *BookCategory) Store(c *gin.Context) {
 		return
 	}
 
+	if err := (&models.BookCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book-category/create")
+		return
+	}
+
 	helper.SetFlash(c, "创建书籍分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book-category")
 }
@@ -177,6 +183,12 @@ func (b *BookCategory) Update(c *gin.Context) {
 	}
 	(&models.BookCategory{}).UpdateChildren(bookCategory)
 
+	if err := (&models.BookCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book-category/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改书籍分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book-category")
 }
@@ -202,6 +214,12 @@ func (b *BookCategory) Destroy(c *gin.Context) {
 
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.BookCategory{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
+	}
+
+	if err := (&models.BookCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book-category")
+		return
 	}
 
 	helper.SetFlash(c, "删除书籍分类成功", "success")

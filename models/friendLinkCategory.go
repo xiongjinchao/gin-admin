@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	db "gin-admin/database"
 	"github.com/gin-gonic/gin"
@@ -113,4 +114,43 @@ func (f *FriendLinkCategory) UpdateChildren(parent FriendLinkCategory) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	f.UpdateChildrenLevel(&articleCategories, parent)
+}
+
+// cache friend-link-category data in redis
+func (f *FriendLinkCategory) SetCache() error {
+
+	var friendLinkCategories, data []FriendLinkCategory
+	if err := db.Mysql.Model(FriendLinkCategory{}).Find(&friendLinkCategories).Error; err != nil {
+		return err
+	}
+	if len(friendLinkCategories) == 0 {
+		return nil
+	}
+
+	f.SetSort(&friendLinkCategories, 0, &data)
+	f.SetData(&data)
+
+	friendLinkCategory, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	db.Redis.Set("friend-link-category", string(friendLinkCategory), 0)
+
+	return nil
+}
+
+// get friend-link-category data from cache
+func (f *FriendLinkCategory) GetCache() (friendLinkCategory []FriendLinkCategory, err error) {
+
+	data, err := db.Redis.Get("friend-link-category").Result()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal([]byte(data), &friendLinkCategory); err != nil {
+		return nil, err
+	}
+
+	return
 }

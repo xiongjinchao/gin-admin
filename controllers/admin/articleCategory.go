@@ -108,6 +108,12 @@ func (a *ArticleCategory) Store(c *gin.Context) {
 		return
 	}
 
+	if err := (&models.ArticleCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article-category/create")
+		return
+	}
+
 	helper.SetFlash(c, "创建文章分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
@@ -177,6 +183,12 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 	}
 	(&models.ArticleCategory{}).UpdateChildren(articleCategory)
 
+	if err := (&models.ArticleCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改文章分类成功", "success")
 	c.Redirect(http.StatusFound, "/admin/article-category")
 }
@@ -202,6 +214,12 @@ func (a *ArticleCategory) Destroy(c *gin.Context) {
 
 	if err := db.Mysql.Unscoped().Where("id = ?", id).Delete(&models.ArticleCategory{}).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
+	}
+
+	if err := (&models.ArticleCategory{}).SetCache(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article-category")
+		return
 	}
 
 	helper.SetFlash(c, "删除文章分类成功", "success")
