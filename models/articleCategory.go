@@ -9,17 +9,19 @@ import (
 )
 
 type ArticleCategory struct {
-	Base    `json:"base"`
-	Name    string   `json:"name" form:"name"`
-	Tag     string   `json:"tag" form:"tag"`
-	Summary string   `json:"summary" form:"summary"`
-	Parent  int64    `json:"parent" form:"parent"`
-	Level   int64    `json:"level" form:"-"`
-	Audit   int64    `json:"audit" form:"audit"`
-	Sort    int64    `json:"sort" form:"sort"`
-	Keyword string   `json:"keyword" form:"keyword"`
-	Parents []string `json:"parents" validate:"-"`
-	Space   string   `json:"space" validate:"-"`
+	Base     `json:"base"`
+	Name     string     `json:"name" form:"name"`
+	Tag      string     `json:"tag" form:"tag"`
+	Summary  string     `json:"summary" form:"summary"`
+	Parent   int64      `json:"parent" form:"parent"`
+	Level    int64      `json:"level" form:"-"`
+	Audit    int64      `json:"audit" form:"audit"`
+	Sort     int64      `json:"sort" form:"sort"`
+	Keyword  string     `json:"keyword" form:"keyword"`
+	Father   Category   `json:"father" form:"-"`
+	Parents  []Category `json:"parents" validate:"-"`
+	Space    string     `json:"space" validate:"-"`
+	Children []Category `json:"children" form:"-"`
 }
 
 func (ArticleCategory) TableName() string {
@@ -35,7 +37,7 @@ func (a *ArticleCategory) SetSort(data *[]ArticleCategory, parent int64, result 
 	}
 }
 
-func (a *ArticleCategory) SetSpace(data *[]ArticleCategory) {
+func (a *ArticleCategory) SetData(data *[]ArticleCategory) {
 
 	for i, v := range *data {
 		if i == 0 {
@@ -56,17 +58,41 @@ func (a *ArticleCategory) SetSpace(data *[]ArticleCategory) {
 			}
 		}
 
-		// set all parent
-		a.SetParents(data, v.Parent, &((*data)[i].Parents))
+		if v.Parent > 0 {
+			// set father
+			a.SetFather(data, v.Parent, &((*data)[i].Father))
+			// set all parents
+			a.SetParents(data, v.Parent, &((*data)[i].Parents))
+		}
+		// set all children
+		a.SetChildren(data, v.ID, &((*data)[i].Children))
 	}
 	return
 }
 
-func (a *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, parents *[]string) {
+func (a *ArticleCategory) SetFather(data *[]ArticleCategory, parent int64, father *Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*parents = append(*parents, v.Name)
+			*father = Category{v.ID, v.Name, ""}
+			break
+		}
+	}
+}
+
+func (a *ArticleCategory) SetParents(data *[]ArticleCategory, parent int64, parents *[]Category) {
+	for _, v := range *data {
+		if v.ID == parent {
+			*parents = append(*parents, Category{v.ID, v.Name, ""})
 			a.SetParents(data, v.Parent, parents)
+		}
+	}
+}
+
+func (a *ArticleCategory) SetChildren(data *[]ArticleCategory, id int64, children *[]Category) {
+	for _, v := range *data {
+		if v.Parent == id {
+			*children = append(*children, Category{v.ID, v.Name, ""})
+			a.SetChildren(data, v.ID, children)
 		}
 	}
 }

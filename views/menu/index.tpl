@@ -122,14 +122,15 @@
                     },
                     { "data": "tag" },
                     { "data": "parent", "render":
-                            function(data, type, row, meta){
-                                let result = '';
-                                if(row.parents != null){
-                                    row.parents.reverse();
-                                    result = row.parents.join(' / ');
-                                }
-                                return result;
+                        function(data, type, row, meta){
+                            let result = '';
+                            if(row.parents != null){
+                                $.each(row.parents.reverse(),function(i,item){
+                                    result += item.name + ' / '
+                                });
                             }
+                            return result.substring(0,result.length-2);
+                        }
                     },
                     { "data": "level", "class":"text-center" },
                     { "data": "sort", "class":"text-center" },

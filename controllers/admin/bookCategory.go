@@ -46,7 +46,7 @@ func (b *BookCategory) Data(c *gin.Context) {
 	}
 
 	(&models.BookCategory{}).SetSort(&bookCategory, 0, &data)
-	(&models.BookCategory{}).SetSpace(&data)
+	(&models.BookCategory{}).SetData(&data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
@@ -66,7 +66,7 @@ func (b *BookCategory) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
-	(&models.BookCategory{}).SetSpace(&data)
+	(&models.BookCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "book-category/create", gin.H{
 		"title":          "创建书籍分类",
@@ -127,7 +127,7 @@ func (b *BookCategory) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
-	(&models.BookCategory{}).SetSpace(&data)
+	(&models.BookCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "book-category/edit", gin.H{
 		"title":          "编辑书籍分类",

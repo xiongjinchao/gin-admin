@@ -91,7 +91,7 @@ func (b *Book) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
-	(&models.BookCategory{}).SetSpace(&data)
+	(&models.BookCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "book/create", gin.H{
 		"title": "创建书籍",
@@ -172,7 +172,7 @@ func (b *Book) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
-	(&models.BookCategory{}).SetSpace(&data)
+	(&models.BookCategory{}).SetData(&data)
 
 	tags, err := (&models.Tag{}).GetTags(book.TableName(), book.ID)
 	if err != nil {

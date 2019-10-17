@@ -9,31 +9,33 @@ import (
 )
 
 type FriendLinkCategory struct {
-	Base    `json:"base"`
-	Name    string   `json:"name" form:"name"`
-	Summary string   `json:"summary" form:"summary"`
-	Parent  int64    `json:"parent" form:"parent"`
-	Level   int64    `json:"level" form:"-"`
-	Audit   int64    `json:"audit" form:"audit"`
-	Sort    int64    `json:"sort" form:"sort"`
-	Parents []string `json:"parents" validate:"-"`
-	Space   string   `json:"space" validate:"-"`
+	Base     `json:"base"`
+	Name     string     `json:"name" form:"name"`
+	Summary  string     `json:"summary" form:"summary"`
+	Parent   int64      `json:"parent" form:"parent"`
+	Level    int64      `json:"level" form:"-"`
+	Audit    int64      `json:"audit" form:"audit"`
+	Sort     int64      `json:"sort" form:"sort"`
+	Father   Category   `json:"father" form:"-"`
+	Parents  []Category `json:"parents" validate:"-"`
+	Space    string     `json:"space" validate:"-"`
+	Children []Category `json:"children" form:"-"`
 }
 
 func (FriendLinkCategory) TableName() string {
 	return "friend_link_category"
 }
 
-func (a *FriendLinkCategory) SetSort(data *[]FriendLinkCategory, parent int64, result *[]FriendLinkCategory) {
+func (f *FriendLinkCategory) SetSort(data *[]FriendLinkCategory, parent int64, result *[]FriendLinkCategory) {
 	for _, v := range *data {
 		if v.Parent == parent {
 			*result = append(*result, v)
-			a.SetSort(data, v.ID, result)
+			f.SetSort(data, v.ID, result)
 		}
 	}
 }
 
-func (a *FriendLinkCategory) SetSpace(data *[]FriendLinkCategory) {
+func (f *FriendLinkCategory) SetData(data *[]FriendLinkCategory) {
 
 	for i, v := range *data {
 		if i == 0 {
@@ -54,37 +56,61 @@ func (a *FriendLinkCategory) SetSpace(data *[]FriendLinkCategory) {
 			}
 		}
 
-		// set all parent
-		a.SetParents(data, v.Parent, &((*data)[i].Parents))
+		if v.Parent > 0 {
+			// set father
+			f.SetFather(data, v.Parent, &((*data)[i].Father))
+			// set all parents
+			f.SetParents(data, v.Parent, &((*data)[i].Parents))
+		}
+		// set all children
+		f.SetChildren(data, v.ID, &((*data)[i].Children))
 	}
 	return
 }
 
-func (a *FriendLinkCategory) SetParents(data *[]FriendLinkCategory, parent int64, parents *[]string) {
+func (f *FriendLinkCategory) SetFather(data *[]FriendLinkCategory, parent int64, father *Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*parents = append(*parents, v.Name)
-			a.SetParents(data, v.Parent, parents)
+			*father = Category{v.ID, v.Name, ""}
+			break
 		}
 	}
 }
 
-func (a *FriendLinkCategory) UpdateChildrenLevel(data *[]FriendLinkCategory, parent FriendLinkCategory) {
+func (f *FriendLinkCategory) SetParents(data *[]FriendLinkCategory, parent int64, parents *[]Category) {
+	for _, v := range *data {
+		if v.ID == parent {
+			*parents = append(*parents, Category{v.ID, v.Name, ""})
+			f.SetParents(data, v.Parent, parents)
+		}
+	}
+}
+
+func (f *FriendLinkCategory) SetChildren(data *[]FriendLinkCategory, id int64, children *[]Category) {
+	for _, v := range *data {
+		if v.Parent == id {
+			*children = append(*children, Category{v.ID, v.Name, ""})
+			f.SetChildren(data, v.ID, children)
+		}
+	}
+}
+
+func (f *FriendLinkCategory) UpdateChildrenLevel(data *[]FriendLinkCategory, parent FriendLinkCategory) {
 	for _, v := range *data {
 		if v.Parent == parent.ID {
 			v.Level = parent.Level + 1
 			db.Mysql.Model(FriendLinkCategory{}).Omit("Parents", "Space").Save(&v)
 
-			a.UpdateChildrenLevel(data, v)
+			f.UpdateChildrenLevel(data, v)
 		}
 	}
 }
 
-func (a *FriendLinkCategory) UpdateChildren(parent FriendLinkCategory) {
+func (f *FriendLinkCategory) UpdateChildren(parent FriendLinkCategory) {
 
 	var articleCategories []FriendLinkCategory
 	if err := db.Mysql.Model(FriendLinkCategory{}).Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
-	a.UpdateChildrenLevel(&articleCategories, parent)
+	f.UpdateChildrenLevel(&articleCategories, parent)
 }

@@ -46,7 +46,7 @@ func (m *Menu) Data(c *gin.Context) {
 	}
 
 	(&models.Menu{}).SetSort(&menu, 0, &data)
-	(&models.Menu{}).SetSpace(&data)
+	(&models.Menu{}).SetData(&data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
@@ -66,7 +66,7 @@ func (m *Menu) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.Menu{}).SetSort(&menus, 0, &data)
-	(&models.Menu{}).SetSpace(&data)
+	(&models.Menu{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "menu/create", gin.H{
 		"title": "创建菜单",
@@ -133,7 +133,7 @@ func (m *Menu) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.Menu{}).SetSort(&menus, 0, &data)
-	(&models.Menu{}).SetSpace(&data)
+	(&models.Menu{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "menu/edit", gin.H{
 		"title": "编辑菜单",

@@ -9,15 +9,17 @@ import (
 )
 
 type BookCategory struct {
-	Base    `json:"base"`
-	Name    string   `json:"name" form:"name"`
-	Summary string   `json:"summary" form:"summary"`
-	Parent  int64    `json:"parent" form:"parent"`
-	Level   int64    `json:"level" form:"-"`
-	Audit   int64    `json:"audit" form:"audit"`
-	Sort    int64    `json:"sort" form:"sort"`
-	Parents []string `json:"parents" validate:"-"`
-	Space   string   `json:"space" validate:"-"`
+	Base     `json:"base"`
+	Name     string     `json:"name" form:"name"`
+	Summary  string     `json:"summary" form:"summary"`
+	Parent   int64      `json:"parent" form:"parent"`
+	Level    int64      `json:"level" form:"-"`
+	Audit    int64      `json:"audit" form:"audit"`
+	Sort     int64      `json:"sort" form:"sort"`
+	Father   Category   `json:"father" form:"-"`
+	Parents  []Category `json:"parents" validate:"-"`
+	Space    string     `json:"space" validate:"-"`
+	Children []Category `json:"children" form:"-"`
 }
 
 func (BookCategory) TableName() string {
@@ -33,7 +35,7 @@ func (a *BookCategory) SetSort(data *[]BookCategory, parent int64, result *[]Boo
 	}
 }
 
-func (a *BookCategory) SetSpace(data *[]BookCategory) {
+func (b *BookCategory) SetData(data *[]BookCategory) {
 
 	for i, v := range *data {
 		if i == 0 {
@@ -54,17 +56,41 @@ func (a *BookCategory) SetSpace(data *[]BookCategory) {
 			}
 		}
 
-		// set all parent
-		a.SetParents(data, v.Parent, &((*data)[i].Parents))
+		if v.Parent > 0 {
+			// set father
+			b.SetFather(data, v.Parent, &((*data)[i].Father))
+			// set all parents
+			b.SetParents(data, v.Parent, &((*data)[i].Parents))
+		}
+		// set all children
+		b.SetChildren(data, v.ID, &((*data)[i].Children))
 	}
 	return
 }
 
-func (a *BookCategory) SetParents(data *[]BookCategory, parent int64, parents *[]string) {
+func (b *BookCategory) SetFather(data *[]BookCategory, parent int64, father *Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*parents = append(*parents, v.Name)
-			a.SetParents(data, v.Parent, parents)
+			*father = Category{v.ID, v.Name, ""}
+			break
+		}
+	}
+}
+
+func (b *BookCategory) SetParents(data *[]BookCategory, parent int64, parents *[]Category) {
+	for _, v := range *data {
+		if v.ID == parent {
+			*parents = append(*parents, Category{v.ID, v.Name, ""})
+			b.SetParents(data, v.Parent, parents)
+		}
+	}
+}
+
+func (b *BookCategory) SetChildren(data *[]BookCategory, id int64, children *[]Category) {
+	for _, v := range *data {
+		if v.Parent == id {
+			*children = append(*children, Category{v.ID, v.Name, ""})
+			b.SetChildren(data, v.ID, children)
 		}
 	}
 }

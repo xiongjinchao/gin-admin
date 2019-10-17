@@ -85,7 +85,7 @@ func (a *Article) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
-	(&models.ArticleCategory{}).SetSpace(&data)
+	(&models.ArticleCategory{}).SetData(&data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {
@@ -184,7 +184,7 @@ func (a *Article) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
-	(&models.ArticleCategory{}).SetSpace(&data)
+	(&models.ArticleCategory{}).SetData(&data)
 
 	var user []models.User
 	if err := db.Mysql.Model(&models.User{}).Find(&user).Error; err != nil {

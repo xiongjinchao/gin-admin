@@ -46,7 +46,7 @@ func (f *FriendLinkCategory) Data(c *gin.Context) {
 	}
 
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategory, 0, &data)
-	(&models.FriendLinkCategory{}).SetSpace(&data)
+	(&models.FriendLinkCategory{}).SetData(&data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
@@ -66,7 +66,7 @@ func (f *FriendLinkCategory) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
-	(&models.FriendLinkCategory{}).SetSpace(&data)
+	(&models.FriendLinkCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "friend-link-category/create", gin.H{
 		"title":                "创建链接分类",
@@ -127,7 +127,7 @@ func (f *FriendLinkCategory) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
-	(&models.FriendLinkCategory{}).SetSpace(&data)
+	(&models.FriendLinkCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "friend-link-category/edit", gin.H{
 		"title":                "编辑链接分类",

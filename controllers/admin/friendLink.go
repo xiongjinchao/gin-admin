@@ -95,7 +95,7 @@ func (f *FriendLink) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
-	(&models.FriendLinkCategory{}).SetSpace(&data)
+	(&models.FriendLinkCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "friend-link/create", gin.H{
 		"title":                "创建友情链接",
@@ -180,7 +180,7 @@ func (f *FriendLink) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
-	(&models.FriendLinkCategory{}).SetSpace(&data)
+	(&models.FriendLinkCategory{}).SetData(&data)
 
 	startAt := friendLink.StartAt.Format("2006-01-02 15:04:05")
 	endAt := friendLink.EndAt.Format("2006-01-02 15:04:05")

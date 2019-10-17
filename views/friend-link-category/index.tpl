@@ -122,10 +122,11 @@
                         function(data, type, row, meta){
                             let result = '';
                             if(row.parents != null){
-                                row.parents.reverse();
-                                result = row.parents.join(' / ');
+                                $.each(row.parents.reverse(),function(i,item){
+                                    result += item.name + ' / '
+                                });
                             }
-                            return result;
+                            return result.substring(0,result.length-2);
                         }
                     },
                     { "data": "level", "class":"text-center" },

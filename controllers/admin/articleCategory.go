@@ -46,7 +46,7 @@ func (a *ArticleCategory) Data(c *gin.Context) {
 	}
 
 	(&models.ArticleCategory{}).SetSort(&articleCategory, 0, &data)
-	(&models.ArticleCategory{}).SetSpace(&data)
+	(&models.ArticleCategory{}).SetData(&data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"draw":            c.Query("draw"),
@@ -66,7 +66,7 @@ func (a *ArticleCategory) Create(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
-	(&models.ArticleCategory{}).SetSpace(&data)
+	(&models.ArticleCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "article-category/create", gin.H{
 		"title":             "创建文章分类",
@@ -127,7 +127,7 @@ func (a *ArticleCategory) Edit(c *gin.Context) {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &data)
-	(&models.ArticleCategory{}).SetSpace(&data)
+	(&models.ArticleCategory{}).SetData(&data)
 
 	c.HTML(http.StatusOK, "article-category/edit", gin.H{
 		"title":             "编辑文章分类",
