@@ -122,7 +122,7 @@ func (m *Menu) UpdateChildren(parent Menu) {
 func (m *Menu) SetCache() error {
 
 	var menus, data []Menu
-	if err := db.Mysql.Model(Menu{}).Where("status = 1").Find(&menus).Error; err != nil {
+	if err := db.Mysql.Model(Menu{}).Where("audit = 1").Find(&menus).Error; err != nil {
 		return err
 	}
 	if len(menus) == 0 {
