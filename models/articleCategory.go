@@ -122,7 +122,7 @@ func (a *ArticleCategory) UpdateChildren(parent ArticleCategory) {
 func (a *ArticleCategory) SetCache() error {
 
 	var articleCategories, data []ArticleCategory
-	if err := db.Mysql.Model(ArticleCategory{}).Find(&articleCategories).Error; err != nil {
+	if err := db.Mysql.Model(ArticleCategory{}).Where("status = 1").Find(&articleCategories).Error; err != nil {
 		return err
 	}
 	if len(articleCategories) == 0 {

@@ -120,7 +120,7 @@ func (f *FriendLinkCategory) UpdateChildren(parent FriendLinkCategory) {
 func (f *FriendLinkCategory) SetCache() error {
 
 	var friendLinkCategories, data []FriendLinkCategory
-	if err := db.Mysql.Model(FriendLinkCategory{}).Find(&friendLinkCategories).Error; err != nil {
+	if err := db.Mysql.Model(FriendLinkCategory{}).Where("status = 1").Find(&friendLinkCategories).Error; err != nil {
 		return err
 	}
 	if len(friendLinkCategories) == 0 {
