@@ -159,6 +159,7 @@ func Router() *gin.Engine {
 		file := &admin.File{}
 		authorized.POST("file/upload", file.Upload)
 		authorized.POST("file/delete", file.Delete)
+		authorized.POST("file/editor-upload", file.EditorUpload)
 
 		//Tag
 		tag := &admin.Tag{}

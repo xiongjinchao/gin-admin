@@ -170,7 +170,10 @@
             emoji : true,
             flowChart : true,
             sequenceDiagram : true,
-            path:"/public/plug-in/editor-md/lib/"
+            path:"/public/plug-in/editor-md/lib/",
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/admin/file/editor-upload?category=book-chapter"
         });
 
         $().ready(function() {

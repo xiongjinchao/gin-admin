@@ -177,3 +177,61 @@ func (f *File) Delete(c *gin.Context) {
 		"data":    "",
 	})
 }
+
+// Upload handles POST /admin/file/editor-upload route
+func (f *File) EditorUpload(c *gin.Context) {
+	file, header, err := c.Request.FormFile("editormd-image-file")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": 0,
+			"message": err.Error(),
+			"url":     "",
+		})
+		return
+	}
+	id, _ := uuid.NewV4()
+	ext := filepath.Ext(header.Filename)
+	name := id.String() + ext
+	category := c.Query("category")
+	if category == "" {
+		category = "other"
+	}
+
+	path := "uploads/" + category + "/" + time.Now().Format("2006-01-02")
+	err = os.MkdirAll(path, os.ModePerm)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": 0,
+			"message": err.Error(),
+			"url":     "",
+		})
+		return
+	}
+
+	creator, err := os.Create(path + "/" + name)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": 0,
+			"message": err.Error(),
+			"url":     "",
+		})
+		return
+	}
+	_, err = io.Copy(creator, file)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": 0,
+			"message": err.Error(),
+			"url":     "",
+		})
+		return
+	}
+	_ = creator.Close()
+
+	domain := config.Setting["domain"]["image"]
+	c.JSON(http.StatusCreated, gin.H{
+		"success": 1,
+		"message": "upload success",
+		"url":     domain + "/" + path + "/" + name,
+	})
+}

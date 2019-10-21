@@ -80,6 +80,13 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="font-bold">内容</label>
+                                <div id="content">
+                                    <textarea style="display:none" name="content" placeholder="" class="form-control" rows="12">{{ .flash.old.content }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="font-bold">概要</label>
                                 <div class="input-group">
                                     <span class="input-group-addon" style="padding-top:28px;">
@@ -106,13 +113,6 @@
                                        data-initial-preview=''
                                        data-initial-preview-config=''>
                                 <input id="cover" type="hidden" name="cover" value="">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-bold">内容</label>
-                                <div id="content">
-                                    <textarea style="display:none" name="content" placeholder="" class="form-control" rows="12">{{ .flash.old.content }}</textarea>
-                                </div>
                             </div>
 
                             <div class="form-group">
@@ -287,7 +287,10 @@
             emoji : true,
             flowChart : true,
             sequenceDiagram : true,
-            path:"/public/plug-in/editor-md/lib/"
+            path:"/public/plug-in/editor-md/lib/",
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/admin/file/editor-upload?category=article-content"
         });
 
         $("#file").fileinput({
