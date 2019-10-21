@@ -1,5 +1,10 @@
 package models
 
+import (
+	"encoding/json"
+	db "gin-admin/database"
+)
+
 type Article struct {
 	Base            `json:"base"`
 	Title           string          `json:"title" form:"title"`
@@ -25,4 +30,74 @@ type Article struct {
 
 func (Article) TableName() string {
 	return "article"
+}
+
+// get the newest article from cache
+func (a *Article) GetNewNote() (articles []Article, err error) {
+
+	data, err := db.Redis.Get("new-note").Result()
+	if data == "" || err != nil {
+		return a.SetNewNote()
+	}
+
+	if err := json.Unmarshal([]byte(data), &articles); err != nil {
+		return a.SetNewNote()
+	}
+
+	return
+}
+
+// cache the newest article in redis
+func (a *Article) SetNewNote() (articles []Article, err error) {
+
+	if err := db.Mysql.Model(Article{}).Select("id,title,created_at").Where("audit = 1 and category_id in (3,4,5,6,7)").Order("id desc").Limit(8).Find(&articles).Error; err != nil {
+		return articles, err
+	}
+
+	if len(articles) == 0 {
+		return
+	}
+
+	article, err := json.Marshal(articles)
+	if err != nil {
+		return
+	}
+
+	db.Redis.Set("new-note", string(article), 600*1000000000)
+	return
+}
+
+// get the newest article from cache
+func (a *Article) GetNewArticle() (articles []Article, err error) {
+
+	data, err := db.Redis.Get("new-article").Result()
+	if data == "" || err != nil {
+		return a.SetNewArticle()
+	}
+
+	if err := json.Unmarshal([]byte(data), &articles); err != nil {
+		return a.SetNewArticle()
+	}
+
+	return
+}
+
+// cache the newest article in redis
+func (a *Article) SetNewArticle() (articles []Article, err error) {
+
+	if err := db.Mysql.Model(Article{}).Select("id,title,created_at").Where("audit = 1 and category_id in (8,9)").Order("id desc").Limit(8).Find(&articles).Error; err != nil {
+		return articles, err
+	}
+
+	if len(articles) == 0 {
+		return
+	}
+
+	article, err := json.Marshal(articles)
+	if err != nil {
+		return
+	}
+
+	db.Redis.Set("new-article", string(article), 600*1000000000)
+	return
 }
