@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	db "gin-admin/database"
+	"strconv"
 )
 
 type Article struct {
@@ -50,7 +51,12 @@ func (a *Article) GetNewNote() (articles []Article, err error) {
 // cache the newest article in redis
 func (a *Article) SetNewNote() (articles []Article, err error) {
 
-	if err := db.Mysql.Model(Article{}).Select("id,title,created_at").Where("audit = 1 and category_id in (3,4,5,6,7)").Order("id desc").Limit(8).Find(&articles).Error; err != nil {
+	if err := db.Mysql.Model(Article{}).
+		Select("id,title,created_at").
+		Where("audit = 1 and category_id in (3,4,5,6,7)").
+		Order("id desc").
+		Limit(8).
+		Find(&articles).Error; err != nil {
 		return articles, err
 	}
 
@@ -85,7 +91,12 @@ func (a *Article) GetNewArticle() (articles []Article, err error) {
 // cache the newest article in redis
 func (a *Article) SetNewArticle() (articles []Article, err error) {
 
-	if err := db.Mysql.Model(Article{}).Select("id,title,created_at").Where("audit = 1 and category_id in (8,9)").Order("id desc").Limit(8).Find(&articles).Error; err != nil {
+	if err := db.Mysql.Model(Article{}).
+		Select("id,title,created_at").
+		Where("audit = 1 and category_id in (8,9)").
+		Order("id desc").
+		Limit(8).
+		Find(&articles).Error; err != nil {
 		return articles, err
 	}
 
@@ -99,5 +110,44 @@ func (a *Article) SetNewArticle() (articles []Article, err error) {
 	}
 
 	db.Redis.Set("new-article", string(article), 600*1000000000)
+	return
+}
+
+// get the related article from cache
+func (a *Article) GetRelatedArticle(ID, categoryID int64) (articles []Article, err error) {
+	data, err := db.Redis.Get("related-article" + strconv.FormatInt(categoryID, 10)).Result()
+	if data == "" || err != nil {
+		return a.SetRelatedArticle(ID, categoryID)
+	}
+
+	if err := json.Unmarshal([]byte(data), &articles); err != nil {
+		return a.SetRelatedArticle(ID, categoryID)
+	}
+
+	return
+}
+
+// cache the related article in redis
+func (a *Article) SetRelatedArticle(ID, categoryID int64) (articles []Article, err error) {
+
+	if err := db.Mysql.Model(Article{}).
+		Select("id,title,summary,hit,comment,favorite,created_at").
+		Where("audit = 1 and category_id = ? and ID != ?", categoryID, ID).
+		Preload("File").Order("id desc").
+		Limit(8).
+		Find(&articles).Error; err != nil {
+		return articles, err
+	}
+
+	if len(articles) == 0 {
+		return
+	}
+
+	article, err := json.Marshal(articles)
+	if err != nil {
+		return
+	}
+
+	db.Redis.Set("related-article"+strconv.FormatInt(categoryID, 10), string(article), 600*1000000000)
 	return
 }
