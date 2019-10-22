@@ -2,7 +2,9 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	db "gin-admin/database"
+	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
@@ -27,10 +29,22 @@ type Article struct {
 	ArticleCategory ArticleCategory `json:"article_category" validate:"-" gorm:"foreignKey:CategoryID;AssociationForeignKey:ID"`
 	User            User            `json:"user" validate:"-" gorm:"foreignKey:UserID"`
 	File            File            `json:"file" validate:"-" gorm:"foreignKey:Cover;AssociationForeignKey:ID"`
+	Tags            []Tag           `json:"tags" form:"-"`
 }
 
 func (Article) TableName() string {
 	return "article"
+}
+
+// set tags data to article
+func (a *Article) SetTags(articles *[]Article) {
+
+	for i, v := range *articles {
+		if err := db.Mysql.Model(&Tag{}).Select("id,tag").Where("model = ? and model_id = ?", "article", v.ID).Find(&(*articles)[i].Tags).Error; err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+			v.Tags = nil
+		}
+	}
 }
 
 // get the newest article from cache

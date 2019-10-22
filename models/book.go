@@ -1,5 +1,11 @@
 package models
 
+import (
+	"fmt"
+	db "gin-blog/database"
+	"github.com/gin-gonic/gin"
+)
+
 type Book struct {
 	Base         `json:"base"`
 	Name         string       `json:"name" form:"name"`
@@ -15,8 +21,20 @@ type Book struct {
 	Keyword      string       `json:"keyword" form:"keyword"`
 	BookCategory BookCategory `json:"book_category" validate:"-" gorm:"foreignKey:CategoryID;AssociationForeignKey:ID"`
 	File         File         `json:"file" validate:"-" gorm:"foreignKey:Cover;AssociationForeignKey:ID"`
+	Tags         []Tag        `json:"tags" form:"-"`
 }
 
 func (Book) TableName() string {
 	return "book"
+}
+
+// set tags data to book
+func (b *Book) SetTags(books *[]Book) {
+
+	for i, v := range *books {
+		if err := db.Mysql.Model(&Tag{}).Select("id,tag").Where("model = ? and model_id = ?", "book", v.ID).Find(&(*books)[i].Tags).Error; err != nil {
+			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+			v.Tags = nil
+		}
+	}
 }
