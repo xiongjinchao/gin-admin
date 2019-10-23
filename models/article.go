@@ -145,9 +145,10 @@ func (a *Article) GetRelatedArticle(ID, categoryID int64) (articles []Article, e
 func (a *Article) SetRelatedArticle(ID, categoryID int64) (articles []Article, err error) {
 
 	if err := db.Mysql.Model(Article{}).
-		Select("id,title,summary,hit,comment,favorite,created_at").
+		Select("id,title,cover,category_id,summary,hit,comment,favorite,user_id,created_at").
 		Where("audit = 1 and category_id = ? and ID != ?", categoryID, ID).
-		Preload("File").Order("id desc").
+		Preload("File").Preload("User").Preload("ArticleCategory").
+		Order("id desc").
 		Limit(8).
 		Find(&articles).Error; err != nil {
 		return articles, err
@@ -156,6 +157,7 @@ func (a *Article) SetRelatedArticle(ID, categoryID int64) (articles []Article, e
 	if len(articles) == 0 {
 		return
 	}
+	a.SetTags(&articles)
 
 	article, err := json.Marshal(articles)
 	if err != nil {
