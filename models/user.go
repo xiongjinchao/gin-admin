@@ -11,9 +11,9 @@ import (
 
 type User struct {
 	Base        `json:"base"`
-	Name        string `label:"昵称" json:"name" form:"name" validate:"required" gorm:"unique_index"`
-	Email       string `label:"邮箱" json:"email" form:"email" validate:"email" gorm:"unique_index"`
-	Mobile      string `label:"手机号码" json:"mobile" form:"mobile" validate:"required,numeric,len=11" gorm:"unique_index"`
+	Name        string `label:"昵称" json:"name" form:"name" validate:"required"`
+	Email       string `label:"邮箱" json:"email" form:"email"`
+	Mobile      string `label:"手机号码" json:"mobile" form:"mobile"`
 	Password    string `label:"密码" json:"-" form:"password"`
 	AccessToken string `label:"AccessToken" json:"access_token" form:"access_token"`
 	ResetKey    string `label:"ResetKey" json:"reset_key" form:"reset_key"`

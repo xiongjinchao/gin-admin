@@ -119,14 +119,14 @@ func (u *User) Store(c *gin.Context) {
 	}
 
 	db.Mysql.Model(&models.User{}).Where("mobile = ?", user.Mobile).Count(&existed)
-	if existed > 0 {
+	if existed > 0 && user.Mobile != "" {
 		helper.SetFlash(c, "手机号码已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
 
 	db.Mysql.Model(&models.User{}).Where("email = ?", user.Email).Count(&existed)
-	if existed > 0 {
+	if existed > 0 && user.Email != "" {
 		helper.SetFlash(c, "邮箱已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
@@ -206,14 +206,14 @@ func (u *User) Update(c *gin.Context) {
 	}
 
 	db.Mysql.Model(&models.User{}).Where("id <> ?", id).Where("mobile = ?", user.Mobile).Count(&existed)
-	if existed > 0 {
+	if existed > 0 && user.Mobile != "" {
 		helper.SetFlash(c, "手机号码已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
 	}
 
 	db.Mysql.Model(&models.User{}).Where("id <> ?", id).Where("email = ?", user.Email).Count(&existed)
-	if existed > 0 {
+	if existed > 0 && user.Email != "" {
 		helper.SetFlash(c, "邮箱已经存在", "error")
 		c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 		return
