@@ -23,7 +23,7 @@ func Router() *gin.Engine {
 	store := sessions.NewCookieStore([]byte(config.Setting["session"]["secret"]))
 	store.Options(sessions.Options{
 		Domain: "/",
-		MaxAge: 30 * 60,
+		MaxAge: 0,
 	})
 	// SESSION with redis
 	// store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte(config.Setting["session"]["secret"]))
