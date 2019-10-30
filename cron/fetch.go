@@ -4,66 +4,71 @@ package main
 
 import (
 	"fmt"
+	db "gin-admin/database"
+	"gin-admin/models"
+	"github.com/JohannesKaufmann/html-to-markdown"
+	"github.com/PuerkitoBio/goquery"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	"log"
 	"net/http"
-	"os"
-	"strconv"
-	"sync"
-	"time"
 )
 
-func init() {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Print("error:%s", err)
-		}
-	}()
-}
-
-var waitgroup sync.WaitGroup
-
 func main() {
-	var url string = "http://www.nowamagic.net/librarys/veda/all/"
-	for i := 1; i <= 135; i++ {
-		waitgroup.Add(1) //计数器+1 可以认为是队列+1
-		go reslove(url, i)
-
-	}
-	waitgroup.Wait() //进行阻塞等待 如果 队列不跑完 一直不终止
+	url := "https://www.runoob.com/go/go-tutorial.html"
+	fetch(url)
 }
-func reslove(url string, page int) {
-	p := strconv.Itoa(page)
-	url += p
-	defer waitgroup.Done() //如果跑完就进行 队列-1
-	log.Println("start " + url)
-	h, err := http.Get(url)
-	if err != nil {
-		panic(err)
-		return
-	}
-	if h.StatusCode != http.StatusOK { //如果获取状态不为 200,输出状态程序结束
-		panic(err)
-		return
-	}
-	defer h.Body.Close()
-	buf := make([]byte, 1024) //创建一个字节数组 长度为 1024
-	file_open, err := os.OpenFile("./html/"+p+".html", os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm)
-	if err != nil {
-		panic(err)
-		return
+
+func fetch(url string) {
+
+	var err error
+	if db.Mysql, err = gorm.Open(
+		"mysql",
+		"root:root@tcp(127.0.0.1:3306)/gin-blog?charset=utf8&parseTime=true&loc=Local",
+	); err != nil {
+		log.Fatal(err)
 	}
 	defer func() {
-		time.Sleep(time.Duration(1 * 1e9))
-		file_open.Sync()
-		file_open.Close()
+		_ = db.Mysql.Close()
 	}()
-	for { //无限循环,读取网页数据
-		num, _ := h.Body.Read(buf)
-		//如果获取数量为0，说明已经取到头了
-		if num == 0 {
-			break
-		}
-		file_open.WriteString(string(buf[:num]))
+
+	// Request the HTML page.
+	res, err := http.Get(url)
+	if err != nil {
+		log.Fatal(err)
 	}
-	log.Println("end  " + url)
+	defer res.Body.Close()
+	if res.StatusCode != 200 {
+		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+	}
+
+	// Load the HTML document
+	doc, err := goquery.NewDocumentFromReader(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	title := doc.Find("#content h1").Text()
+	content, err := doc.Find("#content").Html()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	converter := md.NewConverter("", true, nil)
+	markdown, err := converter.ConvertString(content)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	article := models.Article{}
+	article.Title = title
+	article.Content = markdown
+	article.SourceUrl = url
+	article.CategoryID = 1
+
+	if err := db.Mysql.Omit("ArticleCategory", "User", "File", "Tags").Create(&article).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Done")
 }
