@@ -285,6 +285,8 @@
             flowChart : true,
             sequenceDiagram : true,
             path:"/public/plug-in/editor-md/lib/",
+            autoFocus:false,
+            placeholder:"",
             imageUpload : true,
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL : "/admin/file/editor-upload?category=article-content"

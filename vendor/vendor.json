@@ -3,13 +3,13 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "m1CP5CuXQieA9kpBYn3vlCcoblk=",
+			"checksumSHA1": "JOG/QSGMZ6A6kUf4BdkuiuOL+v4=",
 			"path": "github.com/JohannesKaufmann/html-to-markdown",
 			"revision": "2c0dde1232402b68c74ae66fd15d6bb43d13b6fa",
 			"revisionTime": "2018-05-27T15:32:30Z"
 		},
 		{
-			"checksumSHA1": "BMoeXkY5iEK+m8JawRhwOCWMM6g=",
+			"checksumSHA1": "ELlqT/yoVBobaDU/zFRreKJxec4=",
 			"path": "github.com/JohannesKaufmann/html-to-markdown/escape",
 			"revision": "2c0dde1232402b68c74ae66fd15d6bb43d13b6fa",
 			"revisionTime": "2018-05-27T15:32:30Z"
@@ -21,13 +21,13 @@
 			"revisionTime": "2017-10-22T00:36:10Z"
 		},
 		{
-			"checksumSHA1": "JtqGXmQjCdAiRAAUizr6YtXJE34=",
+			"checksumSHA1": "9w2MOZYctJ5s1ojzQeD+dSQaYq0=",
 			"path": "github.com/PuerkitoBio/goquery",
 			"revision": "b17a2bbb6dc1e1566d1efc26a5369d3b8604542c",
 			"revisionTime": "2019-10-15T22:09:08Z"
 		},
 		{
-			"checksumSHA1": "IiBEUzk+1/hor8Iop+e8Zi0la/c=",
+			"checksumSHA1": "yPEav0CGZtACHim3u+Mk85dmQLs=",
 			"path": "github.com/andybalholm/cascadia",
 			"revision": "dfaf055653582269348d1be90b2ce92eea162569",
 			"revisionTime": "2019-09-30T18:08:11Z"
