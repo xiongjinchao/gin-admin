@@ -72,7 +72,7 @@ func (b *BookCategory) SetData(data *[]BookCategory) {
 func (b *BookCategory) SetFather(data *[]BookCategory, parent int64, father *Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*father = Category{v.ID, v.Name, ""}
+			*father = Category{v.ID, v.Name, "", ""}
 			break
 		}
 	}
@@ -81,7 +81,7 @@ func (b *BookCategory) SetFather(data *[]BookCategory, parent int64, father *Cat
 func (b *BookCategory) SetParents(data *[]BookCategory, parent int64, parents *[]Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*parents = append(*parents, Category{v.ID, v.Name, ""})
+			*parents = append(*parents, Category{v.ID, v.Name, "", ""})
 			b.SetParents(data, v.Parent, parents)
 		}
 	}
@@ -90,7 +90,7 @@ func (b *BookCategory) SetParents(data *[]BookCategory, parent int64, parents *[
 func (b *BookCategory) SetChildren(data *[]BookCategory, id int64, children *[]Category) {
 	for _, v := range *data {
 		if v.Parent == id {
-			*children = append(*children, Category{v.ID, v.Name, ""})
+			*children = append(*children, Category{v.ID, v.Name, "", ""})
 			b.SetChildren(data, v.ID, children)
 		}
 	}

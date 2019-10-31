@@ -117,7 +117,7 @@
                     { "data": "base.id" },
                     { "data": "name", "render":
                         function(data, type, row, meta){
-                            return row.space + row.name;
+                            return row.space + ' <i class="'+row.icon+'"></i> ' +row.name;
                         }
                     },
                     { "data": "tag" },

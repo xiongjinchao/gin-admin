@@ -63,6 +63,9 @@
                                     <th>标签</th><td>{{ .menu.Tag }}</td>
                                 </tr>
                                 <tr>
+                                    <th>图标</th><td>{{ .menu.Icon }}</td>
+                                </tr>
+                                <tr>
                                     <th>所属菜单</th><td>{{ .menu.Parent }}</td>
                                 </tr>
                                 <tr>

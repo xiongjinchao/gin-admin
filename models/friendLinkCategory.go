@@ -72,7 +72,7 @@ func (f *FriendLinkCategory) SetData(data *[]FriendLinkCategory) {
 func (f *FriendLinkCategory) SetFather(data *[]FriendLinkCategory, parent int64, father *Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*father = Category{v.ID, v.Name, ""}
+			*father = Category{v.ID, v.Name, "", ""}
 			break
 		}
 	}
@@ -81,7 +81,7 @@ func (f *FriendLinkCategory) SetFather(data *[]FriendLinkCategory, parent int64,
 func (f *FriendLinkCategory) SetParents(data *[]FriendLinkCategory, parent int64, parents *[]Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*parents = append(*parents, Category{v.ID, v.Name, ""})
+			*parents = append(*parents, Category{v.ID, v.Name, "", ""})
 			f.SetParents(data, v.Parent, parents)
 		}
 	}
@@ -90,7 +90,7 @@ func (f *FriendLinkCategory) SetParents(data *[]FriendLinkCategory, parent int64
 func (f *FriendLinkCategory) SetChildren(data *[]FriendLinkCategory, id int64, children *[]Category) {
 	for _, v := range *data {
 		if v.Parent == id {
-			*children = append(*children, Category{v.ID, v.Name, ""})
+			*children = append(*children, Category{v.ID, v.Name, "", ""})
 			f.SetChildren(data, v.ID, children)
 		}
 	}

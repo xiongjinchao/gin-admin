@@ -13,6 +13,7 @@ type Menu struct {
 	Base     `json:"base"`
 	Name     string     `json:"name" form:"name"`
 	Tag      string     `json:"tag" form:"tag"`
+	Icon     string     `json:"icon" form:"icon"`
 	Summary  string     `json:"summary" form:"summary"`
 	Parent   int64      `json:"parent" form:"parent"`
 	Level    int64      `json:"level" form:"-"`
@@ -74,7 +75,7 @@ func (m *Menu) SetData(data *[]Menu) {
 func (m *Menu) SetFather(data *[]Menu, parent int64, father *Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*father = Category{v.ID, v.Name, v.Tag}
+			*father = Category{v.ID, v.Name, v.Tag, v.Icon}
 			break
 		}
 	}
@@ -83,7 +84,7 @@ func (m *Menu) SetFather(data *[]Menu, parent int64, father *Category) {
 func (m *Menu) SetParents(data *[]Menu, parent int64, parents *[]Category) {
 	for _, v := range *data {
 		if v.ID == parent {
-			*parents = append(*parents, Category{v.ID, v.Name, v.Tag})
+			*parents = append(*parents, Category{v.ID, v.Name, v.Tag, v.Icon})
 			m.SetParents(data, v.Parent, parents)
 		}
 	}
@@ -92,7 +93,7 @@ func (m *Menu) SetParents(data *[]Menu, parent int64, parents *[]Category) {
 func (m *Menu) SetChildren(data *[]Menu, id int64, children *[]Category) {
 	for _, v := range *data {
 		if v.Parent == id {
-			*children = append(*children, Category{v.ID, v.Name, v.Tag})
+			*children = append(*children, Category{v.ID, v.Name, v.Tag, v.Icon})
 			m.SetChildren(data, v.ID, children)
 		}
 	}

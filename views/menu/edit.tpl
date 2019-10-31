@@ -69,6 +69,15 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="font-bold">图标</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-image"></i>
+                                    </span>
+                                    <input type="text" name="icon" placeholder="请输入图标" class="form-control" value="{{ .menu.Icon }}">
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="font-bold">所属菜单</label>
