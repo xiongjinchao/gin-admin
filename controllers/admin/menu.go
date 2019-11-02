@@ -102,7 +102,7 @@ func (m *Menu) Store(c *gin.Context) {
 		menu.Level = parent.Level + 1
 	}
 
-	if err := db.Mysql.Omit("Parents", "Space").Create(&menu).Error; err != nil {
+	if err := db.Mysql.Create(&menu).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/create")
 		return
@@ -176,7 +176,7 @@ func (m *Menu) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.Menu{}).Omit("Parents", "Space").Save(&menu).Error; err != nil {
+	if err := db.Mysql.Model(&models.Menu{}).Save(&menu).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return

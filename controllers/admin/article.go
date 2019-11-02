@@ -121,7 +121,7 @@ func (a *Article) Store(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Omit("ArticleCategory", "User", "File", "Tags").Create(&article).Error; err != nil {
+	if err := db.Mysql.Omit("ArticleCategory", "User", "File").Create(&article).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/create")
 		return
@@ -234,7 +234,7 @@ func (a *Article) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User", "File", "Tags").Save(&article).Error; err != nil {
+	if err := db.Mysql.Model(&models.Article{}).Omit("ArticleCategory", "User", "File").Save(&article).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article/edit/"+id)
 		return

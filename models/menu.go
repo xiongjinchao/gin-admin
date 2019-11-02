@@ -20,10 +20,10 @@ type Menu struct {
 	Audit    int64      `json:"audit" form:"audit"`
 	Sort     int64      `json:"sort" form:"sort"`
 	Keyword  string     `json:"keyword" form:"keyword"`
-	Father   Category   `json:"father" form:"-"`
-	Parents  []Category `json:"parents" validate:"-"`
-	Space    string     `json:"space" validate:"-"`
-	Children []Category `json:"children" form:"-"`
+	Father   Category   `json:"father" form:"-" gorm:"-"`
+	Parents  []Category `json:"parents" validate:"-" gorm:"-"`
+	Space    string     `json:"space" validate:"-" gorm:"-"`
+	Children []Category `json:"children" form:"-" gorm:"-"`
 }
 
 func (Menu) TableName() string {
@@ -103,7 +103,7 @@ func (m *Menu) UpdateChildrenLevel(data *[]Menu, parent Menu) {
 	for _, v := range *data {
 		if v.Parent == parent.ID {
 			v.Level = parent.Level + 1
-			db.Mysql.Model(Menu{}).Omit("Parents", "Space").Save(&v)
+			db.Mysql.Model(Menu{}).Save(&v)
 
 			m.UpdateChildrenLevel(data, v)
 		}

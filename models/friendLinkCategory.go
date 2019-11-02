@@ -17,10 +17,10 @@ type FriendLinkCategory struct {
 	Level    int64      `json:"level" form:"-"`
 	Audit    int64      `json:"audit" form:"audit"`
 	Sort     int64      `json:"sort" form:"sort"`
-	Father   Category   `json:"father" form:"-"`
-	Parents  []Category `json:"parents" validate:"-"`
-	Space    string     `json:"space" validate:"-"`
-	Children []Category `json:"children" form:"-"`
+	Father   Category   `json:"father" form:"-" gorm:"-"`
+	Parents  []Category `json:"parents" validate:"-" gorm:"-"`
+	Space    string     `json:"space" validate:"-" gorm:"-"`
+	Children []Category `json:"children" form:"-" gorm:"-"`
 }
 
 func (FriendLinkCategory) TableName() string {
@@ -100,7 +100,7 @@ func (f *FriendLinkCategory) UpdateChildrenLevel(data *[]FriendLinkCategory, par
 	for _, v := range *data {
 		if v.Parent == parent.ID {
 			v.Level = parent.Level + 1
-			db.Mysql.Model(FriendLinkCategory{}).Omit("Parents", "Space").Save(&v)
+			db.Mysql.Model(FriendLinkCategory{}).Save(&v)
 
 			f.UpdateChildrenLevel(data, v)
 		}

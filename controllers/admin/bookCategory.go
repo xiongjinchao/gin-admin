@@ -102,7 +102,7 @@ func (b *BookCategory) Store(c *gin.Context) {
 		bookCategory.Level = parent.Level + 1
 	}
 
-	if err := db.Mysql.Omit("Parents", "Space").Create(&bookCategory).Error; err != nil {
+	if err := db.Mysql.Create(&bookCategory).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book-category/create")
 		return
@@ -176,7 +176,7 @@ func (b *BookCategory) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.BookCategory{}).Omit("Parents", "Space").Save(&bookCategory).Error; err != nil {
+	if err := db.Mysql.Model(&models.BookCategory{}).Save(&bookCategory).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book-category/edit/"+id)
 		return

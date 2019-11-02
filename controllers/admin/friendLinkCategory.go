@@ -102,7 +102,7 @@ func (f *FriendLinkCategory) Store(c *gin.Context) {
 		friendLinkCategory.Level = parent.Level + 1
 	}
 
-	if err := db.Mysql.Omit("Parents", "Space").Create(&friendLinkCategory).Error; err != nil {
+	if err := db.Mysql.Create(&friendLinkCategory).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link-category/create")
 		return
@@ -176,7 +176,7 @@ func (f *FriendLinkCategory) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Omit("Parents", "Space").Save(&friendLinkCategory).Error; err != nil {
+	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Save(&friendLinkCategory).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link-category/edit/"+id)
 		return

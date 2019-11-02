@@ -102,7 +102,7 @@ func (a *ArticleCategory) Store(c *gin.Context) {
 		articleCategory.Level = parent.Level + 1
 	}
 
-	if err := db.Mysql.Omit("Parents", "Space").Create(&articleCategory).Error; err != nil {
+	if err := db.Mysql.Create(&articleCategory).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/create")
 		return
@@ -176,7 +176,7 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Omit("Parents", "Space").Save(&articleCategory).Error; err != nil {
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Save(&articleCategory).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return

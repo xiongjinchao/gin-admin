@@ -120,7 +120,7 @@ func (b *Book) Store(c *gin.Context) {
 		return
 	}
 
-	if err := db.Mysql.Omit("BookCategory", "File", "Tags").Create(&book).Error; err != nil {
+	if err := db.Mysql.Omit("BookCategory", "File").Create(&book).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/create")
 		return
@@ -216,7 +216,7 @@ func (b *Book) Update(c *gin.Context) {
 	}
 
 	// save() function can update empty,zero,bool column.
-	if err := db.Mysql.Model(&models.Book{}).Omit("BookCategory", "File", "Tags").Save(&book).Error; err != nil {
+	if err := db.Mysql.Model(&models.Book{}).Omit("BookCategory", "File").Save(&book).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
 		return
