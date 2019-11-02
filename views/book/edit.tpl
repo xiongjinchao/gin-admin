@@ -135,7 +135,27 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="font-bold">喜欢量</label>
+                                <label class="font-bold">有用量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-thumbs-up"></i>
+                                    </span>
+                                    <input type="text" name="useful" placeholder="" class="form-control" value="{{ .book.useful }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">无用量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-thumbs-down"></i>
+                                    </span>
+                                    <input type="text" name="useless" placeholder="" class="form-control" value="{{ .book.useless }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">收藏量</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fal fa-heart"></i>

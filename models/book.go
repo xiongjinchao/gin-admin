@@ -16,6 +16,8 @@ type Book struct {
 	Tag          string       `json:"tag" form:"tag"`
 	Audit        int64        `json:"audit" form:"audit"`
 	Hit          int64        `json:"hit" form:"hit"`
+	Useful       int64        `json:"useful" form:"useful"`
+	Useless      int64        `json:"useless" form:"useless"`
 	Favorite     int64        `json:"favorite" form:"favorite"`
 	Comment      int64        `json:"comment" form:"comment"`
 	Keyword      string       `json:"keyword" form:"keyword"`

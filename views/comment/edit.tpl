@@ -109,6 +109,26 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="font-bold">有用量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-thumbs-up"></i>
+                                    </span>
+                                    <input type="text" name="useful" placeholder="" class="form-control" value="{{ .comment.useful }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-bold">无用量</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fal fa-thumbs-down"></i>
+                                    </span>
+                                    <input type="text" name="useless" placeholder="" class="form-control" value="{{ .comment.useless }}">
+                                </div>
+                            </div>
+
                             <div>
                                 <button class="btn btn-sm btn-primary" type="submit"> <i class="fal fa-paper-plane"></i> 保存</button>
                             </div>

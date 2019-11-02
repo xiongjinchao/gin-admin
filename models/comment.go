@@ -8,6 +8,8 @@ type Comment struct {
 	Root    int64  `json:"root" form:"root"`
 	Parent  int64  `json:"parent" form:"parent"`
 	Content string `json:"content" form:"content"`
+	Useful  int64  `json:"useful" form:"useful"`
+	Useless int64  `json:"useless" form:"useless"`
 }
 
 func (Comment) TableName() string {
