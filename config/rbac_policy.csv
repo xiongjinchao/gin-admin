@@ -122,6 +122,7 @@ p, role:ctr:tag, POST /admin/tag/update/:id, POST
 p, role:ctr:comment, POST /admin/comment, POST
 p, role:ctr:comment, POST /admin/comment/update/:id, POST
 p, role:ctr:file, POST /admin/file/editor-upload, POST
+p, role:ctr:book, GET /admin/book/test, GET
 g, admin:admin, role:sys:admin
 g, admin:1, role:sys:admin
 g, role:sys:admin, role:ctr:article

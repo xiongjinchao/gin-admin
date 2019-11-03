@@ -110,6 +110,7 @@ func Router() *gin.Engine {
 		authorized.POST("book/update/:id", book.Update)
 		authorized.GET("book/show/:id", book.Show)
 		authorized.GET("book/delete/:id", book.Destroy)
+		authorized.GET("book/test", book.Test)
 
 		//BookChapter
 		bookChapter := &admin.BookChapter{}

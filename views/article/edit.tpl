@@ -179,7 +179,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-thumbs-up"></i>
                                     </span>
-                                    <input type="text" name="useful" placeholder="" class="form-control" value="{{ .article.useful }}">
+                                    <input type="text" name="useful" placeholder="" class="form-control" value="{{ .article.Useful }}">
                                 </div>
                             </div>
 
@@ -189,7 +189,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-thumbs-down"></i>
                                     </span>
-                                    <input type="text" name="useless" placeholder="" class="form-control" value="{{ .article.useless }}">
+                                    <input type="text" name="useless" placeholder="" class="form-control" value="{{ .article.Useless }}">
                                 </div>
                             </div>
 

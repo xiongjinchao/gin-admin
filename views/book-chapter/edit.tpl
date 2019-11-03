@@ -99,7 +99,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-thumbs-up"></i>
                                     </span>
-                                    <input type="text" name="useful" placeholder="" class="form-control" value="{{ .bookChapter.useful }}">
+                                    <input type="text" name="useful" placeholder="" class="form-control" value="{{ .bookChapter.Useful }}">
                                 </div>
                             </div>
 
@@ -109,7 +109,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-thumbs-down"></i>
                                     </span>
-                                    <input type="text" name="useless" placeholder="" class="form-control" value="{{ .bookChapter.useless }}">
+                                    <input type="text" name="useless" placeholder="" class="form-control" value="{{ .bookChapter.Useless }}">
                                 </div>
                             </div>
 

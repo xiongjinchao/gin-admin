@@ -5,7 +5,6 @@ package main
 import (
 	"fmt"
 	db "gin-admin/database"
-	"gin-admin/models"
 	"github.com/JohannesKaufmann/html-to-markdown"
 	"github.com/PuerkitoBio/goquery"
 	_ "github.com/go-sql-driver/mysql"
@@ -48,7 +47,7 @@ func fetch(url string) {
 		log.Fatal(err)
 	}
 
-	title := doc.Find("#content h1").Text()
+	//title := doc.Find("#content h1").Text()
 	content, err := doc.Find("#content").Html()
 	if err != nil {
 		log.Fatal(err)
@@ -56,19 +55,23 @@ func fetch(url string) {
 
 	converter := md.NewConverter("", true, nil)
 	markdown, err := converter.ConvertString(content)
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	article := models.Article{}
-	article.Title = title
-	article.Content = markdown
-	article.SourceUrl = url
-	article.CategoryID = 1
+	fmt.Println(markdown)
+	/*
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	if err := db.Mysql.Omit("ArticleCategory", "User", "File", "Tags").Create(&article).Error; err != nil {
-		log.Fatal(err)
-	}
+		article := models.Article{}
+		article.Title = title
+		article.Content = markdown
+		article.SourceUrl = url
+		article.CategoryID = 1
+
+		if err := db.Mysql.Omit("ArticleCategory", "User", "File", "Tags").Create(&article).Error; err != nil {
+			log.Fatal(err)
+		}
+	*/
 
 	fmt.Println("Done")
 }
