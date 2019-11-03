@@ -22,45 +22,45 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/admin/dashboard"><i class="fal fa-desktop"></i> <span class="nav-label">系统面板</span></a>
+                    <a href="/admin/dashboard"><i class="fal fa-desktop fa-fw"></i> <span class="nav-label">系统面板</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fal fa-th-large"></i> <span class="nav-label">基础数据</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fal fa-th-large fa-fw"></i> <span class="nav-label">基础数据</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="/admin/menu"><i class="fal fa-star-of-david text-info"></i> 菜单管理</a></li>
-                        <li><a href="/admin/book"><i class="fal fa-books text-info"></i> 书籍管理</a></li>
-                        <li><a href="/admin/book-chapter"><i class="fal fa-bookmark text-info"></i> 书籍章节</a></li>
-                        <li><a href="/admin/book-category"><i class="fal fa-list-ul text-info"></i> 书籍分类</a></li>
-                        <li><a href="/admin/article"><i class="fal fa-file-word text-info"></i> 文章管理</a></li>
-                        <li><a href="/admin/article-category"><i class="fal fa-list-ul text-info"></i> 文章分类</a></li>
-                        <li><a href="/admin/comment"><i class="fal fa-comments text-info"></i> 评论管理</a></li>
-                        <li><a href="/admin/tag"><i class="fal fa-tags text-info"></i> 标签管理</a></li>
+                        <li><a href="/admin/menu"><i class="fal fa-star-of-david text-info fa-fw"></i> 菜单管理</a></li>
+                        <li><a href="/admin/book"><i class="fal fa-books text-info fa-fw"></i> 书籍管理</a></li>
+                        <li><a href="/admin/book-chapter"><i class="fal fa-bookmark text-info fa-fw"></i> 书籍章节</a></li>
+                        <li><a href="/admin/book-category"><i class="fal fa-list-ul text-info fa-fw"></i> 书籍分类</a></li>
+                        <li><a href="/admin/article"><i class="fal fa-file-word text-info fa-fw"></i> 文章管理</a></li>
+                        <li><a href="/admin/article-category"><i class="fal fa-list-ul text-info fa-fw"></i> 文章分类</a></li>
+                        <li><a href="/admin/comment"><i class="fal fa-comments text-info fa-fw"></i> 评论管理</a></li>
+                        <li><a href="/admin/tag"><i class="fal fa-tags text-info fa-fw"></i> 标签管理</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fal fa-cubes"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fal fa-cubes fa-fw"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="/admin/friend-link"><i class="fal fa-link text-info"></i> 友情链接</a></li>
-                        <li><a href="/admin/friend-link-category"><i class="fal fa-list-ul text-info"></i> 链接分类</a></li>
-                        <li><a href="/admin/action-log"><i class="fal fa-cabinet-filing text-info"></i> 操作记录</a></li>
+                        <li><a href="/admin/friend-link"><i class="fal fa-link text-info fa-fw"></i> 友情链接</a></li>
+                        <li><a href="/admin/friend-link-category"><i class="fal fa-list-ul text-info fa-fw"></i> 链接分类</a></li>
+                        <li><a href="/admin/action-log"><i class="fal fa-cabinet-filing text-info fa-fw"></i> 操作记录</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fal fa-cogs"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fal fa-cogs fa-fw"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="/admin/admin"><i class="fal fa-user-tie text-warning"></i> 管理员</a></li>
-                        <li><a href="/admin/user"><i class="fal fa-user text-warning"></i> 用户管理</a></li>
-                        <li><a href="/admin/policy"><i class="fal fa-user-cog text-warning"></i> 角色权限</a></li>
+                        <li><a href="/admin/admin"><i class="fal fa-user-tie text-warning fa-fw"></i> 管理员</a></li>
+                        <li><a href="/admin/user"><i class="fal fa-user text-warning fa-fw"></i> 用户管理</a></li>
+                        <li><a href="/admin/policy"><i class="fal fa-user-cog text-warning fa-fw"></i> 角色权限</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="/logout"><i class="fal fa-power-off text-danger"></i> <span class="nav-label">退出登录 </span></a>
+                    <a href="/logout"><i class="fal fa-power-off text-danger fa-fw"></i> <span class="nav-label">退出登录 </span></a>
                 </li>
                 <li class="landing_link">
-                    <a target="_blank" href="https://github.com/xiongjinchao/gin"><i class="fal fa-star-of-david"></i> <span class="nav-label">GitHub</span> <span class="label label-warning pull-right">HOT</span></a>
+                    <a target="_blank" href="https://github.com/xiongjinchao/gin"><i class="fal fa-star-of-david fa-fw"></i> <span class="nav-label">GitHub</span> <span class="label label-warning pull-right">HOT</span></a>
                 </li>
                 <li class="special_link">
-                    <a href="/admin/database"><i class="fal fa-database"></i> <span class="nav-label">数据库</span></a>
+                    <a href="/admin/database"><i class="fal fa-database fa-fw"></i> <span class="nav-label">数据库</span></a>
                 </li>
             </ul>
         </div>

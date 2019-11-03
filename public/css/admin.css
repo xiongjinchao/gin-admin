@@ -25,12 +25,6 @@
 .nav.metismenu .fal{
     font-size:18px;
 }
-.nav.metismenu .fal.fa-cubes,.nav.metismenu .fal.fa-star-of-david{
-    font-size:20px;
-}
-.nav.metismenu .fal.fa-tags,.nav.metismenu .fal.fa-cogs{
-    font-size:16px;
-}
 
 div.dataTables_wrapper div.dataTables_filter label{margin-right:0;}
 .dataTables_filter input{height:34px;border-radius: 1px;margin-right:0}
