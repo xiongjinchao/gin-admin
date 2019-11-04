@@ -494,7 +494,7 @@ CREATE TABLE `user_auth` (
 --
 
 INSERT INTO `user_auth` (`id`, `user_id`, `type`, `access_token`, `expires_in`, `refresh_token`, `openid`, `nickname`, `sex`, `avatar`, `privilege`, `unionid`, `country`, `province`, `city`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 2, 'github', '9df8939985dbbfc1f402af8af4bf19d3491beaca', 0, '', '10016730', 'Ted', 0, 'https://avatars3.githubusercontent.com/u/10016730?v=4', '', '', '', '', '', '2019-10-25 03:08:53', '2019-11-01 21:17:34', NULL);
+(1, 2, 'github', '9df8939985dbbfc1f402af8af4bf19d3491beacb', 0, '', '10016730', 'Ted', 0, 'https://avatars3.githubusercontent.com/u/10016730?v=4', '', '', '', '', '', '2019-10-25 03:08:53', '2019-11-01 21:17:34', NULL);
 
 --
 -- 转储表的索引

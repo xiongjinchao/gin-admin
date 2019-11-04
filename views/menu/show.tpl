@@ -54,7 +54,7 @@
                         <table id="w0" class="table table-striped table-bordered detail-view">
                             <tbody>
                                 <tr>
-                                    <th>菜单管理编号</th><td>{{ .menu.ID }}</td>
+                                    <th>菜单编号</th><td>{{ .menu.ID }}</td>
                                 </tr>
                                 <tr>
                                     <th>名称</th><td>{{ .menu.Name }}</td>
