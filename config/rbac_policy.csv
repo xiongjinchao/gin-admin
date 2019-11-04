@@ -123,6 +123,9 @@ p, role:ctr:comment, POST /admin/comment, POST
 p, role:ctr:comment, POST /admin/comment/update/:id, POST
 p, role:ctr:file, POST /admin/file/editor-upload, POST
 p, role:ctr:book, GET /admin/book/test, GET
+p, role:ctr:collect, GET /admin/collect, GET
+p, role:ctr:collect, GET /admin/collect/article, GET
+p, role:ctr:collect, GET /admin/collect/book, GET
 g, admin:admin, role:sys:admin
 g, admin:1, role:sys:admin
 g, role:sys:admin, role:ctr:article
@@ -143,3 +146,4 @@ g, role:sys:admin, role:ctr:action-log
 g, role:sys:admin, role:ctr:book-chapter
 g, role:sys:admin, role:ctr:tag
 g, role:sys:admin, role:ctr:comment
+g, role:sys:admin, role:ctr:collect

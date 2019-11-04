@@ -217,6 +217,12 @@ func Router() *gin.Engine {
 		authorized.GET("friend-link-category/show/:id", friendLinkCategory.Show)
 		authorized.GET("friend-link-category/delete/:id", friendLinkCategory.Destroy)
 
+		//Collect
+		collect := &admin.Collect{}
+		authorized.GET("collect", collect.Index)
+		authorized.GET("collect/article", collect.Article)
+		authorized.GET("collect/book", collect.Book)
+
 		//Policy
 		policy := &admin.Policy{}
 		authorized.GET("policy", policy.Index)

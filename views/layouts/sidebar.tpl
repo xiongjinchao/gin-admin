@@ -51,6 +51,7 @@
                         <li><a href="/admin/admin"><i class="fal fa-user-tie text-warning fa-fw"></i> 管理员</a></li>
                         <li><a href="/admin/user"><i class="fal fa-user text-warning fa-fw"></i> 用户管理</a></li>
                         <li><a href="/admin/policy"><i class="fal fa-user-cog text-warning fa-fw"></i> 角色权限</a></li>
+                        <li><a href="/admin/collect"><i class="fal fa-tools text-warning fa-fw"></i> 采集工具</a></li>
                     </ul>
                 </li>
                 <li>
