@@ -220,8 +220,8 @@ func Router() *gin.Engine {
 		//Collect
 		collect := &admin.Collect{}
 		authorized.GET("collect", collect.Index)
-		authorized.GET("collect/article", collect.Article)
-		authorized.GET("collect/book", collect.Book)
+		authorized.POST("collect/article", collect.Article)
+		authorized.POST("collect/book", collect.Book)
 
 		//Policy
 		policy := &admin.Policy{}
