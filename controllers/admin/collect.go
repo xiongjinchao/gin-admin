@@ -106,7 +106,7 @@ func (co *Collect) Article(c *gin.Context) {
 		}
 	} else if source == "LearnKu" {
 		title = doc.Find("h1>div>span").Text()
-		content, err = doc.Find(".article-content").Html()
+		content, err = doc.Find(".content-body").Html()
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
