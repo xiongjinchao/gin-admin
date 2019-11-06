@@ -6,6 +6,7 @@ import (
 	"gin-admin/helper"
 	"gin-admin/models"
 	md "github.com/JohannesKaufmann/html-to-markdown"
+	"github.com/JohannesKaufmann/html-to-markdown/plugin"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -114,6 +115,7 @@ func (co *Collect) Article(c *gin.Context) {
 	}
 
 	converter := md.NewConverter("", true, nil)
+	converter.Use(plugin.GitHubFlavored())
 	content, err = converter.ConvertString(content)
 	if err != nil {
 		helper.SetFlash(c, err.Error(), "error")

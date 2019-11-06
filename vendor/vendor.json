@@ -3,12 +3,6 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "JOG/QSGMZ6A6kUf4BdkuiuOL+v4=",
-			"path": "github.com/JohannesKaufmann/html-to-markdown",
-			"revision": "2c0dde1232402b68c74ae66fd15d6bb43d13b6fa",
-			"revisionTime": "2018-05-27T15:32:30Z"
-		},
-		{
 			"checksumSHA1": "ELlqT/yoVBobaDU/zFRreKJxec4=",
 			"path": "github.com/JohannesKaufmann/html-to-markdown/escape",
 			"revision": "2c0dde1232402b68c74ae66fd15d6bb43d13b6fa",
