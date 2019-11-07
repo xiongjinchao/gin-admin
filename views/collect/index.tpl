@@ -128,7 +128,7 @@
                                     <span class="input-group-addon" style="padding-top:28px;">
                                         <i class="fal fa-link"></i>
                                     </span>
-                                    <textarea name="url" rows="3" class="form-control"></textarea>
+                                    <textarea name="source_url" rows="3" class="form-control"></textarea>
                                 </div>
                             </div>
 

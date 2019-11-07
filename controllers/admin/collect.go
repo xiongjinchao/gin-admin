@@ -63,34 +63,18 @@ func (co *Collect) Article(c *gin.Context) {
 	url := c.PostForm("source_url")
 	source := c.PostForm("source")
 
-	// Request the HTML page.
-	res, err := http.Get(url)
-	if err != nil {
-		helper.SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/collect")
-		return
-	}
-	defer func() {
-		_ = res.Body.Close()
-	}()
-	if res.StatusCode != 200 {
-		helper.SetFlash(c, res.Status, "error")
-		c.Redirect(http.StatusFound, "/admin/collect")
-		return
-	}
-
 	// Load the HTML document
-	doc, err := goquery.NewDocumentFromReader(res.Body)
+	doc, err := helper.GetDoc(url)
 	if err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/collect")
 		return
 	}
-	var content, title string
+	var html, title string
 
 	if source == "简书" {
 		title = doc.Find("section>h1").Text()
-		content, err = doc.Find("article").Html()
+		html, err = doc.Find("article").Html()
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
@@ -98,7 +82,7 @@ func (co *Collect) Article(c *gin.Context) {
 		}
 	} else if source == "CSDN" {
 		title = doc.Find("h1.title-article").Text()
-		content, err = doc.Find("#content_views").Html()
+		html, err = doc.Find("#content_views").Html()
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
@@ -106,7 +90,7 @@ func (co *Collect) Article(c *gin.Context) {
 		}
 	} else if source == "LearnKu" {
 		title = doc.Find("h1>div>span").Text()
-		content, err = doc.Find(".content-body").Html()
+		html, err = doc.Find(".content-body").Html()
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
@@ -116,7 +100,7 @@ func (co *Collect) Article(c *gin.Context) {
 
 	converter := md.NewConverter("", true, nil)
 	converter.Use(plugin.GitHubFlavored())
-	content, err = converter.ConvertString(content)
+	markdown, err := converter.ConvertString(html)
 	if err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/collect")
@@ -131,7 +115,7 @@ func (co *Collect) Article(c *gin.Context) {
 		return
 	}
 	article.Title = title
-	article.Content = content
+	article.Content = markdown
 	article.UserID = int64(1)
 	if err := db.Mysql.Omit("ArticleCategory", "User", "File").Create(&article).Error; err != nil {
 		helper.SetFlash(c, err.Error(), "error")
@@ -144,6 +128,108 @@ func (co *Collect) Article(c *gin.Context) {
 }
 
 func (co *Collect) Book(c *gin.Context) {
+	// get book struct
+	url := c.PostForm("source_url")
+	source := c.PostForm("source")
+
+	// Load the HTML document
+	doc, err := helper.GetDoc(url)
+	if err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/collect")
+		return
+	}
+
+	book := models.Book{}
+	err = c.ShouldBind(&book)
+	if err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/collect")
+		return
+	}
+
+	if source == "LearnKu" {
+
+		type Page struct {
+			title string
+			link  string
+		}
+		type Chapter struct {
+			title string
+			page  []Page
+		}
+		type LearnKu struct {
+			title   string
+			chapter []Chapter
+		}
+
+		var learnKu LearnKu
+		learnKu.title = doc.Find(".sidebar .item.lh-2 a:first-child").Text()
+		doc.Find(".sidebar .item.py-2").Each(func(i int, cha *goquery.Selection) {
+			var chapter Chapter
+			chapter.title = cha.Find(".header.title").Text()
+
+			cha.Find(".menu.article a").Each(func(i int, sel *goquery.Selection) {
+				link, _ := sel.Attr("href")
+				chapter.page = append(chapter.page, Page{
+					title: sel.Text(),
+					link:  link,
+				})
+			})
+
+			learnKu.chapter = append(learnKu.chapter, chapter)
+		})
+
+		// save book
+		book.Name = learnKu.title
+		if err := db.Mysql.Omit("BookCategory", "File").Create(&book).Error; err != nil {
+			helper.SetFlash(c, err.Error(), "error")
+			c.Redirect(http.StatusFound, "/admin/collect")
+			return
+		}
+
+		// save chapter
+		for _, v := range learnKu.chapter {
+			bookChapter := models.BookChapter{}
+			bookChapter.BookID = book.ID
+			bookChapter.Title = v.title
+
+			for _, p := range v.page {
+
+				// Load the HTML document
+				doc, err := helper.GetDoc(p.link)
+				if err != nil {
+					helper.SetFlash(c, err.Error(), "error")
+					c.Redirect(http.StatusFound, "/admin/collect")
+					return
+				}
+
+				html, err := doc.Find(".content-body").Html()
+				if err != nil {
+					helper.SetFlash(c, err.Error(), "error")
+					c.Redirect(http.StatusFound, "/admin/collect")
+					return
+				}
+
+				converter := md.NewConverter("", true, nil)
+				converter.Use(plugin.GitHubFlavored())
+				content, err := converter.ConvertString(html)
+				if err != nil {
+					helper.SetFlash(c, err.Error(), "error")
+					c.Redirect(http.StatusFound, "/admin/collect")
+					return
+				}
+
+				bookChapter.Chapter += content
+			}
+
+			if err := db.Mysql.Omit("Book").Create(&bookChapter).Error; err != nil {
+				helper.SetFlash(c, err.Error(), "error")
+				c.Redirect(http.StatusFound, "/admin/collect")
+				return
+			}
+		}
+	}
 
 	c.Redirect(http.StatusFound, "/admin/collect")
 
