@@ -127,6 +127,13 @@ func (b *Book) Store(c *gin.Context) {
 		return
 	}
 
+	// update() article tag
+	if err := (&models.Tag{}).Upgrade(c.PostForm("tags"), book.TableName(), book.ID); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book/create")
+		return
+	}
+
 	helper.SetFlash(c, "创建书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
 }

@@ -1,11 +1,5 @@
 package models
 
-import (
-	"fmt"
-	db "gin-admin/database"
-	"github.com/gin-gonic/gin"
-)
-
 type Article struct {
 	Base            `json:"base"`
 	Title           string          `json:"title" form:"title"`
@@ -34,19 +28,4 @@ type Article struct {
 
 func (Article) TableName() string {
 	return "article"
-}
-
-// set tags data to article
-func (a *Article) SetTags(articles *[]Article) {
-
-	for i, v := range *articles {
-		var tagModel []TagModel
-		if err := db.Mysql.Model(&TagModel{}).Preload("Tag").Where("model = ? and model_id = ?", "article", v.ID).Find(&tagModel).Error; err != nil {
-			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-			v.Tags = nil
-		}
-		for _, t := range tagModel {
-			(*articles)[i].Tags = append((*articles)[i].Tags, t.Tag)
-		}
-	}
 }
