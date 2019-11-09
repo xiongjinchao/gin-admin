@@ -6,10 +6,8 @@ import (
 )
 
 type Tag struct {
-	Base    `json:"base"`
-	Model   string `json:"model" form:"model"`
-	ModelID int64  `json:"model_id" form:"model_id" gorm:"column:model_id"`
-	Tag     string `json:"tag" form:"tag"`
+	Base `json:"base"`
+	Name string `json:"name" form:"name"`
 }
 
 func (Tag) TableName() string {
@@ -19,42 +17,48 @@ func (Tag) TableName() string {
 // Update tags
 func (t *Tag) Upgrade(value, model string, id int64) (err error) {
 	if value != "" {
-		var tag []Tag
-		var tags []string
-		if err := db.Mysql.Model(&Tag{}).Where("model =? and model_id = ?", model, id).Find(&tag).Error; err != nil {
-			return err
+		var tagModels []TagModel
+		if err = db.Mysql.Model(&Tag{}).Preload("Tag").Where("model = ? and model_id = ?", model, id).Find(&tagModels).Error; err != nil {
+			return
 		}
-
-		for _, v := range tag {
-			if !strings.Contains(value, v.Tag) {
-				db.Mysql.Where("model = ? and model_id = ? and tag = ?", model, id, v.Tag).Delete(&Tag{})
+		for _, v := range tagModels {
+			if !strings.Contains(value, v.Tag.Name) {
+				db.Mysql.Where("model = ? and model_id = ? and tag_id = ?", model, id, v.TagID).Delete(&TagModel{})
 			}
-		}
-
-		if err := db.Mysql.Model(&Tag{}).Where("model = ? and model_id  = ?", model, id).Find(&tag).Pluck("tag", &tags).Error; err != nil {
-			return err
 		}
 
 		for _, v := range strings.Split(value, ",") {
-			if strings.Contains(strings.Join(tags, ","), v) {
-				continue
-			}
 			tag := Tag{}
-			tag.Model = model
-			tag.ModelID = id
-			tag.Tag = v
-			db.Mysql.Model(&Tag{}).Save(&tag)
+			db.Mysql.Where("name = ?", v).First(&tag)
+			if tag.ID <= 0 {
+				tag.Name = v
+				db.Mysql.Model(&Tag{}).Create(&tag)
+			}
+
+			tagModel := TagModel{}
+			db.Mysql.Where("tag_id = ?", tag.ID).First(&tagModel)
+			if tagModel.ID <= 0 {
+				tagModel.TagID = tag.ID
+				tagModel.Model = model
+				tagModel.ModelID = id
+				db.Mysql.Model(&TagModel{}).Omit("Tag").Create(&tagModel)
+			}
 		}
 
 	} else {
-		db.Mysql.Where("model = ? and model_id = ?", model, id).Delete(&Tag{})
+		db.Mysql.Where("model = ? and model_id = ?", model, id).Delete(&TagModel{})
 	}
 	return nil
 }
 
 // Get tags
 func (t *Tag) GetTags(model string, id int64) (tags []string, err error) {
-	var tag []Tag
-	err = db.Mysql.Model(&Tag{}).Where("model = ? and model_id = ?", model, id).Find(&tag).Pluck("tag", &tags).Error
+	var tagModels []TagModel
+	if err = db.Mysql.Model(&Tag{}).Preload("Tag").Where("model = ? and model_id = ?", model, id).Find(&tagModels).Error; err != nil {
+		return
+	}
+	for _, v := range tagModels {
+		tags = append(tags, v.Tag.Name)
+	}
 	return
 }

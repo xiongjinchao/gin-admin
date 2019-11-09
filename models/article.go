@@ -40,9 +40,13 @@ func (Article) TableName() string {
 func (a *Article) SetTags(articles *[]Article) {
 
 	for i, v := range *articles {
-		if err := db.Mysql.Model(&Tag{}).Select("id,tag").Where("model = ? and model_id = ?", "article", v.ID).Find(&(*articles)[i].Tags).Error; err != nil {
+		var tagModel []TagModel
+		if err := db.Mysql.Model(&TagModel{}).Preload("Tag").Where("model = ? and model_id = ?", "article", v.ID).Find(&tagModel).Error; err != nil {
 			_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 			v.Tags = nil
+		}
+		for _, t := range tagModel {
+			(*articles)[i].Tags = append((*articles)[i].Tags, t.Tag)
 		}
 	}
 }

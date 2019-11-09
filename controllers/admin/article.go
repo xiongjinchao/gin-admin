@@ -127,15 +127,11 @@ func (a *Article) Store(c *gin.Context) {
 		return
 	}
 
-	if c.PostForm("tags") != "" {
-		tags := strings.Split(c.PostForm("tags"), ",")
-		for _, v := range tags {
-			tag := models.Tag{}
-			tag.Model = article.TableName()
-			tag.ModelID = article.ID
-			tag.Tag = v
-			db.Mysql.Model(&models.Tag{}).Save(&tag)
-		}
+	// update() article tag
+	if err := (&models.Tag{}).Upgrade(c.PostForm("tags"), article.TableName(), article.ID); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article/create")
+		return
 	}
 
 	helper.SetFlash(c, "创建文章成功", "success")
