@@ -181,9 +181,14 @@ func (b *BookCategory) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/book-category/edit/"+id)
 		return
 	}
-	(&models.BookCategory{}).UpdateChildren(bookCategory)
 
-	if err := (&models.BookCategory{}).SetCache(); err != nil {
+	if err := bookCategory.UpdateChildren(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book-category/edit/"+id)
+		return
+	}
+
+	if err := bookCategory.SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/book-category/edit/"+id)
 		return

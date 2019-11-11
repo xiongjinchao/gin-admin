@@ -2,9 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	db "gin-admin/database"
-	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
 )
@@ -110,13 +108,15 @@ func (m *Menu) UpdateChildrenLevel(data *[]Menu, parent Menu) {
 	}
 }
 
-func (m *Menu) UpdateChildren(parent Menu) {
+func (m *Menu) UpdateChildren() (err error) {
 
 	var menus []Menu
-	if err := db.Mysql.Model(Menu{}).Find(&menus).Error; err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	err = db.Mysql.Model(Menu{}).Find(&menus).Error
+	if err != nil {
+		return
 	}
-	m.UpdateChildrenLevel(&menus, parent)
+	m.UpdateChildrenLevel(&menus, *m)
+	return
 }
 
 // cache menu data in redis

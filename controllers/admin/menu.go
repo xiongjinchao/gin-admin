@@ -182,9 +182,13 @@ func (m *Menu) Update(c *gin.Context) {
 		return
 	}
 
-	(&models.Menu{}).UpdateChildren(menu)
+	if err := menu.UpdateChildren(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
+		return
+	}
 
-	if err := (&models.Menu{}).SetCache(); err != nil {
+	if err := menu.SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/menu/edit/"+id)
 		return

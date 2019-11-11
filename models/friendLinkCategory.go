@@ -2,9 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	db "gin-admin/database"
-	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
 )
@@ -107,13 +105,15 @@ func (f *FriendLinkCategory) UpdateChildrenLevel(data *[]FriendLinkCategory, par
 	}
 }
 
-func (f *FriendLinkCategory) UpdateChildren(parent FriendLinkCategory) {
+func (f *FriendLinkCategory) UpdateChildren() (err error) {
 
 	var articleCategories []FriendLinkCategory
-	if err := db.Mysql.Model(FriendLinkCategory{}).Find(&articleCategories).Error; err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	err = db.Mysql.Model(FriendLinkCategory{}).Find(&articleCategories).Error
+	if err != nil {
+		return
 	}
-	f.UpdateChildrenLevel(&articleCategories, parent)
+	f.UpdateChildrenLevel(&articleCategories, *f)
+	return
 }
 
 // cache friend-link-category data in redis

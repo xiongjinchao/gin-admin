@@ -181,9 +181,13 @@ func (f *FriendLinkCategory) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/friend-link-category/edit/"+id)
 		return
 	}
-	(&models.FriendLinkCategory{}).UpdateChildren(friendLinkCategory)
+	if err := friendLinkCategory.UpdateChildren(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/friend-link-category/edit/"+id)
+		return
+	}
 
-	if err := (&models.FriendLinkCategory{}).SetCache(); err != nil {
+	if err := friendLinkCategory.SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/friend-link-category/edit/"+id)
 		return

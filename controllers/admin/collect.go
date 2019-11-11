@@ -10,6 +10,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 type Collect struct{}
@@ -165,9 +166,14 @@ func (co *Collect) Book(c *gin.Context) {
 
 		var learnKu LearnKu
 		learnKu.title = doc.Find(".sidebar .item.lh-2 a:first-child").Text()
+		learnKu.title = strings.Replace(learnKu.title, " ", "", -1)
+		learnKu.title = strings.Replace(learnKu.title, "\n", "", -1)
+
 		doc.Find(".sidebar .item.py-2").Each(func(i int, cha *goquery.Selection) {
 			var chapter Chapter
 			chapter.title = cha.Find(".header.title").Text()
+			chapter.title = strings.Replace(chapter.title, " ", "", -1)
+			chapter.title = strings.Replace(chapter.title, "\n", "", -1)
 
 			cha.Find(".menu.article a").Each(func(i int, sel *goquery.Selection) {
 				link, _ := sel.Attr("href")

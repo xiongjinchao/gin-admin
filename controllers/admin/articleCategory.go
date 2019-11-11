@@ -181,9 +181,14 @@ func (a *ArticleCategory) Update(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return
 	}
-	(&models.ArticleCategory{}).UpdateChildren(articleCategory)
 
-	if err := (&models.ArticleCategory{}).SetCache(); err != nil {
+	if err := articleCategory.UpdateChildren(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
+		return
+	}
+
+	if err := articleCategory.SetCache(); err != nil {
 		helper.SetFlash(c, err.Error(), "error")
 		c.Redirect(http.StatusFound, "/admin/article-category/edit/"+id)
 		return

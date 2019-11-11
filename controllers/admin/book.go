@@ -237,6 +237,12 @@ func (b *Book) Update(c *gin.Context) {
 		return
 	}
 
+	if err := book.GenerateCatalogue(); err != nil {
+		helper.SetFlash(c, err.Error(), "error")
+		c.Redirect(http.StatusFound, "/admin/book/edit/"+id)
+		return
+	}
+
 	helper.SetFlash(c, "修改书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
 }
@@ -264,32 +270,4 @@ func (b *Book) Destroy(c *gin.Context) {
 
 	helper.SetFlash(c, "删除书籍成功", "success")
 	c.Redirect(http.StatusFound, "/admin/book")
-}
-
-func (b *Book) Test(c *gin.Context) {
-	id := 1
-
-	book := models.Book{}
-	if err := db.Mysql.First(&book, id).Error; err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
-
-	var bookChapter []models.BookChapter
-	if err := db.Mysql.Where("book_id = ?", id).Find(&bookChapter).Error; err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
-
-	catalogue := ""
-
-	for _, v := range bookChapter {
-		catalogue += "### " + v.Title + "\n"
-		chapters := strings.Split(v.Chapter, "\n")
-		for _, chapter := range chapters {
-			if strings.Contains(chapter, "#") {
-				catalogue += chapter + "\n"
-			}
-		}
-	}
-
-	fmt.Println(catalogue)
 }

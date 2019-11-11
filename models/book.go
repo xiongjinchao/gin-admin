@@ -1,5 +1,12 @@
 package models
 
+import (
+	"errors"
+	db "gin-admin/database"
+	"regexp"
+	"strings"
+)
+
 type Book struct {
 	Base         `json:"base"`
 	Name         string       `json:"name" form:"name"`
@@ -22,4 +29,39 @@ type Book struct {
 
 func (Book) TableName() string {
 	return "book"
+}
+
+func (b *Book) GenerateCatalogue() (err error) {
+
+	var catalogue []string
+	var bookChapter []BookChapter
+	err = db.Mysql.Where("book_id = ?", b.ID).Find(&bookChapter).Error
+
+	if err != nil {
+		return err
+	}
+
+	if len(bookChapter) <= 0 {
+		return errors.New("书籍章节不存在")
+	}
+
+	for _, v := range bookChapter {
+
+		catalogue = append(catalogue, "# "+"["+v.Title+"](/book/detail/1#1)")
+		//#[关于本书](https://github.com/pandao/editor.md#1)
+
+		sections := strings.Split(v.Chapter, "\n")
+		for _, s := range sections {
+			if ok, _ := regexp.MatchString("^\\#\\W+$", s); ok {
+				catalogue = append(catalogue, "#"+s)
+			}
+		}
+	}
+
+	b.Catalogue = strings.Join(catalogue, "\n")
+	if err := db.Mysql.Model(&b).Omit("BookCategory", "File").Save(&b).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

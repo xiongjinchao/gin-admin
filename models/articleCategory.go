@@ -2,9 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	db "gin-admin/database"
-	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
 )
@@ -109,13 +107,15 @@ func (a *ArticleCategory) UpdateChildrenLevel(data *[]ArticleCategory, parent Ar
 	}
 }
 
-func (a *ArticleCategory) UpdateChildren(parent ArticleCategory) {
+func (a *ArticleCategory) UpdateChildren() (err error) {
 
 	var articleCategories []ArticleCategory
-	if err := db.Mysql.Model(ArticleCategory{}).Find(&articleCategories).Error; err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
+	err = db.Mysql.Model(ArticleCategory{}).Find(&articleCategories).Error
+	if err != nil {
+		return
 	}
-	a.UpdateChildrenLevel(&articleCategories, parent)
+	a.UpdateChildrenLevel(&articleCategories, *a)
+	return
 }
 
 // cache article-category data in redis
