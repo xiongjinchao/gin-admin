@@ -87,7 +87,7 @@ func (b *Book) Create(c *gin.Context) {
 	flash := helper.GetFlash(c)
 
 	var bookCategories, data []models.BookCategory
-	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level ASC, sort DESC").Find(&bookCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
@@ -176,7 +176,7 @@ func (b *Book) Edit(c *gin.Context) {
 	}
 
 	var bookCategories, data []models.BookCategory
-	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level ASC, sort DESC").Find(&bookCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)

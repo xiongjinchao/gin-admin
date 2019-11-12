@@ -29,7 +29,7 @@ func (f *FriendLinkCategory) Data(c *gin.Context) {
 
 	var friendLinkCategory, data []models.FriendLinkCategory
 
-	query := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level asc, sort DESC")
+	query := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level ASC, sort DESC")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -62,7 +62,7 @@ func (f *FriendLinkCategory) Create(c *gin.Context) {
 	flash := helper.GetFlash(c)
 
 	var friendLinkCategories, data []models.FriendLinkCategory
-	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level asc, sort DESC").Find(&friendLinkCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level ASC, sort DESC").Find(&friendLinkCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)
@@ -129,7 +129,7 @@ func (f *FriendLinkCategory) Edit(c *gin.Context) {
 	}
 
 	var friendLinkCategories, data []models.FriendLinkCategory
-	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level asc, sort DESC").Find(&friendLinkCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.FriendLinkCategory{}).Order("level ASC, sort DESC").Find(&friendLinkCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.FriendLinkCategory{}).SetSort(&friendLinkCategories, 0, &data)

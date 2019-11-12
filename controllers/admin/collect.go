@@ -36,14 +36,14 @@ func (co *Collect) Index(c *gin.Context) {
 	flash := helper.GetFlash(c)
 
 	var articleCategories, articleCategory []models.ArticleCategory
-	if err := db.Mysql.Model(&models.ArticleCategory{}).Order("level asc, sort DESC").Find(&articleCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.ArticleCategory{}).Order("level ASC, sort DESC").Find(&articleCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.ArticleCategory{}).SetSort(&articleCategories, 0, &articleCategory)
 	(&models.ArticleCategory{}).SetData(&articleCategory)
 
 	var bookCategories, bookCategory []models.BookCategory
-	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level ASC, sort DESC").Find(&bookCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &bookCategory)

@@ -29,7 +29,7 @@ func (b *BookCategory) Data(c *gin.Context) {
 
 	var bookCategory, data []models.BookCategory
 
-	query := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC")
+	query := db.Mysql.Model(&models.BookCategory{}).Order("level ASC, sort DESC")
 
 	search := c.Query("search[value]")
 	if search != "" {
@@ -62,7 +62,7 @@ func (b *BookCategory) Create(c *gin.Context) {
 	flash := helper.GetFlash(c)
 
 	var bookCategories, data []models.BookCategory
-	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level ASC, sort DESC").Find(&bookCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
@@ -129,7 +129,7 @@ func (b *BookCategory) Edit(c *gin.Context) {
 	}
 
 	var bookCategories, data []models.BookCategory
-	if err := db.Mysql.Model(&models.BookCategory{}).Order("level asc, sort DESC").Find(&bookCategories).Error; err != nil {
+	if err := db.Mysql.Model(&models.BookCategory{}).Order("level ASC, sort DESC").Find(&bookCategories).Error; err != nil {
 		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
 	}
 	(&models.BookCategory{}).SetSort(&bookCategories, 0, &data)
