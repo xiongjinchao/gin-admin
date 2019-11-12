@@ -9,8 +9,7 @@ func ValidateStruct(data interface{}) (err error) {
 
 	validate := &validator.Validate{}
 	validate = validator.New()
-	err = validate.Struct(data)
-	return
+	return validate.Struct(data)
 }
 
 // Validate variable
@@ -18,6 +17,5 @@ func ValidateVariable(data interface{}, rule string) (err error) {
 
 	validate := &validator.Validate{}
 	validate = validator.New()
-	err = validate.Var(data, rule)
-	return
+	return validate.Var(data, rule)
 }
