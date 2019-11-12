@@ -4,6 +4,7 @@ import (
 	"errors"
 	db "gin-admin/database"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -47,13 +48,16 @@ func (b *Book) GenerateCatalogue() (err error) {
 
 	for _, v := range bookChapter {
 
-		catalogue = append(catalogue, "# "+"["+v.Title+"](/book/detail/1#1)")
+		catalogue = append(catalogue, "# "+"["+v.Title+"](/book/chapter/"+strconv.FormatInt(v.ID, 10)+")")
 		//#[关于本书](https://github.com/pandao/editor.md#1)
 
 		sections := strings.Split(v.Chapter, "\n")
 		for _, s := range sections {
 			if ok, _ := regexp.MatchString("^\\#\\W+$", s); ok {
-				catalogue = append(catalogue, "#"+s)
+				title := strings.Replace(s, "#", "", -1)
+				title = strings.TrimSpace(title)
+				hash := strings.Repeat("#", strings.Count(s, "#"))
+				catalogue = append(catalogue, "#"+hash+"["+title+"](/book/chapter/"+strconv.FormatInt(v.ID, 10)+"#"+title+")")
 			}
 		}
 	}

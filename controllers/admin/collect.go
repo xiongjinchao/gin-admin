@@ -165,15 +165,11 @@ func (co *Collect) Book(c *gin.Context) {
 		}
 
 		var learnKu LearnKu
-		learnKu.title = doc.Find(".sidebar .item.lh-2 a:first-child").Text()
-		learnKu.title = strings.Replace(learnKu.title, " ", "", -1)
-		learnKu.title = strings.Replace(learnKu.title, "\n", "", -1)
+		learnKu.title = strings.TrimSpace(doc.Find(".sidebar .item.lh-2 a:first-child").Text())
 
 		doc.Find(".sidebar .item.py-2").Each(func(i int, cha *goquery.Selection) {
 			var chapter Chapter
-			chapter.title = cha.Find(".header.title").Text()
-			chapter.title = strings.Replace(chapter.title, " ", "", -1)
-			chapter.title = strings.Replace(chapter.title, "\n", "", -1)
+			chapter.title = strings.TrimSpace(cha.Find(".header.title").Text())
 
 			cha.Find(".menu.article a").Each(func(i int, sel *goquery.Selection) {
 				link, _ := sel.Attr("href")
@@ -236,6 +232,8 @@ func (co *Collect) Book(c *gin.Context) {
 			}
 		}
 	}
+
+	helper.SetFlash(c, "采集书籍成功", "success")
 
 	c.Redirect(http.StatusFound, "/admin/collect")
 
