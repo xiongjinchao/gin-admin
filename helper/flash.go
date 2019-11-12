@@ -2,7 +2,6 @@ package helper
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -11,9 +10,7 @@ import (
 func SetFlash(c *gin.Context, data interface{}, key string) {
 	session := sessions.Default(c)
 	session.AddFlash(data, key)
-	if err := session.Save(); err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	_ = session.Save()
 }
 
 // get flash data
@@ -46,8 +43,6 @@ func GetFlash(c *gin.Context) (data map[string]interface{}) {
 	data["error"] = errors
 	data["old"] = old
 
-	if err := session.Save(); err != nil {
-		_, _ = fmt.Fprintln(gin.DefaultWriter, err.Error())
-	}
+	_ = session.Save()
 	return data
 }
