@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	db "gin-admin/database"
 	"strings"
 )
@@ -27,8 +26,6 @@ func (t *Tag) Upgrade(value, model string, id int64) (err error) {
 				db.Mysql.Where("model = ? and model_id = ? and tag_id = ?", model, id, v.TagID).Delete(&TagModel{})
 			}
 		}
-
-		fmt.Println(value)
 
 		for _, v := range strings.Split(value, ",") {
 			tag := Tag{}
