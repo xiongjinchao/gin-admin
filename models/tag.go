@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	db "gin-admin/database"
 	"strings"
 )
@@ -18,7 +19,7 @@ func (Tag) TableName() string {
 func (t *Tag) Upgrade(value, model string, id int64) (err error) {
 	if value != "" {
 		var tagModels []TagModel
-		if err = db.Mysql.Model(&Tag{}).Preload("Tag").Where("model = ? and model_id = ?", model, id).Find(&tagModels).Error; err != nil {
+		if err = db.Mysql.Model(&TagModel{}).Preload("Tag").Where("model = ? and model_id = ?", model, id).Find(&tagModels).Error; err != nil {
 			return
 		}
 		for _, v := range tagModels {
@@ -26,6 +27,8 @@ func (t *Tag) Upgrade(value, model string, id int64) (err error) {
 				db.Mysql.Where("model = ? and model_id = ? and tag_id = ?", model, id, v.TagID).Delete(&TagModel{})
 			}
 		}
+
+		fmt.Println(value)
 
 		for _, v := range strings.Split(value, ",") {
 			tag := Tag{}
@@ -36,7 +39,7 @@ func (t *Tag) Upgrade(value, model string, id int64) (err error) {
 			}
 
 			tagModel := TagModel{}
-			db.Mysql.Where("tag_id = ?", tag.ID).First(&tagModel)
+			db.Mysql.Where("model = ? and model_id = ? and tag_id = ?", model, id, tag.ID).First(&tagModel)
 			if tagModel.ID <= 0 {
 				tagModel.TagID = tag.ID
 				tagModel.Model = model
@@ -54,7 +57,7 @@ func (t *Tag) Upgrade(value, model string, id int64) (err error) {
 // Get tags
 func (t *Tag) GetTags(model string, id int64) (tags []string, err error) {
 	var tagModels []TagModel
-	if err = db.Mysql.Model(&Tag{}).Preload("Tag").Where("model = ? and model_id = ?", model, id).Find(&tagModels).Error; err != nil {
+	if err = db.Mysql.Model(&TagModel{}).Preload("Tag").Where("model = ? and model_id = ?", model, id).Find(&tagModels).Error; err != nil {
 		return
 	}
 	for _, v := range tagModels {
