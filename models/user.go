@@ -23,10 +23,10 @@ func (User) TableName() string {
 	return "user"
 }
 
-func (u *User) GeneratePassword(password string) string {
+func (u *User) GeneratePassword() {
 	s := sha1.New()
-	s.Write([]byte(password))
-	return hex.EncodeToString(s.Sum([]byte("")))
+	s.Write([]byte(u.Password))
+	u.Password = hex.EncodeToString(s.Sum([]byte("")))
 }
 
 func (u *User) GenerateToken(id int64) (accessToken, resetKey string, err error) {
@@ -43,9 +43,4 @@ func (u *User) GenerateToken(id int64) (accessToken, resetKey string, err error)
 	s.Write([]byte(accessToken))
 	resetKey = hex.EncodeToString(s.Sum([]byte("")))
 	return
-}
-
-type Auth struct {
-	Mobile   string `label:"手机号码" json:"mobile" form:"mobile" validate:"required,numeric,len=11"`
-	Password string `label:"密码" json:"password" form:"password" validate:"required,gte=6,lte=18"`
 }

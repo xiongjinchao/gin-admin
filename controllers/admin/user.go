@@ -108,7 +108,7 @@ func (u *User) Store(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/admin/user/create")
 		return
 	}
-	user.Password = user.GeneratePassword(user.Password)
+	user.GeneratePassword()
 
 	existed := 0
 	db.Mysql.Model(&models.User{}).Where("name = ?", user.Name).Count(&existed)
@@ -194,7 +194,7 @@ func (u *User) Update(c *gin.Context) {
 			c.Redirect(http.StatusFound, "/admin/user/edit/"+id)
 			return
 		}
-		user.Password = user.GeneratePassword(user.Password)
+		user.GeneratePassword()
 	}
 
 	existed := 0

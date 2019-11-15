@@ -27,21 +27,11 @@ func (_ *Auth) Login(c *gin.Context) {
 
 //SignIn handles POST /sign-in route
 func (_ *Auth) SignIn(c *gin.Context) {
-	auth := models.Auth{}
-	if err := c.ShouldBind(&auth); err != nil {
-		helper.SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/login")
-		return
-	}
-
-	if err := helper.ValidateStruct(auth); err != nil {
-		c.Redirect(http.StatusFound, "/login")
-		return
-	}
-
 	admin := models.Admin{}
-	auth.Password = (&models.Admin{}).GeneratePassword(auth.Password)
-	err := db.Mysql.Model(&models.Admin{}).Where("mobile = ? AND password = ?", auth.Mobile, auth.Password).First(&admin).Error
+	admin.Mobile = c.PostForm("mobile")
+	admin.Password = c.PostForm("password")
+	admin.GeneratePassword()
+	err := db.Mysql.Model(&models.Admin{}).Where("mobile = ? AND password = ?", admin.Mobile, admin.Password).First(&admin).Error
 	if gorm.IsRecordNotFoundError(err) {
 		helper.SetFlash(c, "账号或密码错误，请重新输入", "error")
 		c.Redirect(http.StatusFound, "/login")

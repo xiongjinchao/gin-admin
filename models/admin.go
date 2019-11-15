@@ -19,10 +19,10 @@ func (Admin) TableName() string {
 	return "admin"
 }
 
-func (a *Admin) GeneratePassword(password string) string {
+func (a *Admin) GeneratePassword() {
 	s := sha1.New()
-	s.Write([]byte(password))
-	return hex.EncodeToString(s.Sum([]byte("")))
+	s.Write([]byte(a.Password))
+	a.Password = hex.EncodeToString(s.Sum([]byte("")))
 }
 
 func (a *Admin) ParseAuth(auth string) (admin Admin, err error) {
