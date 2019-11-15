@@ -25,11 +25,11 @@ func (BookCategory) TableName() string {
 	return "book_category"
 }
 
-func (a *BookCategory) SetSort(data *[]BookCategory, parent int64, result *[]BookCategory) {
+func (b *BookCategory) SetSort(data *[]BookCategory, parent int64, result *[]BookCategory) {
 	for _, v := range *data {
 		if v.Parent == parent {
 			*result = append(*result, v)
-			a.SetSort(data, v.ID, result)
+			b.SetSort(data, v.ID, result)
 		}
 	}
 }
@@ -94,25 +94,25 @@ func (b *BookCategory) SetChildren(data *[]BookCategory, id int64, children *[]C
 	}
 }
 
-func (a *BookCategory) UpdateChildrenLevel(data *[]BookCategory, parent BookCategory) {
+func (b *BookCategory) UpdateChildrenLevel(data *[]BookCategory, parent BookCategory) {
 	for _, v := range *data {
 		if v.Parent == parent.ID {
 			v.Level = parent.Level + 1
 			db.Mysql.Model(BookCategory{}).Save(&v)
 
-			a.UpdateChildrenLevel(data, v)
+			b.UpdateChildrenLevel(data, v)
 		}
 	}
 }
 
-func (a *BookCategory) UpdateChildren() (err error) {
+func (b *BookCategory) UpdateChildren() (err error) {
 
 	var bookCategories []BookCategory
 	err = db.Mysql.Model(BookCategory{}).Find(&bookCategories).Error
 	if err != nil {
 		return
 	}
-	a.UpdateChildrenLevel(&bookCategories, *a)
+	b.UpdateChildrenLevel(&bookCategories, *b)
 	return
 }
 
