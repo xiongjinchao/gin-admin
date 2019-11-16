@@ -5,10 +5,10 @@ import (
 	db "gin-admin/database"
 	"gin-admin/helper"
 	"gin-admin/models"
-	md "github.com/JohannesKaufmann/html-to-markdown"
-	"github.com/JohannesKaufmann/html-to-markdown/plugin"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
+	md "github.com/xiongjinchao/html-to-markdown"
+	"github.com/xiongjinchao/html-to-markdown/plugin"
 	"net/http"
 	"strings"
 )
@@ -61,67 +61,71 @@ func (co *Collect) Index(c *gin.Context) {
 
 func (co *Collect) Article(c *gin.Context) {
 
-	url := c.PostForm("source_url")
+	urls := c.PostForm("source_url")
 	source := c.PostForm("source")
 
-	// Load the HTML document
-	doc, err := helper.GetDoc(url)
-	if err != nil {
-		helper.SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/collect")
-		return
-	}
-	var html, title string
+	for _, url := range strings.Split(urls, "\n") {
+		url = strings.TrimSpace(url)
 
-	if source == "简书" {
-		title = doc.Find("section>h1").Text()
-		html, err = doc.Find("article").Html()
+		// Load the HTML document
+		doc, err := helper.GetDoc(url)
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
 			return
 		}
-	} else if source == "CSDN" {
-		title = doc.Find("h1.title-article").Text()
-		html, err = doc.Find("#content_views").Html()
+		var html, title string
+
+		if source == "简书" {
+			title = doc.Find("section>h1").Text()
+			html, err = doc.Find("article").Html()
+			if err != nil {
+				helper.SetFlash(c, err.Error(), "error")
+				c.Redirect(http.StatusFound, "/admin/collect")
+				return
+			}
+		} else if source == "CSDN" {
+			title = doc.Find("h1.title-article").Text()
+			html, err = doc.Find("#content_views").Html()
+			if err != nil {
+				helper.SetFlash(c, err.Error(), "error")
+				c.Redirect(http.StatusFound, "/admin/collect")
+				return
+			}
+		} else if source == "LearnKu" {
+			title = doc.Find("h1>div>span").Text()
+			html, err = doc.Find(".content-body").Html()
+			if err != nil {
+				helper.SetFlash(c, err.Error(), "error")
+				c.Redirect(http.StatusFound, "/admin/collect")
+				return
+			}
+		}
+
+		converter := md.NewConverter("", true, nil)
+		converter.Use(plugin.GitHubFlavored())
+		markdown, err := converter.ConvertString(html)
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
 			return
 		}
-	} else if source == "LearnKu" {
-		title = doc.Find("h1>div>span").Text()
-		html, err = doc.Find(".content-body").Html()
+
+		article := models.Article{}
+		err = c.ShouldBind(&article)
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
 			return
 		}
-	}
-
-	converter := md.NewConverter("", true, nil)
-	converter.Use(plugin.GitHubFlavored())
-	markdown, err := converter.ConvertString(html)
-	if err != nil {
-		helper.SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/collect")
-		return
-	}
-
-	article := models.Article{}
-	err = c.ShouldBind(&article)
-	if err != nil {
-		helper.SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/collect")
-		return
-	}
-	article.Title = title
-	article.Content = markdown
-	article.UserID = int64(1)
-	if err := db.Mysql.Omit("ArticleCategory", "User", "File").Create(&article).Error; err != nil {
-		helper.SetFlash(c, err.Error(), "error")
-		c.Redirect(http.StatusFound, "/admin/collect")
-		return
+		article.Title = title
+		article.Content = markdown
+		article.UserID = int64(1)
+		if err := db.Mysql.Omit("ArticleCategory", "User", "File").Create(&article).Error; err != nil {
+			helper.SetFlash(c, err.Error(), "error")
+			c.Redirect(http.StatusFound, "/admin/collect")
+			return
+		}
 	}
 
 	helper.SetFlash(c, "采集文章成功", "success")
