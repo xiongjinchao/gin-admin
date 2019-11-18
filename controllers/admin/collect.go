@@ -123,6 +123,7 @@ func (co *Collect) Article(c *gin.Context) {
 		}
 		article.Title = title
 		article.Content = markdown
+		article.SourceUrl = url
 		article.UserID = int64(1)
 		if err := db.Mysql.Omit("ArticleCategory", "User", "File").Create(&article).Error; err != nil {
 			helper.SetFlash(c, err.Error(), "error")
