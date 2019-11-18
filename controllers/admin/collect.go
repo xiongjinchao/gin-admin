@@ -105,6 +105,9 @@ func (co *Collect) Article(c *gin.Context) {
 		converter := md.NewConverter("", true, nil)
 		converter.Use(plugin.GitHubFlavored())
 		markdown, err := converter.ConvertString(html)
+		if source == "LearnKu" {
+			markdown, err = converter.Remove("div").ConvertString(html)
+		}
 		if err != nil {
 			helper.SetFlash(c, err.Error(), "error")
 			c.Redirect(http.StatusFound, "/admin/collect")
