@@ -178,7 +178,7 @@ func (co *Collect) Book(c *gin.Context) {
 			cha.Find(".menu.article a").Each(func(i int, sel *goquery.Selection) {
 				link, _ := sel.Attr("href")
 				chapter.page = append(chapter.page, Page{
-					title: sel.Text(),
+					title: strings.TrimSpace(sel.Text()),
 					link:  link,
 				})
 			})
@@ -196,11 +196,11 @@ func (co *Collect) Book(c *gin.Context) {
 
 		// save chapter
 		for _, v := range learnKu.chapter {
-			bookChapter := models.BookChapter{}
-			bookChapter.BookID = book.ID
-			bookChapter.Title = v.title
-
 			for _, p := range v.page {
+
+				bookChapter := models.BookChapter{}
+				bookChapter.BookID = book.ID
+				bookChapter.Title = p.title
 
 				// Load the HTML document
 				doc, err := helper.GetDoc(p.link)
@@ -209,7 +209,6 @@ func (co *Collect) Book(c *gin.Context) {
 					c.Redirect(http.StatusFound, "/admin/collect")
 					return
 				}
-
 				html, err := doc.Find(".content-body").Html()
 				if err != nil {
 					helper.SetFlash(c, err.Error(), "error")
@@ -219,20 +218,22 @@ func (co *Collect) Book(c *gin.Context) {
 
 				converter := md.NewConverter("", true, nil)
 				converter.Use(plugin.GitHubFlavored())
-				content, err := converter.ConvertString(html)
+				content, err := converter.Remove("div").ConvertString(html)
 				if err != nil {
 					helper.SetFlash(c, err.Error(), "error")
 					c.Redirect(http.StatusFound, "/admin/collect")
 					return
 				}
+				if content == "" {
+					continue
+				}
+				bookChapter.Chapter = content
 
-				bookChapter.Chapter += content
-			}
-
-			if err := db.Mysql.Omit("Book").Create(&bookChapter).Error; err != nil {
-				helper.SetFlash(c, err.Error(), "error")
-				c.Redirect(http.StatusFound, "/admin/collect")
-				return
+				if err := db.Mysql.Omit("Book").Create(&bookChapter).Error; err != nil {
+					helper.SetFlash(c, err.Error(), "error")
+					c.Redirect(http.StatusFound, "/admin/collect")
+					return
+				}
 			}
 		}
 	}
