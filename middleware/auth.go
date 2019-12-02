@@ -15,7 +15,6 @@ type Auth struct{}
 func (_ *Auth) CheckPolicy() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		c.Set("test", "gin-test")
 		// check login
 		session := sessions.Default(c)
 		auth := session.Get("auth")
