@@ -25,6 +25,9 @@
 .nav.metismenu .fal{
     font-size:18px;
 }
+.nav.metismenu .fal.fa-cogs{
+    font-size:15px!important;
+}
 
 div.dataTables_wrapper div.dataTables_filter label{margin-right:0;}
 .dataTables_filter input{height:34px;border-radius: 1px;margin-right:0}
