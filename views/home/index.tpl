@@ -51,24 +51,24 @@
             <div class="row text-center">
                 <div class="col">
                     <div class=" m-l-md">
-                        <span class="h5 font-bold m-t block"><i class="fal fa-user text-warning" style="font-size:28px;"></i> 0</span>
+                        <span class="h5 font-bold m-t block"><i class="fal fa-user text-warning" style="font-size:24px;"></i> 0</span>
                         <small class="text-muted m-b block">本月新增用户数量</small>
                     </div>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-file-word text-info" style="font-size:28px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-file-word text-info" style="font-size:24px;"></i> 0</span>
                     <small class="text-muted m-b block">本周新增文章数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-books text-danger" style="font-size:28px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-books text-danger" style="font-size:24px;"></i> 0</span>
                     <small class="text-muted m-b block">累计书籍数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-star text-warning" style="font-size:28px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-star text-warning" style="font-size:24px;"></i> 0</span>
                     <small class="text-muted m-b block">本月点赞数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-comments text-success" style="font-size:28px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-comments text-success" style="font-size:24px;"></i> 0</span>
                     <small class="text-muted m-b block">本月评论数量</small>
                 </div>
             </div>
@@ -83,11 +83,11 @@
                 </p>
                 <div class="row text-center">
                     <div class="col-lg-6">
-                        <canvas id="doughnutChart" width="140" height="140" style="margin: 18px auto 0"></canvas>
+                        <canvas id="doughnutChart" width="140" height="140" style="margin: 10px auto 0"></canvas>
                         <h5>点击分析</h5>
                     </div>
                     <div class="col-lg-6">
-                        <canvas id="doughnutChart2" width="140" height="140" style="margin: 18px auto 0"></canvas>
+                        <canvas id="doughnutChart2" width="140" height="140" style="margin: 10px auto 0"></canvas>
                         <h5>操作记录</h5>
                     </div>
                 </div>
