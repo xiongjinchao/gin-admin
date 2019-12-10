@@ -9,38 +9,38 @@
     {{/*content*/}}
     <div class="row  border-bottom white-bg dashboard-header">
         <div class="col-md-3">
-            <h2>Welcome Amelia</h2>
-            <small>You have 42 messages and 6 notifications.</small>
+            <h2>欢迎，Gin Blog管理员</h2>
+            <small>系统信息</small>
             <ul class="list-group clear-list m-t">
                 <li class="list-group-item fist-item">
-                            <span class="float-right">
-                                09:00 pm
-                            </span>
-                    <span class="label label-success">1</span> Please contact me
+                    <span class="float-right">
+                        {{ .system.hostName }}
+                    </span>
+                    <span class="label label-success">1</span> 主机名称
                 </li>
                 <li class="list-group-item">
-                            <span class="float-right">
-                                10:16 am
-                            </span>
-                    <span class="label label-info">2</span> Sign a contract
+                    <span class="float-right">
+                        {{ .system.type }}
+                    </span>
+                    <span class="label label-info">2</span> 主机类型
                 </li>
                 <li class="list-group-item">
-                            <span class="float-right">
-                                08:22 pm
-                            </span>
-                    <span class="label label-primary">3</span> Open new shop
+                    <span class="float-right">
+                        {{ .system.architecture }}
+                    </span>
+                    <span class="label label-primary">3</span> 主机架构
                 </li>
                 <li class="list-group-item">
-                            <span class="float-right">
-                                11:06 pm
-                            </span>
-                    <span class="label label-default">4</span> Call back to Sylvia
+                    <span class="float-right">
+                        {{ .system.CPU }}
+                    </span>
+                    <span class="label label-default">4</span> CPU核心数
                 </li>
                 <li class="list-group-item">
-                            <span class="float-right">
-                                12:00 am
-                            </span>
-                    <span class="label label-primary">5</span> Write a letter to Sandra
+                    <span class="float-right">
+                        {{ .system.memoryTotal }} / {{ .system.memorySys }} / {{ .system.memorySelf }}
+                    </span>
+                    <span class="label label-primary">5</span> 内存
                 </li>
             </ul>
         </div>
