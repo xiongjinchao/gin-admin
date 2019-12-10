@@ -38,9 +38,9 @@
                 </li>
                 <li class="list-group-item">
                     <span class="float-right">
-                        {{ .system.memoryTotal }} / {{ .system.memorySys }} / {{ .system.memorySelf }}
+                        {{ .system.memorySys }} / {{ .system.memorySelf }}
                     </span>
-                    <span class="label label-primary">5</span> 内存
+                    <span class="label label-primary">5</span> 内存(M)
                 </li>
             </ul>
         </div>

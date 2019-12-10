@@ -25,7 +25,6 @@ func (h *Home) Dashboard(c *gin.Context) {
 			"architecture": runtime.GOARCH,
 			"CUP":          runtime.GOMAXPROCS(0),
 			"hostName":     hostName,
-			"memoryTotal":  memStat.TotalAlloc / 1024 / 1024,
 			"memorySys":    memStat.Sys / 1024 / 1024,
 			"memorySelf":   memStat.Alloc / 1024 / 1024,
 		},
