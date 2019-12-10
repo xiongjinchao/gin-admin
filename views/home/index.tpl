@@ -40,7 +40,7 @@
                     <span class="float-right">
                         {{ .system.memorySys }} / {{ .system.memorySelf }}
                     </span>
-                    <span class="label label-primary">5</span> 内存(M)
+                    <span class="label label-primary">5</span> 使用内存(M)
                 </li>
             </ul>
         </div>
@@ -48,43 +48,48 @@
             <div class="flot-chart dashboard-chart">
                 <div class="flot-chart-content" id="flot-dashboard-chart"></div>
             </div>
-            <div class="row text-left">
+            <div class="row text-center">
                 <div class="col">
                     <div class=" m-l-md">
-                        <span class="h5 font-bold m-t block">$ 406,100</span>
-                        <small class="text-muted m-b block">Sales marketing report</small>
+                        <span class="h5 font-bold m-t block"><i class="fal fa-user text-warning" style="font-size:28px;"></i> 0</span>
+                        <small class="text-muted m-b block">本月新增用户数量</small>
                     </div>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block">$ 150,401</span>
-                    <small class="text-muted m-b block">Annual sales revenue</small>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-file-word text-info" style="font-size:28px;"></i> 0</span>
+                    <small class="text-muted m-b block">本周新增文章数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block">$ 16,822</span>
-                    <small class="text-muted m-b block">Half-year revenue margin</small>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-books text-danger" style="font-size:28px;"></i> 0</span>
+                    <small class="text-muted m-b block">累计书籍数量</small>
+                </div>
+                <div class="col">
+                    <span class="h5 font-bold m-t block"><i class="fal fa-star text-warning" style="font-size:28px;"></i> 0</span>
+                    <small class="text-muted m-b block">本月点赞数量</small>
+                </div>
+                <div class="col">
+                    <span class="h5 font-bold m-t block"><i class="fal fa-comments text-success" style="font-size:28px;"></i> 0</span>
+                    <small class="text-muted m-b block">本月评论数量</small>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="statistic-box">
                 <h4>
-                    Project Beta progress
+                    用户喜好
                 </h4>
                 <p>
-                    You have two project with not compleated task.
+                    统计用户点击次数
                 </p>
                 <div class="row text-center">
                     <div class="col-lg-6">
-                        <canvas id="doughnutChart2" width="80" height="80" style="margin: 18px auto 0"></canvas>
-                        <h5>Kolter</h5>
+                        <canvas id="doughnutChart" width="140" height="140" style="margin: 18px auto 0"></canvas>
+                        <h5>点击分析</h5>
                     </div>
                     <div class="col-lg-6">
-                        <canvas id="doughnutChart" width="80" height="80" style="margin: 18px auto 0"></canvas>
-                        <h5>Maxtor</h5>
+                        <canvas id="doughnutChart2" width="140" height="140" style="margin: 18px auto 0"></canvas>
+                        <h5>操作记录</h5>
                     </div>
-                </div>
-                <div class="m-t">
-                    <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                 </div>
             </div>
         </div>
@@ -320,7 +325,7 @@
                                             <p class="m-b-xs"><strong>Meeting</strong></p>
                                             <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the
                                                 sale.</p>
-                                            <p><span data-diameter="40" class="updating-chart">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,4,7,3,2,9,8,7,4,5,1,2,9,5,4,7,2,7,7,3,5,2</span></p>
+                                            <p><span data-diameter="40" class="updating-chart">5,3,9,6,5,9,7,3,5</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -443,7 +448,7 @@
                 [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]
             ];
             var data2 = [
-                [0,1],[1,0],[2,2],[3,0],[4,1],[5,3],[6,1],[7,5],[8,2],[9,3],[10,2],[11,1],[12,0],[13,2],[14,8],[15,0],[16,0]
+                [0,1],[1,8],[2,2],[3,0],[4,1],[5,3],[6,1],[7,5],[8,2],[9,3],[10,2],[11,1],[12,0],[13,2],[14,8],[15,0],[16,0]
             ];
             $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
                     data1, data2
@@ -484,42 +489,35 @@
             );
 
             var doughnutData = {
-                labels: ["App","Software","Laptop" ],
+                labels: ["文章","书籍","其他" ],
                 datasets: [{
-                    data: [300,50,100],
-                    backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
+                    data: [70,27,85],
+                    backgroundColor: ["#23c6c8","#ed5565","#f8ac59"]
                 }]
             } ;
-
-
             var doughnutOptions = {
                 responsive: false,
                 legend: {
                     display: false
                 }
             };
-
-
             var ctx4 = document.getElementById("doughnutChart").getContext("2d");
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
+
             var doughnutData = {
-                labels: ["App","Software","Laptop" ],
+                labels: ["有用","评论","收藏" ],
                 datasets: [{
-                    data: [70,27,85],
-                    backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
+                    data: [300,50,100],
+                    backgroundColor: ["#1c84c6","#23c6c8","#f8ac59"]
                 }]
             } ;
-
-
             var doughnutOptions = {
                 responsive: false,
                 legend: {
                     display: false
                 }
             };
-
-
             var ctx4 = document.getElementById("doughnutChart2").getContext("2d");
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
