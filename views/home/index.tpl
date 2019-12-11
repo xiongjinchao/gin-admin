@@ -14,19 +14,19 @@
             <ul class="list-group clear-list m-t">
                 <li class="list-group-item fist-item">
                     <span class="float-right">
-                        {{ .system.hostName }}
+                        {{ .system.HostName }}
                     </span>
                     <span class="label label-success">1</span> 主机名称
                 </li>
                 <li class="list-group-item">
                     <span class="float-right">
-                        {{ .system.type }}
+                        {{ .system.Type }}
                     </span>
                     <span class="label label-info">2</span> 主机类型
                 </li>
                 <li class="list-group-item">
                     <span class="float-right">
-                        {{ .system.architecture }}
+                        {{ .system.Architecture }}
                     </span>
                     <span class="label label-primary">3</span> 主机架构
                 </li>
@@ -38,7 +38,7 @@
                 </li>
                 <li class="list-group-item">
                     <span class="float-right">
-                        {{ .system.memorySys }} / {{ .system.memorySelf }}
+                        {{ .system.MemorySys }} / {{ .system.MemorySelf }}
                     </span>
                     <span class="label label-primary">5</span> 使用内存(M)
                 </li>
@@ -51,24 +51,24 @@
             <div class="row text-center">
                 <div class="col">
                     <div class=" m-l-md">
-                        <span class="h5 font-bold m-t block"><i class="fal fa-user text-warning" style="font-size:24px;"></i> 0</span>
+                        <span class="h5 font-bold m-t block"><i class="fal fa-user text-warning" style="font-size:24px;"></i> {{ .counts.UserMonthly }}</span>
                         <small class="text-muted m-b block">本月新增用户数量</small>
                     </div>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-file-word text-info" style="font-size:24px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-file-word text-info" style="font-size:24px;"></i> {{ .counts.ArticleWeekly }}</span>
                     <small class="text-muted m-b block">本周新增文章数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-books text-danger" style="font-size:24px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-books text-danger" style="font-size:24px;"></i> {{ .counts.Book }}</span>
                     <small class="text-muted m-b block">累计书籍数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-star text-warning" style="font-size:24px;"></i> 0</span>
-                    <small class="text-muted m-b block">本月点赞数量</small>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-star text-warning" style="font-size:24px;"></i> {{ .counts.FavoriteMonthly }}</span>
+                    <small class="text-muted m-b block">本月收藏数量</small>
                 </div>
                 <div class="col">
-                    <span class="h5 font-bold m-t block"><i class="fal fa-comments text-success" style="font-size:24px;"></i> 0</span>
+                    <span class="h5 font-bold m-t block"><i class="fal fa-comments text-success" style="font-size:24px;"></i> {{ .counts.CommentMonthly }}</span>
                     <small class="text-muted m-b block">本月评论数量</small>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     用户喜好
                 </h4>
                 <p>
-                    统计用户点击次数
+                    统计用户访问页面次数
                 </p>
                 <div class="row text-center">
                     <div class="col-lg-6">
