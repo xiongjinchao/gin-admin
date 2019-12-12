@@ -54,22 +54,22 @@
                         <table id="w0" class="table table-striped table-bordered detail-view">
                             <tbody>
                                 <tr>
-                                    <th>标签管理编号</th><td>{{ .tag.ID }}</td>
+                                    <th>标签管理编号</th><td>{{ .tagModel.ID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>模型</th><td>{{ .tag.Model }}</td>
+                                    <th>模型</th><td>{{ .tagModel.Model }}</td>
                                 </tr>
                                 <tr>
-                                    <th>模型编号</th><td>{{ .tag.ModelID }}</td>
+                                    <th>模型编号</th><td>{{ .tagModel.ModelID }}</td>
                                 </tr>
                                 <tr>
-                                    <th>标签</th><td>{{ .tag.Tag }}</td>
+                                    <th>标签</th><td>{{ .tagModel.Tag.Name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>创建时间</th><td>{{ .tag.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>创建时间</th><td>{{ .tagModel.CreatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                                 <tr>
-                                    <th>更新时间</th><td>{{ .tag.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
+                                    <th>更新时间</th><td>{{ .tagModel.UpdatedAt.Format "2006-01-02 15:04:05" }}</td>
                                 </tr>
                             </tbody>
                         </table>

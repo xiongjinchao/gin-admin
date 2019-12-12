@@ -161,16 +161,16 @@ func Router() *gin.Engine {
 		authorized.POST("file/delete", file.Delete)
 		authorized.POST("file/editor-upload", file.EditorUpload)
 
-		//Tag
-		tag := &admin.Tag{}
-		authorized.GET("tag", tag.Index)
-		authorized.GET("tag/data", tag.Data)
-		authorized.GET("tag/create", tag.Create)
-		authorized.POST("tag", tag.Store)
-		authorized.GET("tag/edit/:id", tag.Edit)
-		authorized.POST("tag/update/:id", tag.Update)
-		authorized.GET("tag/show/:id", tag.Show)
-		authorized.GET("tag/delete/:id", tag.Destroy)
+		//TagModel
+		tagModel := &admin.TagModel{}
+		authorized.GET("tag-model", tagModel.Index)
+		authorized.GET("tag-model/data", tagModel.Data)
+		authorized.GET("tag-model/create", tagModel.Create)
+		authorized.POST("tag-model", tagModel.Store)
+		authorized.GET("tag-model/edit/:id", tagModel.Edit)
+		authorized.POST("tag-model/update/:id", tagModel.Update)
+		authorized.GET("tag-model/show/:id", tagModel.Show)
+		authorized.GET("tag-model/delete/:id", tagModel.Destroy)
 
 		//Comment
 		comment := &admin.Comment{}

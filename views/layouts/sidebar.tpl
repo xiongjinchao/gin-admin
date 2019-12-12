@@ -42,7 +42,7 @@
                     <a href="#"><i class="fal fa-cubes fa-fw"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/admin/comment"><i class="fal fa-comments text-success fa-fw"></i> 评论管理</a></li>
-                        <li><a href="/admin/tag"><i class="fal fa-tags text-success fa-fw"></i> 标签管理</a></li>
+                        <li><a href="/admin/tag-model"><i class="fal fa-tags text-success fa-fw"></i> 标签管理</a></li>
                         <li><a href="/admin/friend-link"><i class="fal fa-link text-success fa-fw"></i> 友情链接</a></li>
                         <li><a href="/admin/friend-link-category"><i class="fal fa-list-ul text-success fa-fw"></i> 链接分类</a></li>
                         <li><a href="/admin/action-log"><i class="fal fa-cabinet-filing text-success fa-fw"></i> 操作记录</a></li>

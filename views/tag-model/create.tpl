@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="tag-form" role="form" action="/admin/tag" method="post">
+                        <form id="tag-form" role="form" action="/admin/tag-model" method="post">
 
                             <div class="form-group">
                                 <label class="font-bold">模型名称</label>
@@ -56,7 +56,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-list-ul"></i>
                                     </span>
-                                    <input type="text" name="model" placeholder="" class="form-control" value="{{ .flash.old.model }}">
+                                    <input type="text" name="model" placeholder="" class="form-control" value="">
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-id-card-alt"></i>
                                     </span>
-                                    <input type="text" name="model_id" placeholder="" class="form-control" value="{{ .flash.old.model_id }}">
+                                    <input type="text" name="model_id" placeholder="" class="form-control" value="">
                                 </div>
                             </div>
 
@@ -76,7 +76,7 @@
                                     <span class="input-group-addon">
                                         <i class="fal fa-tag"></i>
                                     </span>
-                                    <input type="text" name="tag" placeholder="" class="form-control" value="{{ .flash.old.tag }}">
+                                    <input type="text" name="name" placeholder="" class="form-control" value="">
                                 </div>
                             </div>
 

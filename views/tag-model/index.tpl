@@ -104,14 +104,14 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "/admin/tag/data",
+                    url: "/admin/tag-model/data",
                     type: "GET"
                 },
                 columns: [
                     { "data": "base.id" },
                     { "data": "model", "class":"text-center" },
                     { "data": "model_id", "class":"text-center" },
-                    { "data": "tag", "class":"text-center" },
+                    { "data": "tag.name", "class":"text-center" },
                     { "data": "created_at", "render":
                         function(data, type, row, meta){
                             return moment(row.base.created_at).format("YYYY-MM-DD HH:mm:ss");
@@ -123,9 +123,9 @@
                         }
                     },
                     { "data": null, "render": function(data, type, row, meta){
-                        return '<a href="/admin/tag/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fal fa-eye"></i> 查看</a> ' +
-                            '<a href="/admin/tag/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fal fa-edit"></i> 编辑</a> ' +
-                            '<a href="/admin/tag/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fal fa-trash-alt"></i> 删除</a>';
+                        return '<a href="/admin/tag-model/show/'+row.base.id+'" class="btn btn-xs btn-outline btn-primary"><i class="fal fa-eye"></i> 查看</a> ' +
+                            '<a href="/admin/tag-model/edit/'+row.base.id+'" class="btn btn-xs btn-outline btn-success"><i class="fal fa-edit"></i> 编辑</a> ' +
+                            '<a href="/admin/tag-model/delete/'+row.base.id+'" class="btn btn-xs btn-outline btn-danger"><i class="fal fa-trash-alt"></i> 删除</a>';
                         }
                     }
                 ],
