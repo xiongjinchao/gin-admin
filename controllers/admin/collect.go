@@ -23,6 +23,7 @@ func init() {
 		1: "简书",
 		2: "CSDN",
 		3: "LearnKu",
+		4: "SegmentFault",
 	}
 	BookSource = map[int]string{
 		1: "菜鸟教程",
@@ -95,6 +96,14 @@ func (co *Collect) Article(c *gin.Context) {
 		} else if source == "LearnKu" {
 			title = doc.Find("h1>div>span").Text()
 			html, err = doc.Find(".content-body").Html()
+			if err != nil {
+				helper.SetFlash(c, err.Error(), "error")
+				c.Redirect(http.StatusFound, "/admin/collect")
+				return
+			}
+		} else if source == "SegmentFault" {
+			title = doc.Find("h1.h2.mb-3>a").Text()
+			html, err = doc.Find("article.article").Html()
 			if err != nil {
 				helper.SetFlash(c, err.Error(), "error")
 				c.Redirect(http.StatusFound, "/admin/collect")
