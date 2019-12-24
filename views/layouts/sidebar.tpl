@@ -36,7 +36,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/admin/collect"><i class="fal fa-tools text-warning fa-fw"></i> 采集工具</a>
+                    <a href="/admin/collect"><i class="fal fa-tools text-warning fa-fw"></i> <span class="nav-label">采集工具</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fal fa-cubes fa-fw"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
