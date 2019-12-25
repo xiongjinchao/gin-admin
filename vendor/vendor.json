@@ -255,18 +255,6 @@
 			"revisionTime": "2019-07-23T09:17:30Z"
 		},
 		{
-			"checksumSHA1": "ywxerQsiaedAoQr0iizWthdzgAQ=",
-			"path": "golang.org/x/net/html",
-			"revision": "fe3aa8a4527195a6057b3fad46619d7d090e99b5",
-			"revisionTime": "2019-10-28T03:02:19Z"
-		},
-		{
-			"checksumSHA1": "xwhqe/igHQrY3IhqDwzo6j7qpm8=",
-			"path": "golang.org/x/net/html/atom",
-			"revision": "fe3aa8a4527195a6057b3fad46619d7d090e99b5",
-			"revisionTime": "2019-10-28T03:02:19Z"
-		},
-		{
 			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",
 			"path": "gopkg.in/go-playground/validator.v8",
 			"revision": "5f1438d3fca68893a817e4a66806cea46a9e4ebf",
