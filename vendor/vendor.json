@@ -9,12 +9,6 @@
 			"revisionTime": "2018-05-27T15:32:30Z"
 		},
 		{
-			"checksumSHA1": "XRH9UcCo34OZ0TARtNCsGJq0CM8=",
-			"path": "github.com/Knetic/govaluate",
-			"revision": "9aa49832a739dcd78a5542ff189fb82c3e423116",
-			"revisionTime": "2017-10-22T00:36:10Z"
-		},
-		{
 			"checksumSHA1": "JtqGXmQjCdAiRAAUizr6YtXJE34=",
 			"path": "github.com/PuerkitoBio/goquery",
 			"revision": "b17a2bbb6dc1e1566d1efc26a5369d3b8604542c",
@@ -31,12 +25,6 @@
 			"path": "github.com/boj/redistore",
 			"revision": "cd5dcc76aeff9ba06b0a924829fe24fd69cdd517",
 			"revisionTime": "2018-09-17T11:49:10Z"
-		},
-		{
-			"checksumSHA1": "3CbCScgd9HctijzPTQYQur1BmeU=",
-			"path": "github.com/casbin/casbin",
-			"revision": "5c217886e47a7f9adc0c2b50c0ccda1980b4684d",
-			"revisionTime": "2019-07-16T01:07:29Z"
 		},
 		{
 			"checksumSHA1": "0cytTxS0qPVjtknc7OrfuNmxvBE=",
