@@ -23,10 +23,10 @@
  }
 .fal{font-size:14px;}
 .nav.metismenu .fal{
-    font-size:18px;
+    font-size:16px;
 }
 .nav.metismenu .fal.fa-cogs{
-    font-size:15px!important;
+    font-size:14px!important;
 }
 
 div.dataTables_wrapper div.dataTables_filter label{margin-right:0;}
